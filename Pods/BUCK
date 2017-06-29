@@ -39,7 +39,7 @@ apple_library(
   exported_headers = glob([
     'Nimble/Sources/**/*.h'
   ], excludes = [
-    #'Nimble/Sources/Nimble/**/CurrentTestCaseTracker.h',
+    'Nimble/Sources/Nimble/**/CurrentTestCaseTracker.h',
   ]),
   srcs = glob([
     'Nimble/**/*.c',
