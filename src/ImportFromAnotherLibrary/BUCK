@@ -1,0 +1,17 @@
+apple_library(
+  name = 'ImportFromAnotherLibrary',
+  visibility = ['PUBLIC'],
+  exported_headers = glob([
+    '**/*.h',
+  ]),
+  srcs = glob([
+    '**/*.m',
+    '**/*.swift',
+  ]),
+  deps = [
+    '//src/ImportObjC:ImportObjC',
+  ],
+  frameworks = [
+    '$SDKROOT/System/Library/Frameworks/Foundation.framework'
+  ],
+)

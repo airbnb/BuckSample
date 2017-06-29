@@ -1,0 +1,51 @@
+PODS:
+  - Braintree (4.8.1):
+    - Braintree/Card (= 4.8.1)
+    - Braintree/Core (= 4.8.1)
+    - Braintree/PayPal (= 4.8.1)
+    - Braintree/UI (= 4.8.1)
+  - Braintree/Apple-Pay (4.8.1):
+    - Braintree/Core
+  - Braintree/Card (4.8.1):
+    - Braintree/Core
+  - Braintree/Core (4.8.1)
+  - Braintree/DataCollector (4.8.1):
+    - Braintree/Core
+  - Braintree/PayPal (4.8.1):
+    - Braintree/Core
+    - Braintree/PayPalOneTouch
+  - Braintree/PayPalDataCollector (4.8.1):
+    - Braintree/Core
+    - Braintree/PayPalUtils
+  - Braintree/PayPalOneTouch (4.8.1):
+    - Braintree/Core
+    - Braintree/PayPalDataCollector
+    - Braintree/PayPalUtils
+  - Braintree/PayPalUtils (4.8.1)
+  - Braintree/UI (4.8.1):
+    - Braintree/Card
+    - Braintree/Core
+  - Nimble (5.1.1)
+  - PromiseKit/CoreLocation (4.0.5):
+    - PromiseKit/CorePromise
+  - PromiseKit/CorePromise (4.0.5)
+  - Quick (1.1.0)
+
+DEPENDENCIES:
+  - Braintree (= 4.8.1)
+  - Braintree/Apple-Pay (= 4.8.1)
+  - Braintree/DataCollector (= 4.8.1)
+  - Nimble (= 5.1.1)
+  - PromiseKit/CoreLocation (= 4.0.5)
+  - PromiseKit/CorePromise (= 4.0.5)
+  - Quick (= 1.1.0)
+
+SPEC CHECKSUMS:
+  Braintree: 9e63eeb60d34f54fa1aa8f3d75fe3976927c06d5
+  Nimble: 415e3aa3267e7bc2c96b05fa814ddea7bb686a29
+  PromiseKit: 593b5e24ded6cbb1ebc708bc2c3428a8a5632d91
+  Quick: dafc587e21eed9f4cab3249b9f9015b0b7a7f71d
+
+PODFILE CHECKSUM: d78560806eb77018d5a04739b07fc5723c4678b1
+
+COCOAPODS: 1.2.0

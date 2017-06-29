@@ -1,0 +1,83 @@
+apple_library(
+  name = 'Braintree',
+  visibility = ['PUBLIC'],
+  exported_headers = glob([
+    'Braintree/**/Public/*.h',
+  ]),
+  deps = [
+    ':BTDeviceCollectorLibrary',
+    ':BTPPRiskComponent',
+  ],
+  headers = glob([
+    'Braintree/**/*.h',
+  ], excludes = [
+    'Braintree/**/Public/*.h',
+  ]),
+  srcs = glob([
+    'Braintree/**/*.m',
+    'BuckSupportFiles/Dummy.swift',
+  ]),
+)
+
+prebuilt_cxx_library(
+  name = 'BTDeviceCollectorLibrary',
+  lib_name = 'DeviceCollectorLibrary',
+  lib_dir = 'Braintree/BraintreeDataCollector/Kount/',
+)
+
+prebuilt_cxx_library(
+  name = 'BTPPRiskComponent',
+  lib_name = 'PPRiskComponent',
+  lib_dir = 'Braintree/BraintreePayPal/PayPalDataCollector/Risk/',
+)
+
+apple_library(
+  name = 'Nimble',
+  visibility = ['PUBLIC'],
+  bridging_header = 'BuckSupportFiles/Nimble-Bridging-Header.h',
+  preprocessor_flags = ['-D', 'PRODUCT_NAME=Nimble'],
+  exported_headers = glob([
+    'Nimble/Sources/**/*.h'
+  ], excludes = [
+    #'Nimble/Sources/Nimble/**/CurrentTestCaseTracker.h',
+  ]),
+  srcs = glob([
+    'Nimble/**/*.c',
+    'Nimble/**/*.m',
+    'Nimble/**/*.swift',
+  ], excludes = [
+    'Nimble/Sources/**/DSL.m',
+    'Nimble/Sources/**/XCTestObservationCenter+Register.m',
+  ]),
+  frameworks = [
+    '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
+  ],
+)
+
+apple_library(
+  name = 'PromiseKit',
+  visibility = ['PUBLIC'],
+  bridging_header = 'BuckSupportFiles/PromiseKit-Bridging-Header.h',
+  exported_headers = glob([
+    'PromiseKit/**/*.h',
+  ]),
+  srcs = glob([
+    'PromiseKit/**/*.m',
+    'PromiseKit/**/*.swift',
+  ]),
+)
+
+apple_library(
+  name = 'Quick',
+  visibility = ['PUBLIC'],
+  exported_headers = glob([
+    'Quick/**/*.h',
+  ]),
+  srcs = glob([
+    'Quick/**/*.m',
+    'Quick/**/*.swift',
+  ]),
+  frameworks = [
+    '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
+  ],
+)

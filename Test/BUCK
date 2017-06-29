@@ -1,0 +1,66 @@
+# empty build rule to force Buck build libraries
+apple_library(
+  name = 'Test',
+  srcs = glob([
+    '**/*.swift',
+  ]),
+  deps = [
+    '//src/ImportFromAnotherLibrary:ImportFromAnotherLibrary',
+    '//Pods:Braintree',
+    '//Pods:Nimble',
+    '//Pods:PromiseKit',
+    '//Pods:Quick',
+  ],
+  frameworks = [
+    '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
+  ],
+)
+
+apple_asset_catalog(
+  name = 'TestAssets',
+  dirs = [
+    'Test/Assets.xcassets',
+  ]
+)
+
+apple_resource(
+  name = 'TestResources',
+  files = glob([
+    'Test/DummyResource.txt',
+    'push.caf',
+  ]),
+  dirs = [
+    'Test/DummyResourceDir',
+  ],
+)
+
+apple_binary(
+  name = 'TestBinary',
+  visibility = ['PUBLIC'],
+  deps = [
+    # main binary
+    ':Test',
+
+    # resource
+    ':TestResources',
+
+    # assets
+    ':TestAssets',
+  ],
+)
+
+apple_package(
+  name = 'TestsPackage',
+  bundle = ':TestApp',
+)
+
+apple_bundle(
+  name = 'TestApp',
+  product_name = 'Test',
+  binary = ':TestBinary',
+  extension = 'app',
+  info_plist = 'Test/Info.plist',
+  info_plist_substitutions = {
+    'PRODUCT_BUNDLE_IDENTIFIER': 'com.test',
+  },
+)
