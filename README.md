@@ -2,7 +2,7 @@
 This is a sample to show how to use buck to build an ios project with mixed languages.
 
 We make some local changes on top of Buck itself, you can find our own branch here
-https://github.com/airbnb/buck/tree/airbnb_ios_current
+https://github.com/airbnb/buck/tree/airbnb-ios-master-modular
 
 To explain how we use Buck, we have setup this repo as a demo.
 
