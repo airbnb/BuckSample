@@ -6,3 +6,10 @@
 [swift]
   version = 3.1
   compiler_flags = -DBUCK -whole-module-optimization -enable-testing -suppress-warnings
+
+[apple]
+  use_swift_delegate = false
+  use_header_maps_in_xcode = false
+
+[buildfile]
+  includes = //DEFS

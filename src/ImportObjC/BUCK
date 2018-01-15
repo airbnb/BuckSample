@@ -1,7 +1,6 @@
 apple_library(
   name = 'ImportObjC',
   visibility = ['PUBLIC'],
-  bridging_header = 'bridging-header.h',
   exported_headers = glob([
     '**/*.h',
   ]),

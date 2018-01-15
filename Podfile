@@ -17,8 +17,8 @@ def PromiseKit
 end
 
 def TestPods
-  pod 'Quick', '1.1.0'
-  pod 'Nimble', '5.1.1'
+  pod 'Quick', '~> 1.0'
+  pod 'Nimble', '~> 7.0'
 end
 
 target 'Test' do

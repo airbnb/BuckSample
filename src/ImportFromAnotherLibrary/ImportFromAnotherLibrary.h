@@ -1,0 +1,1 @@
+#import <ImportFromAnotherLibrary/objC.h>

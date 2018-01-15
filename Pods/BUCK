@@ -3,43 +3,37 @@ apple_library(
   visibility = ['PUBLIC'],
   exported_headers = glob([
     'Braintree/**/Public/*.h',
+    'Braintree/BraintreePayPal/PayPalDataCollector/Risk/PPRCClientMetadataIDProvider.h',
+    'Target Support Files/Braintree/Braintree-umbrella.h',
+  ]),
+  headers = glob([
+    'Braintree/**/*.h',
+  ]),
+  srcs = glob([
+    'Braintree/**/*.m',
   ]),
   deps = [
     ':BTDeviceCollectorLibrary',
     ':BTPPRiskComponent',
   ],
-  headers = glob([
-    'Braintree/**/*.h',
-  ], excludes = [
-    'Braintree/**/Public/*.h',
-  ]),
-  srcs = glob([
-    'Braintree/**/*.m',
-    'BuckSupportFiles/Dummy.swift',
-  ]),
 )
 
 prebuilt_cxx_library(
   name = 'BTDeviceCollectorLibrary',
-  lib_name = 'DeviceCollectorLibrary',
-  lib_dir = 'Braintree/BraintreeDataCollector/Kount/',
+  static_lib = 'Braintree/BraintreeDataCollector/Kount/libDeviceCollectorLibrary.a',
 )
 
 prebuilt_cxx_library(
   name = 'BTPPRiskComponent',
-  lib_name = 'PPRiskComponent',
-  lib_dir = 'Braintree/BraintreePayPal/PayPalDataCollector/Risk/',
+  static_lib = 'Braintree/BraintreePayPal/PayPalDataCollector/Risk/libPPRiskComponent.a',
 )
 
 apple_library(
   name = 'Nimble',
   visibility = ['PUBLIC'],
-  bridging_header = 'BuckSupportFiles/Nimble-Bridging-Header.h',
   preprocessor_flags = ['-D', 'PRODUCT_NAME=Nimble'],
   exported_headers = glob([
-    'Nimble/Sources/**/*.h'
-  ], excludes = [
-    'Nimble/Sources/Nimble/**/CurrentTestCaseTracker.h',
+    'Nimble/**/*.h'
   ]),
   srcs = glob([
     'Nimble/**/*.c',
@@ -57,9 +51,14 @@ apple_library(
 apple_library(
   name = 'PromiseKit',
   visibility = ['PUBLIC'],
-  bridging_header = 'BuckSupportFiles/PromiseKit-Bridging-Header.h',
   exported_headers = glob([
     'PromiseKit/**/*.h',
+    'Target Support Files/PromiseKit/PromiseKit-umbrella.h',
+  ], excludes = glob([
+      'PromiseKit/**/*Private.h',
+  ])),
+  headers = glob([
+    'ProiseKit/**/*.h',
   ]),
   srcs = glob([
     'PromiseKit/**/*.m',
