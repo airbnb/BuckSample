@@ -1,7 +1,7 @@
 original_apple_library = apple_library
 def apple_library(
   name,
-  swift_version = '3',
+  swift_version = '4',
   modular = True,
   **kwargs
 ):
