@@ -1,5 +1,5 @@
 # BuckSample
-This is a sample to show how to use buck to build an ios project with mixed languages.
+This is a sample to show how to use Buck to build an iOS project with mixed languages (Swift & Objective C).
 
 We make some local changes on top of Buck itself, you can find our own branch here
 https://github.com/airbnb/buck/tree/airbnb-modular-external-use
