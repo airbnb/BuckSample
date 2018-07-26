@@ -1,5 +1,5 @@
-require 'redcarpet'
 
+platform :ios, '9.0'
 source 'https://github.com/CocoaPods/Specs.git'
 
 workspace 'Untitled.xcworkspace'

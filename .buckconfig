@@ -4,7 +4,7 @@
   combined_preprocess_and_compile = true
 
 [swift]
-  version = 3.1
+  version = 4
   compiler_flags = -DBUCK -whole-module-optimization -enable-testing -suppress-warnings
 
 [apple]

@@ -1,0 +1,6 @@
+# Buck
+buck-out/
+.buckd/
+
+# Xcode
+**/xcuserdata/
