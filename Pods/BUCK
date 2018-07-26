@@ -2,7 +2,9 @@ apple_library(
   name = 'Braintree',
   visibility = ['PUBLIC'],
   exported_headers = glob([
-    'Braintree/**/Public/*.h',
+    'Braintree/BrainTreeApplePay/Public/*.h',
+    'Braintree/BrainTreeCard/Public/*.h',
+    'Braintree/BrainTreePayPal/Public/*.h',
     'Braintree/BraintreePayPal/PayPalDataCollector/Risk/PPRCClientMetadataIDProvider.h',
     'Target Support Files/Braintree/Braintree-umbrella.h',
   ]),
@@ -35,13 +37,10 @@ apple_library(
   exported_headers = glob([
     'Nimble/**/*.h'
   ]),
-  srcs = glob([
+  srcs = glob(include = [
     'Nimble/**/*.c',
     'Nimble/**/*.m',
     'Nimble/**/*.swift',
-  ], excludes = [
-    'Nimble/Sources/**/DSL.m',
-    'Nimble/Sources/**/XCTestObservationCenter+Register.m',
   ]),
   frameworks = [
     '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
@@ -49,34 +48,30 @@ apple_library(
 )
 
 apple_library(
-  name = 'PromiseKit',
-  visibility = ['PUBLIC'],
-  exported_headers = glob([
-    'PromiseKit/**/*.h',
-    'Target Support Files/PromiseKit/PromiseKit-umbrella.h',
-  ], excludes = glob([
-      'PromiseKit/**/*Private.h',
-  ])),
-  headers = glob([
-    'ProiseKit/**/*.h',
-  ]),
+  name = "PromiseKit",
+  visibility = ["PUBLIC"],
+  exported_headers = glob(include = [
+    "PromiseKit/Sources/*.h",
+    "Target Support Files/PromiseKit/PromiseKit-umbrella.h",
+  ], exclude = ["PromiseKit/**/*Private.h"]),
   srcs = glob([
-    'PromiseKit/**/*.m',
-    'PromiseKit/**/*.swift',
+    "PromiseKit/**/*.m",
+    "PromiseKit/**/*.swift",
   ]),
+  # swift_compiler_flags = ['-warnings-as-errors']
 )
 
 apple_library(
-  name = 'Quick',
-  visibility = ['PUBLIC'],
+  name = "Quick",
+  visibility = ["PUBLIC"],
   exported_headers = glob([
-    'Quick/**/*.h',
+    "Quick/**/*.h",
   ]),
   srcs = glob([
-    'Quick/**/*.m',
-    'Quick/**/*.swift',
+    "Quick/**/*.m",
+    "Quick/**/*.swift",
   ]),
   frameworks = [
-    '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
+    "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
   ],
 )
