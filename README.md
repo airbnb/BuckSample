@@ -1,11 +1,19 @@
 # BuckSample
 This is a sample to show how to use Buck to build an iOS project with mixed languages (Swift & Objective C).
 
-We make some local changes on top of Buck itself, you can find our own branch here
-https://github.com/airbnb/buck/tree/airbnb-modular-external-use
-
 To explain how we use Buck, we have setup this repo as a demo.
 
+### Instructions
+
+```sh
+brew install buck
+buck targets
+```
+
+<img src="https://github.com/airbnb/BuckSample/raw/master/Docs/BuckTargets.png" width=500 />
+
+
+### References
 1. https://github.com/airbnb/BuckSample/blob/master/Pods/BUCK gives a few examples on how we build CocoaPods with Buck
 2. https://github.com/airbnb/BuckSample/tree/master/src/ImportObjC/BUCK shows how to config a mixed languages build rule
 3. https://github.com/airbnb/BuckSample/blob/master/src/ImportFromAnotherLibrary/BUCK shows how to import from another mixed languages build rule
