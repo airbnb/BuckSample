@@ -1,11 +1,13 @@
 load("//:xcode_settings.bzl", "DEFAULT_CONFIGS")
+load("//:buck_rules.bzl", "apple_lib", "apple_test_lib")
+
 
 # empty build rule to force Buck build libraries
 apple_library(
   name = 'Test',
   swift_version = '4',
   srcs = glob([
-    '**/*.swift',
+    'Test/*.swift',
   ]),
   deps = [
     '//src/ImportFromAnotherLibrary:ImportFromAnotherLibrary',
@@ -17,6 +19,21 @@ apple_library(
   frameworks = [
     '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
   ],
+)
+
+apple_test_lib(
+  name = 'AppTests',
+  visibility = ['PUBLIC'],
+  srcs = [
+    'TestTests/TestTests.swift'
+  ],
+  info_plist = "TestTests/Info.plist",
+  deps = [
+    ':Test'
+  ],
+  frameworks = [
+        "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
+    ],
 )
 
 apple_asset_catalog(
@@ -64,6 +81,6 @@ apple_bundle(
   extension = 'app',
   info_plist = 'Test/Info.plist',
   info_plist_substitutions = {
-    'PRODUCT_BUNDLE_IDENTIFIER': 'com.test',
+    'PRODUCT_BUNDLE_IDENTIFIER': 'com.test.testapp',
   },
 )

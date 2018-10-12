@@ -26,6 +26,16 @@ pod_library_configs = {
 def pod_library(name, **kwargs):
   apple_lib(name, **kwargs)
 
+def apple_test_lib(name, **kwargs):
+  substitutions = {
+    'CURRENT_PROJECT_VERSION': '1',
+    'DEVELOPMENT_LANGUAGE': 'en-us',
+    'PRODUCT_BUNDLE_IDENTIFIER': 'com.company.%s' % name,
+  }
+  native.apple_test(name=name, 
+  info_plist_substitutions=substitutions, 
+  **kwargs)
+
 def apple_lib(
   name,
   swift_version = '4',

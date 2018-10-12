@@ -1,5 +1,5 @@
 
-.PHONY : log install_buck build targets pods audit debug
+.PHONY : log install_buck build targets pods audit debug test
 
 BUCK=tools/buck.pex
 
@@ -18,6 +18,9 @@ debug:
 
 targets:
 	"$(BUCK)" targets //...
+
+test:
+	$(BUCK) test //Test:AppTests
 
 pods:
 	"$(BUCK)" build //Pods:PromiseKit
