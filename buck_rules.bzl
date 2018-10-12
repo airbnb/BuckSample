@@ -34,6 +34,7 @@ def apple_test_lib(name, **kwargs):
   }
   native.apple_test(name=name, 
   info_plist_substitutions=substitutions, 
+  frameworks = ["$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework"],
   **kwargs)
 
 def apple_lib(

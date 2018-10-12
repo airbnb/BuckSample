@@ -22,6 +22,9 @@ targets:
 test:
 	$(BUCK) test //Test:AppTests
 
+ui_test:
+	$(BUCK) test //Test:UITests -v 3
+
 pods:
 	"$(BUCK)" build //Pods:PromiseKit
 	"$(BUCK)" build //Pods:Braintree

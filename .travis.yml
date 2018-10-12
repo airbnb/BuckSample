@@ -1,0 +1,7 @@
+language: generic
+os:
+  - osx
+before_install:
+  - sudo gem install cocoapods
+osx_image: xcode10
+script: make test

@@ -31,9 +31,19 @@ apple_test_lib(
   deps = [
     ':Test'
   ],
-  frameworks = [
-        "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
-    ],
+)
+
+apple_test_lib(
+  name = 'UITests',
+  visibility = ['PUBLIC'],
+  test_host_app = ":TestApp",
+  srcs = [
+    'TestUITests/TestUITests.swift'
+  ],
+  info_plist = "TestUITests/Info.plist",
+  deps = [
+    ':Test'
+  ],
 )
 
 apple_asset_catalog(
