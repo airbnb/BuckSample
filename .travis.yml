@@ -7,9 +7,7 @@ before_install:
   - java -version
 env:
   - TERM=dumb
-  - JOB=test
-  - JOB=targets
-  - JOB=pods
-  - JOB=build
 script: 
-  - make $JOB
+  - make test
+  - make targets
+  - make build
