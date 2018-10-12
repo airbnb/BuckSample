@@ -5,6 +5,11 @@ before_install:
   - brew bundle
   - buck --version
   - java -version
+env:
+  - TERM=dumb
+  - JOB=test
+  - JOB=targets
+  - JOB=pods
+  - JOB=build
 script: 
-  - TERM='dumb'
-  - make test
+  - make $JOB
