@@ -1,4 +1,6 @@
-apple_library(
+load("//:buck_rules.bzl", "apple_lib")
+
+apple_lib(
   name = 'ImportFromAnotherLibrary',
   visibility = ['PUBLIC'],
   modular = True,

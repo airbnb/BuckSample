@@ -1,3 +1,5 @@
+load("//:buck_rules.bzl", "apple_lib")
+
 # BTApplePayCardNonce.h=/Users/steven_hepting/workspace/BuckSample/Pods/Braintree/BraintreeApplePay/Public/BTApplePayCardNonce.h
 # BTApplePayCardNonce.h=/Users/steven_hepting/workspace/BuckSample/Pods/Braintree/BrainTreeApplePay/Public/BTApplePayCardNonce.h
 
@@ -107,7 +109,7 @@ apple_library(
     ],
 )
 
-apple_library(
+apple_lib(
   name = "PromiseKit",
   visibility = ["PUBLIC"],
   modular = True,
@@ -119,7 +121,6 @@ apple_library(
     "PromiseKit/**/*.m",
     "PromiseKit/**/*.swift",
   ]),
-  swift_compiler_flags = ['-warnings-as-errors']
 )
 
 apple_library(

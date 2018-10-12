@@ -1,3 +1,5 @@
+load("//:xcode_settings.bzl", "DEFAULT_CONFIGS")
+
 # empty build rule to force Buck build libraries
 apple_library(
   name = 'Test',
@@ -10,7 +12,7 @@ apple_library(
     '//Pods:Braintree',
     # '//Pods:Nimble',
     '//Pods:PromiseKit',
-    '//Pods:Quick',
+    # '//Pods:Quick',
   ],
   frameworks = [
     '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
@@ -37,6 +39,7 @@ apple_resource(
 apple_binary(
   name = 'TestBinary',
   visibility = ['PUBLIC'],
+  configs = DEFAULT_CONFIGS,
   deps = [
     # main binary
     ':Test',

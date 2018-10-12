@@ -1,15 +1,23 @@
 [cxx]
   default_platform = iphonesimulator-x86_64
   cflags = -g -fmodules -fobjc-arc -D BUCK -w
+  cxxflags = -fobjc-arc -std=c++14 -D DEBUG -g
   combined_preprocess_and_compile = true
+  pch_enabled = false
 
 [swift]
   version = 4
-  compiler_flags = -DBUCK -whole-module-optimization -enable-testing -suppress-warnings
+  compiler_flags = -DBUCK -enable-testing -g -swift-version 4
+  use_filelist = true
 
 [apple]
   use_swift_delegate = false
   use_header_maps_in_xcode = false
+  generate_missing_umbrella_headers = true
+  iphonesimulator_target_sdk_version = 10.0
+  iphoneos_target_sdk_version = 10.0
+  provisioning_profile_read_command = security cms -Di
+  xctool_default_destination_specifier = platform=iOS Simulator,OS=latest
 
 [buildfile]
   includes = //DEFS
@@ -17,3 +25,8 @@
 [parser]
   polyglot_parsing_enabled = true
   default_build_file_syntax = SKYLARK
+
+[project]
+  ide_force_kill = never
+  ide = xcode
+  allow_symlinks = forbid
