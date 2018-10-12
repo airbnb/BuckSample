@@ -5,5 +5,9 @@ jdk:
   - oraclejdk8
 before_install:
   - sudo gem install cocoapods
+  # Install Buck
+  - brew tap facebook/fb
+  - brew install buck
+  - buck --version
 osx_image: xcode10
 script: make test
