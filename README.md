@@ -3,6 +3,8 @@ This is a sample to show how to use Buck to build an iOS project with mixed lang
 
 To explain how we use Buck, we have setup this repo as a demo.
 
+https://travis-ci.com/airbnb/BuckSample.svg?branch=master
+
 ### Instructions
 
 ```sh
