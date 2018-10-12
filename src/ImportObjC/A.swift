@@ -1,7 +1,7 @@
 import Foundation
 
 @objc public class Hello : NSObject {
-    public class func say(name: String) {
+    @objc public class func say(_ name: String) {
         A.sayHello(name)
         B.sayHi(name)
     }

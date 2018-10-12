@@ -1,13 +1,14 @@
 # empty build rule to force Buck build libraries
 apple_library(
   name = 'Test',
+  swift_version = '4',
   srcs = glob([
     '**/*.swift',
   ]),
   deps = [
     '//src/ImportFromAnotherLibrary:ImportFromAnotherLibrary',
     '//Pods:Braintree',
-    '//Pods:Nimble',
+    # '//Pods:Nimble',
     '//Pods:PromiseKit',
     '//Pods:Quick',
   ],
@@ -27,7 +28,6 @@ apple_resource(
   name = 'TestResources',
   files = glob([
     'Test/DummyResource.txt',
-    'push.caf',
   ]),
   dirs = [
     'Test/DummyResourceDir',
