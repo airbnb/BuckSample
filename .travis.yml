@@ -9,5 +9,6 @@ before_install:
   - brew tap facebook/fb
   - brew install buck
   - buck --version
+  - java -version
 osx_image: xcode10
 script: make test
