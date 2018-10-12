@@ -6,5 +6,5 @@ before_install:
   - buck --version
   - java -version
 script: 
-  - jdk_switcher use oraclejdk8
+  - TERM='dumb'
   - make test
