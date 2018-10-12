@@ -1,16 +1,10 @@
-language: java
-os:
-  - osx
-jdk:
-  - oraclejdk8
+language: generic
+osx_image: xcode9.3
 before_install:
   - sudo gem install cocoapods
-  # Install Buck
-  - brew tap facebook/fb
-  - brew install buck
+  - brew update && brew bundle
   - buck --version
   - java -version
-osx_image: xcode10
 script: 
   - jdk_switcher use oraclejdk8
   - make test
