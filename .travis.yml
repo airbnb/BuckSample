@@ -1,4 +1,4 @@
-language: generic
+language: java
 os:
   - osx
 jdk:
@@ -11,4 +11,6 @@ before_install:
   - buck --version
   - java -version
 osx_image: xcode10
-script: make test
+script: 
+  - jdk_switcher use oraclejdk8
+  - make test
