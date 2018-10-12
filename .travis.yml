@@ -1,6 +1,8 @@
 language: generic
 os:
   - osx
+jdk:
+  - oraclejdk8
 before_install:
   - sudo gem install cocoapods
 osx_image: xcode10
