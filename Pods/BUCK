@@ -1,14 +1,10 @@
+# BTApplePayCardNonce.h=/Users/steven_hepting/workspace/BuckSample/Pods/Braintree/BraintreeApplePay/Public/BTApplePayCardNonce.h
+# BTApplePayCardNonce.h=/Users/steven_hepting/workspace/BuckSample/Pods/Braintree/BrainTreeApplePay/Public/BTApplePayCardNonce.h
+
 apple_library(
   name = 'Braintree',
   visibility = ['PUBLIC'],
   exported_headers = glob([
-    'Braintree/BrainTreeApplePay/Public/*.h',
-    'Braintree/BrainTreeCard/Public/*.h',
-    'Braintree/BrainTreePayPal/Public/*.h',
-    'Braintree/BraintreePayPal/PayPalDataCollector/Risk/PPRCClientMetadataIDProvider.h',
-    'Target Support Files/Braintree/Braintree-umbrella.h',
-  ]),
-  headers = glob([
     'Braintree/**/*.h',
   ]),
   srcs = glob([
@@ -31,41 +27,112 @@ prebuilt_cxx_library(
 )
 
 apple_library(
-  name = 'Nimble',
-  visibility = ['PUBLIC'],
-  preprocessor_flags = ['-D', 'PRODUCT_NAME=Nimble'],
+  name = 'CwlPreconditionTesting',
   exported_headers = glob([
-    'Nimble/**/*.h'
+        "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.h",
   ]),
-  srcs = glob(include = [
-    'Nimble/**/*.c',
-    'Nimble/**/*.m',
-    'Nimble/**/*.swift',
-  ]),
-  frameworks = [
-    '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
-  ],
+  srcs = glob([
+    "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.swift",
+    "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.m",
+    "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.c",    
+  ])
+)
+
+# apple_library(
+#   name = 'Nimble',
+#   visibility = ['PUBLIC'],
+#   modular = True,
+#   preprocessor_flags = ['-D', 'PRODUCT_NAME=Nimble'],
+#   # compiler_flags = ['-w'],
+#   # swift_compiler_flags = ['-suppress-warnings'],
+#   exported_headers = glob(include = [
+#     "Nimble/Sources/**/*.h",
+#     "Nimble/Carthage/Checkouts/CwlCatchException/Sources/**/*.h",
+#     "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.h",
+#     # 'Target Support Files/Nimble/Nimble-umbrella.h',
+#   ]),
+#   # srcs = glob(include = [
+#   #   'Nimble/**/*.c',
+#   #   'Nimble/**/*.m',
+#   #   'Nimble/**/*.swift',
+#   # ], exclude = [
+#   #   'Nimble/Sources/NimbleObjectiveC/DSL.m',
+#   #   'Nimble/Sources/NimbleObjectiveC/XCTestObservationCenter+Register.m']),
+#   srcs = glob(include = [
+#     # 'Nimble/**/*.c',
+#     # 'Nimble/**/*.m',
+#     # 'Nimble/**/*.swift',
+#     "Nimble/Sources/**/*.swift",
+#     "Nimble/Sources/**/*.m",
+#     "Nimble/Sources/**/*.c",
+
+#     "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.swift",
+#     "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.m",
+#     "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.c",    
+
+#     "Nimble/Carthage/Checkouts/CwlCatchException/Sources/**/*.swift",
+#     "Nimble/Carthage/Checkouts/CwlCatchException/Sources/**/*.m",
+#     "Nimble/Carthage/Checkouts/CwlCatchException/Sources/**/*.c",
+#   ]),
+#   frameworks = [
+#     '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
+#   ],
+# )
+
+apple_library(
+    name = "Nimble",
+    visibility = ["PUBLIC"],
+    preprocessor_flags = ["-D", "PRODUCT_NAME=Nimble"],
+    exported_headers = glob([
+        "Nimble/**/CwlPreconditionTesting.h",
+        "Nimble/**/CwlMachBadInstructionHandler.h",
+        "Nimble/**/CwlCatchException.h",
+        "Nimble/Sources/**/DSL.h",
+        "Nimble/Sources/**/NMBExceptionCapture.h",
+        "Nimble/Sources/**/NMBStringify.h",
+    ]),
+    headers = glob([
+        "Nimble/**/*.h",
+    ]),
+    srcs = glob(include = [
+        "Nimble/**/*.c",
+        "Nimble/**/*.m",
+        "Nimble/**/*.swift",
+    ], exclude = [
+        "Nimble/Sources/**/DSL.m",
+        "Nimble/Sources/**/XCTestObservationCenter+Register.m",
+    ]),
+    frameworks = [
+        "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
+    ],
 )
 
 apple_library(
   name = "PromiseKit",
   visibility = ["PUBLIC"],
+  modular = True,
+  swift_version = "4",
   exported_headers = glob(include = [
     "PromiseKit/Sources/*.h",
-    "Target Support Files/PromiseKit/PromiseKit-umbrella.h",
   ], exclude = ["PromiseKit/**/*Private.h"]),
   srcs = glob([
     "PromiseKit/**/*.m",
     "PromiseKit/**/*.swift",
   ]),
-  # swift_compiler_flags = ['-warnings-as-errors']
+  swift_compiler_flags = ['-warnings-as-errors']
 )
 
 apple_library(
   name = "Quick",
   visibility = ["PUBLIC"],
+  modular = True,
   exported_headers = glob([
-    "Quick/**/*.h",
+    'Quick/Sources/QuickObjectiveC/QuickSpec.h',
+    'Quick/Sources/QuickObjectiveC/DSL/QCKDSL.h',
+    'Quick/Sources/QuickObjectiveC/Configuration/QuickConfiguration.h',
+  ]),
+  headers = glob([
+    'Quick/**/*.h',
   ]),
   srcs = glob([
     "Quick/**/*.m",

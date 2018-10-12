@@ -10,11 +10,11 @@
 #endif
 #endif
 
-#import "Nimble.h"
 #import "DSL.h"
 #import "NMBExceptionCapture.h"
 #import "NMBStringify.h"
 #import "CwlCatchException.h"
+#import "CwlMachBadInstructionHandler-Bridging-Header.h"
 #import "CwlMachBadInstructionHandler.h"
 #import "mach_excServer.h"
 #import "CwlPreconditionTesting.h"

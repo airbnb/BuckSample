@@ -26,14 +26,14 @@ PODS:
     - Braintree/Card
     - Braintree/Core
   - Nimble (7.1.3)
-  - PromiseKit (6.3.4):
-    - PromiseKit/CorePromise (= 6.3.4)
-    - PromiseKit/Foundation (= 6.3.4)
-    - PromiseKit/UIKit (= 6.3.4)
-  - PromiseKit/CorePromise (6.3.4)
-  - PromiseKit/Foundation (6.3.4):
+  - PromiseKit (6.5.2):
+    - PromiseKit/CorePromise (= 6.5.2)
+    - PromiseKit/Foundation (= 6.5.2)
+    - PromiseKit/UIKit (= 6.5.2)
+  - PromiseKit/CorePromise (6.5.2)
+  - PromiseKit/Foundation (6.5.2):
     - PromiseKit/CorePromise
-  - PromiseKit/UIKit (6.3.4):
+  - PromiseKit/UIKit (6.5.2):
     - PromiseKit/CorePromise
   - Quick (1.3.1)
 
@@ -55,9 +55,9 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Braintree: 12225834d0e39ffad56888756a3c0d8bda043d53
   Nimble: 2839b01d1b31f6a6a7777a221f0d91cf52e8e27b
-  PromiseKit: e1425568123ec844a944c93f2bcb29d511d39cf5
+  PromiseKit: 27c1601bfb73405871b805bcb8cf7e55c4dad3db
   Quick: d17304d58d0d169dd0bd1c6e5c28e3318de32a1a
 
 PODFILE CHECKSUM: b5400fe878fe52ee23f346bfb994cab168f6d267
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0.beta.1
