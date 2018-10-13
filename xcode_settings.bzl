@@ -9,6 +9,7 @@ config = {
     # "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.AirbnbItineraryApp",
     "ONLY_ACTIVE_ARCH": "YES",
     "TARGETED_DEVICE_FAMILY": "1,2",
+    "SWIFT_VERSION": "4",
     "SDKROOT": "iphoneos"
 }
 

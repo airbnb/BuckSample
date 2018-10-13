@@ -2,6 +2,7 @@
 .PHONY : log install_buck build targets pods audit debug test
 
 BUCK=buck
+# BUCK=tools/buck.pex # Custom version
 
 log:
 	echo "Make"
@@ -24,7 +25,7 @@ targets:
 	$(BUCK) targets //...
 
 test:
-	$(BUCK) test //BuckSample:BuckSampleTests
+	$(BUCK) test //BuckSampleTests:BuckSampleTests
 
 ui_test:
 	$(BUCK) test //BuckSample:BuckSampleUITests -v 3
@@ -35,4 +36,4 @@ pods:
 	$(BUCK) build //Pods:Nimble
 
 audit:
-	tools/buck.pex audit rules Pods/BUCK
+	$(BUCK) audit rules Pods/BUCK

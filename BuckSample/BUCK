@@ -5,10 +5,13 @@ load("//:buck_rules.bzl", "apple_lib", "apple_test_lib")
 # empty build rule to force Buck build libraries
 apple_library(
   name = 'BuckSampleLibrary',
+  visibility = ['PUBLIC'],
+  modular = True,
   swift_version = '4',
-  srcs = glob([
-    'Test/*.swift',
-  ]),
+  srcs = [
+    'ViewController.swift',
+    'AppDelegate.swift'
+  ],
   deps = [
     '//src/ImportFromAnotherLibrary:ImportFromAnotherLibrary',
     # '//Pods:Braintree',

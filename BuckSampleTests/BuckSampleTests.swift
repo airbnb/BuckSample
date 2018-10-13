@@ -7,11 +7,12 @@
 //
 
 import XCTest
-@testable import BuckSample
+@testable import BuckSampleLibrary
 
 class BuckSampleTests: XCTestCase {
 
     override func setUp() {
+
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
@@ -19,9 +20,19 @@ class BuckSampleTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    func testCreation() {
+        XCTAssertNotNil(ViewController())
+    }
+
+    func testValue() {
+        XCTAssertEqual(ViewController().value, "ViewName")
+    }
+
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        ViewController()
+        XCTAssert(1 == 1);
     }
 
     func testPerformanceExample() {

@@ -18,7 +18,6 @@
   iphoneos_target_sdk_version = 10.0
   provisioning_profile_read_command = security cms -Di
   xctool_default_destination_specifier = platform=iOS Simulator,OS=latest
-  xctool_path = tools/xctool/bin/xctool
 
 [buildfile]
   includes = //DEFS
