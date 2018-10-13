@@ -10,20 +10,24 @@ install_buck:
     curl https://jitpack.io/com/github/airbnb/buck/b652367c2b017ddce7fc0f94cb62ef6fd4138cf0/buck-b652367c2b017ddce7fc0f94cb62ef6fd4138cf0.pex --output tools/buck
 	chmod u+x tools/buck
 
+update_cocoapods:
+	pod repo update
+	pod install
+
 build:
-	$(BUCK) build //Test:Test
+	$(BUCK) build //BuckSample:BuckSampleLibrary
 
 debug:
-	$(BUCK) install //Test:TestApp --run
+	$(BUCK) install //BuckSample:BuckSampleBundle --run
 
 targets:
 	$(BUCK) targets //...
 
 test:
-	$(BUCK) test //Test:AppTests
+	$(BUCK) test //BuckSample:BuckSampleTests
 
 ui_test:
-	$(BUCK) test //Test:UITests -v 3
+	$(BUCK) test //BuckSample:BuckSampleUITests -v 3
 
 pods:
 	$(BUCK) build //Pods:PromiseKit
