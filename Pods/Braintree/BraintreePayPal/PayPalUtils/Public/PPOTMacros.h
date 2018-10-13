@@ -37,9 +37,12 @@
   #define PPParameterAssert(condition)
 #endif
 
+/**
+ Macros used by PayPal payments
+ */
 @interface PPOTMacros : NSObject
 
-/*!
+/**
  @return the iOS major version number
 */
 + (NSUInteger)deviceSystemMajorVersion;

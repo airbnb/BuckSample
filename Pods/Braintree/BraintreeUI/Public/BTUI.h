@@ -3,13 +3,13 @@
 #import "BTUIPaymentOptionType.h"
 #import "BTUIVectorArtView.h"
 
-/*!
- @brief BTUI represents a visual theme and can be applied to any `BTUIThemedView`.
+/**
+ BTUI represents a visual theme and can be applied to any `BTUIThemedView`.
 */
 @interface BTUI : NSObject
 
-/*!
- @brief Returns a default Braintree theme.
+/**
+ Returns a default Braintree theme.
 
  @return the default Braintree theme.
 */
@@ -21,8 +21,8 @@
 
 #pragma mark - Colors
 
-/*!
- @brief Tint color if none is set. Defaults to nil.
+/**
+ Tint color if none is set. Defaults to nil.
 */
 - (UIColor *)defaultTintColor;
 

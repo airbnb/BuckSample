@@ -6,10 +6,17 @@
 //
 
 #import "PPOTAppSwitchResponse.h"
+#if __has_include("PayPalUtils.h")
 #import "PPOTString.h"
 #import "PPOTTime.h"
 #import "PPOTEncryptionHelper.h"
 #import "PPOTJSONHelper.h"
+#else
+#import <PayPalUtils/PPOTString.h>
+#import <PayPalUtils/PPOTTime.h>
+#import <PayPalUtils/PPOTEncryptionHelper.h>
+#import <PayPalUtils/PPOTJSONHelper.h>
+#endif
 
 @implementation PPOTAppSwitchResponse
 
@@ -81,7 +88,7 @@
 
     NSNumber *version = [PPOTJSONHelper numberFromDictionary:_decodedPayload withKey:kPPOTAppSwitchProtocolVersionKey];
     // Wallet not always sends version, default to 1
-    _version = version ? [version integerValue] : 1;
+    _version = (version != nil) ? [version integerValue] : 1;
 
     // in version 3+ the response_type is no longer sent
     NSString *responseType = nil;
@@ -122,7 +129,7 @@
     }
 
     NSNumber *expiresIn = [PPOTJSONHelper numberFromDictionary:_decodedPayload withKey:kPPOTAppSwitchExpiresInKey];
-    if (expiresIn) {
+    if (expiresIn != nil) {
         _expiresIn = [expiresIn integerValue];
     }
 
@@ -157,7 +164,7 @@
         _timeStamp = [PPOTTime dateFromRFC3339LikeString:strTimetamp];
     } else {
         NSNumber *timestamp = [PPOTJSONHelper numberFromDictionary:_decodedPayload withKey:kPPOTAppSwitchTimestampKey];
-        if (timestamp) {
+        if (timestamp != nil) {
             _timeStamp = [NSDate dateWithTimeIntervalSince1970:[timestamp doubleValue]];
         }
     }

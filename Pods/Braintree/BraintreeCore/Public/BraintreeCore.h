@@ -1,13 +1,14 @@
 #import <UIKit/UIKit.h>
 
-//! Project version number for BraintreeCore.
+/// Project version number for BraintreeCore.
 FOUNDATION_EXPORT double BraintreeCoreVersionNumber;
 
-//! Project version string for BraintreeCore.
+/// Project version string for BraintreeCore.
 FOUNDATION_EXPORT const unsigned char BraintreeCoreVersionString[];
 
 #import "BTAPIClient.h"
 #import "BTAppSwitch.h"
+#import "BTBinData.h"
 #import "BTClientMetadata.h"
 #import "BTClientToken.h"
 #import "BTConfiguration.h"

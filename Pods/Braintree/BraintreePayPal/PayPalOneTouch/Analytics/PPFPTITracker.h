@@ -9,13 +9,13 @@
 
 @class PPFPTIData;
 
-/*!
- @brief Delegate for sending the passed in data
+/**
+ Delegate for sending the passed in data
 */
 @protocol PPFPTINetworkAdapterDelegate
 
-/*!
- @brief Sends the data using whatever transport the delegate implements.
+/**
+ Sends the data using whatever transport the delegate implements.
 
  @param fptiData contains the data to send, which URL to send it to, and other request metadata
 */
@@ -23,13 +23,13 @@
 
 @end
 
-/*!
- @brief Tracker to send analytics data to.
+/**
+ Tracker to send analytics data to.
 */
 @interface PPFPTITracker : NSObject
 
-/*!
- @brief Designated initializer.
+/**
+ Designated initializer.
 
  @param deviceUDID the device's UDID
  @param sessionID the session ID to associate all events to
@@ -40,13 +40,13 @@
                     networkAdapterDelegate:(nullable id<PPFPTINetworkAdapterDelegate>)networkAdapterDelegate;
 
 
-/*!
- @brief The delegate which actually sends the data
+/**
+ The delegate which actually sends the data
 */
 @property (nonatomic, weak, readwrite, nullable) id<PPFPTINetworkAdapterDelegate> networkAdapterDelegate;
 
-/*!
- @brief Sends an event with various metrics and data
+/**
+ Sends an event with various metrics and data
 
  @param params the analytics data to send
 */

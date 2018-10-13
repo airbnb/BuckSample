@@ -9,12 +9,17 @@
 #import "PPOTAnalyticsDefines.h"
 #import "PPOTAppSwitchUtil.h"
 #import "PPOTConfiguration.h"
-#import "PPOTDevice.h"
-#import "PPOTMacros.h"
 #import "PPOTOAuth2SwitchRequest.h"
 #import "PPOTAnalyticsTracker.h"
 #import "PPOTPersistentRequestData.h"
 #import "PPOTError.h"
+#if __has_include("PayPalUtils.h")
+#import "PPOTDevice.h"
+#import "PPOTMacros.h"
+#else
+#import <PayPalUtils/PPOTDevice.h>
+#import <PayPalUtils/PPOTMacros.h>
+#endif
 
 #import <UIKit/UIKit.h>
 
@@ -116,7 +121,6 @@ NSString *const PayPalEnvironmentMock = PPRequestEnvironmentNoNetwork;
             if (appSwitchRequest) {
                 appSwitchURL = [appSwitchRequest encodedURL];
                 requestClientMetadataId = appSwitchRequest.clientMetadataID;
-                PPLog(@"URL to open %@", appSwitchURL);
 
                 NSString *analyticsPage = nil;
                 if ([[appSwitchURL.absoluteString lowercaseString] hasPrefix:kPPOTAppSwitchSchemeToCheck]) {
@@ -167,7 +171,7 @@ NSString *const PayPalEnvironmentMock = PPRequestEnvironmentNoNetwork;
 
 #pragma mark - configuration methods
 
-- (void)determineConfigurationRecipe:(void (^)())completionBlock {
+- (void)determineConfigurationRecipe:(void (^)(void))completionBlock {
     PPAssert(completionBlock, @"establishConfigurationRecipe: completionBlock is required");
 
     if (self.configurationRecipe) {

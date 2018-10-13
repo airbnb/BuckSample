@@ -1,7 +1,9 @@
 #import <Foundation/Foundation.h>
 
+/// Version number
 FOUNDATION_EXPORT double BraintreeCardVersionNumber;
 
+/// Version string
 FOUNDATION_EXPORT const unsigned char BraintreeCardVersionString[];
 
 #if __has_include("BraintreeCore.h")
@@ -13,3 +15,4 @@ FOUNDATION_EXPORT const unsigned char BraintreeCardVersionString[];
 #import "BTCard.h"
 #import "BTCardNonce.h"
 #import "BTCardRequest.h"
+#import "BTThreeDSecureInfo.h"
