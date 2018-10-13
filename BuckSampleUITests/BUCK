@@ -1,0 +1,15 @@
+load("//:xcode_settings.bzl", "DEFAULT_CONFIGS")
+load("//:buck_rules.bzl", "apple_lib", "apple_test_lib")
+
+apple_test_lib(
+  name = 'BuckSampleUITests',
+  visibility = ['PUBLIC'],
+  test_host_app = ":TestApp",
+  srcs = [
+    'TestUITests/TestUITests.swift'
+  ],
+  info_plist = "TestUITests/Info.plist",
+  deps = [
+    ':Test'
+  ],
+)
