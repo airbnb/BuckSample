@@ -19,8 +19,7 @@ build:
 	$(BUCK) build //BuckSample:BuckSampleLibrary
 
 debug: quit_xcode
-	killall "Simulator"
-	$(BUCK) install //BuckSample:BuckSampleBundle --run
+	$(BUCK) install //BuckSample:BuckSampleBundle --run -v 3
 
 targets:
 	$(BUCK) targets //...
@@ -54,4 +53,4 @@ xcode_tests: clean quit_xcode
 
 project: clean quit_xcode
 	$(BUCK) project //BuckSample:workspace
-	open BuckSample/BuckSample.xcworkspace
+	open BuckSample/BuckSampleApp.xcworkspace
