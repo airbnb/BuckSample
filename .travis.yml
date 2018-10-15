@@ -8,6 +8,6 @@ before_install:
 env:
   - TERM=dumb
 script: 
-  - make test
   - make targets
   - make build
+  - make test

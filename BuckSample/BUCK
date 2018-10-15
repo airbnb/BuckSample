@@ -64,6 +64,7 @@ apple_binary(
 
 apple_bundle(
   name = 'BuckSampleBundle',
+  visibility = ['PUBLIC'],
   extension = 'app',
   binary = ':BuckSampleBinary',
   product_name = 'BuckSample',

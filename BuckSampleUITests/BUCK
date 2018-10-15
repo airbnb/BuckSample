@@ -4,12 +4,12 @@ load("//:buck_rules.bzl", "apple_lib", "apple_test_lib")
 apple_test_lib(
   name = 'BuckSampleUITests',
   visibility = ['PUBLIC'],
-  test_host_app = ":TestApp",
+  test_host_app = "//BuckSample:BuckSampleBundle",
   srcs = [
-    'TestUITests/TestUITests.swift'
+    'BuckSampleUITests.swift'
   ],
-  info_plist = "TestUITests/Info.plist",
+  info_plist = "Info.plist",
   deps = [
-    ':Test'
+    '//BuckSample:BuckSampleLibrary'
   ],
 )

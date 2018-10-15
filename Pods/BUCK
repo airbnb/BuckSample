@@ -13,14 +13,8 @@ apple_library(
     'Braintree/**/*.m',
   ]),
   deps = [
-    ':BTDeviceCollectorLibrary',
     ':BTPPRiskComponent',
   ],
-)
-
-prebuilt_cxx_library(
-  name = 'BTDeviceCollectorLibrary',
-  static_lib = 'Braintree/BraintreeDataCollector/Kount/libDeviceCollectorLibrary.a',
 )
 
 prebuilt_cxx_library(
