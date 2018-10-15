@@ -1,5 +1,5 @@
 
-.PHONY : log install_buck build targets pods audit debug test
+.PHONY : log install_buck build targets pods audit debug test xcode_tests clean
 
 BUCK=buck
 # BUCK=tools/buck.pex # Custom version
@@ -7,7 +7,7 @@ BUCK=buck
 log:
 	echo "Make"
 
-install_buck: 
+install_buck:
     curl https://jitpack.io/com/github/airbnb/buck/b652367c2b017ddce7fc0f94cb62ef6fd4138cf0/buck-b652367c2b017ddce7fc0f94cb62ef6fd4138cf0.pex --output tools/buck
 	chmod u+x tools/buck
 
@@ -18,7 +18,8 @@ update_cocoapods:
 build:
 	$(BUCK) build //BuckSample:BuckSampleLibrary
 
-debug:
+debug: quit_xcode
+	killall "Simulator"
 	$(BUCK) install //BuckSample:BuckSampleBundle --run
 
 targets:
@@ -38,10 +39,19 @@ pods:
 audit:
 	$(BUCK) audit rules Pods/BUCK
 
-project:
-	rm -rf BuckSample/BuckSample.xcodeproj
-	rm -rf BuckSample/BuckSample.xcworkspace
+clean: 
+	rm -rf BuckSample/*.xcworkspace
+	rm -rf BuckSample/*.xcodeproj
+
+quit_xcode:
 	killall Xcode || true
+	killall Simulator || true
+
+xcode_tests: clean quit_xcode
 	$(BUCK) project //BuckSample:workspace
-	ls BuckSample
+	xcodebuild build test -workspace BuckSample/BuckSample.xcworkspace -scheme BuckSample | xcpretty && exit ${PIPESTATUS[0]}
+	open BuckSample/BuckSample.xcworkspace
+
+project: clean quit_xcode
+	$(BUCK) project //BuckSample:workspace
 	open BuckSample/BuckSample.xcworkspace

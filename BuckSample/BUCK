@@ -13,12 +13,13 @@ apple_library(
     'AppDelegate.swift'
   ],
   deps = [
-    '//src/ImportFromAnotherLibrary:ImportFromAnotherLibrary',
+    # '//src/ImportFromAnotherLibrary:ImportFromAnotherLibrary',
     # '//Pods:Braintree',
     # '//Pods:Nimble',
     # '//Pods:PromiseKit',
     # '//Pods:Quick',
   ],
+  # tests = ['//BuckSampleTests:BuckSampleTests']
 )
 
 
@@ -43,9 +44,9 @@ apple_resource(
 xcode_workspace_config(
   name = 'workspace',
   workspace_name = 'BuckSample',
-  src_target = ':BuckSampleBundle'
-  # src_target = ':BuckSampleLibrary'
-
+  # src_target = ':BuckSampleBundle',
+  src_target = ':BuckSampleLibrary',
+  extra_tests = ['//BuckSampleTests:BuckSampleTests'],
 )
 
 apple_binary(

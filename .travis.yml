@@ -12,3 +12,4 @@ script:
   - make build
   - make test
   - make project
+  - make xcode_tests
