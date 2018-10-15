@@ -10,6 +10,8 @@ target 'BuckSample' do
 
   pod 'PromiseKit'
   pod 'Braintree'
+  pod 'Braintree/DataCollector'
+  pod 'Braintree/Apple-Pay'
 
   target 'BuckSampleTests' do
     inherit! :search_paths
