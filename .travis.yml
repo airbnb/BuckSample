@@ -11,3 +11,4 @@ script:
   - make targets
   - make build
   - make test
+  - make project

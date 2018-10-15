@@ -28,7 +28,7 @@ test:
 	$(BUCK) test //BuckSampleTests:BuckSampleTests
 
 ui_test:
-	$(BUCK) test //BuckSample:BuckSampleUITests -v 3
+	$(BUCK) test //BuckSampleUITests:BuckSampleUITests -v 3
 
 pods:
 	$(BUCK) build //Pods:PromiseKit
@@ -37,3 +37,11 @@ pods:
 
 audit:
 	$(BUCK) audit rules Pods/BUCK
+
+project:
+	rm -rf BuckSample/BuckSample.xcodeproj
+	rm -rf BuckSample/BuckSample.xcworkspace
+	killall Xcode || true
+	$(BUCK) project //BuckSample:workspace
+	ls BuckSample
+	open BuckSample/BuckSample.xcworkspace

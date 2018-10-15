@@ -42,14 +42,17 @@ apple_resource(
 
 xcode_workspace_config(
   name = 'workspace',
+  workspace_name = 'BuckSample',
   src_target = ':BuckSampleBundle'
+  # src_target = ':BuckSampleLibrary'
+
 )
 
 apple_binary(
   name = 'BuckSampleBinary',
   visibility = ['PUBLIC'],
   configs = DEFAULT_CONFIGS,
-  srcs = ['main.swift'],
+  # srcs = ['main.swift'],
   deps = [
     # main binary
     ':BuckSampleLibrary',
