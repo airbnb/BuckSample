@@ -47,6 +47,12 @@ xcode_workspace_config(
   # src_target = ':BuckSampleBundle',
   src_target = ':BuckSampleLibrary',
   extra_tests = ['//BuckSampleTests:BuckSampleTests'],
+  additional_scheme_actions = {
+    'Build': {
+      'PRE_SCHEME_ACTIONS': ['echo \'Started\''],
+      'POST_SCHEME_ACTIONS': ['echo \'Finished\''],
+      }
+  },
 )
 
 apple_binary(
