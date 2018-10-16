@@ -46,11 +46,15 @@ quit_xcode:
 	killall Xcode || true
 	killall Simulator || true
 
-xcode_tests: clean quit_xcode
+xcode_tests: quit_xcode clean 
 	$(BUCK) project //BuckSample:workspace
 	xcodebuild build test -workspace BuckSample/BuckSample.xcworkspace -scheme BuckSample | xcpretty && exit ${PIPESTATUS[0]}
 	open BuckSample/BuckSample.xcworkspace
 
-project: clean quit_xcode
+project: quit_xcode clean 
 	$(BUCK) project //BuckSample:workspace
 	open BuckSample/BuckSampleApp.xcworkspace
+
+new_proj: quit_xcode clean
+	./buck project //App:ExampleAppBundle
+	open App/ExampleAppBundle.xcworkspace

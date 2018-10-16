@@ -1,0 +1,76 @@
+
+apple_library(
+  name = 'ExampleAppLibrary',
+  swift_version = '4.2',
+  srcs = glob([
+    '*.swift'
+  ]),
+  exported_linker_flags = [],
+  deps = [
+    # '//features/Explore:ExploreFeature',
+    # '//features/GuestTab:GuestTabFeature',
+    # '//features/HomePDP:HomePDPFeature',
+    # '//features/Itinerary:ItineraryFeature',
+  ]
+)
+
+apple_asset_catalog(
+  name = 'ExampleAppAssets',
+  visibility = ['PUBLIC'],
+  app_icon = 'AppIcon',
+  dirs = ['Assets.xcassets']
+)
+
+apple_resource(
+  name = 'ExampleAppResource',
+  visibility = ['PUBLIC'],
+  files = glob(['**/*.storyboard']),
+)
+
+config = {
+  'ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES' : 'YES',
+  'DEVELOPMENT_LANGUAGE': 'Swift',
+  'EXECUTABLE_NAME': 'SOAExampleApp',
+  'PRODUCT_BUNDLE_IDENTIFIER': 'com.airbnb.SOAExampleApp',
+  'SDKROOT': 'iphoneos'
+}
+
+configs = {
+  'Debug': config,
+  'Profile': config,
+  'Release': config,
+}
+
+apple_binary(
+  name = 'ExampleAppBinary',
+  visibility = ['PUBLIC'],
+  configs = configs,
+  swift_version = '4.2',
+  srcs = glob([
+    'main.m',
+  ]),
+  deps = [
+    ':ExampleAppLibrary',
+    ':ExampleAppResource',
+    ':ExampleAppAssets',
+  ],
+)
+
+apple_bundle(
+  name = 'ExampleAppBundle',
+  extension = 'app',
+  binary = ':ExampleAppBinary',
+  product_name = 'ExampleApp',
+  info_plist = 'Info.plist',
+  info_plist_substitutions = {
+    'DEVELOPMENT_LANGUAGE': 'en-us',
+    'EXECUTABLE_NAME': 'SOAExampleApp',
+    'PRODUCT_BUNDLE_IDENTIFIER': 'com.airbnb.SOAExampleApp',
+    'PRODUCT_NAME': 'SOAExampleApp',
+  }
+)
+
+apple_package(
+  name = 'ExampleAppPackage',
+  bundle = ':ExampleAppBundle',
+)
