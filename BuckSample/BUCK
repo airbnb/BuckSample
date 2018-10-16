@@ -41,18 +41,18 @@ apple_resource(
   ],
 )
 
-xcode_workspace_config(
-  name = 'lib_workspace',
-  workspace_name = 'BuckSample',
-  src_target = ':BuckSampleLibrary',
-  extra_tests = ['//BuckSampleTests:BuckSampleTests'],
-)
+# xcode_workspace_config(
+#   name = 'lib_workspace',
+#   workspace_name = 'BuckSample',
+#   src_target = ':BuckSampleLibrary',
+#   extra_tests = ['//BuckSampleTests:BuckSampleTests'],
+# )
 
 xcode_workspace_config(
   name = 'workspace',
   workspace_name = 'BuckSampleApp',
-  src_target = ':BuckSampleBundle',
-  extra_schemes = {'BuckSample': ':lib_workspace'},
+  src_target = ':BuckSampleLibrary',
+  # extra_schemes = {'BuckSample': ':lib_workspace'},
   additional_scheme_actions = {
     'Build': {
       'PRE_SCHEME_ACTIONS': ['echo \'Started\''],

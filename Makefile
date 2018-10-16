@@ -48,10 +48,9 @@ quit_xcode:
 	killall Xcode || true
 	killall Simulator || true
 
-xcode_tests: quit_xcode clean 
-	$(BUCK) project //BuckSample:workspace
-	xcodebuild build test -workspace BuckSample/BuckSampleApp.xcworkspace -scheme BuckSample | xcpretty && exit ${PIPESTATUS[0]}
-	open BuckSample/BuckSampleApp.xcworkspace
+xcode_tests: new_proj
+	xcodebuild build test -workspace App/ExampleApp.xcworkspace -scheme ExampleApp -destination 'platform=iOS Simulator,name=iPhone X,OS=latest' | xcpretty && exit ${PIPESTATUS[0]}
+	# open BuckSample/BuckSampleApp.xcworkspace
 
 project: quit_xcode clean 
 	$(BUCK) project //BuckSample:workspace
