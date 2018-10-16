@@ -48,8 +48,8 @@ quit_xcode:
 
 xcode_tests: quit_xcode clean 
 	$(BUCK) project //BuckSample:workspace
-	xcodebuild build test -workspace BuckSample/BuckSample.xcworkspace -scheme BuckSample | xcpretty && exit ${PIPESTATUS[0]}
-	open BuckSample/BuckSample.xcworkspace
+	xcodebuild build test -workspace BuckSample/BuckSampleApp.xcworkspace -scheme BuckSample | xcpretty && exit ${PIPESTATUS[0]}
+	open BuckSample/BuckSampleApp.xcworkspace
 
 project: quit_xcode clean 
 	$(BUCK) project //BuckSample:workspace
