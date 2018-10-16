@@ -56,5 +56,5 @@ project: quit_xcode clean
 	open BuckSample/BuckSampleApp.xcworkspace
 
 new_proj: quit_xcode clean
-	./buck project //App:ExampleAppBundle
-	open App/ExampleAppBundle.xcworkspace
+	./buck project //App:workspace
+	open App/ExampleApp.xcworkspace

@@ -59,6 +59,7 @@ xcode_workspace_config(
       'POST_SCHEME_ACTIONS': ['echo \'Finished\''],
       }
   },
+  action_config_names={'profile': 'Profile'},
 )
 
 apple_binary(
