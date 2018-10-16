@@ -41,6 +41,8 @@ audit:
 clean: 
 	rm -rf BuckSample/*.xcworkspace
 	rm -rf BuckSample/*.xcodeproj
+	rm -rf App/*.xcworkspace
+	rm -rf App/*.xcodeproj
 
 quit_xcode:
 	killall Xcode || true

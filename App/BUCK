@@ -56,14 +56,14 @@ apple_binary(
 xcode_workspace_config(
   name = 'lib_workspace',
   src_target = ':ExampleAppLibrary',
-  # extra_tests = ['//BuckSampleTests:BuckSampleTests'],
 )
 
 xcode_workspace_config(
   name = 'workspace',
   workspace_name = 'ExampleApp',
   src_target = ':ExampleAppBundle',
-  extra_schemes = {'ExampleAppScheme': ':lib_workspace'},
+  extra_schemes = {'ExampleLibrary': ':lib_workspace'},
+  extra_tests = ['//BuckSampleTests:BuckSampleTests'],
   additional_scheme_actions = {
     'Build': {
       'PRE_SCHEME_ACTIONS': ['echo \'Started\''],
