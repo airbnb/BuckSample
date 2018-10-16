@@ -1,5 +1,4 @@
 GEM
-  remote: https://gems.d.musta.ch/
   specs:
     CFPropertyList (3.0.0)
     activesupport (4.2.10)
@@ -198,9 +197,6 @@ DEPENDENCIES
   fastlane
   xcodeproj
   xcpretty
-
-RUBY VERSION
-   ruby 2.3.1p112
 
 BUNDLED WITH
    1.16.1
