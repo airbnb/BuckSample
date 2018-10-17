@@ -1,5 +1,5 @@
-load("//:buck_rules.bzl", "apple_lib", "apple_test_lib")
-load("//:configs.bzl", "library_configs")
+load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib")
+load("//Config:configs.bzl", "library_configs")
 
 apple_lib(
     name = "ImportObjC",

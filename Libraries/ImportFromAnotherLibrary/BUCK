@@ -1,4 +1,4 @@
-load("//:buck_rules.bzl", "apple_lib")
+load("//Config:buck_rule_macros.bzl", "apple_lib")
 
 apple_lib(
     name = "ImportFromAnotherLibrary",

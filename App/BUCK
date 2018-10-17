@@ -1,5 +1,5 @@
-load("//:configs.bzl", "binary_configs", "library_configs", "pretty")
-load("//:buck_rules.bzl", "apple_lib", "apple_test_lib")
+load("//Config:configs.bzl", "binary_configs", "library_configs", "pretty")
+load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib")
 
 apple_asset_catalog(
     name = "ExampleAppAssets",

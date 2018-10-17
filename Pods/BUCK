@@ -1,4 +1,4 @@
-load("//:buck_rules.bzl", "apple_lib")
+load("//Config:buck_rule_macros.bzl", "apple_lib")
 
 # BTApplePayCardNonce.h=/Users/steven_hepting/workspace/BuckSample/Pods/Braintree/BraintreeApplePay/Public/BTApplePayCardNonce.h
 # BTApplePayCardNonce.h=/Users/steven_hepting/workspace/BuckSample/Pods/Braintree/BrainTreeApplePay/Public/BTApplePayCardNonce.h
