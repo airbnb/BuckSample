@@ -36,8 +36,11 @@ apple_library(
   ]),
   exported_linker_flags = [],
   deps = [
-
-  ]
+    '//Libraries/ImportObjC:ImportObjC',
+  ],
+  # tests = [
+  #   '//App/Tests:Tests',
+  # ]
 )
 
 apple_binary(
@@ -65,7 +68,7 @@ xcode_workspace_config(
   workspace_name = 'ExampleApp',
   src_target = ':ExampleAppBundle',
   extra_schemes = {'ExampleLibrary': ':lib_workspace'},
-  extra_tests = ['//BuckSampleTests:BuckSampleTests'],
+  # extra_tests = ['//App/Tests:Tests'],
   additional_scheme_actions = {
     'Build': {
       'PRE_SCHEME_ACTIONS': ['echo \'Started\''],

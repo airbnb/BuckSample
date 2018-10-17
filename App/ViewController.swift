@@ -1,5 +1,7 @@
 import UIKit
 
+import ImportObjC
+
 class ViewController: UIViewController {
 
   let value = "ViewName"
@@ -17,6 +19,10 @@ class ViewController: UIViewController {
     self.view.addSubview(label)
     label.sizeToFit()
     label.center = self.view.center
+  }
+
+  func viewDidAppear() {
+    Hello.say("Jim")
   }
 
 }

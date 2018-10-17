@@ -41,8 +41,8 @@ audit:
 clean: 
 	killall Xcode || true
 	killall Simulator || true
-	rm -rf App/*.xcworkspace
-	rm -rf App/*.xcodeproj
+	rm -rf **/*.xcworkspace
+	rm -rf **/*.xcodeproj
 
 xcode_tests: project
 	xcodebuild build test -workspace App/ExampleApp.xcworkspace -scheme ExampleApp -destination 'platform=iOS Simulator,name=iPhone 8,OS=latest' | xcpretty && exit ${PIPESTATUS[0]}
