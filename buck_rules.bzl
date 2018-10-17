@@ -33,9 +33,6 @@ def apple_lib(
   if native.read_config('xcode', 'beta') == 'True':
     warning_as_error = False
 
-  # Remove once we fix all new warnings with Xcode 10
-  warning_as_error = False
-
   if warning_as_error:
     compiler_flags.append('-Werror')
     swift_compiler_flags.append('-warnings-as-errors')

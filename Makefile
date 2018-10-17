@@ -1,8 +1,8 @@
 
-.PHONY : log install_buck build targets pods audit debug test xcode_tests clean
+.PHONY : log install_buck build targets pods audit debug test xcode_tests clean project
 
-# BUKC=buck # System version
-BUCK=./buck # Custom version
+# BUCK=buck # System version
+BUCK=./buck.pex # Custom version
 # BUCK=tools/buck.pex # Custom version
 
 log:
@@ -37,7 +37,8 @@ pods:
 	# $(BUCK) build //Pods:Nimble
 
 audit:
-	$(BUCK) audit rules Pods/BUCK
+	$(BUCK) audit rules App/BUCK > Config/Gen/App-BUCK.py
+	$(BUCK) audit rules Pods/BUCK > Config/Gen/Pods-BUCK.py
 
 clean: 
 	killall Xcode || true

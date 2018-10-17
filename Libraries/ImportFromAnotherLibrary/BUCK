@@ -12,7 +12,7 @@ apple_lib(
     '**/*.swift',
   ]),
   deps = [
-    '//src/ImportObjC:ImportObjC',
+    '//Libraries/ImportObjC:ImportObjC',
   ],
   frameworks = [
     '$SDKROOT/System/Library/Frameworks/Foundation.framework'
