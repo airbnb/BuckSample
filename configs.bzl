@@ -19,12 +19,13 @@ SHARED_CONFIGS = {
     'SDKROOT': 'iphoneos', # Xcode 10 needs this
     'GCC_OPTIMIZATION_LEVEL': '0',  # clang optimization
     'SWIFT_OPTIMIZATION_LEVEL': '-Onone', # swiftc optimization
+    "SWIFT_WHOLE_MODULE_OPTIMIZATION": "YES", # for build performance
+    'ONLY_ACTIVE_ARCH': 'YES',
 }
    
 def library_configs():
     lib_specific_config = {
         'SWIFT_WHOLE_MODULE_OPTIMIZATION': 'YES',
-        'ONLY_ACTIVE_ARCH': 'YES',
     }
     library_config = SHARED_CONFIGS + lib_specific_config
     configs = {
@@ -33,8 +34,6 @@ def library_configs():
         "Release": library_config,
     }
     return configs
-
-
 
 def binary_configs(name, bundle_identifier):
     binary_specific_config =  {

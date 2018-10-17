@@ -6,3 +6,6 @@ buck-out/
 **/xcuserdata/
 **/*.xcodeproj/
 **/*.xcworkspace/
+
+# Make
+*.d
