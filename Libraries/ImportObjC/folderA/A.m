@@ -2,6 +2,10 @@
 
 @implementation A
 + (void)sayHello:(NSString *)name {
-  printf("Hello %s\n", [name cStringUsingEncoding:NSUTF8StringEncoding]);
+  printf([[self helloString:name] cStringUsingEncoding:NSUTF8StringEncoding]);
 }
++ (NSString *)helloString:(NSString *)name {
+  return [NSString stringWithFormat:@"Hello %@\n", name];
+}
+
 @end
