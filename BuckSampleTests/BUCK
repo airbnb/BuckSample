@@ -1,4 +1,3 @@
-load("//:xcode_settings.bzl", "DEFAULT_CONFIGS")
 load("//:buck_rules.bzl", "apple_lib", "apple_test_lib")
 
 apple_test_lib(

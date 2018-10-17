@@ -1,15 +1,17 @@
+load("//:configs.bzl", "library_configs", "binary_configs", "pretty")
+load("//:buck_rules.bzl", "apple_lib", "apple_test_lib")
 
-apple_library(
-  name = 'ExampleAppLibrary',
-  swift_version = '4.2',
-  srcs = glob([
-    '*.swift'
-  ]),
-  exported_linker_flags = [],
-  deps = [
+# apple_lib(
+#   name = 'ExampleAppLibrary',
+#   swift_version = '4.2',
+#   srcs = glob([
+#     '*.swift'
+#   ]),
+#   exported_linker_flags = [],
+#   deps = [
 
-  ]
-)
+#   ]
+# )
 
 apple_asset_catalog(
   name = 'ExampleAppAssets',
@@ -24,24 +26,23 @@ apple_resource(
   files = glob(['**/*.storyboard']),
 )
 
-config = {
-  'ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES' : 'YES',
-  'DEVELOPMENT_LANGUAGE': 'Swift',
-  'EXECUTABLE_NAME': 'ExampleApp',
-  'PRODUCT_BUNDLE_IDENTIFIER': 'com.airbnb.ExampleApp',
-  'SDKROOT': 'iphoneos'
-}
+apple_library(
+  name = 'ExampleAppLibrary',
+  swift_version = '4.2',
+  configs = library_configs(),
+  srcs = glob([
+    '*.swift'
+  ]),
+  exported_linker_flags = [],
+  deps = [
 
-configs = {
-  'Debug': config,
-  'Profile': config,
-  'Release': config,
-}
+  ]
+)
 
 apple_binary(
   name = 'ExampleAppBinary',
   visibility = ['PUBLIC'],
-  configs = configs,
+  configs = binary_configs('ExampleApp', 'com.airbnb.ExampleApp'),
   swift_version = '4.2',
   srcs = glob([
     'main.m',

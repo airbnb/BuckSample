@@ -7,7 +7,7 @@
 
 [swift]
   version = 4
-  compiler_flags = -DBUCK -enable-testing -g -swift-version 4
+  compiler_flags = -DBUCK -enable-testing -g -swift-version 4 -Onone -whole-module-optimization
   use_filelist = true
 
 [apple]
@@ -18,9 +18,6 @@
   iphoneos_target_sdk_version = 10.0
   provisioning_profile_read_command = security cms -Di
   xctool_default_destination_specifier = platform=iOS Simulator,OS=latest
-
-[buildfile]
-  includes = //DEFS
 
 [parser]
   polyglot_parsing_enabled = true

@@ -1,27 +1,5 @@
+load("//:configs.bzl", "library_configs", "binary_configs", "pod_library_configs")
 
-DEFAULT_CONFIGS = {
-  'SWIFT_OPTIMIZATION_LEVEL' : '-Owholemodule',
-  'SWIFT_WHOLE_MODULE_OPTIMIZATION': 'YES',
-  'ONLY_ACTIVE_ARCH': 'YES',
-  'SDKROOT': 'iphoneos',
-}
-
-POD_CONFIGS = DEFAULT_CONFIGS
-POD_CONFIGS['GCC_TREAT_WARNINGS_AS_ERRORS'] = 'YES'
-
-
-
-library_configs = {
-    "Debug": DEFAULT_CONFIGS,
-    "Profile": DEFAULT_CONFIGS,
-    "Release": DEFAULT_CONFIGS,
-}
-
-pod_library_configs = {
-    "Debug": POD_CONFIGS,
-    "Profile": POD_CONFIGS,
-    "Release": POD_CONFIGS,
-}
 
 def pod_library(name, **kwargs):
   apple_lib(name, **kwargs)
@@ -47,7 +25,6 @@ def apple_lib(
   **kwargs
 ):
   
-
   compiler_flags = compiler_flags or []
   swift_compiler_flags = swift_compiler_flags or []
 
@@ -68,7 +45,7 @@ def apple_lib(
   native.apple_library(
     name=name,
     swift_version=swift_version,
-    configs = library_configs,
+    configs = library_configs(),
     modular=modular,
     compiler_flags=compiler_flags,
     swift_compiler_flags=swift_compiler_flags,

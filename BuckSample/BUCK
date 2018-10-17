@@ -1,4 +1,4 @@
-load("//:xcode_settings.bzl", "DEFAULT_CONFIGS")
+# load("//:xcode_settings.bzl", "DEFAULT_CONFIGS")
 load("//:buck_rules.bzl", "apple_lib", "apple_test_lib")
 
 
@@ -65,7 +65,7 @@ xcode_workspace_config(
 apple_binary(
   name = 'BuckSampleBinary',
   visibility = ['PUBLIC'],
-  configs = DEFAULT_CONFIGS,
+  # configs = DEFAULT_CONFIGS,
   # srcs = ['main.swift'],
   deps = [
     # main binary
