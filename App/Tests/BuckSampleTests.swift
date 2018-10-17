@@ -20,6 +20,10 @@ class BuckSampleTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    func testPublicVar() {
+        XCTAssertEqual(testVar, "SampleValue")
+    }
+
     func testCreation() {
         XCTAssertNotNil(ViewController())
     }

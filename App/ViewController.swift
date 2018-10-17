@@ -2,6 +2,8 @@ import UIKit
 
 import ImportObjC
 
+public let testVar = "SampleValue"
+
 class ViewController: UIViewController {
 
   let value = "ViewName"

@@ -21,6 +21,7 @@ def library_configs():
     'SDKROOT': 'iphoneos',
     'GCC_OPTIMIZATION_LEVEL': '0',
     'SWIFT_OPTIMIZATION_LEVEL' : '-Onone',
+    'IPHONEOS_DEPLOYMENT_TARGET': '10.0',
     # 'SWIFT_OPTIMIZATION_LEVEL': 'none',
     }
     configs = {

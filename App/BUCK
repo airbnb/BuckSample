@@ -1,18 +1,6 @@
 load("//:configs.bzl", "library_configs", "binary_configs", "pretty")
 load("//:buck_rules.bzl", "apple_lib", "apple_test_lib")
 
-# apple_lib(
-#   name = 'ExampleAppLibrary',
-#   swift_version = '4.2',
-#   srcs = glob([
-#     '*.swift'
-#   ]),
-#   exported_linker_flags = [],
-#   deps = [
-
-#   ]
-# )
-
 apple_asset_catalog(
   name = 'ExampleAppAssets',
   visibility = ['PUBLIC'],
@@ -26,11 +14,10 @@ apple_resource(
   files = glob(['**/*.storyboard']),
 )
 
-apple_library(
+apple_lib(
   name = 'ExampleAppLibrary',
   visibility = ['PUBLIC'],
   swift_version = '4.2',
-  configs = library_configs(),
   srcs = glob([
     '*.swift'
   ]),
@@ -67,7 +54,7 @@ xcode_workspace_config(
   workspace_name = 'ExampleApp',
   src_target = ':ExampleAppBundle',
   extra_schemes = {'ExampleLibrary': ':lib_workspace'},
-  # extra_tests = ['//App/Tests:Tests'],
+  extra_tests = ['//App/Tests:Tests'],
   additional_scheme_actions = {
     'Build': {
       'PRE_SCHEME_ACTIONS': ['echo \'Started\''],
