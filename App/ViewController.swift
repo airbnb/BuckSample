@@ -1,6 +1,7 @@
 import UIKit
 
 import ImportObjC
+import ImportFromAnotherLibrary
 
 public let testVar = "SampleValue"
 
@@ -24,7 +25,8 @@ class ViewController: UIViewController {
   }
 
   func viewDidAppear() {
-    Hello.say("Jim")
+    Hello.say("Jim") // ImportObjC
+    objC.callSwift(byName:"Tom") // ImportFromAnotherLibrary
   }
 
 }
