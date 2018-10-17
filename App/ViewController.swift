@@ -2,6 +2,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+  let value = "ViewName"
+
   override func viewDidLoad() {
     super.viewDidLoad()
     

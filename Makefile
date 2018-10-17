@@ -39,8 +39,6 @@ audit:
 	$(BUCK) audit rules Pods/BUCK
 
 clean: 
-	rm -rf BuckSample/*.xcworkspace
-	rm -rf BuckSample/*.xcodeproj
 	rm -rf App/*.xcworkspace
 	rm -rf App/*.xcodeproj
 

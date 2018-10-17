@@ -28,6 +28,7 @@ apple_resource(
 
 apple_library(
   name = 'ExampleAppLibrary',
+  visibility = ['PUBLIC'],
   swift_version = '4.2',
   configs = library_configs(),
   srcs = glob([
@@ -76,6 +77,7 @@ xcode_workspace_config(
 
 apple_bundle(
   name = 'ExampleAppBundle',
+  visibility = ['PUBLIC'],
   extension = 'app',
   binary = ':ExampleAppBinary',
   product_name = 'ExampleApp',

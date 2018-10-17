@@ -8,6 +8,6 @@ apple_test_lib(
   ],
   info_plist = "Info.plist",
   deps = [
-    '//BuckSample:BuckSampleLibrary'
+    '//App:ExampleAppLibrary'
   ],
 )
