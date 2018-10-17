@@ -1,7 +1,8 @@
 
 .PHONY : log install_buck build targets pods audit debug test xcode_tests clean
 
-BUCK=buck
+# BUKC=buck # System version
+BUCK=./buck # Custom version
 # BUCK=tools/buck.pex # Custom version
 
 log:

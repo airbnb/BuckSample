@@ -34,13 +34,12 @@ apple_library(
   srcs = glob([
     '*.swift'
   ]),
-  exported_linker_flags = [],
   deps = [
     '//Libraries/ImportObjC:ImportObjC',
   ],
-  # tests = [
-  #   '//App/Tests:Tests',
-  # ]
+  tests = [
+    '//App/Tests:Tests',
+  ]
 )
 
 apple_binary(
