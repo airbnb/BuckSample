@@ -78,6 +78,7 @@ apple_library(
 apple_library(
     name = "Nimble",
     visibility = ["PUBLIC"],
+    swift_version = "4",
     preprocessor_flags = ["-D", "PRODUCT_NAME=Nimble"],
     exported_headers = glob([
         "Nimble/**/CwlPreconditionTesting.h",

@@ -16,44 +16,38 @@ update_cocoapods:
 	pod install
 
 build:
-	$(BUCK) build //BuckSample:BuckSampleLibrary
+	$(BUCK) build //App:ExampleAppLibrary
 
-debug: quit_xcode
-	$(BUCK) install //BuckSample:BuckSampleBundle --run -v 3
+debug:
+	$(BUCK) install //App:ExampleAppBundle --run
 
 targets:
 	$(BUCK) targets //...
 
 test:
-	$(BUCK) test //BuckSampleTests:BuckSampleTests
+	$(BUCK) test //App/Tests:Tests
 
 ui_test:
-	$(BUCK) test //BuckSampleUITests:BuckSampleUITests -v 3
+	$(BUCK) test //App/UITests:UITests
 
 pods:
 	$(BUCK) build //Pods:PromiseKit
 	$(BUCK) build //Pods:Braintree
-	$(BUCK) build //Pods:Nimble
+	# $(BUCK) build //Pods:Nimble
 
 audit:
 	$(BUCK) audit rules Pods/BUCK
 
 clean: 
+	killall Xcode || true
+	killall Simulator || true
 	rm -rf App/*.xcworkspace
 	rm -rf App/*.xcodeproj
 
-quit_xcode:
-	killall Xcode || true
-	killall Simulator || true
-
-xcode_tests: new_proj
-	xcodebuild build test -workspace App/ExampleApp.xcworkspace -scheme ExampleApp -destination 'platform=iOS Simulator,name=iPhone X,OS=latest' | xcpretty && exit ${PIPESTATUS[0]}
+xcode_tests: project
+	xcodebuild build test -workspace App/ExampleApp.xcworkspace -scheme ExampleApp -destination 'platform=iOS Simulator,name=iPhone 8,OS=latest' | xcpretty && exit ${PIPESTATUS[0]}
 	# open BuckSample/BuckSampleApp.xcworkspace
 
-project: quit_xcode clean 
-	$(BUCK) project //BuckSample:workspace
-	open BuckSample/BuckSampleApp.xcworkspace
-
-new_proj: quit_xcode clean
-	./buck project //App:workspace
+project: clean 
+	$(BUCK) project //App:workspace
 	open App/ExampleApp.xcworkspace
