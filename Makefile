@@ -26,7 +26,7 @@ targets:
 	$(BUCK) targets //...
 
 test:
-	$(BUCK) test //App/Tests:Tests
+	$(BUCK) test //App/Tests:Tests --all --exclude ui --test-runner-env FOO=BAR
 
 ui_test:
 	$(BUCK) test //App/UITests:UITests
@@ -48,7 +48,6 @@ clean:
 
 xcode_tests: project
 	xcodebuild build test -workspace App/ExampleApp.xcworkspace -scheme ExampleApp -destination 'platform=iOS Simulator,name=iPhone 8,OS=latest' | xcpretty && exit ${PIPESTATUS[0]}
-
 
 project: clean 
 	$(BUCK) project //App:workspace

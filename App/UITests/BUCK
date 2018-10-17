@@ -8,6 +8,7 @@ apple_test_lib(
         "BuckSampleUITests.swift",
     ],
     info_plist = "Info.plist",
+    labels = ['ui'],
     deps = [
         "//App:ExampleAppLibrary",
     ],
