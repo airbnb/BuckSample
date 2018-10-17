@@ -1,20 +1,20 @@
 load("//:buck_rules.bzl", "apple_lib")
 
 apple_lib(
-  name = 'ImportFromAnotherLibrary',
-  visibility = ['PUBLIC'],
-  modular = True,
-  exported_headers = glob([
-    '**/*.h',
-  ]),
-  srcs = glob([
-    '**/*.m',
-    '**/*.swift',
-  ]),
-  deps = [
-    '//Libraries/ImportObjC:ImportObjC',
-  ],
-  frameworks = [
-    '$SDKROOT/System/Library/Frameworks/Foundation.framework'
-  ],
+    name = "ImportFromAnotherLibrary",
+    visibility = ["PUBLIC"],
+    modular = True,
+    exported_headers = glob([
+        "**/*.h",
+    ]),
+    srcs = glob([
+        "**/*.m",
+        "**/*.swift",
+    ]),
+    deps = [
+        "//Libraries/ImportObjC:ImportObjC",
+    ],
+    frameworks = [
+        "$SDKROOT/System/Library/Frameworks/Foundation.framework",
+    ],
 )

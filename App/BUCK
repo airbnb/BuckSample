@@ -1,85 +1,85 @@
-load("//:configs.bzl", "library_configs", "binary_configs", "pretty")
+load("//:configs.bzl", "binary_configs", "library_configs", "pretty")
 load("//:buck_rules.bzl", "apple_lib", "apple_test_lib")
 
 apple_asset_catalog(
-  name = 'ExampleAppAssets',
-  visibility = ['PUBLIC'],
-  app_icon = 'AppIcon',
-  dirs = ['Assets.xcassets']
+    name = "ExampleAppAssets",
+    visibility = ["PUBLIC"],
+    app_icon = "AppIcon",
+    dirs = ["Assets.xcassets"],
 )
 
 apple_resource(
-  name = 'ExampleAppResource',
-  visibility = ['PUBLIC'],
-  files = glob(['**/*.storyboard']),
+    name = "ExampleAppResource",
+    visibility = ["PUBLIC"],
+    files = glob(["**/*.storyboard"]),
 )
 
 apple_lib(
-  name = 'ExampleAppLibrary',
-  visibility = ['PUBLIC'],
-  swift_version = '4.2',
-  srcs = glob([
-    '*.swift'
-  ]),
-  deps = [
-    '//Libraries/ImportObjC:ImportObjC',
-  ],
-  tests = [
-    '//App/Tests:Tests',
-  ]
+    name = "ExampleAppLibrary",
+    visibility = ["PUBLIC"],
+    swift_version = "4.2",
+    srcs = glob([
+        "*.swift",
+    ]),
+    deps = [
+        "//Libraries/ImportObjC:ImportObjC",
+    ],
+    tests = [
+        "//App/Tests:Tests",
+    ],
 )
 
 apple_binary(
-  name = 'ExampleAppBinary',
-  visibility = ['PUBLIC'],
-  configs = binary_configs('ExampleApp', 'com.airbnb.ExampleApp'),
-  swift_version = '4.2',
-  srcs = glob([
-    'main.m',
-  ]),
-  deps = [
-    ':ExampleAppLibrary',
-    ':ExampleAppResource',
-    ':ExampleAppAssets',
-  ],
+    name = "ExampleAppBinary",
+    visibility = ["PUBLIC"],
+    configs = binary_configs("ExampleApp", "com.airbnb.ExampleApp"),
+    swift_version = "4.2",
+    srcs = glob([
+        "main.m",
+    ]),
+    deps = [
+        ":ExampleAppLibrary",
+        ":ExampleAppResource",
+        ":ExampleAppAssets",
+    ],
 )
 
 xcode_workspace_config(
-  name = 'lib_workspace',
-  src_target = ':ExampleAppLibrary',
+    name = "lib_workspace",
+    src_target = ":ExampleAppLibrary",
 )
 
 xcode_workspace_config(
-  name = 'workspace',
-  workspace_name = 'ExampleApp',
-  src_target = ':ExampleAppBundle',
-  extra_schemes = {'ExampleLibrary': ':lib_workspace'},
-  extra_tests = ['//App/Tests:Tests'],
-  additional_scheme_actions = {
-    'Build': {
-      'PRE_SCHEME_ACTIONS': ['echo \'Started\''],
-      'POST_SCHEME_ACTIONS': ['echo \'Finished\''],
-      }
-  },
-  action_config_names={'profile': 'Profile'},
+    name = "workspace",
+    workspace_name = "ExampleApp",
+    src_target = ":ExampleAppBundle",
+    extra_schemes = {"ExampleLibrary": ":lib_workspace"},
+    extra_tests = ["//App/Tests:Tests"],
+    additional_scheme_actions = {
+        "Build": {
+            "PRE_SCHEME_ACTIONS": ["echo 'Started'"],
+            "POST_SCHEME_ACTIONS": ["echo 'Finished'"],
+        },
+    },
+    action_config_names = {"profile": "Profile"},
 )
 
 apple_bundle(
-  name = 'ExampleAppBundle',
-  visibility = ['PUBLIC'],
-  extension = 'app',
-  binary = ':ExampleAppBinary',
-  product_name = 'ExampleApp',
-  info_plist = 'Info.plist',
-  info_plist_substitutions = {
-    'DEVELOPMENT_LANGUAGE': 'en-us',
-    'EXECUTABLE_NAME': 'ExampleApp',
-    'PRODUCT_BUNDLE_IDENTIFIER': 'com.airbnb.ExampleApp',
-    'PRODUCT_NAME': 'ExampleApp',
-  }
+    name = "ExampleAppBundle",
+    visibility = ["PUBLIC"],
+    extension = "app",
+    binary = ":ExampleAppBinary",
+    product_name = "ExampleApp",
+    info_plist = "Info.plist",
+    info_plist_substitutions = {
+        "DEVELOPMENT_LANGUAGE": "en-us",
+        "EXECUTABLE_NAME": "ExampleApp",
+        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.ExampleApp",
+        "PRODUCT_NAME": "ExampleApp",
+    },
 )
 
 apple_package(
-  name = 'ExampleAppPackage',
-  bundle = ':ExampleAppBundle',
+    name = "ExampleAppPackage",
+    bundle = ":ExampleAppBundle",
 )

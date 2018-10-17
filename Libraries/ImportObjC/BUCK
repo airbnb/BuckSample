@@ -1,15 +1,15 @@
 load("//:buck_rules.bzl", "apple_lib", "apple_test_lib")
 
 apple_lib(
-  name = 'ImportObjC',
-  visibility = ['PUBLIC'],
-  exported_headers = glob([
-    '**/*.h',
-  ]),
-  srcs = glob([
-    '**/*.m',
-    '**/*.swift',
-  ]),
+    name = "ImportObjC",
+    visibility = ["PUBLIC"],
+    exported_headers = glob([
+        "**/*.h",
+    ]),
+    srcs = glob([
+        "**/*.m",
+        "**/*.swift",
+    ]),
 )
 
 # apple_test_lib(

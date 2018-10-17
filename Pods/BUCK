@@ -4,34 +4,34 @@ load("//:buck_rules.bzl", "apple_lib")
 # BTApplePayCardNonce.h=/Users/steven_hepting/workspace/BuckSample/Pods/Braintree/BrainTreeApplePay/Public/BTApplePayCardNonce.h
 
 apple_library(
-  name = 'Braintree',
-  visibility = ['PUBLIC'],
-  exported_headers = glob([
-    'Braintree/**/*.h',
-  ]),
-  srcs = glob([
-    'Braintree/**/*.m',
-  ]),
-  deps = [
-    ':BTPPRiskComponent',
-  ],
+    name = "Braintree",
+    visibility = ["PUBLIC"],
+    exported_headers = glob([
+        "Braintree/**/*.h",
+    ]),
+    srcs = glob([
+        "Braintree/**/*.m",
+    ]),
+    deps = [
+        ":BTPPRiskComponent",
+    ],
 )
 
 prebuilt_cxx_library(
-  name = 'BTPPRiskComponent',
-  static_lib = 'Braintree/BraintreePayPal/PayPalDataCollector/Risk/libPPRiskComponent.a',
+    name = "BTPPRiskComponent",
+    static_lib = "Braintree/BraintreePayPal/PayPalDataCollector/Risk/libPPRiskComponent.a",
 )
 
 apple_library(
-  name = 'CwlPreconditionTesting',
-  exported_headers = glob([
+    name = "CwlPreconditionTesting",
+    exported_headers = glob([
         "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.h",
-  ]),
-  srcs = glob([
-    "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.swift",
-    "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.m",
-    "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.c",    
-  ])
+    ]),
+    srcs = glob([
+        "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.swift",
+        "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.m",
+        "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.c",
+    ]),
 )
 
 # apple_library(
@@ -64,7 +64,7 @@ apple_library(
 
 #     "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.swift",
 #     "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.m",
-#     "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.c",    
+#     "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.c",
 
 #     "Nimble/Carthage/Checkouts/CwlCatchException/Sources/**/*.swift",
 #     "Nimble/Carthage/Checkouts/CwlCatchException/Sources/**/*.m",
@@ -105,36 +105,36 @@ apple_library(
 )
 
 apple_lib(
-  name = "PromiseKit",
-  visibility = ["PUBLIC"],
-  modular = True,
-  swift_version = "4",
-  exported_headers = glob(include = [
-    "PromiseKit/Sources/*.h",
-  ], exclude = ["PromiseKit/**/*Private.h"]),
-  srcs = glob([
-    "PromiseKit/**/*.m",
-    "PromiseKit/**/*.swift",
-  ]),
+    name = "PromiseKit",
+    visibility = ["PUBLIC"],
+    modular = True,
+    swift_version = "4",
+    exported_headers = glob(include = [
+        "PromiseKit/Sources/*.h",
+    ], exclude = ["PromiseKit/**/*Private.h"]),
+    srcs = glob([
+        "PromiseKit/**/*.m",
+        "PromiseKit/**/*.swift",
+    ]),
 )
 
 apple_library(
-  name = "Quick",
-  visibility = ["PUBLIC"],
-  modular = True,
-  exported_headers = glob([
-    'Quick/Sources/QuickObjectiveC/QuickSpec.h',
-    'Quick/Sources/QuickObjectiveC/DSL/QCKDSL.h',
-    'Quick/Sources/QuickObjectiveC/Configuration/QuickConfiguration.h',
-  ]),
-  headers = glob([
-    'Quick/**/*.h',
-  ]),
-  srcs = glob([
-    "Quick/**/*.m",
-    "Quick/**/*.swift",
-  ]),
-  frameworks = [
-    "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
-  ],
+    name = "Quick",
+    visibility = ["PUBLIC"],
+    modular = True,
+    exported_headers = glob([
+        "Quick/Sources/QuickObjectiveC/QuickSpec.h",
+        "Quick/Sources/QuickObjectiveC/DSL/QCKDSL.h",
+        "Quick/Sources/QuickObjectiveC/Configuration/QuickConfiguration.h",
+    ]),
+    headers = glob([
+        "Quick/**/*.h",
+    ]),
+    srcs = glob([
+        "Quick/**/*.m",
+        "Quick/**/*.swift",
+    ]),
+    frameworks = [
+        "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
+    ],
 )
