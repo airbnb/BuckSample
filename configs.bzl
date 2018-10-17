@@ -16,11 +16,11 @@ def pretty(dict, current=""):
    
 def library_configs():
     LIBRARY_CONFIGS = {
-    'SWIFT_OPTIMIZATION_LEVEL' : 'none',
     'SWIFT_WHOLE_MODULE_OPTIMIZATION': 'YES',
     'ONLY_ACTIVE_ARCH': 'YES',
     'SDKROOT': 'iphoneos',
     'GCC_OPTIMIZATION_LEVEL': '0',
+    'SWIFT_OPTIMIZATION_LEVEL' : '-Onone',
     # 'SWIFT_OPTIMIZATION_LEVEL': 'none',
     }
     configs = {
@@ -36,7 +36,7 @@ BINARY_CONFIGS =  {
   'DEVELOPMENT_LANGUAGE': 'Swift',
   'SDKROOT': 'iphoneos',
   'GCC_OPTIMIZATION_LEVEL': '0',
-  'SWIFT_OPTIMIZATION_LEVEL': 'none',
+  'SWIFT_OPTIMIZATION_LEVEL': '-Onone',
 }
 
 def binary_configs(name, bundle_identifier):
