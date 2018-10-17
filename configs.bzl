@@ -2,54 +2,53 @@ def pretty(dict, current=""):
     current = "\n"
     indent = 0
     for key, value in dict.items():
-        current = current + str(key) + ':\n'
+        current = current + str(key) + ': '
         if type(value) == type({}):
+            current = current + '\n'
             indent = 1
             for key2, value2 in value.items():
                 current = current + '\t' * indent + str(key2)
                 current = current + ": " + str(value2) + '\n'
         else:
-            current = current + '\t' * (indent+1) + str(value)
+            current = current + '\t' * (indent+1) + str(value) + '\n'
             
     return current
 
+SHARED_CONFIGS = {
+    'IPHONEOS_DEPLOYMENT_TARGET': '10.0', # common target version
+    'SDKROOT': 'iphoneos', # Xcode 10 needs this
+    'GCC_OPTIMIZATION_LEVEL': '0',  # clang optimization
+    'SWIFT_OPTIMIZATION_LEVEL': '-Onone', # swiftc optimization
+}
    
 def library_configs():
-    LIBRARY_CONFIGS = {
-    'SWIFT_WHOLE_MODULE_OPTIMIZATION': 'YES',
-    'ONLY_ACTIVE_ARCH': 'YES',
-    'SDKROOT': 'iphoneos',
-    'GCC_OPTIMIZATION_LEVEL': '0',
-    'SWIFT_OPTIMIZATION_LEVEL' : '-Onone',
-    'IPHONEOS_DEPLOYMENT_TARGET': '10.0',
-    # 'SWIFT_OPTIMIZATION_LEVEL': 'none',
+    lib_specific_config = {
+        'SWIFT_WHOLE_MODULE_OPTIMIZATION': 'YES',
+        'ONLY_ACTIVE_ARCH': 'YES',
     }
+    library_config = SHARED_CONFIGS + lib_specific_config
     configs = {
-        "Debug": LIBRARY_CONFIGS,
-        "Profile": LIBRARY_CONFIGS,
-        "Release": LIBRARY_CONFIGS,
+        "Debug": library_config,
+        "Profile": library_config,
+        "Release": library_config,
     }
     return configs
 
 
-BINARY_CONFIGS =  {
-  'ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES' : 'YES',
-  'DEVELOPMENT_LANGUAGE': 'Swift',
-  'SDKROOT': 'iphoneos',
-  'GCC_OPTIMIZATION_LEVEL': '0',
-  'SWIFT_OPTIMIZATION_LEVEL': '-Onone',
-}
 
 def binary_configs(name, bundle_identifier):
-  config = {key: BINARY_CONFIGS[key] for key in BINARY_CONFIGS.keys()}
-  # config['EXECUTABLE_NAME'] = name
-  config['PRODUCT_BUNDLE_IDENTIFIER'] = bundle_identifier
-  binary_configs = {
-    "Debug": config,
-    "Profile": config,
-    "Release": config,
-  }
-  return binary_configs
+    binary_specific_config =  {
+        'ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES' : 'YES',
+        'DEVELOPMENT_LANGUAGE': 'Swift',
+        'PRODUCT_BUNDLE_IDENTIFIER': bundle_identifier,
+    }
+    binary_config = SHARED_CONFIGS + binary_specific_config
+    configs = {
+        "Debug": binary_config,
+        "Profile": binary_config,
+        "Release": binary_config,
+    }
+    return configs
 
 
 def pod_library_configs():
