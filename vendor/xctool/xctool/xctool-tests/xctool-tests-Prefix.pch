@@ -1,0 +1,18 @@
+//
+// Prefix header for all source files of the 'xctool-tests' target in the 'xctool-tests' project
+//
+
+#ifdef __OBJC__
+  #import <Cocoa/Cocoa.h>
+
+  #import "TestUtil.h"
+  #import "XCToolUtil.h"
+
+  #define HC_SHORTHAND
+  #import <OCHamcrest/OCHamcrest.h>
+
+  #define MOCKITO_SHORTHAND
+  #import <OCMockito/OCMockito.h>
+
+  #define TEST_DATA @XCTOOL_SRCROOT "xctool-tests/TestData/"
+#endif
