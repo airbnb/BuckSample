@@ -8,6 +8,10 @@ To explain how we use Buck, we have setup this repo as a demo.
 ### Instructions
 
 ```sh
+# Install Buck
+brew tap facebook/fb
+brew install buck
+
 make targets
 make project
 make test
