@@ -1,3 +1,0 @@
-Build settings from command line:
-    SDKROOT = iphonesimulator
-
