@@ -24,9 +24,11 @@ class ViewController: UIViewController {
     label.center = self.view.center
   }
 
-  func viewDidAppear() {
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
     Hello.say("Jim") // ImportObjC
-    objC.callSwift(byName:"Tom") // ImportFromAnotherLibrary
+    Swift.say(name: "Bobby") // ImportFromAnotherLibrary
+    objC.callSwift(byName: "Tom") // ImportFromAnotherLibrary
   }
 
 }
