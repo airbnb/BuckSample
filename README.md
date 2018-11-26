@@ -28,4 +28,3 @@ make build
 4. https://github.com/airbnb/BuckSample/blob/master/App/BUCK is the main build file which shows how we setup resources/assets and build the final binary/ipa file.
 
 Buck Build channel https://buckbuild.slack.com.
-
