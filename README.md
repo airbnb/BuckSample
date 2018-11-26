@@ -12,9 +12,13 @@ To explain how we use Buck, we have setup this repo as a demo.
 brew tap facebook/fb
 brew install buck
 
+# Lists targets
 make targets
+# Generates and opens Xcode project
 make project
+# Runs tests
 make test
+# Builds with Buck
 make build
 ```
 
