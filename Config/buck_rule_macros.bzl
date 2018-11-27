@@ -21,7 +21,7 @@ def apple_test_lib(name, **kwargs):
 
 def apple_lib(
         name,
-        swift_version = "4",
+        swift_version = "4.2",
         modular = True,
         compiler_flags = None,
         swift_compiler_flags = None,
