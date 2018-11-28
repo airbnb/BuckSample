@@ -6,8 +6,8 @@
   pch_enabled = false
 
 [swift]
-  version = 4
-  compiler_flags = -DBUCK -enable-testing -g -swift-version 4 -Onone -whole-module-optimization
+  version = 4.2
+  compiler_flags = -DBUCK -enable-testing -g -swift-version 4.2 -Onone -whole-module-optimization
   use_filelist = true
 
 [apple]
