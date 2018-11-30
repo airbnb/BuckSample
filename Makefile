@@ -3,7 +3,6 @@
 
 # BUCK=buck # System version
 BUCK=./buck.pex # Custom version
-# BUCK=tools/buck.pex # Custom version
 
 log:
 	echo "Make"
