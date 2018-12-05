@@ -40,15 +40,16 @@ audit:
 	$(BUCK) audit rules App/BUCK > Config/Gen/App-BUCK.py
 	$(BUCK) audit rules Pods/BUCK > Config/Gen/Pods-BUCK.py
 
-clean: 
+clean:
 	killall Xcode || true
 	killall Simulator || true
 	rm -rf **/*.xcworkspace
 	rm -rf **/*.xcodeproj
+	$(BUCK) clean
 
 xcode_tests: project
 	xcodebuild build test -workspace App/ExampleApp.xcworkspace -scheme ExampleApp -destination 'platform=iOS Simulator,name=iPhone 8,OS=latest' | xcpretty && exit ${PIPESTATUS[0]}
 
-project: clean 
+project: clean
 	$(BUCK) project //App:workspace
 	open App/ExampleApp.xcworkspace
