@@ -8,7 +8,7 @@ apple_lib(
         "**/*.h",
     ]),
     srcs = glob([
-        "A.swift",
+        "*.swift",
         "folderA/*.m",
         "folderB/*.m",
     ]),

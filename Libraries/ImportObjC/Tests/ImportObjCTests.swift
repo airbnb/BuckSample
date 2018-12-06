@@ -12,11 +12,11 @@ import XCTest
 class ImportObjCTests: XCTestCase {
 
     func testPublicVar() {
-        Hello.say("TestName")
+        AnotherCow.say("TestName")
     }
 
     func testCreation() {
-        XCTAssertNotNil(Hello())
+        XCTAssertNotNil(AnotherCow())
         XCTAssertNotNil(A())
         XCTAssertNotNil(B())
     }

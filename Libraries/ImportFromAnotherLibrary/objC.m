@@ -3,6 +3,6 @@
 
 @implementation objC
 + (void)callSwiftByName:(NSString *)name {
-  [Hello say:@"test"];
+  [AnotherCow say:@"test"];
 }
 @end

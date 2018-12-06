@@ -11,7 +11,7 @@ class ViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+
     let view = UIView()
     view.frame = self.view.frame
     view.backgroundColor = .gray
@@ -26,9 +26,14 @@ class ViewController: UIViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    Hello.say("Jim") // ImportObjC
-    Swift.say(name: "Bobby") // ImportFromAnotherLibrary
-    objC.callSwift(byName: "Tom") // ImportFromAnotherLibrary
-  }
 
+    // Swift class defined in ImportObjC
+    AnotherCow.say("Jim")
+
+    // Swift class defined in ImportFromAnotherLibrary
+    Cow.say(name: "Bobby")
+
+    // Objective-C class defined in ImportFromAnotherLibrary
+    objC.callSwift(byName: "Tom")
+  }
 }
