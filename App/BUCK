@@ -17,13 +17,15 @@ apple_resource(
 apple_lib(
     name = "ExampleAppLibrary",
     visibility = ["PUBLIC"],
+    modular = True,
     swift_version = "4.2",
     srcs = glob([
         "*.swift",
     ]),
     deps = [
-        "//Libraries/ImportObjC:ImportObjC",
-        "//Libraries/ImportFromAnotherLibrary:ImportFromAnotherLibrary"
+        "//Libraries/ImportSwift:ImportSwift",
+        "//Libraries/Swift2:Swift2",
+        "//Libraries/Objc1:Objc1"
     ],
     tests = [
         "//App/Tests:Tests",
@@ -54,8 +56,6 @@ xcode_workspace_config(
     name = "workspace",
     workspace_name = "ExampleApp",
     src_target = ":ExampleAppBundle",
-    extra_schemes = {"ExampleLibrary": ":lib_workspace"},
-    extra_tests = ["//App/Tests:Tests"],
     additional_scheme_actions = {
         "Build": {
             "PRE_SCHEME_ACTIONS": ["echo 'Started'"],
