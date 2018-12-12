@@ -4,10 +4,12 @@
   cxxflags = -fobjc-arc -std=c++14 -D DEBUG -g
   combined_preprocess_and_compile = true
   pch_enabled = false
+  ldflags = -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fobjc-link-runtime
+  
 
 [swift]
   version = 4
-  compiler_flags = -DBUCK -enable-testing -g -swift-version 4 -Onone -whole-module-optimization
+  compiler_flags = -DBUCK -enable-testing -g -Onone -whole-module-optimization
   use_filelist = true
 
 [apple]
@@ -25,6 +27,12 @@
   default_build_file_syntax = SKYLARK
 
 [project]
-  ide_force_kill = never
+  ide_force_kill = always
   ide = xcode
   allow_symlinks = forbid
+  ignore = .git
+
+[cache]
+  mode = dir
+  dir_max_size = 5GB
+
