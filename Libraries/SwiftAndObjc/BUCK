@@ -1,0 +1,17 @@
+load("//Config:buck_rule_macros.bzl", "apple_lib")
+
+apple_lib(
+    name = "SwiftAndObjc",
+    visibility = ["PUBLIC"],
+    modular = True,
+    exported_headers = glob([
+      "*.h",
+      ]),
+    srcs = glob([
+        # "*.swift",
+        "*.m"
+    ]),
+    frameworks = [
+        "$SDKROOT/System/Library/Frameworks/Foundation.framework",
+    ],
+)

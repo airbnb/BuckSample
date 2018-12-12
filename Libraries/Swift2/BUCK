@@ -1,0 +1,13 @@
+load("//Config:buck_rule_macros.bzl", "apple_lib")
+
+apple_lib(
+    name = "Swift2",
+    visibility = ["PUBLIC"],
+    modular = True,
+    srcs = glob([
+        "SwiftClass2.swift",
+    ]),
+    frameworks = [
+        "$SDKROOT/System/Library/Frameworks/Foundation.framework",
+    ],
+)
