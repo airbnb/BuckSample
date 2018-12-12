@@ -1,6 +1,7 @@
 import UIKit
 
 //import Objc1
+//import SwiftAndObjc
 import ImportSwift
 import Swift2
 
@@ -30,11 +31,11 @@ class ViewController: UIViewController {
 
     // Swift class defined in ImportSwift
     let c = Counter()
-    print("Test: %s", c)
+    print("Import Swift: \(c)")
 
     // Swift class defined in Swift2
     let s = SwiftClass2()
-    print("Swift2: %s", s)
+    print("Swift2: \(s)")
 
     // Objective C class defined in Objc1
     // When this is uncommented, LLDB fails to print objects properly
@@ -43,5 +44,10 @@ class ViewController: UIViewController {
     //   error: missing required module 'Objc1'
 //    let o = Objc1()
 //    print("Objc1: %s", o)
+
+    // Swift class defined in SwiftAndObjc
+    // When this is used, the compile fails with 
+    //    #import <SwiftAndObjc/SwiftAndObjc-Swift.h> file not found
+    // print("SwiftAndObjc \(Swift3())")
   }
 }

@@ -25,7 +25,8 @@ apple_lib(
     deps = [
         "//Libraries/ImportSwift:ImportSwift",
         "//Libraries/Swift2:Swift2",
-        "//Libraries/Objc1:Objc1"
+        "//Libraries/Objc1:Objc1",
+        "//Libraries/SwiftAndObjc:SwiftAndObjc",
     ],
     tests = [
         "//App/Tests:Tests",
