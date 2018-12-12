@@ -1,96 +1,21 @@
-load("//Config:buck_rule_macros.bzl", "apple_lib")
+load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_pod_lib")
 
-apple_library(
-    name = "Braintree",
-    visibility = ["PUBLIC"],
-    exported_headers = glob([
-        "Braintree/**/*.h",
-    ]),
-    srcs = glob([
-        "Braintree/**/*.m",
-    ]),
-    deps = [
-        ":BTPPRiskComponent",
-    ],
-)
-
-prebuilt_cxx_library(
-    name = "BTPPRiskComponent",
-    static_lib = "Braintree/BraintreePayPal/PayPalDataCollector/Risk/libPPRiskComponent.a",
-)
-
-apple_library(
-    name = "CwlPreconditionTesting",
-    exported_headers = glob([
-        "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.h",
-    ]),
-    srcs = glob([
-        "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.swift",
-        "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.m",
-        "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.c",
-    ]),
-)
-
-apple_library(
-    name = "Nimble",
+apple_pod_lib(
+    name = "CryptoSwift",
     visibility = ["PUBLIC"],
     swift_version = "4",
-    preprocessor_flags = ["-D", "PRODUCT_NAME=Nimble"],
-    exported_headers = glob([
-        "Nimble/**/CwlPreconditionTesting.h",
-        "Nimble/**/CwlMachBadInstructionHandler.h",
-        "Nimble/**/CwlCatchException.h",
-        "Nimble/Sources/**/DSL.h",
-        "Nimble/Sources/**/NMBExceptionCapture.h",
-        "Nimble/Sources/**/NMBStringify.h",
-    ]),
-    headers = glob([
-        "Nimble/**/*.h",
-    ]),
-    srcs = glob(include = [
-        "Nimble/**/*.c",
-        "Nimble/**/*.m",
-        "Nimble/**/*.swift",
-    ], exclude = [
-        "Nimble/Sources/**/DSL.m",
-        "Nimble/Sources/**/XCTestObservationCenter+Register.m",
-    ]),
-    frameworks = [
-        "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
-    ],
-)
-
-apple_lib(
-    name = "PromiseKit",
-    visibility = ["PUBLIC"],
-    modular = True,
-    swift_version = "4",
-    exported_headers = glob(include = [
-        "PromiseKit/Sources/*.h",
-    ], exclude = ["PromiseKit/**/*Private.h"]),
     srcs = glob([
-        "PromiseKit/**/*.m",
-        "PromiseKit/**/*.swift",
+        "CryptoSwift/**/*.swift",
     ]),
 )
 
-apple_library(
-    name = "Quick",
+apple_pod_lib(
+    name = "OHHTTPStubs",
     visibility = ["PUBLIC"],
-    modular = True,
     exported_headers = glob([
-        "Quick/Sources/QuickObjectiveC/QuickSpec.h",
-        "Quick/Sources/QuickObjectiveC/DSL/QCKDSL.h",
-        "Quick/Sources/QuickObjectiveC/Configuration/QuickConfiguration.h",
-    ]),
-    headers = glob([
-        "Quick/**/*.h",
+        "OHHTTPStubs/**/*.h",
     ]),
     srcs = glob([
-        "Quick/**/*.m",
-        "Quick/**/*.swift",
+        "OHHTTPStubs/**/*.m",
     ]),
-    frameworks = [
-        "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
-    ],
 )
