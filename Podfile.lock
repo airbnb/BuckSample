@@ -1,67 +1,36 @@
 PODS:
-  - Braintree (4.8.5):
-    - Braintree/Card (= 4.8.5)
-    - Braintree/Core (= 4.8.5)
-    - Braintree/PayPal (= 4.8.5)
-    - Braintree/UI (= 4.8.5)
-  - Braintree/Apple-Pay (4.8.5):
-    - Braintree/Core
-  - Braintree/Card (4.8.5):
-    - Braintree/Core
-  - Braintree/Core (4.8.5)
-  - Braintree/DataCollector (4.8.5):
-    - Braintree/Core
-  - Braintree/PayPal (4.8.5):
-    - Braintree/Core
-    - Braintree/PayPalOneTouch
-  - Braintree/PayPalDataCollector (4.8.5):
-    - Braintree/Core
-    - Braintree/PayPalUtils
-  - Braintree/PayPalOneTouch (4.8.5):
-    - Braintree/Core
-    - Braintree/PayPalDataCollector
-    - Braintree/PayPalUtils
-  - Braintree/PayPalUtils (4.8.5)
-  - Braintree/UI (4.8.5):
-    - Braintree/Card
-    - Braintree/Core
+  - CryptoSwift (0.13.1)
   - EarlGrey (1.15.0)
-  - Nimble (7.1.3)
-  - PromiseKit (6.5.2):
-    - PromiseKit/CorePromise (= 6.5.2)
-    - PromiseKit/Foundation (= 6.5.2)
-    - PromiseKit/UIKit (= 6.5.2)
-  - PromiseKit/CorePromise (6.5.2)
-  - PromiseKit/Foundation (6.5.2):
-    - PromiseKit/CorePromise
-  - PromiseKit/UIKit (6.5.2):
-    - PromiseKit/CorePromise
-  - Quick (1.3.1)
+  - OHHTTPStubs (6.1.0):
+    - OHHTTPStubs/Default (= 6.1.0)
+  - OHHTTPStubs/Core (6.1.0)
+  - OHHTTPStubs/Default (6.1.0):
+    - OHHTTPStubs/Core
+    - OHHTTPStubs/JSON
+    - OHHTTPStubs/NSURLSession
+    - OHHTTPStubs/OHPathHelpers
+  - OHHTTPStubs/JSON (6.1.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/NSURLSession (6.1.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/OHPathHelpers (6.1.0)
 
 DEPENDENCIES:
-  - Braintree
-  - Braintree/Apple-Pay
-  - Braintree/DataCollector
+  - CryptoSwift
   - EarlGrey
-  - Nimble
-  - PromiseKit
-  - Quick
+  - OHHTTPStubs
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - Braintree
+    - CryptoSwift
     - EarlGrey
-    - Nimble
-    - PromiseKit
-    - Quick
+    - OHHTTPStubs
 
 SPEC CHECKSUMS:
-  Braintree: 12225834d0e39ffad56888756a3c0d8bda043d53
+  CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
   EarlGrey: 289a16cc7d08a54b962d72881b21e36d5103b549
-  Nimble: 2839b01d1b31f6a6a7777a221f0d91cf52e8e27b
-  PromiseKit: 27c1601bfb73405871b805bcb8cf7e55c4dad3db
-  Quick: d17304d58d0d169dd0bd1c6e5c28e3318de32a1a
+  OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
 
-PODFILE CHECKSUM: 6101c3efb190e2f6188420f5323a206ca787f57f
+PODFILE CHECKSUM: d054f6d80dd1ac19caa3fa6402d9dc8ef727f760
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.0.beta.1

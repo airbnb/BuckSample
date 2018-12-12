@@ -1,9 +1,7 @@
 import UIKit
-
-//import Objc1
-//import SwiftAndObjc
 import ImportSwift
 import Swift2
+import CryptoSwift
 
 public let testVar = "SampleValue"
 
@@ -36,6 +34,10 @@ class ViewController: UIViewController {
     // Swift class defined in Swift2
     let s = SwiftClass2()
     print("Swift2: \(s)")
+
+    // From CryptoSwift
+    let data = Data(bytes: [0x01, 0x02, 0x03])
+    print("Crypto: \(data)")
 
     // Objective C class defined in Objc1
     // When this is uncommented, LLDB fails to print objects properly

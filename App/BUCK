@@ -26,7 +26,8 @@ apple_lib(
         "//Libraries/ImportSwift:ImportSwift",
         "//Libraries/Swift2:Swift2",
         "//Libraries/Objc1:Objc1",
-        "//Libraries/SwiftAndObjc:SwiftAndObjc",
+        "//Pods:CryptoSwift",
+        "//Pods:OHHTTPStubs"
     ],
     tests = [
         "//App/Tests:Tests",
