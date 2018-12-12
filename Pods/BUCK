@@ -1,8 +1,5 @@
 load("//Config:buck_rule_macros.bzl", "apple_lib")
 
-# BTApplePayCardNonce.h=/Users/steven_hepting/workspace/BuckSample/Pods/Braintree/BraintreeApplePay/Public/BTApplePayCardNonce.h
-# BTApplePayCardNonce.h=/Users/steven_hepting/workspace/BuckSample/Pods/Braintree/BrainTreeApplePay/Public/BTApplePayCardNonce.h
-
 apple_library(
     name = "Braintree",
     visibility = ["PUBLIC"],
@@ -33,47 +30,6 @@ apple_library(
         "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.c",
     ]),
 )
-
-# apple_library(
-#   name = 'Nimble',
-#   visibility = ['PUBLIC'],
-#   modular = True,
-#   preprocessor_flags = ['-D', 'PRODUCT_NAME=Nimble'],
-#   # compiler_flags = ['-w'],
-#   # swift_compiler_flags = ['-suppress-warnings'],
-#   exported_headers = glob(include = [
-#     "Nimble/Sources/**/*.h",
-#     "Nimble/Carthage/Checkouts/CwlCatchException/Sources/**/*.h",
-#     "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.h",
-#     # 'Target Support Files/Nimble/Nimble-umbrella.h',
-#   ]),
-#   # srcs = glob(include = [
-#   #   'Nimble/**/*.c',
-#   #   'Nimble/**/*.m',
-#   #   'Nimble/**/*.swift',
-#   # ], exclude = [
-#   #   'Nimble/Sources/NimbleObjectiveC/DSL.m',
-#   #   'Nimble/Sources/NimbleObjectiveC/XCTestObservationCenter+Register.m']),
-#   srcs = glob(include = [
-#     # 'Nimble/**/*.c',
-#     # 'Nimble/**/*.m',
-#     # 'Nimble/**/*.swift',
-#     "Nimble/Sources/**/*.swift",
-#     "Nimble/Sources/**/*.m",
-#     "Nimble/Sources/**/*.c",
-
-#     "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.swift",
-#     "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.m",
-#     "Nimble/Carthage/Checkouts/CwlPreconditionTesting/Sources/**/*.c",
-
-#     "Nimble/Carthage/Checkouts/CwlCatchException/Sources/**/*.swift",
-#     "Nimble/Carthage/Checkouts/CwlCatchException/Sources/**/*.m",
-#     "Nimble/Carthage/Checkouts/CwlCatchException/Sources/**/*.c",
-#   ]),
-#   frameworks = [
-#     '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework',
-#   ],
-# )
 
 apple_library(
     name = "Nimble",
