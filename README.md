@@ -15,6 +15,7 @@ brew install buck
 # Lists targets
 make targets
 # Generates and opens Xcode project
+# can run and debug with breakpoints as normal
 make project
 # Runs tests
 make test
@@ -23,6 +24,9 @@ make build
 ```
 
 <img src="https://github.com/airbnb/BuckSample/raw/master/Docs/BuckTargets.png" width=500 />
+
+### Running Tests
+Press `Cmd + U` to run the unit tests for the `ExampleApp` target inside Xcode.
 
 
 ### References
