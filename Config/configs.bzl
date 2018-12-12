@@ -31,7 +31,6 @@ def library_configs():
     configs = {
         "Debug": library_config,
         "Profile": library_config,
-        "Release": library_config,
     }
     return configs
 
@@ -45,7 +44,6 @@ def binary_configs(name, bundle_identifier):
     configs = {
         "Debug": binary_config,
         "Profile": binary_config,
-        "Release": binary_config,
     }
     return configs
 
@@ -55,6 +53,5 @@ def pod_library_configs():
     pod_library_configs = {
         "Debug": pod_configs,
         "Profile": pod_configs,
-        "Release": pod_configs,
     }
     return pod_library_configs
