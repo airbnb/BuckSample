@@ -1,7 +1,11 @@
 load("//Config:configs.bzl", "binary_configs", "library_configs", "pod_library_configs")
 
-def pod_library(name, **kwargs):
-    apple_lib(name, **kwargs)
+# This is just a regular lib that was warnings not set to error
+def apple_pod_lib(**kwargs):
+    apple_lib(
+        warning_as_error = False,
+        **kwargs
+    )
 
 def apple_test_lib(name, **kwargs):
     substitutions = {
