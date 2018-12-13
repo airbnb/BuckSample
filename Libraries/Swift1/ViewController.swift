@@ -48,10 +48,12 @@ class ViewController: UIViewController {
     //   error: missing required module 'Objc1'
     // ```
     //
-    // You can test this by:
-    // - Adding `import Objc1` to this file
-    // - Putting a breakpoint in `viewDidLoad()` after `view` defined
-    // - Running the following in the debugger
+    // To see this for yourself, do the following:
+    // - Uncomment the following lines of code referencing `Objc1`.
+    // - Add `import Objc1` to the top of this file.
+    // - Put a breakpoint in `viewDidLoad()` after `view` is defined.
+    // - Re-run the app.
+    // - Run the following commands in the debugger.
     //
     // ```
     // log enable lldb expr
