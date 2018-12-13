@@ -47,7 +47,7 @@ apple_binary(
   ],
   swift_version = "4.2",
   deps = [
-    "",
+    ":ExampleAppLibrary",
     ":ExampleAppResource",
     ":ExampleAppAssets",
   ],
