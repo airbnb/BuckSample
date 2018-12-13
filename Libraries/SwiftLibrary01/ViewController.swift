@@ -42,13 +42,13 @@ class ViewController: UIViewController {
     // Objective C class defined in Objc1
     // When this is uncommented, LLDB fails to print objects properly
     // with the following error:
-    //   failed to get module 'ExampleAppLibrary' from AST context:
+    //   failed to get module 'SwiftLibrary01' from AST context:
     //   error: missing required module 'Objc1'
 //    let o = Objc1()
 //    print("Objc1: %s", o)
 
     // Swift class defined in SwiftAndObjc
-    // When this is used, the compile fails with 
+    // When this is used, the compile fails with
     //    #import <SwiftAndObjc/SwiftAndObjc-Swift.h> file not found
     // print("SwiftAndObjc \(Swift3())")
   }

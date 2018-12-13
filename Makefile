@@ -16,7 +16,7 @@ update_cocoapods:
 	pod install
 
 build:
-	$(BUCK) build //App:ExampleAppLibrary
+	$(BUCK) build //App:ExampleAppBundle
 
 debug:
 	$(BUCK) install //App:ExampleAppBundle --run

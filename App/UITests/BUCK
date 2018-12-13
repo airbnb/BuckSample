@@ -10,6 +10,6 @@ apple_test_lib(
     info_plist = "Info.plist",
     labels = ['ui'],
     deps = [
-        "//App:ExampleAppLibrary",
+        "//Libraries/SwiftLibrary01:SwiftLibrary01",
     ],
 )

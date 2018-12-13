@@ -1,0 +1,21 @@
+load("//Config:buck_rule_macros.bzl", "apple_lib")
+
+apple_lib(
+    name = "SwiftLibrary01",
+    visibility = ["PUBLIC"],
+    modular = True,
+    swift_version = "4.2",
+    srcs = glob([
+        "**/*.swift",
+    ]),
+    deps = [
+        "//Libraries/ImportSwift:ImportSwift",
+        "//Libraries/Swift2:Swift2",
+        "//Libraries/Objc1:Objc1",
+        "//Pods:CryptoSwift",
+        "//Pods:OHHTTPStubs"
+    ],
+    tests = [
+        "//App/Tests:Tests",
+    ],
+)

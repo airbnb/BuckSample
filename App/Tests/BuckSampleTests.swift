@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import ExampleAppLibrary
+@testable import SwiftLibrary01
 
 class BuckSampleTests: XCTestCase {
 
