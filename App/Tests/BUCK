@@ -8,6 +8,6 @@ apple_test_lib(
     ]),
     info_plist = "Info.plist",
     deps = [
-        "//Libraries/SwiftLibrary01:SwiftLibrary01",
+        "//Libraries/Swift1:Swift1",
     ],
 )

@@ -5,7 +5,7 @@ apple_lib(
     visibility = ["PUBLIC"],
     modular = True,
     srcs = glob([
-        "SwiftClass2.swift",
+        "**/*.swift",
     ]),
     frameworks = [
         "$SDKROOT/System/Library/Frameworks/Foundation.framework",

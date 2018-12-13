@@ -23,7 +23,7 @@ apple_binary(
         "main.m",
     ]),
     deps = [
-        "//Libraries/SwiftLibrary01:SwiftLibrary01",
+        "//Libraries/Swift1:Swift1",
         ":ExampleAppResource",
         ":ExampleAppAssets",
     ],
@@ -31,7 +31,7 @@ apple_binary(
 
 xcode_workspace_config(
     name = "lib_workspace",
-    src_target = "//Libraries/SwiftLibrary01:SwiftLibrary01",
+    src_target = "//Libraries/Swift1:Swift1",
 )
 
 xcode_workspace_config(

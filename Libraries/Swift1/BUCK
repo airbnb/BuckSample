@@ -1,10 +1,9 @@
 load("//Config:buck_rule_macros.bzl", "apple_lib")
 
 apple_lib(
-    name = "SwiftLibrary01",
+    name = "Swift1",
     visibility = ["PUBLIC"],
     modular = True,
-    swift_version = "4.2",
     srcs = glob([
         "**/*.swift",
     ]),
@@ -17,5 +16,8 @@ apple_lib(
     ],
     tests = [
         "//App/Tests:Tests",
+    ],
+    frameworks = [
+        "$SDKROOT/System/Library/Frameworks/Foundation.framework",
     ],
 )
