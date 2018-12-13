@@ -40,6 +40,7 @@ class ViewController: UIViewController {
     print("Crypto: \(data)")
 
     // Objective C class defined in Objc1
+    //
     // When the following lines are uncommented, LLDB fails to print objects properly with the
     // following error:
     //
@@ -63,8 +64,15 @@ class ViewController: UIViewController {
 //    print("Objc1: %s", o)
 
     // Swift class defined in SwiftAndObjc
+    //
     // When this is used, the compile fails with
     //    #import <SwiftAndObjc/SwiftAndObjc-Swift.h> file not found
+    //
+    // To see this for yourself, do the following:
+    // - Uncomment the following line of code.
+    // - Add `import SwiftAndObjc` to the top of this file.
+    // - Add "//Libraries/SwiftAndObjc:SwiftAndObjc" as a dependency of `Swift1` in the BUCK file.
+    // - Regenerate this project and build.
 //     print("SwiftAndObjc \(Swift3())")
   }
 }
