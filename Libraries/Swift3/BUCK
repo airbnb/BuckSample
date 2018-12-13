@@ -1,7 +1,7 @@
 load("//Config:buck_rule_macros.bzl", "apple_lib")
 
 apple_lib(
-    name = "ImportSwift",
+    name = "Swift3",
     visibility = ["PUBLIC"],
     modular = True,
     srcs = glob([

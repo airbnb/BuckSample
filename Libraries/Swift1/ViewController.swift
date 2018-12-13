@@ -1,6 +1,6 @@
 import UIKit
-import ImportSwift
 import Swift2
+import Swift3
 import CryptoSwift
 
 public let testVar = "SampleValue"
@@ -27,23 +27,34 @@ class ViewController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
-    // Swift class defined in ImportSwift
-    let c = Counter()
-    print("Import Swift: \(c)")
-
     // Swift class defined in Swift2
     let s = SwiftClass2()
     print("Swift2: \(s)")
+
+    // Swift class defined in Swift3
+    let c = Counter()
+    print("Import Swift: \(c)")
 
     // From CryptoSwift
     let data = Data(bytes: [0x01, 0x02, 0x03])
     print("Crypto: \(data)")
 
     // Objective C class defined in Objc1
-    // When this is uncommented, LLDB fails to print objects properly
-    // with the following error:
+    // When the following lines are uncommented, LLDB fails to print objects properly with the
+    // following error:
+    //
+    // ```
     //   failed to get module 'Swift1' from AST context:
     //   error: missing required module 'Objc1'
+    // ```
+    //
+    // You can test this by putting a breakpoint in `viewDidLoad()` after `view` defined. Then in
+    // the debugger run:
+    //
+    // ```
+    // log enable lldb expr
+    // po view
+    // ```
 //    let o = Objc1()
 //    print("Objc1: %s", o)
 

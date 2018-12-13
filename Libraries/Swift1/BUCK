@@ -8,8 +8,8 @@ apple_lib(
         "**/*.swift",
     ]),
     deps = [
-        "//Libraries/ImportSwift:ImportSwift",
         "//Libraries/Swift2:Swift2",
+        "//Libraries/Swift3:Swift3",
         "//Libraries/Objc1:Objc1",
         "//Pods:CryptoSwift",
         "//Pods:OHHTTPStubs"
