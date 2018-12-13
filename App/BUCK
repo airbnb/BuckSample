@@ -14,26 +14,6 @@ apple_resource(
     files = glob(["**/*.storyboard"]),
 )
 
-apple_lib(
-    name = "ExampleAppLibrary",
-    visibility = ["PUBLIC"],
-    modular = True,
-    swift_version = "4.2",
-    srcs = glob([
-        "*.swift",
-    ]),
-    deps = [
-        "//Libraries/ImportSwift:ImportSwift",
-        "//Libraries/Swift2:Swift2",
-        "//Libraries/Objc1:Objc1",
-        "//Pods:CryptoSwift",
-        "//Pods:OHHTTPStubs"
-    ],
-    tests = [
-        "//App/Tests:Tests",
-    ],
-)
-
 apple_binary(
     name = "ExampleAppBinary",
     visibility = ["PUBLIC"],
@@ -43,7 +23,7 @@ apple_binary(
         "main.m",
     ]),
     deps = [
-        ":ExampleAppLibrary",
+        "//Libraries/SwiftLibrary01:SwiftLibrary01",
         ":ExampleAppResource",
         ":ExampleAppAssets",
     ],
@@ -51,7 +31,7 @@ apple_binary(
 
 xcode_workspace_config(
     name = "lib_workspace",
-    src_target = ":ExampleAppLibrary",
+    src_target = "//Libraries/SwiftLibrary01:SwiftLibrary01",
 )
 
 xcode_workspace_config(
