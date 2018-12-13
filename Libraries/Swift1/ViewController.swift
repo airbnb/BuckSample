@@ -28,12 +28,13 @@ class ViewController: UIViewController {
     super.viewDidAppear(animated)
 
     // Swift class defined in Swift2
-    let s = SwiftClass2()
+    let s = MySwiftClass()
     print("Swift2: \(s)")
 
     // Swift class defined in Swift3
     let c = Counter()
-    print("Import Swift: \(c)")
+    print("Swift3: \(c)")
+    c.increment()
 
     // From CryptoSwift
     let data = Data(bytes: [0x01, 0x02, 0x03])
