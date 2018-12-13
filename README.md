@@ -5,28 +5,32 @@ To explain how we use Buck, we have setup this repo as a demo.
 
 [![Build Status](https://travis-ci.com/airbnb/BuckSample.svg?branch=master)](https://travis-ci.com/airbnb/BuckSample)
 
-### Instructions
+### To Install
 
 ```sh
 # Install Buck
 brew tap facebook/fb
 brew install buck
-
-# Lists targets
-make targets
-# Generates and opens Xcode project
-# can run and debug with breakpoints as normal
-make project
-# Runs tests
-make test
-# Builds with Buck
-make build
 ```
-
-<img src="https://github.com/airbnb/BuckSample/raw/master/Docs/BuckTargets.png" width=500 />
 
 ### Running Tests
 Press `Cmd + U` to run the unit tests for the `ExampleApp` target inside Xcode.
+
+Or, from the terminal you can run `make test`.
+
+<img src="https://github.com/airbnb/BuckSample/raw/master/Docs/CommandLineTests.png" width=500 />
+
+### Viewing Targets
+You may run `make targets` to see a list of Buck targets available to build/test/etc.
+
+<img src="https://github.com/airbnb/BuckSample/raw/master/Docs/BuckTargets.png" width=500 />
+
+### Generating an Xcode Project
+To generate the project from the terminal, just run `make project`. You can then run in the simulator or press `Cmd + U` to run the tests.
+
+You may also use breakpoints, just like normal when using the generated Xcode project.
+
+<img src="https://github.com/airbnb/BuckSample/raw/master/Docs/Breakpoint.png" width=500 />
 
 
 ### References
