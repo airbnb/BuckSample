@@ -1,8 +1,8 @@
 import Swift4
+import Foundation
 
-public class Counter {
-
-  public init() { }
+@objc
+public class Counter: NSObject {
 
   public private(set) var value: Int = 0
 

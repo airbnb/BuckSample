@@ -31,7 +31,8 @@ class ViewController: UIViewController {
     let s = MySwiftClass()
     print("Swift2: \(s)")
 
-    // Swift class defined in Swift3
+    // Swift class defined in Swift3. This class is bridged to Objective-C by subclassing `NSObject`
+    // and using the `@objc` annotation.
     let c = Counter()
     print("Swift3: \(c)")
     c.increment()
