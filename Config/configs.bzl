@@ -30,7 +30,8 @@ def library_configs():
     lib_specific_config = {
         "SWIFT_WHOLE_MODULE_OPTIMIZATION": "YES",
     }
-    library_config = SHARED_CONFIGS + lib_specific_config
+    library_config = SHARED_CONFIGS
+    library_config.update(lib_specific_config)
     configs = {
         "Debug": library_config,
         "Profile": library_config,
@@ -43,7 +44,8 @@ def binary_configs(name):
         "DEVELOPMENT_LANGUAGE": "Swift",
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
     }
-    binary_config = SHARED_CONFIGS + binary_specific_config
+    binary_config = SHARED_CONFIGS
+    binary_config.update(binary_specific_config)
     configs = {
         "Debug": binary_config,
         "Profile": binary_config,
