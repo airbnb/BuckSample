@@ -38,11 +38,6 @@ apple_binary(
 )
 
 xcode_workspace_config(
-    name = "lib_workspace",
-    src_target = "//Libraries/Swift1:Swift1",
-)
-
-xcode_workspace_config(
     name = "workspace",
     workspace_name = "ExampleApp",
     src_target = ":ExampleAppBundle",
