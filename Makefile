@@ -2,7 +2,8 @@
 .PHONY : log install_buck build targets pods audit debug test xcode_tests clean project audit
 
 # BUCK=buck # System version
-BUCK=./buck.pex # Custom version
+# BUCK=./buck.pex # Custom version
+BUCK=/Users/steven_hepting/workspace/airbnb_buck/bin/buck
 
 log:
 	echo "Make"

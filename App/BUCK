@@ -19,11 +19,19 @@ apple_binary(
     visibility = ["PUBLIC"],
     configs = binary_configs("ExampleApp"),
     swift_version = "4.2",
-    srcs = glob([
-        "main.m",
-    ]),
+    srcs = [
+        "ViewController.swift",
+        "AppDelegate.swift",
+    ],
+    tests = [
+        "//App/Tests:Tests",
+    ],
     deps = [
-        "//Libraries/Swift1:Swift1",
+        "//Libraries/Swift2:Swift2",
+        "//Libraries/Swift3:Swift3",
+        "//Libraries/Objc1:Objc1",
+        "//Pods:CryptoSwift",
+        "//Pods:OHHTTPStubs",
         ":ExampleAppResource",
         ":ExampleAppAssets",
     ],

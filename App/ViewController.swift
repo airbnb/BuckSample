@@ -2,6 +2,7 @@ import UIKit
 import Swift2
 import Swift3
 import CryptoSwift
+import Objc1
 
 public let testVar = "SampleValue"
 
@@ -62,8 +63,8 @@ class ViewController: UIViewController {
     // log enable lldb expr
     // po view
     // ```
-//    let o = Objc1()
-//    print("Objc1: %s", o)
+    let o = Objc1()
+    print("Objc1: %s", o)
 
     // Swift class defined in SwiftAndObjc
     //

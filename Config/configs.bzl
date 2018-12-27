@@ -21,6 +21,7 @@ SHARED_CONFIGS = {
     "SWIFT_OPTIMIZATION_LEVEL": "-Onone",  # swiftc optimization
     "SWIFT_WHOLE_MODULE_OPTIMIZATION": "YES",  # for build performance
     "ONLY_ACTIVE_ARCH": "YES",
+    "LD_RUNPATH_SEARCH_PATHS": "@executable_path/Frameworks", # To allow source files in binary
 }
 
 def bundle_identifier(name):
