@@ -2,8 +2,6 @@ load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_pod_lib")
 
 apple_pod_lib(
     name = "CryptoSwift",
-    visibility = ["PUBLIC"],
-    swift_version = "4",
     srcs = glob([
         "CryptoSwift/**/*.swift",
     ]),
@@ -11,7 +9,6 @@ apple_pod_lib(
 
 apple_pod_lib(
     name = "OHHTTPStubs",
-    visibility = ["PUBLIC"],
     exported_headers = glob([
         "OHHTTPStubs/**/*.h",
     ]),

@@ -2,7 +2,6 @@ load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib")
 
 apple_test_lib(
     name = "Tests",
-    visibility = ["PUBLIC"],
     srcs = glob([
         "*.swift",
     ]),

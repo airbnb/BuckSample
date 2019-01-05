@@ -3,7 +3,6 @@ load("//Config:configs.bzl", "library_configs")
 
 apple_lib(
     name = "ImportObjC",
-    visibility = ["PUBLIC"],
     exported_headers = glob([
         "**/*.h",
     ]),
@@ -18,7 +17,6 @@ apple_lib(
 
 apple_test_lib(
     name = "Tests",
-    visibility = ["PUBLIC"],
     srcs = glob([
         "Tests/*.swift",
     ]),

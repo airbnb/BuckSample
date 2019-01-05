@@ -2,8 +2,6 @@ load("//Config:buck_rule_macros.bzl", "apple_lib")
 
 apple_lib(
     name = "Objc1",
-    visibility = ["PUBLIC"],
-    modular = True,
     exported_headers = [
       "ObjcClass1.h",
       ],
@@ -12,8 +10,5 @@ apple_lib(
     ],
     extra_xcode_files = [
         "Objc1.modulemap",
-    ],
-    frameworks = [
-        "$SDKROOT/System/Library/Frameworks/Foundation.framework",
     ],
 )

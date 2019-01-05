@@ -2,8 +2,6 @@ load("//Config:buck_rule_macros.bzl", "apple_lib")
 
 apple_lib(
     name = "ImportFromAnotherLibrary",
-    visibility = ["PUBLIC"],
-    modular = True,
     exported_headers = glob([
         "**/*.h",
     ]),
@@ -13,8 +11,5 @@ apple_lib(
     ]),
     deps = [
         "//Libraries/ImportObjC:ImportObjC",
-    ],
-    frameworks = [
-        "$SDKROOT/System/Library/Frameworks/Foundation.framework",
     ],
 )
