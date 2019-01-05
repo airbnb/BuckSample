@@ -23,6 +23,9 @@ debug:
 targets:
 	$(BUCK) targets //...
 
+ci: targets build test project xcode_tests
+	echo "Done"
+
 test:
 	$(BUCK) test //App/Tests:Tests --all --exclude ui --test-runner-env FOO=BAR
 
