@@ -52,7 +52,10 @@ xcode_workspace_config(
 
 apple_bundle(
     name = "ExampleAppBundle",
-    visibility = ["//App:"],
+    visibility = [
+        "//App:",
+        "//App/UITests:",
+        ],
     extension = "app",
     binary = ":ExampleAppBinary",
     product_name = "ExampleApp",
