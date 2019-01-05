@@ -43,26 +43,6 @@ class ViewController: UIViewController {
     print("Crypto: \(data)")
 
     // Objective C class defined in Objc1
-    //
-    // When the following lines are uncommented, LLDB fails to print objects properly with the
-    // following error:
-    //
-    // ```
-    //   failed to get module 'Swift1' from AST context:
-    //   error: missing required module 'Objc1'
-    // ```
-    //
-    // To see this for yourself, do the following:
-    // - Uncomment the following lines of code referencing `Objc1`.
-    // - Add `import Objc1` to the top of this file.
-    // - Put a breakpoint in `viewDidLoad()` after `view` is defined.
-    // - Re-run the app.
-    // - Run the following commands in the debugger.
-    //
-    // ```
-    // log enable lldb expr
-    // po view
-    // ```
     let o = Objc1()
     print("Objc1: %s", o)
 
