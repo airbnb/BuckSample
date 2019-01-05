@@ -48,6 +48,7 @@ def apple_lib(
     native.apple_library(
         name = name,
         swift_version = swift_version,
+        visibility = ["PUBLIC"],
         configs = library_configs(),
         modular = modular,
         compiler_flags = compiler_flags,
