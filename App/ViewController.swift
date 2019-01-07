@@ -45,6 +45,7 @@ class ViewController: UIViewController {
     // Objective C class defined in Objc1
     let o = Objc1()
     print("Objc1: %s", o)
+    Objc1.sayHello("Michael")
 
     // Swift class defined in SwiftAndObjc
     //
