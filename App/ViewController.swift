@@ -55,8 +55,9 @@ class ViewController: UIViewController {
     // To see this for yourself, do the following:
     // - Uncomment the following line of code.
     // - Add `import SwiftAndObjc` to the top of this file.
-    // - Add "//Libraries/SwiftAndObjc:SwiftAndObjc" as a dependency of `Swift1` in the BUCK file.
+    // - Add "//Libraries/SwiftAndObjc:SwiftAndObjc" as a dependency of `ExampleAppBinary` in the
+    // BUCK file.
     // - Regenerate this project and build.
-//     print("SwiftAndObjc \(MySwiftClassInMixedModule())")
+//    print("SwiftAndObjc \(MySwiftClassInMixedModule())")
   }
 }
