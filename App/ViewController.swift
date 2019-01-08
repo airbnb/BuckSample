@@ -57,6 +57,6 @@ class ViewController: UIViewController {
     // - Add `import SwiftAndObjc` to the top of this file.
     // - Add "//Libraries/SwiftAndObjc:SwiftAndObjc" as a dependency of `Swift1` in the BUCK file.
     // - Regenerate this project and build.
-//     print("SwiftAndObjc \(Swift3())")
+//     print("SwiftAndObjc \(MySwiftClassInMixedModule())")
   }
 }

@@ -1,5 +1,5 @@
-public class Swift3 {
+public class MySwiftClassInMixedModule {
   public init() {
-    print("Initialized Swift3")
+    print("Initialized MySwiftClassInMixedModule")
   }
 }
