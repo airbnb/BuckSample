@@ -7,20 +7,13 @@
 //
 
 import XCTest
-@testable import Swift1
+@testable import Swift2
 
-class BuckSampleTests: XCTestCase {
+final class BuckSampleTests: XCTestCase {
 
-    func testPublicVar() {
-        XCTAssertEqual(testVar, "SampleValue")
-    }
-
-    func testCreation() {
-        XCTAssertNotNil(ViewController())
-    }
-
-    func testValue() {
-        XCTAssertEqual(ViewController().value, "ViewName")
+    func testMySwiftClassAdding() {
+        let sut = MySwiftClass()
+        XCTAssertEqual(sut.add(1, 2), 3)
     }
 
     func testExample() {
