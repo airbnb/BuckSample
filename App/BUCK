@@ -34,6 +34,7 @@ apple_binary(
         "//Pods:OHHTTPStubs",
         ":ExampleAppResource",
         ":ExampleAppAssets",
+        "//Libraries/SwiftAndObjc:SwiftAndObjc",
     ],
 )
 
