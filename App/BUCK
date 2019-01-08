@@ -18,7 +18,7 @@ apple_binary(
     name = "ExampleAppBinary",
     visibility = ["//App:"],
     configs = binary_configs("ExampleApp"),
-    swift_version = "4.2",
+    swift_version = "4",
     srcs = [
         "ViewController.swift",
         "AppDelegate.swift",
