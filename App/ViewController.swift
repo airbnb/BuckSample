@@ -1,5 +1,4 @@
 import UIKit
-import Swift2
 import Swift3
 import CryptoSwift
 import Objc1
@@ -28,9 +27,6 @@ class ViewController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
-    // Swift class defined in Swift2
-    let s = MySwiftClass()
-    print("Swift2: \(s)")
 
     // Swift class defined in Swift3. This class is bridged to Objective-C by subclassing `NSObject`
     // and using the `@objc` annotation.
