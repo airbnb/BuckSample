@@ -5,7 +5,6 @@
   combined_preprocess_and_compile = true
   pch_enabled = false
   ldflags = -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fobjc-link-runtime
-  
 
 [swift]
   version = 4.0
@@ -31,6 +30,9 @@
   ide = xcode
   allow_symlinks = forbid
   ignore = .git
+
+[build]
+  threads = 4
 
 [cache]
   mode = dir
