@@ -8,7 +8,7 @@
   
 
 [swift]
-  version = 4.2
+  version = 4.0
   compiler_flags = -DBUCK -enable-testing -g -Onone -whole-module-optimization
   use_filelist = true
 
