@@ -1,0 +1,12 @@
+load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib")
+
+apple_test_lib(
+    name = "Tests",
+    srcs = glob([
+        "*.swift",
+    ]),
+    info_plist = "Info.plist",
+    deps = [
+        "//Libraries/Swift2:Swift2",
+    ],
+)
