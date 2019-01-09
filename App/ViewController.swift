@@ -2,6 +2,7 @@ import UIKit
 import Swift3
 import CryptoSwift
 import Objc1
+import SwiftAndObjc
 
 public let testVar = "SampleValue"
 
@@ -38,20 +39,16 @@ class ViewController: UIViewController {
     let data = Data(bytes: [0x01, 0x02, 0x03])
     print("Crypto: \(data)")
 
-    // Objective C class defined in Objc1
+    // Objective-C class defined in Objc1
     let o = Objc1()
     print("Objc1: %s", o)
+    Objc1.sayHello("Michael")
 
     // Swift class defined in SwiftAndObjc
-    //
-    // When this is used, the compile fails with
-    //    #import <SwiftAndObjc/SwiftAndObjc-Swift.h> file not found
-    //
-    // To see this for yourself, do the following:
-    // - Uncomment the following line of code.
-    // - Add `import SwiftAndObjc` to the top of this file.
-    // - Add "//Libraries/SwiftAndObjc:SwiftAndObjc" as a dependency of `Swift1` in the BUCK file.
-    // - Regenerate this project and build.
-//     print("SwiftAndObjc \(Swift3())")
+    MySwiftClassInMixedModule().bestowGreetings("Hello world, how are you?")
+    // Objective-C class defined in SwiftAndObjc
+    MyObjcClassInMixedModule().sayHello("George")
+
+    print("All good!")
   }
 }

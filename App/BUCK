@@ -21,7 +21,7 @@ apple_binary(
         "//App/...",
     ],
     configs = binary_configs("ExampleApp"),
-    swift_version = "4.2",
+    swift_version = "4",
     srcs = [
         "ViewController.swift",
         "AppDelegate.swift",
@@ -35,6 +35,7 @@ apple_binary(
         "//Pods:CryptoSwift",
         ":ExampleAppResource",
         ":ExampleAppAssets",
+        "//Libraries/SwiftAndObjc:SwiftAndObjc",
     ],
 )
 
@@ -56,7 +57,7 @@ apple_bundle(
     visibility = [
         "//App:",
         "//App/UITests:",
-        ],
+    ],
     extension = "app",
     binary = ":ExampleAppBinary",
     product_name = "ExampleApp",
