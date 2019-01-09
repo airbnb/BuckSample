@@ -34,7 +34,3 @@
 [build]
   threads = 4
 
-[cache]
-  mode = dir
-  dir_max_size = 5GB
-
