@@ -1,7 +1,8 @@
 
 .PHONY : log install_buck build targets pods audit debug test xcode_tests clean project audit
 
-BUCK=buck # System version
+# Use system version of Buck
+BUCK=buck
 
 log:
 	echo "Make"
