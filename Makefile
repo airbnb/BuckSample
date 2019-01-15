@@ -1,7 +1,8 @@
 
 .PHONY : log install_buck build targets pods audit debug test xcode_tests clean project audit
 
-BUCK=buck # System version
+# Use system version of Buck
+BUCK=buck
 
 log:
 	echo "Make"
@@ -18,10 +19,13 @@ build:
 	$(BUCK) build //App:ExampleAppBundle
 
 debug:
-	$(BUCK) install //App:ExampleAppBundle --run
+	$(BUCK) install //App:ExampleAppBundle --run --simulator-name 'Phone: iPhone XS'
 
 targets:
 	$(BUCK) targets //...
+
+ci: targets build test project xcode_tests
+	echo "Done"
 
 test:
 	$(BUCK) test //App/Tests:Tests --all --exclude ui --test-runner-env FOO=BAR

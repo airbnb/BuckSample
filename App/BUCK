@@ -16,7 +16,10 @@ apple_resource(
 
 apple_binary(
     name = "ExampleAppBinary",
-    visibility = ["//App:"],
+    visibility = [
+        "//App:",
+        "//App/...",
+    ],
     configs = binary_configs("ExampleApp"),
     swift_version = "4",
     srcs = [
@@ -31,7 +34,6 @@ apple_binary(
         "//Libraries/Swift3:Swift3",
         "//Libraries/Objc1:Objc1",
         "//Pods:CryptoSwift",
-        "//Pods:OHHTTPStubs",
         ":ExampleAppResource",
         ":ExampleAppAssets",
         "//Libraries/SwiftAndObjc:SwiftAndObjc",
