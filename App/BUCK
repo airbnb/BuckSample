@@ -30,6 +30,7 @@ apple_binary(
         "//App/Tests:Tests",
     ],
     deps = [
+        "//Libraries/Swift2:Swift2",
         "//Libraries/Swift3:Swift3",
         "//Libraries/Objc1:Objc1",
         "//Pods:CryptoSwift",
