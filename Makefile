@@ -18,7 +18,7 @@ build:
 	$(BUCK) build //App:ExampleAppBundle
 
 debug:
-	$(BUCK) install //App:ExampleAppBundle --run
+	$(BUCK) install //App:ExampleAppBundle --run --simulator-name 'Phone: iPhone Xs'
 
 targets:
 	$(BUCK) targets //...
