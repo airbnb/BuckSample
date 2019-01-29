@@ -24,7 +24,7 @@ debug:
 targets:
 	$(BUCK) targets //...
 
-ci: targets build test project xcode_tests
+ci: install_buck targets build test project xcode_tests
 	echo "Done"
 
 test:
