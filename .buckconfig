@@ -27,6 +27,7 @@
 
 [project]
   ide_force_kill = always
+  project_schemes = true
   ide = xcode
   allow_symlinks = forbid
   ignore = .git
