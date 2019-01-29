@@ -1,14 +1,14 @@
 
 .PHONY : log install_buck build targets pods audit debug test xcode_tests clean project audit
 
-# Use system version of Buck
-BUCK=buck
+# Use local version of Buck
+BUCK=tools/buck
 
 log:
 	echo "Make"
 
 install_buck:
-	curl https://jitpack.io/com/github/airbnb/buck/b652367c2b017ddce7fc0f94cb62ef6fd4138cf0/buck-b652367c2b017ddce7fc0f94cb62ef6fd4138cf0.pex --output tools/buck
+	curl https://jitpack.io/com/github/airbnb/buck/ab271461aaf27283408f6ec3319890376052089c/buck-ab271461aaf27283408f6ec3319890376052089c.pex --output tools/buck
 	chmod u+x tools/buck
 
 update_cocoapods:
@@ -24,7 +24,7 @@ debug:
 targets:
 	$(BUCK) targets //...
 
-ci: targets build test project xcode_tests
+ci: install_buck targets build test project xcode_tests
 	echo "Done"
 
 test:
