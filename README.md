@@ -7,8 +7,7 @@ This is a sample to show how to use Buck to build an iOS project with mixed lang
 
 ```sh
 # Install Buck
-brew tap facebook/fb
-brew install buck
+make install_buck
 ```
 
 ### Running Tests
