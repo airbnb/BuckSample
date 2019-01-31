@@ -4,6 +4,7 @@ import Swift3
 import CryptoSwift
 import Objc1
 import SwiftAndObjc
+import SwiftReliesOnCXX
 
 public let testVar = "SampleValue"
 
@@ -52,6 +53,9 @@ class ViewController: UIViewController {
     MySwiftClassInMixedModule().bestowGreetings("Hello world, how are you?")
     // Objective-C class defined in SwiftAndObjc
     MyObjcClassInMixedModule().sayHello("George")
+
+    // Swift class imports a library with Objective-C++
+    MySwiftReliesOnCXXClass().doSomethingWithCXXLibrary()
 
     print("All good!")
   }
