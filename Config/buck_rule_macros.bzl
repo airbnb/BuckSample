@@ -58,3 +58,35 @@ def apple_lib(
         swift_compiler_flags = swift_compiler_flags,
         **kwargs
     )
+
+CXX_SRC_EXT = ["mm", "cpp", "S"]
+def apple_cxx_lib(
+        srcs = [],
+        additional_external_linker_flags = [],
+        **kwargs):
+    c_srcs, cxx_srcs = [], []
+
+    cxx_compile_flags = native.read_config("cxx", "cxxflags").split(" ")
+    cxx_compile_flags.append("-w")
+
+    for file_ in srcs:
+        if file_.split(".")[-1] in CXX_SRC_EXT:
+            cxx_srcs.append((file_, cxx_compile_flags))
+        else:
+            c_srcs.append(file_)
+    apple_lib(
+        srcs = c_srcs + cxx_srcs,
+        exported_linker_flags = [
+            "-lc++",
+            "-lz"
+        ] + additional_external_linker_flags,
+        **kwargs
+    )
+
+def apple_cxx_third_party_library(
+        **kwargs):
+    apple_cxx_lib(
+        warning_as_error = False,
+        suppress_warnings = True,
+        **kwargs
+    )
