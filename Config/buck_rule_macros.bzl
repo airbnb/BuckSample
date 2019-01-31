@@ -4,6 +4,7 @@ load("//Config:configs.bzl", "binary_configs", "library_configs", "pod_library_c
 def apple_pod_lib(**kwargs):
     apple_lib(
         warning_as_error = False,
+        suppress_warnings = True,
         **kwargs
     )
 
@@ -31,6 +32,7 @@ def apple_lib(
         compiler_flags = None,
         swift_compiler_flags = None,
         warning_as_error = True,
+        suppress_warnings = False,
         **kwargs):
     compiler_flags = compiler_flags or []
     swift_compiler_flags = swift_compiler_flags or []
@@ -42,7 +44,7 @@ def apple_lib(
     if warning_as_error:
         compiler_flags.append("-Werror")
         swift_compiler_flags.append("-warnings-as-errors")
-    else:
+    elif suppress_warnings:
         compiler_flags.append("-w")
         swift_compiler_flags.append("-suppress-warnings")
 
