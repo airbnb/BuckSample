@@ -1,7 +1,7 @@
 load("//Config:configs.bzl", "binary_configs", "library_configs", "pod_library_configs")
 
 # This is just a regular lib that was warnings not set to error
-def apple_pod_lib(**kwargs):
+def apple_third_party_lib(**kwargs):
     apple_lib(
         warning_as_error = False,
         suppress_warnings = True,
