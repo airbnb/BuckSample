@@ -82,3 +82,11 @@ def apple_cxx_lib(
         ] + additional_external_linker_flags,
         **kwargs
     )
+
+def apple_cxx_third_party_library(
+        **kwargs):
+    apple_cxx_lib(
+        warning_as_error = False,
+        suppress_warnings = True,
+        **kwargs
+    )
