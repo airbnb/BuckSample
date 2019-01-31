@@ -30,7 +30,9 @@
   project_schemes = true
   ide = xcode
   allow_symlinks = forbid
-  ignore = .git
+  ignore = tools, \
+           .git, \
+
 
 [build]
   threads = 4
