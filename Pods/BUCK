@@ -1,4 +1,4 @@
-load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_third_party_lib")
+load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_third_party_lib", "apple_cxx_third_party_library")
 
 apple_third_party_lib(
     name = "CryptoSwift",
@@ -14,5 +14,25 @@ apple_third_party_lib(
     ]),
     srcs = glob([
         "OHHTTPStubs/**/*.m",
+    ]),
+)
+
+apple_cxx_third_party_library(
+    name = "Bugsnag",
+    exported_headers = glob([
+        "Bugsnag/**/BSG_KSCrashReportWriter.h",
+        "Bugsnag/**/Bugsnag.h",
+        "Bugsnag/**/BugsnagBreadcrumb.h",
+        "Bugsnag/**/BugsnagConfiguration.h",
+        "Bugsnag/**/BugsnagCrashReport.h",
+        "Bugsnag/**/BugsnagMetaData.h",
+    ]),
+    headers = glob([
+        "Bugsnag/**/*.h",
+    ]),
+    srcs = glob([
+        "Bugsnag/**/*.c",
+        "Bugsnag/**/*.m",
+        "Bugsnag/**/*.mm",
     ]),
 )

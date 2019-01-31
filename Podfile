@@ -10,6 +10,7 @@ target 'BuckSample' do
 
   pod 'CryptoSwift'
   pod 'OHHTTPStubs'
+  pod 'Bugsnag'
 
   target 'BuckSampleTests' do
     inherit! :search_paths

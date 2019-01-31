@@ -36,6 +36,7 @@ ui_test:
 pods:
 	$(BUCK) build //Pods:PromiseKit
 	$(BUCK) build //Pods:Braintree
+	$(BUCK) build //Pods:Bugsnag
 	# $(BUCK) build //Pods:Nimble
 
 audit:
