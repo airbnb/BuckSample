@@ -1,13 +1,13 @@
-load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_pod_lib")
+load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_third_party_lib")
 
-apple_pod_lib(
+apple_third_party_lib(
     name = "CryptoSwift",
     srcs = glob([
         "CryptoSwift/**/*.swift",
     ]),
 )
 
-apple_pod_lib(
+apple_third_party_lib(
     name = "OHHTTPStubs",
     exported_headers = glob([
         "OHHTTPStubs/**/*.h",
