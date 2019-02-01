@@ -65,7 +65,7 @@ def apple_lib(
 CXX_SRC_EXT = ["mm", "cpp", "S"]
 def apple_cxx_lib(
         srcs = [],
-        additional_external_linker_flags = [],
+        additional_exported_linker_flags = [],
         **kwargs):
     c_srcs, cxx_srcs = [], []
 
@@ -82,7 +82,7 @@ def apple_cxx_lib(
         exported_linker_flags = [
             "-lc++",
             "-lz"
-        ] + additional_external_linker_flags,
+        ] + additional_exported_linker_flags,
         **kwargs
     )
 
