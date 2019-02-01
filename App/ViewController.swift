@@ -58,7 +58,7 @@ class ViewController: UIViewController {
     // Swift class imports a library with Objective-C++
     MySwiftReliesOnCXXClass().doSomethingWithCXXLibrary()
 
-    // This line will crash if the assets haven't been bundled into the app
+    // This line will crash if the assets from SwiftWithAssets haven't been bundled into the app
     _ = Catalog.buck.image
 
     print("All good!")
