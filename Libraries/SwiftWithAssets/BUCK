@@ -1,0 +1,31 @@
+load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib")
+
+apple_lib(
+    name = "SwiftWithAssets",
+    srcs = glob([
+        "Sources/**/*.swift",
+    ]),
+    deps = [
+        ":SwiftWithAssetsCatalog",
+    ],
+    tests = [
+        ":SwiftWithAssetsTests",
+    ],
+)
+
+apple_test_lib(
+    name = "SwiftWithAssetsTests",
+    srcs = glob([
+        "Tests/**/*.swift",
+    ]),
+    info_plist = "Tests/Info.plist",
+    deps = [
+        ":SwiftWithAssets",
+    ],
+)
+
+apple_asset_catalog(
+    name = "SwiftWithAssetsCatalog",
+    visibility = ["PUBLIC"],
+    dirs = ["Resources/Catalog.xcassets"],
+)

@@ -38,6 +38,7 @@ apple_binary(
         ":ExampleAppAssets",
         "//Libraries/SwiftAndObjc:SwiftAndObjc",
         "//Libraries/SwiftReliesOnCXX:SwiftReliesOnCXX",
+        "//Libraries/SwiftWithAssets:SwiftWithAssets",
     ],
 )
 

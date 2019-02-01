@@ -51,6 +51,15 @@ def binary_configs(name):
     }
     return configs
 
+def test_configs(name):
+    binary_specific_config = info_plist_substitutions(name)
+    binary_config = SHARED_CONFIGS + binary_specific_config
+    configs = {
+        "Debug": binary_config,
+        "Profile": binary_config,
+    }
+    return configs
+
 def pod_library_configs():
     pod_configs = LIBRARY_CONFIGS
     pod_configs["GCC_TREAT_WARNINGS_AS_ERRORS"] = "YES"
