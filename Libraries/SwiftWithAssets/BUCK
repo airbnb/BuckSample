@@ -22,6 +22,7 @@ apple_test_lib(
     deps = [
         ":SwiftWithAssets",
     ],
+    test_host_app = "//App:ExampleHostedTestAppBundle"
 )
 
 apple_asset_catalog(

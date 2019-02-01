@@ -72,3 +72,27 @@ apple_package(
     name = "ExampleAppPackage",
     bundle = ":ExampleAppBundle",
 )
+
+# Hosted Test App
+
+apple_binary(
+    name = "ExampleHostedTestApp",
+    visibility = ["PUBLIC"],
+    configs = binary_configs("ExampleHostedTestApp"),
+    swift_version = "4",
+    srcs = [
+        "HostedTestAppDelegate.swift",
+    ],
+    deps = [
+    ],
+)
+
+apple_bundle(
+    name = "ExampleHostedTestAppBundle",
+    visibility = ["PUBLIC"],
+    extension = "app",
+    binary = ":ExampleHostedTestApp",
+    product_name = "ExampleHostedTestApp",
+    info_plist = "Info.plist",
+    info_plist_substitutions = info_plist_substitutions("ExampleHostedTestApp"),
+)
