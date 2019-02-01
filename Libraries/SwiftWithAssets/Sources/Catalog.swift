@@ -15,10 +15,3 @@ public enum Catalog: String {
 }
 
 private final class BundleIdentifier {}
-
-
-enum Test {
-  case test
-  case what
-  case hi
-}
