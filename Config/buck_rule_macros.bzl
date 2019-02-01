@@ -1,4 +1,4 @@
-load("//Config:configs.bzl", "binary_configs", "library_configs", "pod_library_configs")
+load("//Config:configs.bzl", "library_configs", "test_configs", "pod_library_configs")
 
 # This is just a regular lib that was warnings not set to error
 def apple_third_party_lib(**kwargs):
@@ -13,7 +13,7 @@ def apple_test_lib(name, **kwargs):
     native.apple_test(
         name = name,
         visibility = ["PUBLIC"],
-        configs = binary_configs(test_name),
+        configs = test_configs(test_name),
         frameworks = [
           "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework"
         ],
