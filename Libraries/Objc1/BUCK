@@ -1,13 +1,8 @@
-load("//Config:buck_rule_macros.bzl", "apple_lib")
+load("//Config:buck_rule_macros.bzl", "library")
 
-apple_lib(
+library(
     name = "Objc1",
-    exported_headers = [
-      "ObjcClass1.h",
-      ],
-    srcs = [
-        "ObjcClass1.m"
-    ],
+    has_objective_c = True,
     extra_xcode_files = [
         "Objc1.modulemap",
     ],

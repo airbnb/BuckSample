@@ -1,5 +1,5 @@
 load("//Config:configs.bzl", "binary_configs", "library_configs", "pretty", "info_plist_substitutions")
-load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib")
+load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all")
 
 apple_asset_catalog(
     name = "ExampleAppAssets",
@@ -14,6 +14,19 @@ apple_resource(
     files = glob(["**/*.storyboard"]),
 )
 
+appTests = [
+    "//App/Tests:Tests",
+]
+
+libraryDependencies = [
+    "//Libraries/Swift2:Swift2",
+    "//Libraries/Swift3:Swift3",
+    "//Libraries/Objc1:Objc1",
+    "//Libraries/SwiftAndObjc:SwiftAndObjc",
+    "//Libraries/SwiftReliesOnCXX:SwiftReliesOnCXX",
+    "//Libraries/SwiftWithAssets:SwiftWithAssets",
+]
+
 apple_binary(
     name = "ExampleAppBinary",
     visibility = [
@@ -26,20 +39,22 @@ apple_binary(
         "ViewController.swift",
         "AppDelegate.swift",
     ],
-    tests = [
-        "//App/Tests:Tests",
-    ],
+    tests = appTests,
     deps = [
-        "//Libraries/Swift2:Swift2",
-        "//Libraries/Swift3:Swift3",
-        "//Libraries/Objc1:Objc1",
         "//Pods:CryptoSwift",
         ":ExampleAppResource",
         ":ExampleAppAssets",
-        "//Libraries/SwiftAndObjc:SwiftAndObjc",
-        "//Libraries/SwiftReliesOnCXX:SwiftReliesOnCXX",
-        "//Libraries/SwiftWithAssets:SwiftWithAssets",
-    ],
+    ] + libraryDependencies,
+)
+
+# This test to bundles all unit test libraries into a single test target.
+# Test targets can be slow to create in CI; creating only one can save significant time.
+apple_test_all(
+    name = "ExampleAppCITests",
+    info_plist = "Info.plist",
+    srcs = ["Dummy.swift"],
+    libraries = libraryDependencies,
+    additional_tests = appTests,
 )
 
 xcode_workspace_config(

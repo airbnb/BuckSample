@@ -1,12 +1,6 @@
-load("//Config:buck_rule_macros.bzl", "apple_lib")
+load("//Config:buck_rule_macros.bzl", "library")
 
-apple_lib(
+library(
     name = "SwiftAndObjc",
-    exported_headers = glob([
-      "*.h",
-      ]),
-    srcs = glob([
-        "*.swift",
-        "*.m"
-    ]),
+    has_objective_c = True,
 )

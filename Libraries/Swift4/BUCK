@@ -1,8 +1,5 @@
-load("//Config:buck_rule_macros.bzl", "apple_lib")
+load("//Config:buck_rule_macros.bzl", "library")
 
-apple_lib(
+library(
     name = "Swift4",
-    srcs = glob([
-        "**/*.swift",
-    ]),
 )
