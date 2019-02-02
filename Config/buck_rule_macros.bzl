@@ -21,6 +21,7 @@ def apple_test_lib(
         test_host_app = None,
         run_test_separately = False,
         frameworks = [],
+        labels = [],
         **kwargs):
     test_name = name + ".test"
 
@@ -35,7 +36,7 @@ def apple_test_lib(
             frameworks = [
                 "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
             ] + frameworks,
-            labels = ["CI"],
+            labels = ["CI"] + labels,
             **kwargs
         )
 
@@ -58,6 +59,7 @@ def apple_test_lib(
         frameworks = [
           "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework"
         ] + frameworks,
+        labels = labels,
         **kwargs
     )
 
