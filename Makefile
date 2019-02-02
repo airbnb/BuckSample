@@ -28,7 +28,7 @@ ci: install_buck targets build test project xcode_tests
 	echo "Done"
 
 test:
-	$(BUCK) test //App/Tests:Tests --all --exclude ui --test-runner-env FOO=BAR
+	$(BUCK) test //App:ExampleAppCITests --test-runner-env FOO=BAR
 
 ui_test:
 	$(BUCK) test //App/UITests:UITests
