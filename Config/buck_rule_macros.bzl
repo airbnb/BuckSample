@@ -110,6 +110,12 @@ def apple_lib(
         **kwargs
     )
 
+# Use this macro to declare first-party libraries.
+# First-party must have their source in /Sources, and test code in /Tests
+# This macro defines three targets.
+# 1. An apple_library target comprising the code in the Sources/ directory. This library target is used by both Xcode and Buck.
+# 2. An apple_test target comprising the test code in the Tests/ directory. This test target is picked up by Xcode, and is runnable from Buck.
+# 3. An apple_library target comprising the code in the Tets/ directory. This library is used by the apple_test_all macro to create a single apple_test target in CI. This library will not be included in Xcode, unless an Xcode project is generated that relies on an apple_test_all target.
 def first_party_library(
         name,
         has_objective_c = False,
