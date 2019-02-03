@@ -14,11 +14,11 @@ apple_resource(
     files = glob(["**/*.storyboard"]),
 )
 
-appTests = [
+app_tests = [
     "//App/Tests:Tests",
 ]
 
-libraryDependencies = [
+first_party_library_dependencies = [
     "//Libraries/Swift2:Swift2",
     "//Libraries/Swift3:Swift3",
     "//Libraries/Objc1:Objc1",
@@ -39,12 +39,12 @@ apple_binary(
         "ViewController.swift",
         "AppDelegate.swift",
     ],
-    tests = appTests,
+    tests = app_tests,
     deps = [
         "//Pods:CryptoSwift",
         ":ExampleAppResource",
         ":ExampleAppAssets",
-    ] + libraryDependencies,
+    ] + first_party_library_dependencies,
 )
 
 # This test to bundles all unit test libraries into a single test target.
@@ -52,9 +52,8 @@ apple_binary(
 apple_test_all(
     name = "ExampleAppCITests",
     info_plist = "Info.plist",
-    srcs = ["Dummy.swift"],
-    libraries = libraryDependencies,
-    additional_tests = appTests,
+    libraries = first_party_library_dependencies,
+    additional_tests = app_tests,
 )
 
 xcode_workspace_config(
