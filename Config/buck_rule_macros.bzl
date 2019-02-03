@@ -110,7 +110,7 @@ def apple_lib(
         **kwargs
     )
 
-def library(
+def first_party_library(
         name,
         has_objective_c = False,
         internal_headers = None,

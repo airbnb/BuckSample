@@ -1,5 +1,5 @@
-load("//Config:buck_rule_macros.bzl", "library")
+load("//Config:buck_rule_macros.bzl", "first_party_library")
 
-library(
+first_party_library(
     name = "Swift2",
 )
