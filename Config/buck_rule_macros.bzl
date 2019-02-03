@@ -121,7 +121,6 @@ def first_party_library(
         info_plist_substitutions = {},
         test_host_app = None,
         run_test_separately = False,
-        additional_tests = [],
         test_frameworks = [],
         test_deps = [],
         modular = True,
@@ -166,7 +165,7 @@ def first_party_library(
         extra_xcode_files = extra_xcode_files,
         deps = deps,
         frameworks = frameworks,
-        tests = [":" + lib_test_name] + additional_tests,
+        tests = [":" + lib_test_name],
         **kwargs
     )
     
