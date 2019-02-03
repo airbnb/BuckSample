@@ -47,7 +47,7 @@ apple_binary(
     ] + first_party_library_dependencies,
 )
 
-# This test to bundles all unit test libraries into a single test target.
+# This test bundles all unit test libraries into a single test target.
 # Test targets can be slow to create in CI; creating only one can save significant time.
 apple_test_all(
     name = "ExampleAppCITests",

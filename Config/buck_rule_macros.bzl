@@ -63,6 +63,10 @@ def apple_test_lib(
         **kwargs
     )
 
+# This macro bundles unit test libraries created by first_party_library or apple_test_lib into a single test target.
+# Test targets can be slow to create in CI; creating only one can save significant time.
+# - parameter libraries: The libraries whose tests should be put into the single test target.
+# - parameter additional_tests: Additional apple_test targets that should be run as part of the single test target.
 def apple_test_all(
         libraries = [],
         additional_tests = [],
