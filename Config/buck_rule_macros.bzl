@@ -1,4 +1,4 @@
-load("//Config:configs.bzl", "test_configs", "library_configs", "pod_library_configs", "binary_configs")
+load("//Config:configs.bzl", "test_configs", "library_configs", "pod_library_configs")
 
 # This is just a regular lib that was warnings not set to error
 def apple_third_party_lib(**kwargs):
