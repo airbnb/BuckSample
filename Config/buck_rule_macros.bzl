@@ -124,6 +124,11 @@ def apple_lib(
 # 1. An apple_library target comprising the code in the Sources/ directory. This library target is used by both Xcode and Buck.
 # 2. An apple_test target comprising the test code in the Tests/ directory. This test target is picked up by Xcode, and is runnable from Buck.
 # 3. An apple_library target comprising the code in the Tests/ directory. This library is used by the apple_test_all macro to create a single apple_test target in CI. This library will not be included in Xcode, unless an Xcode project is generated that relies on an apple_test_all target.
+# - parameter name: The name of the apple_library created for the code in the Sources/ directory.
+# - parameter has_objective_c: When set to True, the libraries and tests will look for Objective-C headers and files.
+# - parameter internal_headers: An array of Objective-C headers that should be included in the library target, but should not be exported.
+# - parameter warning_as_error: When set to True, the source library created will not compile when warnings are present.
+# - parameter suppress_warnings: When set to True, the source library created will not show any warnings, even if warnings exist.
 def first_party_library(
         name,
         has_objective_c = False,
