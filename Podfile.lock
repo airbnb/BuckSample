@@ -1,4 +1,5 @@
 PODS:
+  - Bugsnag (5.17.3)
   - CryptoSwift (0.13.1)
   - EarlGrey (1.15.0)
   - OHHTTPStubs (6.1.0):
@@ -16,21 +17,24 @@ PODS:
   - OHHTTPStubs/OHPathHelpers (6.1.0)
 
 DEPENDENCIES:
+  - Bugsnag
   - CryptoSwift
   - EarlGrey
   - OHHTTPStubs
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Bugsnag
     - CryptoSwift
     - EarlGrey
     - OHHTTPStubs
 
 SPEC CHECKSUMS:
+  Bugsnag: a56a5204ebd35e44e56c1f703824705b1d4b5b97
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
   EarlGrey: 289a16cc7d08a54b962d72881b21e36d5103b549
   OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
 
-PODFILE CHECKSUM: d054f6d80dd1ac19caa3fa6402d9dc8ef727f760
+PODFILE CHECKSUM: bb893529a8b751f32745686269f7a4d0f0313104
 
-COCOAPODS: 1.6.0.beta.1
+COCOAPODS: 1.5.3

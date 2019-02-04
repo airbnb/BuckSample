@@ -4,6 +4,9 @@
 buck-out/
 .buckd/
 
+# Downloaded buck
+tools/buck
+
 # Xcode
 **/xcuserdata/
 **/*.xcodeproj/

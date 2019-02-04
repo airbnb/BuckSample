@@ -11,8 +11,4 @@ before_install:
 env:
   - TERM=dumb
 script: 
-  - make targets
-  - make build
-  - make test
-  - make project
-  - make xcode_tests
+  - make ci

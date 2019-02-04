@@ -1,19 +1,9 @@
-load("//Config:buck_rule_macros.bzl", "apple_lib")
+load("//Config:buck_rule_macros.bzl", "first_party_library")
 
-apple_lib(
+first_party_library(
     name = "Objc1",
-    visibility = ["PUBLIC"],
-    modular = True,
-    exported_headers = [
-      "ObjcClass1.h",
-      ],
-    srcs = [
-        "ObjcClass1.m"
-    ],
+    has_objective_c = True,
     extra_xcode_files = [
         "Objc1.modulemap",
-    ],
-    frameworks = [
-        "$SDKROOT/System/Library/Frameworks/Foundation.framework",
     ],
 )

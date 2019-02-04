@@ -1,13 +1,5 @@
-load("//Config:buck_rule_macros.bzl", "apple_lib")
+load("//Config:buck_rule_macros.bzl", "first_party_library")
 
-apple_lib(
+first_party_library(
     name = "Swift2",
-    visibility = ["PUBLIC"],
-    modular = True,
-    srcs = glob([
-        "**/*.swift",
-    ]),
-    frameworks = [
-        "$SDKROOT/System/Library/Frameworks/Foundation.framework",
-    ],
 )

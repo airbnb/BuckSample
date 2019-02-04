@@ -21,6 +21,7 @@ SHARED_CONFIGS = {
     "SWIFT_OPTIMIZATION_LEVEL": "-Onone",  # swiftc optimization
     "SWIFT_WHOLE_MODULE_OPTIMIZATION": "YES",  # for build performance
     "ONLY_ACTIVE_ARCH": "YES",
+    "LD_RUNPATH_SEARCH_PATHS": "@executable_path/Frameworks", # To allow source files in binary
 }
 
 def bundle_identifier(name):
@@ -43,6 +44,15 @@ def binary_configs(name):
         "DEVELOPMENT_LANGUAGE": "Swift",
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
     }
+    binary_config = SHARED_CONFIGS + binary_specific_config
+    configs = {
+        "Debug": binary_config,
+        "Profile": binary_config,
+    }
+    return configs
+
+def test_configs(name):
+    binary_specific_config = info_plist_substitutions(name)
     binary_config = SHARED_CONFIGS + binary_specific_config
     configs = {
         "Debug": binary_config,

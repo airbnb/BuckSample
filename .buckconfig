@@ -5,10 +5,9 @@
   combined_preprocess_and_compile = true
   pch_enabled = false
   ldflags = -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fobjc-link-runtime
-  
 
 [swift]
-  version = 4.2
+  version = 4.0
   compiler_flags = -DBUCK -enable-testing -g -Onone -whole-module-optimization
   use_filelist = true
 
@@ -28,11 +27,13 @@
 
 [project]
   ide_force_kill = always
+  project_schemes = true
   ide = xcode
   allow_symlinks = forbid
-  ignore = .git
+  ignore = tools, \
+           .git, \
 
-[cache]
-  mode = dir
-  dir_max_size = 5GB
+
+[build]
+  threads = 4
 
