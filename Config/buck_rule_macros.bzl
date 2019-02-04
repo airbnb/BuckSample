@@ -81,6 +81,7 @@ def apple_test_all(
 
     apple_test_lib(
         deps = ci_test_libraries + additional_tests,
+        bundle_for_ci = False,
         **kwargs
     )
 
