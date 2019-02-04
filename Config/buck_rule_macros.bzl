@@ -8,8 +8,42 @@ def apple_third_party_lib(**kwargs):
         **kwargs
     )
 
-def apple_test_lib(name, **kwargs):
+def test_name(name):
+     return name + "Tests"
+def ci_test_name(name):
+    return name + "-For-CI"
+
+# Use this macro to declare test targets. For first-party libraries, use first_party_library to declare a test target instead.
+# This macro defines two targets.
+# 1. An apple_test target comprising `srcs`. This test target is picked up by Xcode, and is runnable from Buck.
+# 2. An apple_library target comprising the code in `srcs`. This library is used by the apple_test_all macro to create a single apple_test target in CI. This library will not be included in Xcode, unless an Xcode project is generated that relies on an apple_test_all target.
+def apple_test_lib(
+        name,
+        bundle_for_ci = True,
+        info_plist = None,
+        info_plist_substitutions = {},
+        test_host_app = None,
+        run_test_separately = False,
+        frameworks = [],
+        labels = [],
+        **kwargs):
     test_name = name + ".test"
+
+    if bundle_for_ci:
+        # Create a library with the test files. We'll use use these for our CI tests.
+        # Libraries are much faster to create in CI than unit test bundles.
+        # Therefore, we package up this test target as a library that we can depend on
+        # later with a single apple_test bundle.
+        native.apple_library(
+            name = ci_test_name(name),
+            visibility = ["PUBLIC"],
+            frameworks = [
+                "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
+            ] + frameworks,
+            labels = ["CI"] + labels,
+            **kwargs
+        )
+
     substitutions = {
         "CURRENT_PROJECT_VERSION": "1",
         "DEVELOPMENT_LANGUAGE": "en-us",
@@ -17,14 +51,37 @@ def apple_test_lib(name, **kwargs):
         "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % test_name,
         "PRODUCT_NAME": name,
     }
+    substitutions.update(info_plist_substitutions)
     native.apple_test(
         name = name,
-        info_plist_substitutions = substitutions,
         visibility = ["PUBLIC"],
+        info_plist = info_plist,
+        info_plist_substitutions = substitutions,
+        test_host_app = test_host_app,
+        run_test_separately = run_test_separately,
         configs = test_configs(test_name),
         frameworks = [
           "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework"
-        ],
+        ] + frameworks,
+        labels = labels,
+        **kwargs
+    )
+
+# This macro bundles unit test libraries created by first_party_library or apple_test_lib into a single test target.
+# Test targets can be slow to create in CI; creating only one can save significant time.
+# - parameter libraries: The libraries whose tests should be put into the single test target.
+# - parameter additional_tests: Additional apple_test targets that should be run as part of the single test target.
+def apple_test_all(
+        libraries = [],
+        additional_tests = [],
+        **kwargs):
+    ci_test_libraries = []
+    for library in libraries:
+        ci_test_libraries.append(ci_test_name(test_name(library)))
+
+    apple_test_lib(
+        deps = ci_test_libraries + additional_tests,
+        bundle_for_ci = False,
         **kwargs
     )
 
@@ -61,6 +118,94 @@ def apple_lib(
         swift_compiler_flags = swift_compiler_flags,
         **kwargs
     )
+
+# Use this macro to declare first-party libraries.
+# First-party must have their source in /Sources, and test code in /Tests
+# This macro defines three targets.
+# 1. An apple_library target comprising the code in the Sources/ directory. This library target is used by both Xcode and Buck.
+# 2. An apple_test target comprising the test code in the Tests/ directory. This test target is picked up by Xcode, and is runnable from Buck.
+# 3. An apple_library target comprising the code in the Tests/ directory. This library is used by the apple_test_all macro to create a single apple_test target in CI. This library will not be included in Xcode, unless an Xcode project is generated that relies on an apple_test_all target.
+# - parameter name: The name of the apple_library created for the code in the Sources/ directory.
+# - parameter has_objective_c: When set to True, the libraries and tests will look for Objective-C headers and files.
+# - parameter internal_headers: An array of Objective-C headers that should be included in the library target, but should not be exported.
+# - parameter warning_as_error: When set to True, the source library created will not compile when warnings are present.
+# - parameter suppress_warnings: When set to True, the source library created will not show any warnings, even if warnings exist.
+def first_party_library(
+        name,
+        has_objective_c = False,
+        internal_headers = None,
+        extra_xcode_files = [],
+        deps = [],
+        frameworks = [],
+        info_plist = "Tests/Info.plist",
+        info_plist_substitutions = {},
+        test_host_app = None,
+        run_test_separately = False,
+        test_frameworks = [],
+        test_deps = [],
+        modular = True,
+        compiler_flags = None,
+        swift_compiler_flags = None,
+        warning_as_error = True,
+        suppress_warnings = False,
+        **kwargs):
+    compiler_flags = compiler_flags or []
+    swift_compiler_flags = swift_compiler_flags or []
+
+    # Don't treat warnings as errors for Beta Xcode versions
+    if native.read_config("xcode", "beta") == "True":
+        warning_as_error = False
+
+    if warning_as_error:
+        compiler_flags.append("-Werror")
+        swift_compiler_flags.append("-warnings-as-errors")
+    elif suppress_warnings:
+        compiler_flags.append("-w")
+        swift_compiler_flags.append("-suppress-warnings")
+
+    sources = native.glob(["Sources/**/*.swift"])
+    exported_headers = None
+    if has_objective_c:
+        sources.extend(native.glob(["Sources/**/*.m"]))
+        exported_headers = []
+        all_headers = native.glob(["Sources/**/*.h"])
+        for header in all_headers:
+            if not header in (internal_headers or []):
+                exported_headers.append(header)
+
+    lib_test_name = test_name(name)
+    apple_lib(
+        name = name,
+        srcs = sources,
+        exported_headers = exported_headers,
+        headers = internal_headers,
+        modular = modular,
+        compiler_flags = compiler_flags,
+        swift_compiler_flags = swift_compiler_flags,
+        extra_xcode_files = extra_xcode_files,
+        deps = deps,
+        frameworks = frameworks,
+        tests = [":" + lib_test_name],
+        **kwargs
+    )
+    
+    test_sources = native.glob(["Tests/**/*.swift"])
+    test_headers = None
+    if has_objective_c:
+        test_sources.extend(native.glob(["Tests/**/*.m"]))
+        test_headers = native.glob(["Tests/**/*.h"])
+    
+    apple_test_lib(
+        lib_test_name,
+        srcs = test_sources,
+        headers = test_headers,
+        info_plist = info_plist,
+        info_plist_substitutions = info_plist_substitutions,
+        test_host_app = test_host_app,
+        run_test_separately = run_test_separately,
+        frameworks = test_frameworks,
+        deps = [":" + name] + test_deps,
+        **kwargs)
 
 CXX_SRC_EXT = ["mm", "cpp", "S"]
 def apple_cxx_lib(

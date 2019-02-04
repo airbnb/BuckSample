@@ -1,22 +1,5 @@
-load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib")
+load("//Config:buck_rule_macros.bzl", "first_party_library")
 
-apple_lib(
+first_party_library(
     name = "Swift2",
-    srcs = glob([
-        "Sources/**/*.swift",
-    ]),
-    tests = [
-        ":Swift2Tests",
-    ],
-)
-
-apple_test_lib(
-    name = "Swift2Tests",
-    srcs = glob([
-        "Tests/**/*.swift",
-    ]),
-    info_plist = "Tests/Info.plist",
-    deps = [
-        ":Swift2",
-    ],
 )

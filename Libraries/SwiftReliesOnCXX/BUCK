@@ -1,25 +1,8 @@
-load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib")
+load("//Config:buck_rule_macros.bzl", "first_party_library")
 
-apple_lib(
+first_party_library(
     name = "SwiftReliesOnCXX",
-    srcs = glob([
-        "Sources/**/*.swift",
-    ]),
     deps = [
         "//Pods:Bugsnag",
-    ],
-    tests = [
-        ":SwiftReliesOnCXXTests",
-    ],
-)
-
-apple_test_lib(
-    name = "SwiftReliesOnCXXTests",
-    srcs = glob([
-        "Tests/**/*.swift",
-    ]),
-    info_plist = "Tests/Info.plist",
-    deps = [
-        ":SwiftReliesOnCXX",
     ],
 )
