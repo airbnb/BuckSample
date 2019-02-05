@@ -19,6 +19,7 @@ def ci_test_name(name):
 # 2. An apple_library target comprising the code in `srcs`. This library is used by the apple_test_all macro to create a single apple_test target in CI. This library will not be included in Xcode, unless an Xcode project is generated that relies on an apple_test_all target.
 def apple_test_lib(
         name,
+        visibility = ["PUBLIC"],
         bundle_for_ci = True,
         info_plist = None,
         info_plist_substitutions = {},
@@ -36,7 +37,7 @@ def apple_test_lib(
         # later with a single apple_test bundle.
         native.apple_library(
             name = ci_test_name(name),
-            visibility = ["PUBLIC"],
+            visibility = visibility,
             frameworks = [
                 "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
             ] + frameworks,
@@ -54,7 +55,7 @@ def apple_test_lib(
     substitutions.update(info_plist_substitutions)
     native.apple_test(
         name = name,
-        visibility = ["PUBLIC"],
+        visibility = visibility,
         info_plist = info_plist,
         info_plist_substitutions = substitutions,
         test_host_app = test_host_app,
@@ -87,6 +88,7 @@ def apple_test_all(
 
 def apple_lib(
         name,
+        visibility = ["PUBLIC"],
         swift_version = "4",
         modular = True,
         compiler_flags = None,
@@ -110,8 +112,8 @@ def apple_lib(
 
     native.apple_library(
         name = name,
+        visibility = visibility,
         swift_version = swift_version,
-        visibility = ["PUBLIC"],
         configs = library_configs(),
         modular = modular,
         compiler_flags = compiler_flags,
@@ -196,7 +198,7 @@ def first_party_library(
         test_headers = native.glob(["Tests/**/*.h"])
     
     apple_test_lib(
-        lib_test_name,
+        name = lib_test_name,
         srcs = test_sources,
         headers = test_headers,
         info_plist = info_plist,
