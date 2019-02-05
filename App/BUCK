@@ -34,7 +34,7 @@ apple_binary(
         "//App/...",
     ],
     configs = binary_configs("ExampleApp"),
-    swift_version = "4",
+    swift_version = "4.0",
     srcs = [
         "ViewController.swift",
         "AppDelegate.swift",
