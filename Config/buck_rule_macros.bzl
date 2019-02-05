@@ -89,7 +89,7 @@ def apple_test_all(
 def apple_lib(
         name,
         visibility = ["PUBLIC"],
-        swift_version = "4",
+        swift_version = "4.0",
         modular = True,
         compiler_flags = None,
         swift_compiler_flags = None,
