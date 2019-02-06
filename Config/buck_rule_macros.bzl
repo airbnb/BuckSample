@@ -151,20 +151,6 @@ def first_party_library(
         warning_as_error = True,
         suppress_warnings = False,
         **kwargs):
-    compiler_flags = compiler_flags or []
-    swift_compiler_flags = swift_compiler_flags or []
-
-    # Don't treat warnings as errors for Beta Xcode versions
-    if native.read_config("xcode", "beta") == "True":
-        warning_as_error = False
-
-    if warning_as_error:
-        compiler_flags.append("-Werror")
-        swift_compiler_flags.append("-warnings-as-errors")
-    elif suppress_warnings:
-        compiler_flags.append("-w")
-        swift_compiler_flags.append("-suppress-warnings")
-
     sources = native.glob(["Sources/**/*.swift"])
     exported_headers = None
     if has_objective_c:
@@ -182,12 +168,12 @@ def first_party_library(
         exported_headers = exported_headers,
         headers = internal_headers,
         modular = modular,
-        compiler_flags = compiler_flags,
-        swift_compiler_flags = swift_compiler_flags,
         extra_xcode_files = extra_xcode_files,
         deps = deps,
         frameworks = frameworks,
         tests = [":" + lib_test_name],
+        warning_as_error = warning_as_error,
+        suppress_warnings = suppress_warnings,
         **kwargs
     )
     
