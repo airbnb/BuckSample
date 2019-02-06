@@ -64,12 +64,12 @@ class ViewController: UIViewController {
 
     // Without an object explicitly typed as `MyPublicClass`, an instance of `MyPublicClass` won't
     // exhibit conformance to `MyPublicProtocol`. `MyPublicClass` is defined in `Swift4`.
-    // `MyPublicProtocol` and the conformance of `MyPublicClass` to `MyPublicProtocol` is in
+    // `MyPublicProtocol` and the conformance of `MyPublicClass` to `MyPublicProtocol` is defined in
     // `Swift3`.
     //
-    // One workaround when possible is to use the explicit `MyPublicClass` and avoid type erasure.
-    // You can see this in action by swapping the way that we are creating `myObject` below to
-    // to be `MyPublicClass()` instead of `MyFactory.myPublicObject()`.
+    // One workaround when possible is to make sure the object is explictly type as `MyPublicClass`
+    // and avoid type erasure. You can see this in action by swapping the way that we are creating
+    // `myObject` below to to be `MyPublicClass()` instead of `MyFactory.myPublicObject()`.
     //
     // Avoiding type erasure is not always possible though. Another is to annotate `MyPublicClass`
     // with `@objc`. We pass `-ObjC` to "Other Linker Flags", which will cause this conformance to
