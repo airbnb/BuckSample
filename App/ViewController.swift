@@ -67,7 +67,7 @@ class ViewController: UIViewController {
     // `MyPublicProtocol` and the conformance of `MyPublicClass` to `MyPublicProtocol` is defined in
     // `Swift3`.
     //
-    // One workaround when possible is to make sure the object is explictly type as `MyPublicClass`
+    // One workaround when possible is to make sure the object is explictly typed as `MyPublicClass`
     // and avoid type erasure. You can see this in action by swapping the way that we are creating
     // `myObject` below to be `MyPublicClass()` instead of `MyFactory.myPublicObject()`.
     //
