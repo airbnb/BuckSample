@@ -69,7 +69,7 @@ class ViewController: UIViewController {
     //
     // One workaround when possible is to make sure the object is explictly type as `MyPublicClass`
     // and avoid type erasure. You can see this in action by swapping the way that we are creating
-    // `myObject` below to to be `MyPublicClass()` instead of `MyFactory.myPublicObject()`.
+    // `myObject` below to be `MyPublicClass()` instead of `MyFactory.myPublicObject()`.
     //
     // Avoiding type erasure is not always possible though. Another is to annotate `MyPublicClass`
     // with `@objc`. We pass `-ObjC` to "Other Linker Flags", which will cause this conformance to
