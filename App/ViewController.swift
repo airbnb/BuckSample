@@ -75,7 +75,10 @@ class ViewController: UIViewController {
     // with `@objc`. We pass `-ObjC` to "Other Linker Flags", which will cause this conformance to
     // not be stripped.
     //
-    // This is tracked by https://bugs.swift.org/browse/SR-6004.
+    // `-force_load`ing the module where the conformance exists also works.
+    //
+    // This is tracked by https://bugs.swift.org/browse/SR-6004. This seems to indicate that
+    // `-all_load` will work too, but we haven't verified that.
 //    let myObject = MyPublicClass()
     let myObject = MyFactory.myPublicObject()
     if (myObject as? MyPublicProtocol) == nil {
