@@ -68,12 +68,12 @@ class ViewController: UIViewController {
     // `Swift3`.
     //
     // One workaround when possible is to use the explicit `MyPublicClass` and avoid type erasure.
-    // That is not always possible though. Another is to annotate `MyPublicClass` with `@objc`.
-    // We pass `-ObjC` to "Other Linker Flags", which will cause this conformance to not be
-    // stripped.
+    // You can see this in action by swapping the way that we are creating `myObject` below to
+    // to be `MyPublicClass()` instead of `MyFactory.myPublicObject()`.
     //
-    // To the issue in action, comment out the following line, and then uncomment the line after.
-    // When you do that, you will remove any explicit reference to `MyPublicClass` in this module.
+    // Avoiding type erasure is not always possible though. Another is to annotate `MyPublicClass`
+    // with `@objc`. We pass `-ObjC` to "Other Linker Flags", which will cause this conformance to
+    // not be stripped.
     //
     // This is tracked by https://bugs.swift.org/browse/SR-6004.
 //    let myObject = MyPublicClass()
