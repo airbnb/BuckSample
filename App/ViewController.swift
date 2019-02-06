@@ -73,7 +73,8 @@ class ViewController: UIViewController {
     //
     // Avoiding type erasure is not always possible though. Another way to workaround this bug is to
     // annotate `MyPublicProtocol` with `@objc`. We pass `-ObjC` to "Other Linker Flags", which will
-    // cause this conformance to not be stripped.
+    // cause this conformance to not be stripped. Annotating the actual conformance of
+    // `MyPublicClass` to `MyPublicProtocol` will also work and is a bit less invasive.
     //
     // `-force_load`ing the module where the conformance exists also works.
     //
