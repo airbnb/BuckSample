@@ -33,6 +33,7 @@ def library_configs():
 
         # Setting SKIP_INSTALL to NO for library configs would create
         # create a generic xcode archive which can not be uploaded the app store
+        # https://developer.apple.com/library/archive/technotes/tn2215/_index.html
         "SKIP_INSTALL": "YES",
     }
     library_config = SHARED_CONFIGS + lib_specific_config
