@@ -1,7 +1,9 @@
 #import "MyObjcClassInMixedModule.h"
 
+#import <SwiftAndObjc/SwiftAndObjc-Swift.h>
+
 @implementation MyObjcClassInMixedModule
 - (void)sayHello:(NSString *)name {
-  printf("Hi %s\n", [name UTF8String]);
+  NSLog(@"Hi %s. I can see %@\n", [name UTF8String], [MyBridgedSwiftClassInMixedModule new]);
 }
 @end
