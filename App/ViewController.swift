@@ -71,9 +71,9 @@ class ViewController: UIViewController {
     // and avoid type erasure. You can see this in action by swapping the way that we are creating
     // `myObject` below to be `MyPublicClass()` instead of `MyFactory.myPublicObject()`.
     //
-    // Avoiding type erasure is not always possible though. Another is to annotate `MyPublicClass`
-    // with `@objc`. We pass `-ObjC` to "Other Linker Flags", which will cause this conformance to
-    // not be stripped.
+    // Avoiding type erasure is not always possible though. Another way to workaround this bug is to
+    // annotate `MyPublicProtocol` with `@objc`. We pass `-ObjC` to "Other Linker Flags", which will
+    // cause this conformance to not be stripped.
     //
     // `-force_load`ing the module where the conformance exists also works.
     //
