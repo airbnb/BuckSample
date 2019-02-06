@@ -1,6 +1,7 @@
 import UIKit
 import Swift2
 import Swift3
+import Swift4
 import CryptoSwift
 import Objc1
 import SwiftAndObjc
@@ -60,6 +61,20 @@ class ViewController: UIViewController {
 
     // This line will crash if the assets from SwiftWithAssets haven't been bundled into the app
     _ = Catalog.buck.image
+
+    // Without an explicit reference to `MyPublicClass`, the linker will strip its conformance to
+    // `MyPublicProtocol`. Another workaround is to annotate `MyPublicClass` with `@objc`. We pass
+    // `-ObjC` to "Other Linker Flags", which will cause this conformance to not be stripped. To
+    // see this behavior, comment out the following line, and then uncomment the line after. When
+    // you do that, you will remove any explicit reference to `MyPublicClass`.
+    // This is tracked by https://bugs.swift.org/browse/SR-6004.
+    let myObject = MyPublicClass()
+//    let myObject = MyFactory.myPublicObject()
+    if (myObject as? MyPublicProtocol) == nil {
+      print("Incorrect: `MyPublicProtocol` conformance is being erroneously stripped")
+    } else {
+      print("Correct: `MyPublicProtocol` conformance is not being stripped")
+    }
 
     print("All good!")
   }
