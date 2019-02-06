@@ -146,8 +146,6 @@ def first_party_library(
         test_frameworks = [],
         test_deps = [],
         modular = True,
-        compiler_flags = None,
-        swift_compiler_flags = None,
         warning_as_error = True,
         suppress_warnings = False,
         **kwargs):
