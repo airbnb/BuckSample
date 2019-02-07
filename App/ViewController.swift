@@ -1,6 +1,7 @@
 import UIKit
 import Swift2
 import Swift3
+import Swift4
 import CryptoSwift
 import Objc1
 import SwiftAndObjc
@@ -60,6 +61,32 @@ class ViewController: UIViewController {
 
     // This line will crash if the assets from SwiftWithAssets haven't been bundled into the app
     _ = Catalog.buck.image
+
+    // Without an object explicitly typed as `MyPublicClass`, an instance of `MyPublicClass` won't
+    // exhibit conformance to `MyPublicProtocol`. `MyPublicClass` is defined in `Swift4`.
+    // `MyPublicProtocol` and the conformance of `MyPublicClass` to `MyPublicProtocol` is defined in
+    // `Swift3`.
+    //
+    // One workaround when possible is to make sure the object is explictly typed as `MyPublicClass`
+    // and avoid type erasure. You can see this in action by swapping the way that we are creating
+    // `myObject` below to be `MyPublicClass()` instead of `MyFactory.myPublicObject()`.
+    //
+    // Avoiding type erasure is not always possible though. Another way to workaround this bug is to
+    // annotate `MyPublicProtocol` with `@objc`. We pass `-ObjC` to "Other Linker Flags", which will
+    // cause this conformance to not be stripped. Annotating the actual conformance of
+    // `MyPublicClass` to `MyPublicProtocol` will also work and is a bit less invasive.
+    //
+    // `-force_load`ing the module where the conformance exists also works.
+    //
+    // This is tracked by https://bugs.swift.org/browse/SR-6004. This seems to indicate that
+    // `-all_load` will work too, but we haven't verified that.
+//    let myObject = MyPublicClass()
+    let myObject = MyFactory.myPublicObject()
+    if (myObject as? MyPublicProtocol) == nil {
+      print("Incorrect: `MyPublicProtocol` conformance is being erroneously stripped")
+    } else {
+      print("Correct: `MyPublicProtocol` conformance is not being stripped")
+    }
 
     print("All good!")
   }
