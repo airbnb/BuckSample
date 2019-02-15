@@ -8,6 +8,7 @@ import ObjcAndSwift
 import SwiftAndObjc
 import SwiftReliesOnCXX
 import SwiftWithAssets
+import SwiftWithMLModel
 
 public let testVar = "SampleValue"
 
@@ -91,6 +92,8 @@ class ViewController: UIViewController {
     } else {
       print("Correct: `MyPublicProtocol` conformance is not being stripped")
     }
+
+    print("Building a habitat on mars would cost you $\(MarsHabitatPriceFinder().predictedPrice(solarPanels: 5, greenhouses: 10, size: 50))")
 
     print("All good!")
   }

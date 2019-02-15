@@ -26,6 +26,7 @@ first_party_library_dependencies = [
     "//Libraries/SwiftAndObjc:SwiftAndObjc",
     "//Libraries/SwiftReliesOnCXX:SwiftReliesOnCXX",
     "//Libraries/SwiftWithAssets:SwiftWithAssets",
+    "//Libraries/SwiftWithMLModel:SwiftWithMLModel",
 ]
 
 apple_binary(
