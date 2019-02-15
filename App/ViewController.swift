@@ -4,6 +4,7 @@ import Swift3
 import Swift4
 import CryptoSwift
 import Objc1
+import ObjcAndSwift
 import SwiftAndObjc
 import SwiftReliesOnCXX
 import SwiftWithAssets
@@ -52,9 +53,12 @@ class ViewController: UIViewController {
     Objc1.sayHello("Michael")
 
     // Swift class defined in SwiftAndObjc
-    MySwiftClassInMixedModule().bestowGreetings("Hello world, how are you?")
+    SwiftAndObjc.MySwiftClassInMixedModule().bestowGreetings("Hello world, how are you?")
     // Objective-C class defined in SwiftAndObjc
-    MyObjcClassInMixedModule().sayHello("George")
+    SwiftAndObjc.MyObjcClassInMixedModule().sayHello("George")
+
+    // Swift class defined in ObjcAndSwift
+    print("I can see \(ObjcAndSwift.MyBridgedSwiftClassInMixedModule().findObjectiveCInstance())")
 
     // Swift class imports a library with Objective-C++
     MySwiftReliesOnCXXClass().doSomethingWithCXXLibrary()

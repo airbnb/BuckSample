@@ -1,0 +1,6 @@
+load("//Config:buck_rule_macros.bzl", "first_party_library")
+
+first_party_library(
+    name = "ObjcAndSwift",
+    has_objective_c = True,
+)
