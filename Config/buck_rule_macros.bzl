@@ -13,6 +13,8 @@ def test_name(name):
 def ci_test_name(name):
     return name + "-For-CI"
 
+DEFAULT_SWIFT_VERSION = "4.0"
+
 # Use this macro to declare test targets. For first-party libraries, use first_party_library to declare a test target instead.
 # This macro defines two targets.
 # 1. An apple_test target comprising `srcs`. This test target is picked up by Xcode, and is runnable from Buck.
@@ -89,7 +91,7 @@ def apple_test_all(
 def apple_lib(
         name,
         visibility = ["PUBLIC"],
-        swift_version = "4.0",
+        swift_version = DEFAULT_SWIFT_VERSION,
         modular = True,
         compiler_flags = None,
         swift_compiler_flags = None,
@@ -130,6 +132,7 @@ def apple_lib(
 # - parameter name: The name of the apple_library created for the code in the Sources/ directory.
 # - parameter has_objective_c: When set to True, the libraries and tests will look for Objective-C headers and files.
 # - parameter internal_headers: An array of Objective-C headers that should be included in the library target, but should not be exported.
+# - parameter mlmodel_generated_source: A list of generated interface source files for mlmodels.
 # - parameter warning_as_error: When set to True, the source library created will not compile when warnings are present.
 # - parameter suppress_warnings: When set to True, the source library created will not show any warnings, even if warnings exist.
 def first_party_library(
@@ -137,6 +140,7 @@ def first_party_library(
         has_objective_c = False,
         internal_headers = None,
         extra_xcode_files = [],
+        mlmodel_generated_source = [],
         deps = [],
         frameworks = [],
         info_plist = "Tests/Info.plist",
@@ -164,7 +168,7 @@ def first_party_library(
     lib_test_name = test_name(name)
     apple_lib(
         name = name,
-        srcs = sources,
+        srcs = sources + mlmodel_generated_source,
         exported_headers = exported_headers,
         headers = internal_headers,
         modular = modular,
@@ -227,4 +231,54 @@ def apple_cxx_third_party_library(
         warning_as_error = False,
         suppress_warnings = True,
         **kwargs
+    )
+
+def logging_genrule(
+        name,
+        bash,
+        **kwargs):
+    native.genrule(
+        name = name,
+        bash = "set -x; " + bash,
+        **kwargs
+    )
+
+# Takes in a .mlmodel and produces a Swift interface and a compiled .mlmodelc.
+# - parameter resource_source_name: The expected name of the Swift interface to be included in `srcs`.
+# - parameter resource_dependency_name: The expected name of the resource to add to `deps`.
+# - parameter model_directory: The relative path to folder where the .mlmodel lives. Must include a trailing slash.
+# - parameter model_name: The name of the .mlmodel. Do not include the .mlmodel suffix.
+# - parameter swift_version: The expected Swift version for the generated Swift interface file.
+def mlmodel_resource(
+        resource_source_name,
+        resource_dependency_name,
+        model_directory,
+        model_name,
+        swift_version = DEFAULT_SWIFT_VERSION):
+    # Create a genrule to compile the Swift interface for the mlmodel to be included in srcs.
+    # For more information about generated Swift interfaces, see Apple's documentation:
+    # https://developer.apple.com/documentation/coreml/mlmodel
+    logging_genrule(
+        name = resource_source_name,
+        srcs = [model_directory + model_name + ".mlmodel"],
+        bash = 'xcrun coremlc generate "$SRCS" "\$(dirname "$OUT")" --language Swift --swift-version ' + swift_version,
+        out = "%s.swift" % model_name,
+    )
+
+    modelc_resource = resource_dependency_name + "_compiled_model"
+    # Create a genrule to compile the mlmodelc from the mlmodel.
+    logging_genrule(
+        name = modelc_resource,
+        srcs = [model_directory + model_name + ".mlmodel"],
+        bash = 'xcrun coremlc compile "$SRCS" "\$(dirname "$OUT")"',
+        out = "%s.mlmodelc" % model_name,
+    )
+
+    # Create a single resource that can be depended on for the mlmodelc.
+    native.apple_resource(
+        name = resource_dependency_name,
+        dirs = [
+            ":" + modelc_resource,
+        ],
+        files = [],
     )
