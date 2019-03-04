@@ -29,13 +29,13 @@ first_party_library_dependencies = [
     "//Libraries/SwiftWithMLModel:SwiftWithMLModel",
 ]
 
-apple_binary(
-    name = "ExampleAppBinary",
+apple_library(
+    name = "ExampleApp",
     visibility = [
         "//App:",
         "//App/...",
     ],
-    configs = binary_configs("ExampleApp"),
+    configs = library_configs(),
     swift_version = "4.0",
     srcs = [
         "ViewController.swift",
@@ -48,6 +48,23 @@ apple_binary(
         ":ExampleAppAssets",
     ] + first_party_library_dependencies,
 )
+
+apple_binary(
+    name = "ExampleAppBinary",
+    visibility = [
+        "//App:",
+        "//App/...",
+    ],
+    configs = binary_configs("ExampleApp"),
+    swift_version = "4.0",
+    srcs = [
+        "BuckSupportFiles/Dummy.swift",
+    ],
+    deps = [
+        ":ExampleApp",
+    ],
+)
+
 
 # This test bundles all unit test libraries into a single test target.
 # Test targets can be slow to create in CI; creating only one can save significant time.
