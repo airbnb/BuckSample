@@ -6,13 +6,14 @@
 //
 
 import XCTest
-@testable import Swift2
+@testable import ExampleApp
 
 final class BuckSampleTests: XCTestCase {
 
-    func testMySwiftClassAdding() {
-        let sut = MySwiftClass()
-        XCTAssertEqual(sut.add(1, 2), 3)
+    func testViewController() {
+        // This test accesses internal classes and properties in the ExampleApp library.
+        let sut = ViewController()
+        XCTAssertEqual(sut.value, "ViewName")
     }
 
     func testExample() {
