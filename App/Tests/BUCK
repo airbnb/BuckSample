@@ -7,6 +7,6 @@ apple_test_lib(
     ]),
     info_plist = "Info.plist",
     deps = [
-        "//Libraries/Swift2:Swift2",
+        "//App:ExampleApp",
     ],
 )
