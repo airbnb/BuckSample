@@ -2,6 +2,7 @@ PODS:
   - Bugsnag (5.17.3)
   - CryptoSwift (0.13.1)
   - EarlGrey (1.15.0)
+  - Fabric (1.9.0)
   - OHHTTPStubs (6.1.0):
     - OHHTTPStubs/Default (= 6.1.0)
   - OHHTTPStubs/Core (6.1.0)
@@ -20,6 +21,7 @@ DEPENDENCIES:
   - Bugsnag
   - CryptoSwift
   - EarlGrey
+  - Fabric
   - OHHTTPStubs
 
 SPEC REPOS:
@@ -27,14 +29,16 @@ SPEC REPOS:
     - Bugsnag
     - CryptoSwift
     - EarlGrey
+    - Fabric
     - OHHTTPStubs
 
 SPEC CHECKSUMS:
   Bugsnag: a56a5204ebd35e44e56c1f703824705b1d4b5b97
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
   EarlGrey: 289a16cc7d08a54b962d72881b21e36d5103b549
+  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
 
-PODFILE CHECKSUM: bb893529a8b751f32745686269f7a4d0f0313104
+PODFILE CHECKSUM: 28d067b36280236db610f02a8c6d88020c2105c3
 
 COCOAPODS: 1.5.3
