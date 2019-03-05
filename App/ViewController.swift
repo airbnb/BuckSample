@@ -9,6 +9,7 @@ import SwiftAndObjc
 import SwiftReliesOnCXX
 import SwiftWithAssets
 import SwiftWithMLModel
+import SwiftWithPrecompiledDependency
 
 public let testVar = "SampleValue"
 
@@ -94,6 +95,12 @@ class ViewController: UIViewController {
     }
 
     print("Building a habitat on mars would cost you $\(MarsHabitatPriceFinder().predictedPrice(solarPanels: 5, greenhouses: 10, size: 50))")
+
+    if SwiftWithPrecompiledDependencyClass.isFabricInDebugMode {
+      print("Fabric is in debug mode")
+    } else {
+      print("Fabric is not in debug mode")
+    }
 
     print("All good!")
   }
