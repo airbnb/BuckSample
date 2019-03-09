@@ -99,6 +99,9 @@ apple_bundle(
     product_name = "ExampleApp",
     info_plist = "Info.plist",
     info_plist_substitutions = info_plist_substitutions("ExampleApp"),
+    deps = [
+        "//Watch::DemoWatchApp#watch",
+    ]
 )
 
 apple_package(
