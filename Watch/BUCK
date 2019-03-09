@@ -27,6 +27,9 @@ apple_bundle(
 apple_bundle(
     name = "DemoWatchApp",
     binary = ":DemoWatchAppBinary",
+    visibility = [
+        "//App:",
+    ],
     extension = "app",
     info_plist = "WatchApplication/Info.plist",
     xcode_product_type = "com.apple.product-type.application.watchapp2",
