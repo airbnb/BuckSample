@@ -1,9 +1,21 @@
+config = {
+    "SDKROOT": "watchos",
+    "WATCHOS_DEPLOYMENT_TARGET": "4.0",
+}
+
+configs = {
+    "Debug": config,
+    "Profile": config,
+    "Release": config,
+}
+
 apple_binary(
     name = "DemoWatchAppExtensionBinary",
     srcs = glob([
         "WatchExtension/**/*.m",
     ]),
     compiler_flags = ["-fobjc-arc"],
+    configs = configs,
     frameworks = [
         "$SDKROOT/System/Library/Frameworks/CoreGraphics.framework",
         "$SDKROOT/System/Library/Frameworks/Foundation.framework",
@@ -41,27 +53,11 @@ apple_bundle(
 
 apple_binary(
     name = "DemoWatchAppBinary",
+    configs = configs,
 )
 
 apple_resource(
     name = "DemoWatchAppResources",
     dirs = [],
     files = ["WatchApplication/Interface.storyboard"],
-)
-
-apple_binary(
-    name = "DemoAppBinary",
-    srcs = glob([
-        "*.m",
-    ]),
-    compiler_flags = ["-fobjc-arc"],
-    frameworks = [
-        "$SDKROOT/System/Library/Frameworks/CoreGraphics.framework",
-        "$SDKROOT/System/Library/Frameworks/Foundation.framework",
-        "$SDKROOT/System/Library/Frameworks/UIKit.framework",
-        "$SDKROOT/System/Library/Frameworks/WatchConnectivity.framework",
-    ],
-    headers = glob([
-        "*.h",
-    ]),
 )
