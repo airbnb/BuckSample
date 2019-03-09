@@ -1,6 +1,7 @@
 config = {
     "SDKROOT": "watchos",
     "WATCHOS_DEPLOYMENT_TARGET": "4.0",
+    "TARGETED_DEVICE_FAMILY": "4",
 }
 
 configs = {
