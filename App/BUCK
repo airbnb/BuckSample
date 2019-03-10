@@ -100,11 +100,77 @@ apple_bundle(
     info_plist = "Info.plist",
     info_plist_substitutions = info_plist_substitutions("ExampleApp"),
     deps = [
-        "//Watch:DemoWatchApp#watch",
+        ":DemoWatchApp#watch",
     ]
 )
 
 apple_package(
     name = "ExampleAppPackage",
     bundle = ":ExampleAppBundle",
+)
+
+### Apple Watch ###
+config = {
+    "SDKROOT": "watchos",
+    "WATCHOS_DEPLOYMENT_TARGET": "4.0",
+    "TARGETED_DEVICE_FAMILY": "4",
+}
+
+configs = {
+    "Debug": config,
+    "Profile": config,
+    "Release": config,
+}
+
+apple_binary(
+    name = "DemoWatchAppExtensionBinary",
+    srcs = glob([
+        "Watch/WatchExtension/**/*.m",
+    ]),
+    compiler_flags = ["-fobjc-arc"],
+    configs = configs,
+    frameworks = [
+        "$SDKROOT/System/Library/Frameworks/CoreGraphics.framework",
+        "$SDKROOT/System/Library/Frameworks/Foundation.framework",
+        "$SDKROOT/System/Library/Frameworks/UIKit.framework",
+        "$SDKROOT/System/Library/Frameworks/WatchConnectivity.framework",
+        "$SDKROOT/System/Library/Frameworks/WatchKit.framework",
+    ],
+    headers = glob([
+        "Watch/WatchExtension/**/*.h",
+    ]),
+)
+
+apple_bundle(
+    name = "DemoWatchAppExtension",
+    binary = ":DemoWatchAppExtensionBinary",
+    extension = "appex",
+    info_plist = "Watch/WatchExtension/Resources/Info.plist",
+    xcode_product_type = "com.apple.product-type.watchkit2-extension",
+)
+
+apple_bundle(
+    name = "DemoWatchApp",
+    binary = ":DemoWatchAppBinary",
+    visibility = [
+        "//App:",
+    ],
+    extension = "app",
+    info_plist = "Watch/WatchApplication/Info.plist",
+    xcode_product_type = "com.apple.product-type.application.watchapp2",
+    deps = [
+        ":DemoWatchAppExtension",
+        ":DemoWatchAppResources",
+    ],
+)
+
+apple_binary(
+    name = "DemoWatchAppBinary",
+    configs = configs,
+)
+
+apple_resource(
+    name = "DemoWatchAppResources",
+    dirs = [],
+    files = ["Watch/WatchApplication/Interface.storyboard"],
 )
