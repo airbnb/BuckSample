@@ -43,5 +43,9 @@
 	<string>com.airbnb.ExampleApp</string>
 	<key>WKWatchKitApp</key>
 	<true/>
+	<key>UIDeviceFamily</key>
+	<array>
+		<string>4</string>
+	</array>
 </dict>
 </plist>

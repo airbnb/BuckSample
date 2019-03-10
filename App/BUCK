@@ -109,7 +109,7 @@ apple_package(
     bundle = ":ExampleAppBundle",
 )
 
-### Apple Watch Begin ###
+### Watch App Begin ###
 config = {
     "SDKROOT": "watchos",
     "WATCHOS_DEPLOYMENT_TARGET": "4.0",
@@ -174,4 +174,4 @@ apple_resource(
     dirs = [],
     files = ["Watch/WatchApplication/Interface.storyboard"],
 )
-### Apple Watch End ###
+### Watch App End ###
