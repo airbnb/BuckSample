@@ -111,6 +111,14 @@ apple_package(
 )
 
 ### Watch App Begin ###
+# Define the watch app in the same BUCK file as the binary into which the watch app will be installed.
+# Xcode is finicky when it comes to how it embeds watch apps into main app bundles.  Watch apps are 
+# built into the `watchos` build directory, but Xcode only knows to look for the watch app binary in the `watchos`
+# directory if the watch target is defined in the same `pbxproj` as the main app binary. If the key/value pair 
+# on the watch target `SDKROOT = watchos;` is not in the same `pbxproj` as the target that defines the main app
+# binary, the Copy Files phase to embed the watch app and extension will search the `iphoneos` directory, 
+# and fail the build on generated Xcode projects.
+
 apple_binary(
     name = "DemoWatchAppExtensionBinary",
     srcs = glob([
