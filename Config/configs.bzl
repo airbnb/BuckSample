@@ -83,3 +83,16 @@ def info_plist_substitutions(name):
         "PRODUCT_NAME": name,
     }
     return substitutions
+
+def watch_binary_configs():
+    config = {
+        "SDKROOT": "watchos",
+        "WATCHOS_DEPLOYMENT_TARGET": "4.0",
+        "TARGETED_DEVICE_FAMILY": "4",
+    }
+    configs = {
+        "Debug": config,
+        "Profile": config,
+        "Release": config,
+    }
+    return configs
