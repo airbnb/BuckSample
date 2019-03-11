@@ -122,7 +122,7 @@ apple_package(
 apple_binary(
     name = "DemoWatchAppExtensionBinary",
     srcs = glob([
-        "WatchExtension/**/*.m",
+        "WatchExtension/**/*.swift",
     ]),
     compiler_flags = ["-fobjc-arc"],
     configs = watch_binary_configs(),
@@ -142,7 +142,7 @@ apple_bundle(
     name = "DemoWatchAppExtension",
     binary = ":DemoWatchAppExtensionBinary",
     extension = "appex",
-    info_plist = "WatchExtension/Resources/Info.plist",
+    info_plist = "WatchExtension/Info.plist",
     xcode_product_type = "com.apple.product-type.watchkit2-extension",
 )
 
@@ -169,6 +169,6 @@ apple_binary(
 apple_resource(
     name = "DemoWatchAppResources",
     dirs = [],
-    files = ["WatchApplication/Interface.storyboard"],
+    files = glob(["WatchApplication/**/*.storyboard"])
 )
 ### Watch App End ###
