@@ -114,7 +114,7 @@ apple_package(
 apple_binary(
     name = "DemoWatchAppExtensionBinary",
     srcs = glob([
-        "Watch/WatchExtension/**/*.m",
+        "WatchExtension/**/*.m",
     ]),
     compiler_flags = ["-fobjc-arc"],
     configs = watch_binary_configs(),
@@ -126,7 +126,7 @@ apple_binary(
         "$SDKROOT/System/Library/Frameworks/WatchKit.framework",
     ],
     headers = glob([
-        "Watch/WatchExtension/**/*.h",
+        "WatchExtension/**/*.h",
     ]),
 )
 
@@ -134,7 +134,7 @@ apple_bundle(
     name = "DemoWatchAppExtension",
     binary = ":DemoWatchAppExtensionBinary",
     extension = "appex",
-    info_plist = "Watch/WatchExtension/Resources/Info.plist",
+    info_plist = "WatchExtension/Resources/Info.plist",
     xcode_product_type = "com.apple.product-type.watchkit2-extension",
 )
 
@@ -145,7 +145,7 @@ apple_bundle(
         "//App:",
     ],
     extension = "app",
-    info_plist = "Watch/WatchApplication/Info.plist",
+    info_plist = "WatchApplication/Info.plist",
     xcode_product_type = "com.apple.product-type.application.watchapp2",
     deps = [
         ":DemoWatchAppExtension",
@@ -161,6 +161,6 @@ apple_binary(
 apple_resource(
     name = "DemoWatchAppResources",
     dirs = [],
-    files = ["Watch/WatchApplication/Interface.storyboard"],
+    files = ["WatchApplication/Interface.storyboard"],
 )
 ### Watch App End ###
