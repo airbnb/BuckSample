@@ -100,6 +100,7 @@ apple_bundle(
     info_plist = "Info.plist",
     info_plist_substitutions = info_plist_substitutions("ExampleApp"),
     deps = [
+        # For "#watch", https://buckbuild.com/rule/apple_bundle.html#deps
         ":DemoWatchApp#watch",
     ]
 )
