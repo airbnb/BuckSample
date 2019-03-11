@@ -1,4 +1,4 @@
-load("//Config:configs.bzl", "binary_configs", "library_configs", "pretty", "info_plist_substitutions")
+load("//Config:configs.bzl", "binary_configs", "library_configs", "watch_binary_configs", "pretty", "info_plist_substitutions")
 load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all")
 
 apple_asset_catalog(
@@ -111,25 +111,13 @@ apple_package(
 )
 
 ### Watch App Begin ###
-config = {
-    "SDKROOT": "watchos",
-    "WATCHOS_DEPLOYMENT_TARGET": "4.0",
-    "TARGETED_DEVICE_FAMILY": "4",
-}
-
-configs = {
-    "Debug": config,
-    "Profile": config,
-    "Release": config,
-}
-
 apple_binary(
     name = "DemoWatchAppExtensionBinary",
     srcs = glob([
         "Watch/WatchExtension/**/*.m",
     ]),
     compiler_flags = ["-fobjc-arc"],
-    configs = configs,
+    configs = watch_binary_configs(),
     frameworks = [
         "$SDKROOT/System/Library/Frameworks/CoreGraphics.framework",
         "$SDKROOT/System/Library/Frameworks/Foundation.framework",
@@ -167,7 +155,7 @@ apple_bundle(
 
 apple_binary(
     name = "DemoWatchAppBinary",
-    configs = configs,
+    configs = watch_binary_configs(),
 )
 
 apple_resource(
