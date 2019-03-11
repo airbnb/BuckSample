@@ -11,7 +11,7 @@ apple_asset_catalog(
 apple_resource(
     name = "ExampleAppResource",
     visibility = ["//App:"],
-    files = glob(["**/*.storyboard"], exclude=["Watch/**"]),
+    files = glob(["Resources/**/*.storyboard"]),
 )
 
 app_tests = [
