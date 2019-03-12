@@ -112,11 +112,11 @@ apple_package(
 
 ### Watch App Begin ###
 # Define the watch app in the same BUCK file as the binary into which the watch app will be installed.
-# Xcode is finicky when it comes to how it embeds watch apps into main app bundles.  Watch apps are 
+# Xcode is finicky when it comes to how it embeds watch apps into main app bundles.  Watch apps are
 # built into the `watchos` build directory, but Xcode only knows to look for the watch app binary in the `watchos`
-# directory if the watch target is defined in the same `pbxproj` as the main app binary. If the key/value pair 
+# directory if the watch target is defined in the same `pbxproj` as the main app binary. If the key/value pair
 # on the watch target `SDKROOT = watchos;` is not in the same `pbxproj` as the target that defines the main app
-# binary, the Copy Files phase to embed the watch app and extension will search the `iphoneos` directory, 
+# binary, the Copy Files phase to embed the watch app and extension will search the `iphoneos` directory,
 # and fail the build on generated Xcode projects.
 
 apple_binary(
@@ -187,3 +187,12 @@ apple_resource(
     files = glob(["WatchApplication/**/*.storyboard"])
 )
 ### Watch App End ###
+
+### iMessage Extension Begin ###
+# We do believe it is possible for an iMessage extension to be declared in a separate BUCK file.
+# Declaring the iMessage extension in a separate `BUCK` file would result in that code living in a
+# separate `pbxproj` file in the Buck-generate Xcode projects. Due to our learnings from the watch
+# app (described above) we think it's safer to keep the iMessage extension in the same `BUCK` file
+# that declares the main app bundle.
+
+### iMessage Extension End ###
