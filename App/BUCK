@@ -124,7 +124,9 @@ apple_binary(
     srcs = glob([
         "WatchExtension/**/*.swift",
     ]),
-    compiler_flags = ["-fobjc-arc"],
+    # Without specifying the target, buck will provide a wrong one,
+    # which will cause compiler error.
+    swift_compiler_flags = ["-target", "i386-apple-watchos4.0-simulator"],
     configs = watch_binary_configs("ExampleApp.WatchApp.Extension"),
     frameworks = [
         "$SDKROOT/System/Library/Frameworks/CoreGraphics.framework",
@@ -143,6 +145,13 @@ apple_bundle(
     binary = ":ExampleWatchAppExtensionBinary",
     extension = "appex",
     info_plist = "WatchExtension/Info.plist",
+    info_plist_substitutions = {
+        "DEVELOPMENT_LANGUAGE": "en-us",
+        "EXECUTABLE_NAME": "ExampleWatchAppExtension",
+        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.ExampleApp.WatchApp.Extension",
+        "PRODUCT_NAME": "ExampleWatchAppExtension",
+        "PRODUCT_MODULE_NAME": "ExampleWatchAppExtensionBinary",
+    },
     xcode_product_type = "com.apple.product-type.watchkit2-extension",
 )
 
