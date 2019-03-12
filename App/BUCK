@@ -101,7 +101,7 @@ apple_bundle(
     info_plist_substitutions = info_plist_substitutions("ExampleApp"),
     deps = [
         # For "#watch", https://buckbuild.com/rule/apple_bundle.html#deps
-        ":DemoWatchApp#watch",
+        ":ExampleWatchApp#watch",
     ]
 )
 
@@ -120,12 +120,14 @@ apple_package(
 # and fail the build on generated Xcode projects.
 
 apple_binary(
-    name = "DemoWatchAppExtensionBinary",
+    name = "ExampleWatchAppExtensionBinary",
     srcs = glob([
-        "WatchExtension/**/*.m",
+        "WatchExtension/**/*.swift",
     ]),
-    compiler_flags = ["-fobjc-arc"],
-    configs = watch_binary_configs(),
+    # Without specifying the target, buck will provide a wrong one,
+    # which will cause compiler error.
+    swift_compiler_flags = ["-target", "i386-apple-watchos4.0-simulator"],
+    configs = watch_binary_configs("ExampleApp.WatchApp.Extension"),
     frameworks = [
         "$SDKROOT/System/Library/Frameworks/CoreGraphics.framework",
         "$SDKROOT/System/Library/Frameworks/Foundation.framework",
@@ -139,36 +141,49 @@ apple_binary(
 )
 
 apple_bundle(
-    name = "DemoWatchAppExtension",
-    binary = ":DemoWatchAppExtensionBinary",
+    name = "ExampleWatchAppExtension",
+    binary = ":ExampleWatchAppExtensionBinary",
     extension = "appex",
-    info_plist = "WatchExtension/Resources/Info.plist",
+    info_plist = "WatchExtension/Info.plist",
+    info_plist_substitutions = {
+        "DEVELOPMENT_LANGUAGE": "en-us",
+        "EXECUTABLE_NAME": "ExampleWatchAppExtension",
+        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.ExampleApp.WatchApp.Extension",
+        "PRODUCT_NAME": "ExampleWatchAppExtension",
+        "PRODUCT_MODULE_NAME": "ExampleWatchAppExtensionBinary",
+    },
     xcode_product_type = "com.apple.product-type.watchkit2-extension",
 )
 
 apple_bundle(
-    name = "DemoWatchApp",
-    binary = ":DemoWatchAppBinary",
+    name = "ExampleWatchApp",
+    binary = ":ExampleWatchAppBinary",
     visibility = [
         "//App:",
     ],
     extension = "app",
     info_plist = "WatchApplication/Info.plist",
+    info_plist_substitutions = {
+        "DEVELOPMENT_LANGUAGE": "en-us",
+        "EXECUTABLE_NAME": "ExampleWatchApp",
+        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.ExampleApp.WatchApp",
+        "PRODUCT_NAME": "ExampleWatchApp",
+    },
     xcode_product_type = "com.apple.product-type.application.watchapp2",
     deps = [
-        ":DemoWatchAppExtension",
-        ":DemoWatchAppResources",
+        ":ExampleWatchAppExtension",
+        ":ExampleWatchAppResources",
     ],
 )
 
 apple_binary(
-    name = "DemoWatchAppBinary",
-    configs = watch_binary_configs(),
+    name = "ExampleWatchAppBinary",
+    configs = watch_binary_configs("ExampleApp.WatchApp")
 )
 
 apple_resource(
-    name = "DemoWatchAppResources",
+    name = "ExampleWatchAppResources",
     dirs = [],
-    files = ["WatchApplication/Interface.storyboard"],
+    files = glob(["WatchApplication/**/*.storyboard"])
 )
 ### Watch App End ###

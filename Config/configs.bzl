@@ -84,11 +84,15 @@ def info_plist_substitutions(name):
     }
     return substitutions
 
-def watch_binary_configs():
+def watch_binary_configs(name):
     config = {
         "SDKROOT": "watchos",
         "WATCHOS_DEPLOYMENT_TARGET": "4.0",
         "TARGETED_DEVICE_FAMILY": "4",
+        "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
+        "LD_RUNPATH_SEARCH_PATHS": "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks",
+        # Not sure why, but either adding this or removing -whole-module-optimization can make it compile
+        "SWIFT_COMPILATION_MODE": "wholemodule"
     }
     configs = {
         "Debug": config,
