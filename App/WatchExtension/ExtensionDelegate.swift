@@ -11,7 +11,7 @@ import Foundation
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func applicationDidFinishLaunching() {
-        // Perform any final initialization of your application.
+        print("Yo, started with BUCK!")
     }
 
     func applicationDidBecomeActive() {

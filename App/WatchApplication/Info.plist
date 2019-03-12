@@ -30,10 +30,6 @@
 	<string>watchsimulator</string>
 	<key>DTSDKName</key>
 	<string>watchsimulator2.0</string>
-	<key>SBAppTags</key>
-	<array>
-		<string>hidden</string>
-	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

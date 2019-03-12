@@ -90,7 +90,8 @@ def watch_binary_configs(name):
         "WATCHOS_DEPLOYMENT_TARGET": "4.0",
         "TARGETED_DEVICE_FAMILY": "4",
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
-        # Not sure why -- without this, it won't compile
+        "LD_RUNPATH_SEARCH_PATHS": "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks",
+        # Not sure why, but either adding this or removing -whole-module-optimization can make it compile
         "SWIFT_COMPILATION_MODE": "wholemodule"
     }
     configs = {
