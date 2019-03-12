@@ -89,6 +89,8 @@ def watch_binary_configs():
         "SDKROOT": "watchos",
         "WATCHOS_DEPLOYMENT_TARGET": "4.0",
         "TARGETED_DEVICE_FAMILY": "4",
+        # Not sure why -- without this, it won't compile
+        "SWIFT_COMPILATION_MODE": "wholemodule"
     }
     configs = {
         "Debug": config,
