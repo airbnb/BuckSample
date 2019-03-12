@@ -84,11 +84,12 @@ def info_plist_substitutions(name):
     }
     return substitutions
 
-def watch_binary_configs():
+def watch_binary_configs(name):
     config = {
         "SDKROOT": "watchos",
         "WATCHOS_DEPLOYMENT_TARGET": "4.0",
         "TARGETED_DEVICE_FAMILY": "4",
+        "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
         # Not sure why -- without this, it won't compile
         "SWIFT_COMPILATION_MODE": "wholemodule"
     }
