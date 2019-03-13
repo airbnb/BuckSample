@@ -104,6 +104,7 @@ def watch_binary_configs(name):
 def message_binary_configs(name):
     config = {
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
+        "SWIFT_COMPILATION_MODE": "wholemodule"
     }
     configs = {
         "Debug": config,

@@ -1,4 +1,4 @@
-load("//Config:configs.bzl", "binary_configs", "library_configs", "watch_binary_configs", "pretty", "info_plist_substitutions")
+load("//Config:configs.bzl", "binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "pretty", "info_plist_substitutions")
 load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all")
 
 apple_asset_catalog(
@@ -102,6 +102,7 @@ apple_bundle(
     deps = [
         # For "#watch", https://buckbuild.com/rule/apple_bundle.html#deps
         ":ExampleWatchApp#watch",
+        ":ExampleMessageExtension"
     ]
 )
 
@@ -195,4 +196,48 @@ apple_resource(
 # app (described above) we think it's safer to keep the iMessage extension in the same `BUCK` file
 # that declares the main app bundle.
 
+apple_binary(
+    name = "ExampleMessageExtensionBinary",
+    srcs = glob([
+        "MessageExtension/**/*.swift",
+    ]),
+    configs = message_binary_configs("ExampleApp.MessageExtension"),
+    
+    # "-e _NSExtensionMain" tell linker this binary is app extension, so it won't fail due to missin _main
+    # "-Xlinker -rpath -Xlinker @executable_path/../../Frameworks" tell the executable binary to
+    # look for frameworks in ExampleApp.app/Frameworks instead of PlugIns, so that we don't need to have
+    # the libSwift*.dylib in ExampleApp.app/PlugIns/*.appex/Frameworks
+    linker_flags = [
+        "-e",
+        "_NSExtensionMain",
+        "-Xlinker",
+        "-rpath",
+        "-Xlinker",
+        "@executable_path/../../Frameworks",
+    ],
+)
+
+apple_bundle(
+    name = "ExampleMessageExtension",
+    binary = ":ExampleMessageExtensionBinary",
+    extension = "appex",
+    info_plist = "MessageExtension/Info.plist",
+    info_plist_substitutions = {
+        "DEVELOPMENT_LANGUAGE": "en-us",
+        "EXECUTABLE_NAME": "ExampleMessageExtension",
+        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.Examplejfdlajflda",
+        "PRODUCT_NAME": "ExampleMessageExtension",
+        "PRODUCT_MODULE_NAME": "ExampleMessageExtensionBinary",
+    },
+    deps = [
+        ":ExampleMessageExtensionResources",
+    ],
+    xcode_product_type = "com.apple.product-type.app-extension.messages",
+)
+
+apple_resource(
+    name = "ExampleMessageExtensionResources",
+    dirs = [],
+    files = glob(["MessageExtension/**/*.storyboard"])
+)
 ### iMessage Extension End ###
