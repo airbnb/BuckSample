@@ -190,7 +190,7 @@ apple_resource(
 ### Watch App End ###
 
 ### iMessage Extension Begin ###
-# We do believe it is possible for an iMessage extension to be declared in a separate BUCK file.
+# It is possible for an iMessage extension to be declared in a separate BUCK file.
 # Declaring the iMessage extension in a separate `BUCK` file would result in that code living in a
 # separate `pbxproj` file in the Buck-generate Xcode projects. Due to our learnings from the watch
 # app (described above) we think it's safer to keep the iMessage extension in the same `BUCK` file
@@ -203,8 +203,8 @@ apple_binary(
     ]),
     configs = message_binary_configs("ExampleApp.MessageExtension"),
     
-    # "-e _NSExtensionMain" tell linker this binary is app extension, so it won't fail due to missin _main
-    # "-Xlinker -rpath -Xlinker @executable_path/../../Frameworks" tell the executable binary to
+    # "-e _NSExtensionMain" tell linker this binary is app extension, so it won't fail due to missing _main
+    # "-Xlinker -rpath -Xlinker @executable_path/../../Frameworks" tells the executable binary to
     # look for frameworks in ExampleApp.app/Frameworks instead of PlugIns, so that we don't need to have
     # the libSwift*.dylib in ExampleApp.app/PlugIns/*.appex/Frameworks
     linker_flags = [
