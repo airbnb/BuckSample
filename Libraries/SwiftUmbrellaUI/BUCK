@@ -1,0 +1,33 @@
+load("//Config:buck_rule_macros.bzl", "first_party_library")
+
+first_party_library(
+    name = "SwiftUmbrellaUI",
+    deps = [
+
+    ],
+    srcs = glob([
+        "Sources/**/*.swift",
+        "Buttons/**/*.swift",
+        "Labels/**/*.swift"
+    ]),
+)
+
+first_party_library(
+    name = "Buttons",
+    deps = [
+
+    ],
+    srcs = glob([
+        "Buttons/**/*.swift",
+    ]),
+)
+
+first_party_library(
+    name = "Labels",
+    deps = [
+
+    ],
+    srcs = glob([
+        "Labels/**/*.swift"
+    ]),
+)

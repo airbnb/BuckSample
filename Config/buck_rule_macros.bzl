@@ -137,6 +137,7 @@ def apple_lib(
 # - parameter suppress_warnings: When set to True, the source library created will not show any warnings, even if warnings exist.
 def first_party_library(
         name,
+        srcs = None,
         has_objective_c = False,
         internal_headers = None,
         extra_xcode_files = [],
@@ -155,7 +156,9 @@ def first_party_library(
         warning_as_error = True,
         suppress_warnings = False,
         **kwargs):
-    sources = native.glob(["Sources/**/*.swift"])
+    sources = srcs
+    if sources == None:
+        sources = native.glob(["Sources/**/*.swift"])
     exported_headers = None
     if has_objective_c:
         sources.extend(native.glob(["Sources/**/*.m"]))

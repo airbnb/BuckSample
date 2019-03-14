@@ -27,6 +27,8 @@ first_party_library_dependencies = [
     "//Libraries/SwiftReliesOnCXX:SwiftReliesOnCXX",
     "//Libraries/SwiftWithAssets:SwiftWithAssets",
     "//Libraries/SwiftWithMLModel:SwiftWithMLModel",
+    "//Libraries/SwiftUmbrellaUI:Buttons",
+    "//Libraries/SwiftUmbrellaUI:Labels",
 ]
 
 apple_library(
