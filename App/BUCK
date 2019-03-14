@@ -225,7 +225,7 @@ apple_bundle(
     info_plist_substitutions = {
         "DEVELOPMENT_LANGUAGE": "en-us",
         "EXECUTABLE_NAME": "ExampleMessageExtension",
-        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.Examplejfdlajflda",
+        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.ExampleApp.MessageExtension",
         "PRODUCT_NAME": "ExampleMessageExtension",
         "PRODUCT_MODULE_NAME": "ExampleMessageExtensionBinary",
     },
