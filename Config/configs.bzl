@@ -62,6 +62,17 @@ def app_binary_configs(name):
     binary_config = config_with_updated_linker_flags(binary_config, ALL_LOAD_LINKER_FLAG)
     return configs_with_config(binary_config)
 
+def framework_configs(name):
+    framework_specific_config = {
+        "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
+    }
+    framework_config = SHARED_CONFIGS + framework_specific_config
+    configs = {
+        "Debug": framework_config,
+        "Profile": framework_config,
+    }
+    return configs
+
 def test_configs(name):
     binary_specific_config = info_plist_substitutions(name)
     binary_config = SHARED_CONFIGS + binary_specific_config
@@ -86,6 +97,7 @@ def info_plist_substitutions(name):
         "EXECUTABLE_NAME": name,
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
         "PRODUCT_NAME": name,
+        "CURRENT_PROJECT_VERSION": "1.0"
     }
     return substitutions
 

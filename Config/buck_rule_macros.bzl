@@ -1,4 +1,4 @@
-load("//Config:configs.bzl", "test_configs", "library_configs", "pod_library_configs", "DEVELOPMENT_LANGUAGE")
+load("//Config:configs.bzl", "test_configs", "library_configs", "framework_configs", "pod_library_configs", "DEVELOPMENT_LANGUAGE")
 
 # This is just a regular lib that was warnings not set to error
 def apple_third_party_lib(**kwargs):
@@ -14,6 +14,15 @@ def ci_test_name(name):
     return name + "-For-CI"
 
 DEFAULT_SWIFT_VERSION = "4.0"
+
+def shared_plist_info_substitutions(name):
+    substitutions = {
+        "CURRENT_PROJECT_VERSION": "1",
+        "DEVELOPMENT_LANGUAGE": "en-us",
+        "EXECUTABLE_NAME": name,
+        "PRODUCT_NAME": name,
+    }
+    return substitutions
 
 # Use this macro to declare test targets. For first-party libraries, use first_party_library to declare a test target instead.
 # This macro defines two targets.
@@ -59,6 +68,7 @@ def apple_test_lib(
         "PRODUCT_NAME": name,
     }
     substitutions.update(info_plist_substitutions)
+    substitutions.update({"PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % test_name})
     native.apple_test(
         name = name,
         visibility = visibility,
@@ -106,6 +116,7 @@ def apple_lib(
         swift_compiler_flags = None,
         warning_as_error = True,
         suppress_warnings = False,
+        configs = library_configs(),
         **kwargs):
     compiler_flags = compiler_flags or []
     swift_compiler_flags = swift_compiler_flags or []
@@ -125,7 +136,7 @@ def apple_lib(
         name = name,
         visibility = visibility,
         swift_version = swift_version,
-        configs = library_configs(),
+        configs = configs,
         modular = modular,
         compiler_flags = compiler_flags,
         swift_compiler_flags = swift_compiler_flags,
@@ -216,6 +227,64 @@ def first_party_library(
         frameworks = test_frameworks,
         deps = [":" + name] + test_deps,
         **kwargs)
+
+# Use this macro to declare first-party frameworks (dylib and resource) which can be shared between bundles.
+# This macro is similar to first_party_library, and we can support more parameters in the future.
+# - parameter name: The name of the apple_library created for the code in the Sources/ directory. The name will become the module name.
+# - parameter exported_headers: The public headers for the library
+def first_party_framework(
+        name,
+        exported_headers = [],
+        deps = [],
+        has_resource = False,
+        resource_files = None):
+    framework_name = "%sFramework" % name
+    resource_name = "%sResource" % name
+    lib_test_name = test_name(name)
+
+    apple_lib(
+        name,
+        srcs = native.glob(["Sources/**/*.swift"]),
+        exported_headers = exported_headers,
+        configs = framework_configs(framework_name),
+        # Setting preferred_linkage to shared is the key to make a dylib.
+        preferred_linkage = "shared",
+        # Set the install_name so consumers of this dylib know where to find it.
+        linker_flags = ["-Wl,-install_name,@rpath/%s.framework/%s" % (name, name)],
+        deps = deps + ([":" + resource_name] if has_resource else []),
+        tests = [":" + lib_test_name],
+    )
+
+    substitutions = shared_plist_info_substitutions(name)
+    substitutions.update({"PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % framework_name})
+    native.apple_bundle(
+        name = framework_name,
+        product_name = name,
+        binary = ":%s#shared" % name,
+        extension = "framework",
+        info_plist = "Info.plist",
+        info_plist_substitutions = substitutions,
+        xcode_product_type = "com.apple.product-type.framework",
+        visibility = ["PUBLIC"],
+    )
+
+    apple_test_lib(
+        name = lib_test_name,
+        srcs = native.glob(["Tests/**/*.swift"]),
+        info_plist = "Tests/Info.plist",
+        deps = [
+            ":" + name,
+            ":" + framework_name,
+        ],
+    )
+
+    if has_resource:
+        native.apple_resource(
+            name = resource_name,
+            visibility = ["PUBLIC"],
+            files = resource_files,
+            dirs = [],
+        )
 
 CXX_SRC_EXT = ["mm", "cpp", "S"]
 def apple_cxx_lib(

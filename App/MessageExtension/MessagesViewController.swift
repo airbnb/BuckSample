@@ -8,12 +8,16 @@
 
 import UIKit
 import Messages
+import SwiftShared
 
 class MessagesViewController: MSMessagesAppViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        // Init a class from a shared framework
+        let shared = PublicSharedClass()
+        print("From shared resource: \(shared.readFromResource())")
     }
     
     // MARK: - Conversation Handling

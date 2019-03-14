@@ -11,6 +11,7 @@ import SwiftWithAssets
 import SwiftWithMLModel
 import SwiftWithPrecompiledDependency
 import YetAnotherSwiftModule
+import SwiftShared
 import UIKit
 
 public let testVar = "SampleValue"
@@ -116,5 +117,9 @@ class ViewController: UIViewController {
     }
 
     print("AFNetworking's version is \(SwiftWithPrecompiledDependencyClass.networkingLibraryVersionNumber)")
+
+    // Init a class from a shared framework
+    let shared = PublicSharedClass()
+    print("From shared resource: \(shared.readFromResource())")
   }
 }
