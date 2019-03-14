@@ -1,4 +1,4 @@
-load("//Config:configs.bzl", "binary_configs", "library_configs", "watch_binary_configs", "pretty", "info_plist_substitutions")
+load("//Config:configs.bzl", "binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "pretty", "info_plist_substitutions")
 load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all")
 
 apple_asset_catalog(
@@ -102,6 +102,7 @@ apple_bundle(
     deps = [
         # For "#watch", https://buckbuild.com/rule/apple_bundle.html#deps
         ":ExampleWatchApp#watch",
+        ":ExampleMessageExtension"
     ]
 )
 
@@ -112,11 +113,11 @@ apple_package(
 
 ### Watch App Begin ###
 # Define the watch app in the same BUCK file as the binary into which the watch app will be installed.
-# Xcode is finicky when it comes to how it embeds watch apps into main app bundles.  Watch apps are 
+# Xcode is finicky when it comes to how it embeds watch apps into main app bundles.  Watch apps are
 # built into the `watchos` build directory, but Xcode only knows to look for the watch app binary in the `watchos`
-# directory if the watch target is defined in the same `pbxproj` as the main app binary. If the key/value pair 
+# directory if the watch target is defined in the same `pbxproj` as the main app binary. If the key/value pair
 # on the watch target `SDKROOT = watchos;` is not in the same `pbxproj` as the target that defines the main app
-# binary, the Copy Files phase to embed the watch app and extension will search the `iphoneos` directory, 
+# binary, the Copy Files phase to embed the watch app and extension will search the `iphoneos` directory,
 # and fail the build on generated Xcode projects.
 
 apple_binary(
@@ -187,3 +188,56 @@ apple_resource(
     files = glob(["WatchApplication/**/*.storyboard"])
 )
 ### Watch App End ###
+
+### iMessage Extension Begin ###
+# It is possible for an iMessage extension to be declared in a separate BUCK file.
+# Declaring the iMessage extension in a separate `BUCK` file would result in that code living in a
+# separate `pbxproj` file in the Buck-generate Xcode projects. Due to our learnings from the watch
+# app (described above) we think it's safer to keep the iMessage extension in the same `BUCK` file
+# that declares the main app bundle.
+
+apple_binary(
+    name = "ExampleMessageExtensionBinary",
+    srcs = glob([
+        "MessageExtension/**/*.swift",
+    ]),
+    configs = message_binary_configs("ExampleApp.MessageExtension"),
+    
+    # "-e _NSExtensionMain" tell linker this binary is app extension, so it won't fail due to missing _main
+    # "-Xlinker -rpath -Xlinker @executable_path/../../Frameworks" tells the executable binary to
+    # look for frameworks in ExampleApp.app/Frameworks instead of PlugIns, so that we don't need to have
+    # the libSwift*.dylib in ExampleApp.app/PlugIns/*.appex/Frameworks
+    linker_flags = [
+        "-e",
+        "_NSExtensionMain",
+        "-Xlinker",
+        "-rpath",
+        "-Xlinker",
+        "@executable_path/../../Frameworks",
+    ],
+)
+
+apple_bundle(
+    name = "ExampleMessageExtension",
+    binary = ":ExampleMessageExtensionBinary",
+    extension = "appex",
+    info_plist = "MessageExtension/Info.plist",
+    info_plist_substitutions = {
+        "DEVELOPMENT_LANGUAGE": "en-us",
+        "EXECUTABLE_NAME": "ExampleMessageExtension",
+        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.ExampleApp.MessageExtension",
+        "PRODUCT_NAME": "ExampleMessageExtension",
+        "PRODUCT_MODULE_NAME": "ExampleMessageExtensionBinary",
+    },
+    deps = [
+        ":ExampleMessageExtensionResources",
+    ],
+    xcode_product_type = "com.apple.product-type.app-extension.messages",
+)
+
+apple_resource(
+    name = "ExampleMessageExtensionResources",
+    dirs = [],
+    files = glob(["MessageExtension/**/*.storyboard"])
+)
+### iMessage Extension End ###
