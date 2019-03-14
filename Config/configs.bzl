@@ -81,6 +81,7 @@ def info_plist_substitutions(name):
         "EXECUTABLE_NAME": name,
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
         "PRODUCT_NAME": name,
+        "CURRENT_PROJECT_VERSION": "1.0"
     }
     return substitutions
 

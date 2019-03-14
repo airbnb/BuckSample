@@ -1,0 +1,21 @@
+load("//Config:buck_rule_macros.bzl", "first_party_library")
+load("//Config:configs.bzl", "info_plist_substitutions")
+
+apple_library(
+    name = "SwiftFrameworkModule",
+    srcs = glob(["Sources/**/*.swift"]),
+    link_style = "shared",
+    modular = True,
+    visibility = ["//App:"],
+)
+
+apple_bundle(
+    name = "SwiftFramework",
+    product_name = "SwiftFrameworkModule",
+    binary = ":SwiftFrameworkModule#shared",
+    extension = "framework",
+    info_plist = "Info.plist",
+    info_plist_substitutions = info_plist_substitutions("ExampleApp.SharedFramework"),
+    xcode_product_type = "com.apple.product-type.framework",
+    visibility = ["//App:"],
+)

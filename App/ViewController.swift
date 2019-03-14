@@ -9,6 +9,7 @@ import SwiftAndObjc
 import SwiftReliesOnCXX
 import SwiftWithAssets
 import SwiftWithMLModel
+import SwiftFrameworkModule
 
 public let testVar = "SampleValue"
 
@@ -96,5 +97,9 @@ class ViewController: UIViewController {
     print("Building a habitat on mars would cost you $\(MarsHabitatPriceFinder().predictedPrice(solarPanels: 5, greenhouses: 10, size: 50))")
 
     print("All good!")
+
+    // Init a class from a shared framework and call a method on it
+    let foo = PublicSharedClass()
+    foo.sayHi()
   }
 }
