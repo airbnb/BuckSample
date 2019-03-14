@@ -7,6 +7,13 @@ apple_library(
     link_style = "shared",
     modular = True,
     visibility = ["//App:"],
+    configs = {
+        "Debug": {
+            "SWIFT_COMPILATION_MODE": "wholemodule",
+            "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.SwiftFramework",
+            "SWIFT_INSTALL_OBJC_HEADER": "NO",
+        }
+    }
 )
 
 apple_bundle(
@@ -18,4 +25,5 @@ apple_bundle(
     info_plist_substitutions = info_plist_substitutions("ExampleApp.SharedFramework"),
     xcode_product_type = "com.apple.product-type.framework",
     visibility = ["//App:"],
+
 )
