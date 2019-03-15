@@ -1,4 +1,4 @@
-load("//Config:configs.bzl", "test_configs", "library_configs", "pod_library_configs")
+load("//Config:configs.bzl", "test_configs", "library_configs", "framework_configs", "pod_library_configs")
 
 # This is just a regular lib that was warnings not set to error
 def apple_third_party_lib(**kwargs):
@@ -97,6 +97,7 @@ def apple_lib(
         swift_compiler_flags = None,
         warning_as_error = True,
         suppress_warnings = False,
+        configs = library_configs(),
         **kwargs):
     compiler_flags = compiler_flags or []
     swift_compiler_flags = swift_compiler_flags or []
@@ -116,7 +117,7 @@ def apple_lib(
         name = name,
         visibility = visibility,
         swift_version = swift_version,
-        configs = library_configs(),
+        configs = configs,
         modular = modular,
         compiler_flags = compiler_flags,
         swift_compiler_flags = swift_compiler_flags,
@@ -200,6 +201,33 @@ def first_party_library(
         frameworks = test_frameworks,
         deps = [":" + name] + test_deps,
         **kwargs)
+
+def first_party_framework(
+    name,
+    has_objective_c = False):
+
+    apple_lib(
+        name, 
+        srcs = native.glob(["Sources/**/*.swift"]),
+        configs = framework_configs(name, has_objective_c))
+
+    substitutions = {
+        "CURRENT_PROJECT_VERSION": "1",
+        "DEVELOPMENT_LANGUAGE": "en-us",
+        "EXECUTABLE_NAME": name,
+        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % name,
+        "PRODUCT_NAME": name,
+    }
+    native.apple_bundle(
+        name = "%sFramework" % name,
+        product_name = name,
+        binary = ":%s#shared" % name,
+        extension = "framework",
+        info_plist = "Info.plist",
+        info_plist_substitutions = substitutions,
+        xcode_product_type = "com.apple.product-type.framework",
+        visibility = ["PUBLIC"],
+    )
 
 CXX_SRC_EXT = ["mm", "cpp", "S"]
 def apple_cxx_lib(

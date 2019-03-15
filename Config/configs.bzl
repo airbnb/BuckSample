@@ -57,6 +57,19 @@ def binary_configs(name):
     }
     return configs
 
+def framework_configs(name, has_objective_c = False):
+    framework_specific_config = {
+        "SWIFT_COMPILATION_MODE": "wholemodule",
+        "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
+        "SWIFT_INSTALL_OBJC_HEADER": "YES" if has_objective_c else "NO",
+    }
+    framework_config = SHARED_CONFIGS + framework_specific_config
+    configs = {
+        "Debug": framework_config,
+        "Profile": framework_config,
+    }
+    return configs
+
 def test_configs(name):
     binary_specific_config = info_plist_substitutions(name)
     binary_config = SHARED_CONFIGS + binary_specific_config

@@ -8,7 +8,7 @@
 
 import UIKit
 import Messages
-import SwiftFrameworkModule
+import SwiftShared
 
 class MessagesViewController: MSMessagesAppViewController {
     

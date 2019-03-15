@@ -9,7 +9,7 @@ import SwiftAndObjc
 import SwiftReliesOnCXX
 import SwiftWithAssets
 import SwiftWithMLModel
-import SwiftFrameworkModule
+import SwiftShared
 
 public let testVar = "SampleValue"
 
