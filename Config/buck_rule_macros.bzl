@@ -208,15 +208,18 @@ def first_party_library(
 
 # Use this macro to declare first-party frameworks which can be shared between bundles.
 # This macro is similar to first_party_library.
-# We should add test rules and support more parameters in the future to accommodate different requirements.
+# We should support more parameters in the future to accommodate different requirements.
 # - parameter name: The name of the apple_library created for the code in the Sources/ directory. The name will become the module name.
 def first_party_framework(name):
     framework_name = "%sFramework" % name
+    lib_test_name = test_name(name)
 
     apple_lib(
         name, 
         srcs = native.glob(["Sources/**/*.swift"]),
-        configs = framework_configs(name))
+        configs = framework_configs(name),
+        tests = [":" + lib_test_name]
+    )
 
     substitutions = shared_plist_info_substitutions(name)
     substitutions.update({"PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % framework_name})
@@ -229,6 +232,13 @@ def first_party_framework(name):
         info_plist_substitutions = substitutions,
         xcode_product_type = "com.apple.product-type.framework",
         visibility = ["PUBLIC"],
+    )
+
+    apple_test_lib(name = 
+        lib_test_name,
+        srcs = native.glob(["Tests/**/*.swift"]),
+        info_plist = "Tests/Info.plist",
+        deps = [":" + name],
     )
 
 CXX_SRC_EXT = ["mm", "cpp", "S"]
