@@ -27,7 +27,7 @@ first_party_library_dependencies = [
     "//Libraries/SwiftReliesOnCXX:SwiftReliesOnCXX",
     "//Libraries/SwiftWithAssets:SwiftWithAssets",
     "//Libraries/SwiftWithMLModel:SwiftWithMLModel",
-    "//Libraries/SwiftFramework:SwiftShared"
+    "//Libraries/SwiftShared:SwiftShared"
 ]
 
 apple_library(
@@ -104,7 +104,7 @@ apple_bundle(
         # For "#watch", https://buckbuild.com/rule/apple_bundle.html#deps
         ":ExampleWatchApp#watch",
         ":ExampleMessageExtension",
-        "//Libraries/SwiftFramework:SwiftSharedFramework",
+        "//Libraries/SwiftShared:SwiftSharedFramework",
     ]
 )
 
@@ -219,7 +219,7 @@ apple_binary(
     ],
 
     deps = [
-        "//Libraries/SwiftFramework:SwiftShared",
+        "//Libraries/SwiftShared:SwiftShared",
     ]
 )
 
