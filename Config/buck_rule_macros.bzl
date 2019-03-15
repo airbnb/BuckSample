@@ -15,6 +15,15 @@ def ci_test_name(name):
 
 DEFAULT_SWIFT_VERSION = "4.0"
 
+def shared_plist_info_substitutions(name):
+    substitutions = {
+        "CURRENT_PROJECT_VERSION": "1",
+        "DEVELOPMENT_LANGUAGE": "en-us",
+        "EXECUTABLE_NAME": name,
+        "PRODUCT_NAME": name,
+    }
+    return substitutions
+
 # Use this macro to declare test targets. For first-party libraries, use first_party_library to declare a test target instead.
 # This macro defines two targets.
 # 1. An apple_test target comprising `srcs`. This test target is picked up by Xcode, and is runnable from Buck.
@@ -47,14 +56,9 @@ def apple_test_lib(
             **kwargs
         )
 
-    substitutions = {
-        "CURRENT_PROJECT_VERSION": "1",
-        "DEVELOPMENT_LANGUAGE": "en-us",
-        "EXECUTABLE_NAME": name,
-        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % test_name,
-        "PRODUCT_NAME": name,
-    }
+    substitutions = shared_plist_info_substitutions(name)
     substitutions.update(info_plist_substitutions)
+    substitutions.update({"PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % test_name})
     native.apple_test(
         name = name,
         visibility = visibility,
@@ -202,24 +206,22 @@ def first_party_library(
         deps = [":" + name] + test_deps,
         **kwargs)
 
-def first_party_framework(
-    name,
-    has_objective_c = False):
+# Use this macro to declare first-party frameworks which can be shared between bundles.
+# This macro is similar to first_party_library.
+# We should add test rules and support more parameters in the future to accommodate different requirements.
+# - parameter name: The name of the apple_library created for the code in the Sources/ directory. The name will become the module name.
+def first_party_framework(name):
+    framework_name = "%sFramework" % name
 
     apple_lib(
         name, 
         srcs = native.glob(["Sources/**/*.swift"]),
-        configs = framework_configs(name, has_objective_c))
+        configs = framework_configs(name))
 
-    substitutions = {
-        "CURRENT_PROJECT_VERSION": "1",
-        "DEVELOPMENT_LANGUAGE": "en-us",
-        "EXECUTABLE_NAME": name,
-        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % name,
-        "PRODUCT_NAME": name,
-    }
+    substitutions = shared_plist_info_substitutions(name)
+    substitutions.update({"PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % framework_name})
     native.apple_bundle(
-        name = "%sFramework" % name,
+        name = framework_name,
         product_name = name,
         binary = ":%s#shared" % name,
         extension = "framework",

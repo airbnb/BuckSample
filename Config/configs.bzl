@@ -57,11 +57,13 @@ def binary_configs(name):
     }
     return configs
 
-def framework_configs(name, has_objective_c = False):
+def framework_configs(name):
     framework_specific_config = {
-        "SWIFT_COMPILATION_MODE": "wholemodule",
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
-        "SWIFT_INSTALL_OBJC_HEADER": "YES" if has_objective_c else "NO",
+        # Not sure why, but either adding this or removing -whole-module-optimization can make it compile
+        "SWIFT_COMPILATION_MODE": "wholemodule",
+        # Setting to NO allows us not to create a header file manually
+        "SWIFT_INSTALL_OBJC_HEADER": "NO",
     }
     framework_config = SHARED_CONFIGS + framework_specific_config
     configs = {
