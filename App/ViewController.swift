@@ -83,8 +83,9 @@ class ViewController: UIViewController {
     //
     // `-force_load`ing the module where the conformance exists also works.
     //
-    // This is tracked by https://bugs.swift.org/browse/SR-6004. This seems to indicate that
-    // `-all_load` will work too, but we haven't verified that.
+    // Finally, you can use `-all_load`. **That is the workaround that we are currently using.**
+    //
+    // This is tracked by https://bugs.swift.org/browse/SR-6004.
 //    let myObject = MyPublicClass()
     let myObject = MyFactory.myPublicObject()
     if (myObject as? MyPublicProtocol) == nil {

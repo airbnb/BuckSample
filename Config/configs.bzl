@@ -26,6 +26,8 @@ SHARED_CONFIGS = {
     "LD_RUNPATH_SEARCH_PATHS": "@executable_path/Frameworks", # To allow source files in binary
 }
 
+# Adding `-all_load` to our binaries works around https://bugs.swift.org/browse/SR-6004. See the
+# longer comment in `ViewController.swift` for more details.
 APPLE_BINARY_OTHER_LINKER_FLAGS = "-all_load"
 
 def bundle_identifier(name):
