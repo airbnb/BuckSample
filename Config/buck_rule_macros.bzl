@@ -210,13 +210,16 @@ def first_party_library(
 # This macro is similar to first_party_library.
 # We should support more parameters in the future to accommodate different requirements.
 # - parameter name: The name of the apple_library created for the code in the Sources/ directory. The name will become the module name.
-def first_party_framework(name):
+def first_party_framework(
+        name,
+        exported_headers = []):
     framework_name = "%sFramework" % name
     lib_test_name = test_name(name)
 
     apple_lib(
         name, 
         srcs = native.glob(["Sources/**/*.swift"]),
+        exported_headers = exported_headers,
         configs = framework_configs(name),
         tests = [":" + lib_test_name]
     )

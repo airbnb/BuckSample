@@ -1,3 +1,5 @@
 load("//Config:buck_rule_macros.bzl", "first_party_framework")
 
-first_party_framework("SwiftShared")
+first_party_framework(
+    name = "SwiftShared",
+    exported_headers = glob(["Sources/**/*.h"]))

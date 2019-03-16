@@ -61,9 +61,9 @@ def framework_configs(name):
     framework_specific_config = {
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
         # Not sure why, but either adding this or removing -whole-module-optimization can make it compile
-        "SWIFT_COMPILATION_MODE": "wholemodule",
+        # "SWIFT_COMPILATION_MODE": "wholemodule",
         # Setting to NO allows us not to create a header file manually
-        "SWIFT_INSTALL_OBJC_HEADER": "NO",
+        # "SWIFT_INSTALL_OBJC_HEADER": "NO",
     }
     framework_config = SHARED_CONFIGS + framework_specific_config
     configs = {
