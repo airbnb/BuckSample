@@ -44,7 +44,7 @@ def library_configs():
     }
     return configs
 
-def binary_configs(name):
+def app_binary_configs(name):
     binary_specific_config = {
         "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
         "DEVELOPMENT_LANGUAGE": "Swift",
