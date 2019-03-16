@@ -1,3 +1,5 @@
+load("//ios/Config:utils.bzl", "config_with_updated_linker_flags")
+
 def pretty(dict, current = ""):
     current = "\n"
     indent = 0
@@ -23,6 +25,8 @@ SHARED_CONFIGS = {
     "ONLY_ACTIVE_ARCH": "YES",
     "LD_RUNPATH_SEARCH_PATHS": "@executable_path/Frameworks", # To allow source files in binary
 }
+
+APPLE_BINARY_OTHER_LINKER_FLAGS = "-all_load"
 
 def bundle_identifier(name):
     return "com.airbnb.%s" % name
@@ -51,11 +55,7 @@ def app_binary_configs(name):
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
     }
     binary_config = SHARED_CONFIGS + binary_specific_config
-    configs = {
-        "Debug": binary_config,
-        "Profile": binary_config,
-    }
-    return configs
+    binary_config = config_with_updated_linker_flags(binary_config, APPLE_BINARY_OTHER_LINKER_FLAGS)return configs_with_config(binary_config)
 
 def test_configs(name):
     binary_specific_config = info_plist_substitutions(name)
@@ -94,21 +94,13 @@ def watch_binary_configs(name):
         # Not sure why, but either adding this or removing -whole-module-optimization can make it compile
         "SWIFT_COMPILATION_MODE": "wholemodule"
     }
-    configs = {
-        "Debug": config,
-        "Profile": config,
-        "Release": config,
-    }
-    return configs
+    config = config_with_updated_linker_flags(config, APPLE_BINARY_OTHER_LINKER_FLAGS)
+    return configs_with_config(config)
 
 def message_binary_configs(name):
     config = {
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
         "SWIFT_COMPILATION_MODE": "wholemodule"
     }
-    configs = {
-        "Debug": config,
-        "Profile": config,
-        "Release": config,
-    }
-    return configs
+    config = config_with_updated_linker_flags(config, APPLE_BINARY_OTHER_LINKER_FLAGS)
+    return configs_with_config(config)
