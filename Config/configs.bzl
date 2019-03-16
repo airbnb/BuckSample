@@ -55,7 +55,8 @@ def app_binary_configs(name):
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
     }
     binary_config = SHARED_CONFIGS + binary_specific_config
-    binary_config = config_with_updated_linker_flags(binary_config, APPLE_BINARY_OTHER_LINKER_FLAGS)return configs_with_config(binary_config)
+    binary_config = config_with_updated_linker_flags(binary_config, APPLE_BINARY_OTHER_LINKER_FLAGS)
+    return configs_with_config(binary_config)
 
 def test_configs(name):
     binary_specific_config = info_plist_substitutions(name)
