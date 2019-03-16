@@ -221,6 +221,7 @@ def first_party_framework(
         srcs = native.glob(["Sources/**/*.swift"]),
         exported_headers = exported_headers,
         configs = framework_configs(name),
+        preferred_linkage = "shared",
         tests = [":" + lib_test_name]
     )
 
