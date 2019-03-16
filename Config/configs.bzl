@@ -1,4 +1,4 @@
-load("//ios/Config:utils.bzl", "config_with_updated_linker_flags")
+load("//Config:utils.bzl", "config_with_updated_linker_flags")
 
 def pretty(dict, current = ""):
     current = "\n"
