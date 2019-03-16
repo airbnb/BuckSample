@@ -37,19 +37,12 @@ def configs_with_config(config):
         "Release": config,
     }
 
-def configs_without_key(configs, key):
-    modified_configs = configs.copy()
-    for configs_key in configs:
-        if configs[configs_key].has_key(key):
-            modified_configs[configs_key].pop(key)
-    return modified_configs
-
 # Creates a new dictionary of `configs` that includes `other_linker_flags`.
 # Params:
 # - configs: A dictionary where every key is a build config and the value is another dict of configs for that build
 # - additional_linker_flags: A string-representable value of additional linker flags
 def configs_with_updated_linker_flags(configs, other_linker_flags):
-    if other_linker_flags is None:
+    if other_linker_flags == None:
         return configs
     else:
         updated_configs = { }
@@ -65,9 +58,17 @@ def configs_with_updated_linker_flags(configs, other_linker_flags):
 # - additional_linker_flags: A string-representable value of additional linker flags
 # - config_key: The key to which to append or assign the additional linker flags
 def config_with_updated_linker_flags(config, other_linker_flags, config_key=OTHER_LINKER_FLAGS_KEY):
-    config_copy = config.copy()
-    if config_key in config_copy:
-        config_copy[config_key] += ' ' + other_linker_flags
-    else:
-        config_copy[config_key] = '$(inherited) ' + other_linker_flags
-    return config_copy
+    new_config = { }
+    config_key_found = False
+    for key in config:
+        if key == config_key:
+            new_config[key] = config[key] + (" %s" % other_linker_flags)
+            config_key_found = True
+        else:
+            new_config[key] = config[key]
+
+    if config_key_found == False:
+        # If `config` does not currently contain `config_key`, add it. Inherit for good measure.
+        new_config[config_key] = '$(inherited) ' + other_linker_flags
+
+    return new_config
