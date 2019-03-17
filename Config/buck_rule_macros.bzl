@@ -206,10 +206,10 @@ def first_party_library(
         deps = [":" + name] + test_deps,
         **kwargs)
 
-# Use this macro to declare first-party frameworks which can be shared between bundles.
-# This macro is similar to first_party_library.
-# We should support more parameters in the future to accommodate different requirements.
+# Use this macro to declare first-party frameworks (dylib and resource) which can be shared between bundles.
+# This macro is similar to first_party_library, and we can support more parameters in the future.
 # - parameter name: The name of the apple_library created for the code in the Sources/ directory. The name will become the module name.
+# - parameter exported_headers: The public headers for the library
 def first_party_framework(
         name,
         exported_headers = [],
@@ -224,7 +224,7 @@ def first_party_framework(
         name, 
         srcs = native.glob(["Sources/**/*.swift"]),
         exported_headers = exported_headers,
-        configs = framework_configs(name),
+        configs = framework_configs(framework_name),
         # Setting preferred_linkage to shared is the key to make a dylib. 
         preferred_linkage = "shared",
         # Set the install_name so consumers of this dylib know where to find it.
