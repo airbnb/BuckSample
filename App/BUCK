@@ -27,7 +27,7 @@ first_party_library_dependencies = [
     "//Libraries/SwiftReliesOnCXX:SwiftReliesOnCXX",
     "//Libraries/SwiftWithAssets:SwiftWithAssets",
     "//Libraries/SwiftWithMLModel:SwiftWithMLModel",
-    "//Libraries/SwiftShared:SwiftShared"
+    "//Libraries/SwiftShared:SwiftShared",
 ]
 
 apple_library(

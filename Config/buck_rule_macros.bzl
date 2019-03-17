@@ -221,8 +221,11 @@ def first_party_framework(
         srcs = native.glob(["Sources/**/*.swift"]),
         exported_headers = exported_headers,
         configs = framework_configs(name),
+        # Setting preferred_linkage to shared is the key to make a dylib. 
         preferred_linkage = "shared",
-        tests = [":" + lib_test_name]
+        # Set the install_name so consumers of this dylib know where to find it.
+        linker_flags = ["-Wl,-install_name,@rpath/%s.framework/%s" % (name, name)],
+        tests = [":" + lib_test_name],
     )
 
     substitutions = shared_plist_info_substitutions(name)
