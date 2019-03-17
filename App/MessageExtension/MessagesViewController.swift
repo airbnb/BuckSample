@@ -15,9 +15,9 @@ class MessagesViewController: MSMessagesAppViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Init a class from a shared framework and call a method on it
-        let foo = PublicSharedClass()
-        foo.sayHi()
+        // Init a class from a shared framework
+        let shared = PublicSharedClass()
+        print("From shared resource: \(shared.readFromResource())")
     }
     
     // MARK: - Conversation Handling

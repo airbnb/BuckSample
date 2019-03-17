@@ -73,7 +73,9 @@ apple_test_all(
     name = "ExampleAppCITests",
     info_plist = "Info.plist",
     libraries = first_party_library_dependencies,
-    additional_tests = app_tests,
+    additional_tests = app_tests + [
+        "//Libraries/SwiftShared:SwiftSharedFramework",
+    ],
 )
 
 xcode_workspace_config(

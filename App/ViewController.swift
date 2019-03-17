@@ -98,8 +98,8 @@ class ViewController: UIViewController {
 
     print("All good!")
 
-    // Init a class from a shared framework and call a method on it
-    let foo = PublicSharedClass()
-    foo.sayHi()
+    // Init a class from a shared framework
+    let shared = PublicSharedClass()
+    print("From shared resource: \(shared.readFromResource())")
   }
 }

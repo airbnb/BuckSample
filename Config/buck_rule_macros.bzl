@@ -212,8 +212,12 @@ def first_party_library(
 # - parameter name: The name of the apple_library created for the code in the Sources/ directory. The name will become the module name.
 def first_party_framework(
         name,
-        exported_headers = []):
+        exported_headers = [],
+        deps = [],
+        has_resource = False,
+        resource_files = None):
     framework_name = "%sFramework" % name
+    resource_name = "%sResource" % name
     lib_test_name = test_name(name)
 
     apple_lib(
@@ -225,6 +229,7 @@ def first_party_framework(
         preferred_linkage = "shared",
         # Set the install_name so consumers of this dylib know where to find it.
         linker_flags = ["-Wl,-install_name,@rpath/%s.framework/%s" % (name, name)],
+        deps = deps + ([":" + resource_name] if has_resource else []),
         tests = [":" + lib_test_name],
     )
 
@@ -247,6 +252,14 @@ def first_party_framework(
         info_plist = "Tests/Info.plist",
         deps = [":" + name],
     )
+
+    if has_resource:
+        native.apple_resource(
+            name = resource_name,
+            visibility = ["PUBLIC"],
+            files = resource_files,
+            dirs = [],
+        )
 
 CXX_SRC_EXT = ["mm", "cpp", "S"]
 def apple_cxx_lib(

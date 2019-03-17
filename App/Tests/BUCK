@@ -8,5 +8,6 @@ apple_test_lib(
     info_plist = "Info.plist",
     deps = [
         "//App:ExampleApp",
+        "//Libraries/SwiftShared:SwiftSharedFramework",
     ],
 )
