@@ -246,8 +246,8 @@ def first_party_framework(
         visibility = ["PUBLIC"],
     )
 
-    apple_test_lib(name = 
-        lib_test_name,
+    apple_test_lib(
+        name = lib_test_name,
         srcs = native.glob(["Tests/**/*.swift"]),
         info_plist = "Tests/Info.plist",
         deps = [":" + name],
