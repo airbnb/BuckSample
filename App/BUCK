@@ -1,4 +1,4 @@
-load("//Config:configs.bzl", "binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "pretty", "info_plist_substitutions")
+load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "pretty", "info_plist_substitutions")
 load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all")
 
 apple_asset_catalog(
@@ -55,7 +55,7 @@ apple_binary(
         "//App:",
         "//App/...",
     ],
-    configs = binary_configs("ExampleApp"),
+    configs = app_binary_configs("ExampleApp"),
     swift_version = "4.0",
     srcs = [
         "BuckSupportFiles/Dummy.swift",
@@ -202,7 +202,7 @@ apple_binary(
         "MessageExtension/**/*.swift",
     ]),
     configs = message_binary_configs("ExampleApp.MessageExtension"),
-    
+
     # "-e _NSExtensionMain" tell linker this binary is app extension, so it won't fail due to missing _main
     # "-Xlinker -rpath -Xlinker @executable_path/../../Frameworks" tells the executable binary to
     # look for frameworks in ExampleApp.app/Frameworks instead of PlugIns, so that we don't need to have

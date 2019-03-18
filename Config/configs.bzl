@@ -1,3 +1,5 @@
+load("//Config:utils.bzl", "config_with_updated_linker_flags", "configs_with_config")
+
 def pretty(dict, current = ""):
     current = "\n"
     indent = 0
@@ -24,6 +26,10 @@ SHARED_CONFIGS = {
     "LD_RUNPATH_SEARCH_PATHS": "@executable_path/Frameworks", # To allow source files in binary
 }
 
+# Adding `-all_load` to our binaries works around https://bugs.swift.org/browse/SR-6004. See the
+# longer comment in `ViewController.swift` for more details.
+ALL_LOAD_LINKER_FLAG = "-all_load"
+
 def bundle_identifier(name):
     return "com.airbnb.%s" % name
 
@@ -44,18 +50,15 @@ def library_configs():
     }
     return configs
 
-def binary_configs(name):
+def app_binary_configs(name):
     binary_specific_config = {
         "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
         "DEVELOPMENT_LANGUAGE": "Swift",
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
     }
     binary_config = SHARED_CONFIGS + binary_specific_config
-    configs = {
-        "Debug": binary_config,
-        "Profile": binary_config,
-    }
-    return configs
+    binary_config = config_with_updated_linker_flags(binary_config, ALL_LOAD_LINKER_FLAG)
+    return configs_with_config(binary_config)
 
 def test_configs(name):
     binary_specific_config = info_plist_substitutions(name)
@@ -94,21 +97,13 @@ def watch_binary_configs(name):
         # Not sure why, but either adding this or removing -whole-module-optimization can make it compile
         "SWIFT_COMPILATION_MODE": "wholemodule"
     }
-    configs = {
-        "Debug": config,
-        "Profile": config,
-        "Release": config,
-    }
-    return configs
+    config = config_with_updated_linker_flags(config, ALL_LOAD_LINKER_FLAG)
+    return configs_with_config(config)
 
 def message_binary_configs(name):
     config = {
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
         "SWIFT_COMPILATION_MODE": "wholemodule"
     }
-    configs = {
-        "Debug": config,
-        "Profile": config,
-        "Release": config,
-    }
-    return configs
+    config = config_with_updated_linker_flags(config, ALL_LOAD_LINKER_FLAG)
+    return configs_with_config(config)
