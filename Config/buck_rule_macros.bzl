@@ -250,7 +250,9 @@ def first_party_framework(
         name = lib_test_name,
         srcs = native.glob(["Tests/**/*.swift"]),
         info_plist = "Tests/Info.plist",
-        deps = [":" + name],
+        deps = [
+            ":" + name,
+            ":" + name + "Framework"],
     )
 
     if has_resource:
