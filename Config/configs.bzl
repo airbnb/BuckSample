@@ -28,7 +28,7 @@ SHARED_CONFIGS = {
 
 # Adding `-all_load` to our binaries works around https://bugs.swift.org/browse/SR-6004. See the
 # longer comment in `ViewController.swift` for more details.
-APPLE_BINARY_OTHER_LINKER_FLAGS = "-all_load"
+ALL_LOAD_LINKER_FLAG = "-all_load"
 
 def bundle_identifier(name):
     return "com.airbnb.%s" % name
@@ -57,7 +57,7 @@ def app_binary_configs(name):
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
     }
     binary_config = SHARED_CONFIGS + binary_specific_config
-    binary_config = config_with_updated_linker_flags(binary_config, APPLE_BINARY_OTHER_LINKER_FLAGS)
+    binary_config = config_with_updated_linker_flags(binary_config, ALL_LOAD_LINKER_FLAG)
     return configs_with_config(binary_config)
 
 def test_configs(name):
@@ -97,7 +97,7 @@ def watch_binary_configs(name):
         # Not sure why, but either adding this or removing -whole-module-optimization can make it compile
         "SWIFT_COMPILATION_MODE": "wholemodule"
     }
-    config = config_with_updated_linker_flags(config, APPLE_BINARY_OTHER_LINKER_FLAGS)
+    config = config_with_updated_linker_flags(config, ALL_LOAD_LINKER_FLAG)
     return configs_with_config(config)
 
 def message_binary_configs(name):
@@ -105,5 +105,5 @@ def message_binary_configs(name):
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
         "SWIFT_COMPILATION_MODE": "wholemodule"
     }
-    config = config_with_updated_linker_flags(config, APPLE_BINARY_OTHER_LINKER_FLAGS)
+    config = config_with_updated_linker_flags(config, ALL_LOAD_LINKER_FLAG)
     return configs_with_config(config)
