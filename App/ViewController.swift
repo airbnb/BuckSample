@@ -68,25 +68,22 @@ class ViewController: UIViewController {
     // This line will crash if the assets from SwiftWithAssets haven't been bundled into the app
     _ = Catalog.buck.image
 
-    // Without an object explicitly typed as `MyPublicClass`, an instance of `MyPublicClass` won't
-    // exhibit conformance to `MyPublicProtocol`. `MyPublicClass` is defined in `Swift4`.
-    // `MyPublicProtocol` and the conformance of `MyPublicClass` to `MyPublicProtocol` is defined in
-    // `Swift3`.
+    // Without an object explicitly typed as `MyPublicClass` in this module, an instance of
+    // `MyPublicClass` won't exhibit conformance to `MyPublicProtocol`. `MyPublicClass` is defined
+    // in `Swift4`. `MyPublicProtocol` and the conformance of `MyPublicClass` to `MyPublicProtocol`
+    // is defined in `Swift3`.
     //
-    // One workaround when possible is to make sure the object is explictly typed as `MyPublicClass`
-    // and avoid type erasure. You can see this in action by swapping the way that we are creating
-    // `myObject` below to be `MyPublicClass()` instead of `MyFactory.myPublicObject()`.
+    // We are currently working around this issue in the Buck-generated project by including the
+    // `-all_load` flag for `OTHER_LDFLAGS` in the `configs` that we are passing to all
+    // `apple_binary()` invocations.
     //
-    // Avoiding type erasure is not always possible though. Another way to workaround this bug is to
-    // annotate `MyPublicProtocol` with `@objc`. We pass `-ObjC` to "Other Linker Flags", which will
-    // cause this conformance to not be stripped. Annotating the actual conformance of
-    // `MyPublicClass` to `MyPublicProtocol` will also work and is a bit less invasive.
+    // Other known workarounds:
+    // * Annotate `MyPublicProtocol` with `@objc` and pass the `-ObjC` flag to `OTHER_LDFLAGS`.
+    // * Annotate the conformance of `MyPublicClass` to `MyPublicProtocol` with `@objc` and pass
+    // the `-ObjC` flag to `OTHER_LDFLAGS`.
+    // * `-force_load` the module where the conformance exists. In this case that would be `Swift3`.
     //
-    // `-force_load`ing the module where the conformance exists also works.
-    //
-    // This is tracked by https://bugs.swift.org/browse/SR-6004. This seems to indicate that
-    // `-all_load` will work too, but we haven't verified that.
-//    let myObject = MyPublicClass()
+    // This bug is documented at https://bugs.swift.org/browse/SR-6004.
     let myObject = MyFactory.myPublicObject()
     if (myObject as? MyPublicProtocol) == nil {
       print("Incorrect: `MyPublicProtocol` conformance is being erroneously stripped")
