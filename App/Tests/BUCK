@@ -1,4 +1,5 @@
 load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib")
+load("//Config:frameworks.bzl", "first_party_frameworks")
 
 apple_test_lib(
     name = "Tests",
@@ -6,8 +7,7 @@ apple_test_lib(
         "*.swift",
     ]),
     info_plist = "Info.plist",
-    deps = [
+    deps = first_party_frameworks + [
         "//App:ExampleApp",
-        "//Libraries/SwiftShared:SwiftSharedFramework",
     ],
 )

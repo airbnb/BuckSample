@@ -1,5 +1,6 @@
 load("//Config:configs.bzl", "binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "pretty", "info_plist_substitutions")
 load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all")
+load("//Config:frameworks.bzl", "first_party_frameworks")
 
 apple_asset_catalog(
     name = "ExampleAppAssets",
@@ -47,9 +48,10 @@ apple_library(
         "//Pods:CryptoSwift",
         ":ExampleAppResource",
         ":ExampleAppAssets",
-    ] + first_party_library_dependencies + [
-        "//Libraries/SwiftShared:SwiftSharedFramework",
-    ],
+    ] + first_party_library_dependencies
+    # The library doesn't necessarily need to depend on frameworks for Buck CLI.
+    # It's a hack to make generated project link to the frameworks.
+    + first_party_frameworks,
 )
 
 apple_binary(
@@ -75,9 +77,7 @@ apple_test_all(
     name = "ExampleAppCITests",
     info_plist = "Info.plist",
     libraries = first_party_library_dependencies,
-    additional_tests = app_tests + [
-        "//Libraries/SwiftShared:SwiftSharedFramework",
-    ],
+    additional_tests = app_tests + first_party_frameworks,
 )
 
 xcode_workspace_config(
@@ -104,11 +104,10 @@ apple_bundle(
     product_name = "ExampleApp",
     info_plist = "Info.plist",
     info_plist_substitutions = info_plist_substitutions("ExampleApp"),
-    deps = [
+    deps = first_party_frameworks + [
         # For "#watch", https://buckbuild.com/rule/apple_bundle.html#deps
         ":ExampleWatchApp#watch",
         ":ExampleMessageExtension",
-        "//Libraries/SwiftShared:SwiftSharedFramework",
     ]
 )
 
@@ -225,6 +224,8 @@ apple_binary(
     deps = [
         "//Libraries/SwiftShared:SwiftShared",
     ]
+    # See ":ExampleApp" for why this need to depend on frameworks.
+    + first_party_frameworks
 )
 
 apple_bundle(
