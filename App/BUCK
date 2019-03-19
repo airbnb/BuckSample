@@ -29,6 +29,8 @@ first_party_library_dependencies = [
     "//Libraries/SwiftWithMLModel:SwiftWithMLModel",
 ]
 
+# Build Phase scripts need to be added as dependencies.
+# These only get executed when building with Xcode, not Buck.
 build_phase_scripts = [
     ":Hello_World",
     ":Bye_World",
@@ -51,7 +53,9 @@ apple_library(
         "//Pods:CryptoSwift",
         ":ExampleAppResource",
         ":ExampleAppAssets",
-    ] + first_party_library_dependencies + build_phase_scripts,
+    ] 
+    + first_party_library_dependencies  
+    + build_phase_scripts,
 )
 
 apple_binary(
@@ -70,6 +74,7 @@ apple_binary(
     ],
 )
 
+# Defines a Build Phase script that gets executed before the "Compile Sources" step
 xcode_prebuild_script(
     name = "Hello_World",
     cmd = '"${SRCROOT}/../scripts/sample.sh"',
@@ -79,6 +84,7 @@ xcode_prebuild_script(
     output_file_lists = [],
 )
 
+# Defines a Build Phase script that gets executed after the "Compile Sources" step
 xcode_postbuild_script(
     name = "Bye_World",
     cmd = 'echo Bye World!',
