@@ -252,7 +252,8 @@ def first_party_framework(
         info_plist = "Tests/Info.plist",
         deps = [
             ":" + name,
-            ":" + name + "Framework"],
+            ":" + framework_name,
+        ],
     )
 
     if has_resource:
