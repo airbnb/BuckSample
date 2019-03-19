@@ -29,6 +29,11 @@ first_party_library_dependencies = [
     "//Libraries/SwiftWithMLModel:SwiftWithMLModel",
 ]
 
+build_phase_scripts = [
+    ":Hello_World",
+    ":Bye_World",
+]
+
 apple_library(
     name = "ExampleApp",
     visibility = [
@@ -46,7 +51,7 @@ apple_library(
         "//Pods:CryptoSwift",
         ":ExampleAppResource",
         ":ExampleAppAssets",
-    ] + first_party_library_dependencies,
+    ] + first_party_library_dependencies + build_phase_scripts,
 )
 
 apple_binary(
@@ -63,6 +68,24 @@ apple_binary(
     deps = [
         ":ExampleApp",
     ],
+)
+
+xcode_prebuild_script(
+    name = "Hello_World",
+    cmd = '"${SRCROOT}/../scripts/sample.sh"',
+    inputs = [],
+    outputs = [],
+    input_file_lists = [],
+    output_file_lists = [],
+)
+
+xcode_postbuild_script(
+    name = "Bye_World",
+    cmd = 'echo Bye World!',
+    inputs = [],
+    outputs = [],
+    input_file_lists = [],
+    output_file_lists = [],
 )
 
 
