@@ -2,7 +2,7 @@
 platform :ios, '10.0'
 
 # Only download the files, don't create Xcode projects
-install! 'cocoapods', integrate_targets: false 
+install! 'cocoapods', integrate_targets: false
 
 target 'BuckSample' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
@@ -11,8 +11,8 @@ target 'BuckSample' do
   pod 'CryptoSwift'
   pod 'OHHTTPStubs'
   pod 'Bugsnag'
-  pod "PromiseKit/CorePromise", "~> 6.0"
-  pod "PromiseKit/CoreLocation", "~> 6.0"
+  pod 'PromiseKit/CorePromise', '6.1.1'
+  pod 'PromiseKit/CoreLocation', '6.1.1'
 
   target 'BuckSampleTests' do
     inherit! :search_paths
