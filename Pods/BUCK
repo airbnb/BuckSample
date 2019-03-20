@@ -17,6 +17,27 @@ apple_third_party_lib(
     ]),
 )
 
+apple_third_party_lib(
+    name = "PromiseKit",
+    visibility = ["PUBLIC"],
+    exported_headers = glob([
+        "PromiseKit/**/*.h",
+    # We are excluding this header because a) it is not public and b) `PromiseKit` does not
+    # consider it to be a source in its `podspec`: https://github.com/mxcl/PromiseKit/blob/a20df65b74b3eec290e524abb9839412542328b6/PromiseKit.podspec#L114
+    ], exclude = [
+        "PromiseKit/AnyPromise+Private.h",
+    ]),
+    srcs = glob([
+        "PromiseKit/**/*.m",
+        "PromiseKit/**/*.swift",
+    # We are excluding the below sources since `PromiseKit` does not consider them sources in its
+    # `podspec`: https://github.com/mxcl/PromiseKit/blob/a20df65b74b3eec290e524abb9839412542328b6/PromiseKit.podspec#L114
+    ], exclude = [
+        "PromiseKit/Sources/PMKCallVariadicBlock.m",
+        "PromiseKit/Sources/NSMethodSignatureForBlock.m",
+    ]),
+)
+
 apple_cxx_third_party_library(
     name = "Bugsnag",
     exported_headers = glob([
