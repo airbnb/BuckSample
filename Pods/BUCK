@@ -1,4 +1,4 @@
-load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_third_party_lib", "apple_cxx_third_party_library")
+load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_third_party_lib", "apple_cxx_third_party_library", "first_party_framework")
 
 apple_third_party_lib(
     name = "CryptoSwift",
@@ -17,9 +17,8 @@ apple_third_party_lib(
     ]),
 )
 
-apple_third_party_lib(
+first_party_framework(
     name = "PromiseKit",
-    visibility = ["PUBLIC"],
     exported_headers = glob([
         "PromiseKit/**/*.h",
     ], exclude = [

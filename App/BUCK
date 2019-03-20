@@ -46,7 +46,7 @@ apple_library(
     tests = app_tests,
     deps = [
         "//Pods:CryptoSwift",
-        "//Pods:PromiseKit",
+        "//Pods:PromiseKitFramework",
         ":ExampleAppResource",
         ":ExampleAppAssets",
     ] + first_party_library_dependencies
@@ -106,6 +106,7 @@ apple_bundle(
     info_plist = "Info.plist",
     info_plist_substitutions = info_plist_substitutions("ExampleApp"),
     deps = first_party_frameworks + [
+        "//Pods:PromiseKitFramework",
         # For "#watch", https://buckbuild.com/rule/apple_bundle.html#deps
         ":ExampleWatchApp#watch",
         ":ExampleMessageExtension",

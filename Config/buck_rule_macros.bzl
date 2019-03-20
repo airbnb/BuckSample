@@ -187,13 +187,13 @@ def first_party_library(
         suppress_warnings = suppress_warnings,
         **kwargs
     )
-    
+
     test_sources = native.glob(["Tests/**/*.swift"])
     test_headers = None
     if has_objective_c:
         test_sources.extend(native.glob(["Tests/**/*.m"]))
         test_headers = native.glob(["Tests/**/*.h"])
-    
+
     apple_test_lib(
         name = lib_test_name,
         srcs = test_sources,
@@ -213,6 +213,7 @@ def first_party_library(
 def first_party_framework(
         name,
         exported_headers = [],
+        headers = [],
         deps = [],
         has_resource = False,
         resource_files = None):
@@ -221,11 +222,12 @@ def first_party_framework(
     lib_test_name = test_name(name)
 
     apple_lib(
-        name, 
+        name,
         srcs = native.glob(["Sources/**/*.swift"]),
         exported_headers = exported_headers,
+        header = headers,
         configs = framework_configs(framework_name),
-        # Setting preferred_linkage to shared is the key to make a dylib. 
+        # Setting preferred_linkage to shared is the key to make a dylib.
         preferred_linkage = "shared",
         # Set the install_name so consumers of this dylib know where to find it.
         linker_flags = ["-Wl,-install_name,@rpath/%s.framework/%s" % (name, name)],
