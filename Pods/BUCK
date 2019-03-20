@@ -31,6 +31,9 @@ apple_third_party_lib(
     srcs = glob([
         "PromiseKit/**/*.m",
         "PromiseKit/**/*.swift",
+    ], exclude = [
+        "PromiseKit/PMKCallVariadicBlock.m",
+        "PromiseKit/NSMethodSignatureForBlock.m",
     ]),
 )
 
