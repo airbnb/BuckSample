@@ -213,6 +213,7 @@ def first_party_library(
 def first_party_framework(
         name,
         exported_headers = [],
+        alernate_sources = None,
         headers = [],
         deps = [],
         has_resource = False,
@@ -221,11 +222,17 @@ def first_party_framework(
     resource_name = "%sResource" % name
     lib_test_name = test_name(name)
 
+    srcs = []
+    if alernate_sources == None:
+        srcs = native.glob(["Sources/**/*.swift"])
+    else:
+        srcs = alernate_sources
+
     apple_lib(
         name,
-        srcs = native.glob(["Sources/**/*.swift"]),
+        srcs = srcs,
         exported_headers = exported_headers,
-        header = headers,
+        headers = headers,
         configs = framework_configs(framework_name),
         # Setting preferred_linkage to shared is the key to make a dylib.
         preferred_linkage = "shared",

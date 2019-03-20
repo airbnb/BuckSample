@@ -27,7 +27,7 @@ first_party_framework(
     headers = glob([
         "PromiseKit/**/*.h",
     ]),
-    srcs = glob([
+    alernate_sources = glob([
         "PromiseKit/**/*.m",
         "PromiseKit/**/*.swift",
     ]),
