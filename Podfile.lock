@@ -15,12 +15,17 @@ PODS:
   - OHHTTPStubs/NSURLSession (6.1.0):
     - OHHTTPStubs/Core
   - OHHTTPStubs/OHPathHelpers (6.1.0)
+  - PromiseKit/CoreLocation (6.1.1):
+    - PromiseKit/CorePromise
+  - PromiseKit/CorePromise (6.1.1)
 
 DEPENDENCIES:
   - Bugsnag
   - CryptoSwift
   - EarlGrey
   - OHHTTPStubs
+  - PromiseKit/CoreLocation (= 6.1.1)
+  - PromiseKit/CorePromise (= 6.1.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -28,13 +33,15 @@ SPEC REPOS:
     - CryptoSwift
     - EarlGrey
     - OHHTTPStubs
+    - PromiseKit
 
 SPEC CHECKSUMS:
   Bugsnag: a56a5204ebd35e44e56c1f703824705b1d4b5b97
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
   EarlGrey: 289a16cc7d08a54b962d72881b21e36d5103b549
   OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
+  PromiseKit: 876f433b87c970f020e04e35dbe68ab21d240498
 
-PODFILE CHECKSUM: bb893529a8b751f32745686269f7a4d0f0313104
+PODFILE CHECKSUM: f71f474d04f3a84629c8495011aef1bd284143a5
 
 COCOAPODS: 1.5.3
