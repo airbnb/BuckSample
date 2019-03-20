@@ -25,9 +25,6 @@ apple_third_party_lib(
     ], exclude = [
         "PromiseKit/AnyPromise+Private.h",
     ]),
-    headers = glob([
-        "PromiseKit/**/*.h",
-    ]),
     srcs = glob([
         "PromiseKit/**/*.m",
         "PromiseKit/**/*.swift",
