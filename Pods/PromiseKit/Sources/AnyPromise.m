@@ -1,10 +1,10 @@
 #import <PromiseKit/PromiseKit-Swift.h>
-#import "PMKCallVariadicBlock.m"
+//#import "PMKCallVariadicBlock.m"
+#import "PMKCallVariadicBlock.h"
 #import "AnyPromise+Private.h"
 #import "AnyPromise.h"
 
 NSString *const PMKErrorDomain = @"PMKErrorDomain";
-
 
 @implementation AnyPromise {
     __AnyPromise *d;
