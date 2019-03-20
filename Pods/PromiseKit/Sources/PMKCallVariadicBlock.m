@@ -100,7 +100,7 @@ static inline id _PMKCallVariadicBlock(id frock, id result) {
     }
 }
 
-static id PMKCallVariadicBlock(id frock, id result) {
+id PMKCallVariadicBlock(id frock, id result) {
     @try {
         return _PMKCallVariadicBlock(frock, result);
     } @catch (id thrown) {

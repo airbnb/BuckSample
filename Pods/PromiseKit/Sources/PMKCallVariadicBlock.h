@@ -10,6 +10,6 @@
   NSUInteger count;
 } @end
 
-static id PMKCallVariadicBlock(id frock, id result);
+id PMKCallVariadicBlock(id frock, id result);
 
 #endif /* PMKCallVariadicBlock_h */
