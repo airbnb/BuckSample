@@ -5,6 +5,7 @@ import Swift4
 import CryptoSwift
 import Objc1
 import ObjcAndSwift
+import PromiseKit
 import SwiftAndObjc
 import SwiftReliesOnCXX
 import SwiftWithAssets
@@ -93,5 +94,17 @@ class ViewController: UIViewController {
     print("Building a habitat on mars would cost you $\(MarsHabitatPriceFinder().predictedPrice(solarPanels: 5, greenhouses: 10, size: 50))")
 
     print("All good!")
+
+    // From PromiseKit
+    let promise = Promise<String> { seal in
+      DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        seal.fulfill("Hello from PromiseKit")
+      }
+    }
+    promise.done { (value) in
+      print(value)
+      }.catch { (error) in
+        print(error)
+    }
   }
 }
