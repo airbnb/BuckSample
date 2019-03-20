@@ -46,6 +46,7 @@ apple_library(
     tests = app_tests,
     deps = [
         "//Pods:CryptoSwift",
+        "//Pods:PromiseKit",
         ":ExampleAppResource",
         ":ExampleAppAssets",
     ] + first_party_library_dependencies
