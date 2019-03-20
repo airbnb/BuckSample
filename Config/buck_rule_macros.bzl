@@ -214,10 +214,12 @@ def first_party_framework(
         name,
         exported_headers = [],
         alernate_sources = None,
+        alernate_info_plist = None,
         headers = [],
         deps = [],
         has_resource = False,
-        resource_files = None):
+        resource_files = None,
+        has_tests = True):
     framework_name = "%sFramework" % name
     resource_name = "%sResource" % name
     lib_test_name = test_name(name)
@@ -227,6 +229,10 @@ def first_party_framework(
         srcs = native.glob(["Sources/**/*.swift"])
     else:
         srcs = alernate_sources
+
+    tests = []
+    if has_tests:
+        tests = [":" + lib_test_name]
 
     apple_lib(
         name,
@@ -239,8 +245,12 @@ def first_party_framework(
         # Set the install_name so consumers of this dylib know where to find it.
         linker_flags = ["-Wl,-install_name,@rpath/%s.framework/%s" % (name, name)],
         deps = deps + ([":" + resource_name] if has_resource else []),
-        tests = [":" + lib_test_name],
+        tests = tests,
     )
+
+    info_plist = "Info.plist"
+    if alernate_info_plist != None:
+        info_plist = alernate_info_plist
 
     substitutions = shared_plist_info_substitutions(name)
     substitutions.update({"PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % framework_name})
@@ -249,21 +259,22 @@ def first_party_framework(
         product_name = name,
         binary = ":%s#shared" % name,
         extension = "framework",
-        info_plist = "Info.plist",
+        info_plist = info_plist,
         info_plist_substitutions = substitutions,
         xcode_product_type = "com.apple.product-type.framework",
         visibility = ["PUBLIC"],
     )
 
-    apple_test_lib(
-        name = lib_test_name,
-        srcs = native.glob(["Tests/**/*.swift"]),
-        info_plist = "Tests/Info.plist",
-        deps = [
-            ":" + name,
-            ":" + framework_name,
-        ],
-    )
+    if has_tests:
+        apple_test_lib(
+            name = lib_test_name,
+            srcs = native.glob(["Tests/**/*.swift"]),
+            info_plist = "Tests/Info.plist",
+            deps = [
+                ":" + name,
+                ":" + framework_name,
+            ],
+        )
 
     if has_resource:
         native.apple_resource(

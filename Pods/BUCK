@@ -31,6 +31,8 @@ first_party_framework(
         "PromiseKit/**/*.m",
         "PromiseKit/**/*.swift",
     ]),
+    alernate_info_plist = 'PromiseKit/Info.plist',
+    has_tests = False,
 )
 
 apple_cxx_third_party_library(
