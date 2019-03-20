@@ -32,8 +32,8 @@ apple_third_party_lib(
         "PromiseKit/**/*.m",
         "PromiseKit/**/*.swift",
     ], exclude = [
-        "PromiseKit/PMKCallVariadicBlock.m",
-        "PromiseKit/NSMethodSignatureForBlock.m",
+        "PromiseKit/Sources/PMKCallVariadicBlock.m",
+        "PromiseKit/Sources/NSMethodSignatureForBlock.m",
     ]),
 )
 
