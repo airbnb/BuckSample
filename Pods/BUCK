@@ -17,6 +17,23 @@ apple_third_party_lib(
     ]),
 )
 
+apple_third_party_lib(
+    name = "PromiseKit",
+    visibility = ["PUBLIC"],
+    exported_headers = glob([
+        "PromiseKit/**/*.h",
+    ], excludes = glob([
+        "PromiseKit/**/*Private.h",
+    ])),
+    headers = glob([
+        "ProiseKit/**/*.h",
+    ]),
+    srcs = glob([
+        "PromiseKit/**/*.m",
+        "PromiseKit/**/*.swift",
+    ]),
+)
+
 apple_cxx_third_party_library(
     name = "Bugsnag",
     exported_headers = glob([
