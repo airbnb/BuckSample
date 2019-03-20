@@ -22,11 +22,11 @@ apple_third_party_lib(
     visibility = ["PUBLIC"],
     exported_headers = glob([
         "PromiseKit/**/*.h",
-    ], excludes = glob([
-        "PromiseKit/**/*Private.h",
-    ])),
+    ], exclude = [
+        "PromiseKit/AnyPromise+Private.h",
+    ]),
     headers = glob([
-        "ProiseKit/**/*.h",
+        "PromiseKit/**/*.h",
     ]),
     srcs = glob([
         "PromiseKit/**/*.m",
