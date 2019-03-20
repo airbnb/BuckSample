@@ -37,28 +37,35 @@ public func wrap<T>(_ body: (@escaping (T) -> Void) throws -> Void) -> Promise<T
 
 public extension Promise {
     @available(*, deprecated, message: "See `ensure`")
-    public func always(on q: DispatchQueue = .main, execute body: @escaping () -> Void) -> Promise {
+    func always(on q: DispatchQueue = .main, execute body: @escaping () -> Void) -> Promise {
         return ensure(on: q, body)
     }
 }
 
 public extension Thenable {
-    @available(*, deprecated: 6.1, message: "See: `compactMap`")
+#if PMKFullDeprecations
+    /// disabled due to ambiguity with the other `.flatMap`
+    @available(*, deprecated, message: "See: `compactMap`")
     func flatMap<U>(on: DispatchQueue? = conf.Q.map, _ transform: @escaping(T) throws -> U?) -> Promise<U> {
         return compactMap(on: on, transform)
     }
+#endif
 }
 
 public extension Thenable where T: Sequence {
+#if PMKFullDeprecations
+    /// disabled due to ambiguity with the other `.map`
     @available(*, deprecated, message: "See: `mapValues`")
     func map<U>(on: DispatchQueue? = conf.Q.map, _ transform: @escaping(T.Iterator.Element) throws -> U) -> Promise<[U]> {
         return mapValues(on: on, transform)
     }
 
+    /// disabled due to ambiguity with the other `.flatMap`
     @available(*, deprecated, message: "See: `flatMapValues`")
     func flatMap<U: Sequence>(on: DispatchQueue? = conf.Q.map, _ transform: @escaping(T.Iterator.Element) throws -> U) -> Promise<[U.Iterator.Element]> {
         return flatMapValues(on: on, transform)
     }
+#endif
 
     @available(*, deprecated, message: "See: `filterValues`")
     func filter(on: DispatchQueue? = conf.Q.map, test: @escaping (T.Iterator.Element) -> Bool) -> Promise<[T.Iterator.Element]> {

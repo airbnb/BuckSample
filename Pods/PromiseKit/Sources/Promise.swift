@@ -1,7 +1,11 @@
 import class Foundation.Thread
 import Dispatch
 
-public class Promise<T>: Thenable, CatchMixin {
+/**
+ A `Promise` is a functional abstraction around a failable asynchronous operation.
+ - See: `Thenable`
+ */
+public final class Promise<T>: Thenable, CatchMixin {
     let box: Box<Result<T>>
 
     fileprivate init(box: SealedBox<Result<T>>) {
@@ -9,6 +13,8 @@ public class Promise<T>: Thenable, CatchMixin {
     }
 
     /**
+      Initialize a new fulfilled promise.
+
       We do not provide `init(value:)` because Swift is “greedy”
       and would pick that initializer in cases where it should pick
       one of the other more specific options leading to Promises with
@@ -36,28 +42,34 @@ public class Promise<T>: Thenable, CatchMixin {
         return Promise(box: SealedBox(value: .fulfilled(value)))
     }
 
+    /// Initialize a new rejected promise.
     public init(error: Error) {
         box = SealedBox(value: .rejected(error))
     }
 
+    /// Initialize a new promise bound to the provided `Thenable`.
     public init<U: Thenable>(_ bridge: U) where U.T == T {
         box = EmptyBox()
         bridge.pipe(to: box.seal)
     }
 
+    /// Initialize a new promise that can be resolved with the provided `Resolver`.
     public init(resolver body: (Resolver<T>) throws -> Void) {
         box = EmptyBox()
+        let resolver = Resolver(box)
         do {
-            try body(Resolver(box))
+            try body(resolver)
         } catch {
-            box.seal(.rejected(error))
+            resolver.reject(error)
         }
     }
 
+    /// - Returns: a tuple of a new pending promise and its `Resolver`.
     public class func pending() -> (promise: Promise<T>, resolver: Resolver<T>) {
         return { ($0, Resolver($0.box)) }(Promise<T>(.pending))
     }
 
+    /// - See: `Thenable.pipe`
     public func pipe(to: @escaping(Result<T>) -> Void) {
         switch box.inspect() {
         case .pending:
@@ -74,6 +86,7 @@ public class Promise<T>: Thenable, CatchMixin {
         }
     }
 
+    /// - See: `Thenable.result`
     public var result: Result<T>? {
         switch box.inspect() {
         case .pending:
@@ -89,19 +102,14 @@ public class Promise<T>: Thenable, CatchMixin {
 }
 
 public extension Promise {
-    func tap(_ body: @escaping(Result<T>) -> Void) -> Promise {
-        pipe(to: body)
-        return self
-    }
-
     /**
-     Blocks this thread, so you know, don’t call this on a serial thread that
+     Blocks this thread, so—you know—don’t call this on a serial thread that
      any part of your chain may use. Like the main thread for example.
      */
-    public func wait() throws -> T {
+    func wait() throws -> T {
 
         if Thread.isMainThread {
-            print("PromiseKit: warning: `wait()` called on main thread!")
+            conf.logHandler(LogEvent.waitOnMainThread)
         }
 
         var result = self.result
@@ -124,6 +132,7 @@ public extension Promise {
 
 #if swift(>=3.1)
 extension Promise where T == Void {
+    /// Initializes a new promise fulfilled with `Void`
     public convenience init() {
         self.init(box: SealedBox(value: .fulfilled(Void())))
     }
