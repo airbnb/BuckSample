@@ -288,9 +288,9 @@ substitutions = {
 apple_test(
     name = SCREENSHOTS_TEST_NAME,
     info_plist = 'ScreenshotTests/Info.plist',
-    info_plist_substitutions = substitutions + ['//Libraries/Screenshotter:Screenshotter'],
+    info_plist_substitutions = substitutions,
     configs = test_configs(SCREENSHOTS_TEST_NAME),
-    deps = first_party_libraries,
+    deps = first_party_libraries + ['//Libraries/Screenshotter:Screenshotter'],
     frameworks = [
         "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework"
     ],
