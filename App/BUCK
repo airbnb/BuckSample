@@ -18,7 +18,7 @@ app_tests = [
     "//App/Tests:Tests",
 ]
 
-first_party_library_dependencies = [
+first_party_libraries = [
     "//Libraries/Swift2:Swift2",
     "//Libraries/Swift3:Swift3",
     "//Libraries/Objc1:Objc1",
@@ -55,7 +55,7 @@ apple_library(
         ":ExampleAppResource",
         ":ExampleAppAssets",
     ]
-    + first_party_library_dependencies
+    + first_party_libraries
     + build_phase_scripts,
 )
 
@@ -101,7 +101,7 @@ xcode_postbuild_script(
 apple_test_all(
     name = "ExampleAppCITests",
     info_plist = "Info.plist",
-    libraries = first_party_library_dependencies,
+    libraries = first_party_libraries,
     additional_tests = app_tests,
 )
 
@@ -271,3 +271,28 @@ apple_resource(
     files = glob(["MessageExtension/**/*.storyboard"])
 )
 ### iMessage Extension End ###
+
+### Screenshot Tests Start ###
+
+test_name = 'ScreenshotTests'
+
+substitutions = {
+    'CURRENT_PROJECT_VERSION': '1',
+    'DEVELOPMENT_LANGUAGE': 'en-us',
+    'EXECUTABLE_NAME': test_name,
+    'PRODUCT_BUNDLE_IDENTIFIER': 'com.airbnb.ScreenshotTests',
+    'PRODUCT_NAME': test_name,
+}
+
+apple_test(
+    name = test_name,
+    info_plist = 'ScreenshotTests/Info.plist',
+    info_plist_substitutions = substitutions + ['//Libraries/Screenshotter:Screenshotter'],
+    configs = test_configs(test_name),
+    deps = first_party_libraries,
+    frameworks = [
+        "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework"
+    ],
+)
+
+### Screenshot Tests End ###
