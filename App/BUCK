@@ -1,6 +1,8 @@
 load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "pretty", "info_plist_substitutions")
 load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all")
 
+SCREENSHOTS_TEST_NAME = 'ScreenshotTests'
+
 apple_asset_catalog(
     name = "ExampleAppAssets",
     visibility = ["//App:"],
@@ -16,6 +18,7 @@ apple_resource(
 
 app_tests = [
     "//App/Tests:Tests",
+    ':' + SCREENSHOTS_TEST_NAME,
 ]
 
 first_party_libraries = [
@@ -274,21 +277,19 @@ apple_resource(
 
 ### Screenshot Tests Start ###
 
-test_name = 'ScreenshotTests'
-
 substitutions = {
     'CURRENT_PROJECT_VERSION': '1',
     'DEVELOPMENT_LANGUAGE': 'en-us',
-    'EXECUTABLE_NAME': test_name,
+    'EXECUTABLE_NAME': SCREENSHOTS_TEST_NAME,
     'PRODUCT_BUNDLE_IDENTIFIER': 'com.airbnb.ScreenshotTests',
-    'PRODUCT_NAME': test_name,
+    'PRODUCT_NAME': SCREENSHOTS_TEST_NAME,
 }
 
 apple_test(
-    name = test_name,
+    name = SCREENSHOTS_TEST_NAME,
     info_plist = 'ScreenshotTests/Info.plist',
     info_plist_substitutions = substitutions + ['//Libraries/Screenshotter:Screenshotter'],
-    configs = test_configs(test_name),
+    configs = test_configs(SCREENSHOTS_TEST_NAME),
     deps = first_party_libraries,
     frameworks = [
         "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework"
