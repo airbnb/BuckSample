@@ -15,6 +15,7 @@ class TakeScreenshots: XCTestCase {
         let viewController = ViewController() // From ExampleApp
         let view = viewController.view
         view.backgroundColor = .red
+        // iPhone X dimensions
         view.frame.size = CGSize(width: 1125, height: 2436)
         view.setNeedsLayout()
         view.layoutIfNeeded()
