@@ -16,8 +16,8 @@ class TakeScreenshots: XCTestCase {
 
       let screenshotter = Screenshotter()
 
-      let images = viewControllersToTest.map { |vc| screenshotter.imageFromViewController() }
+      let images = viewControllersToTest.map { screenshotter.imageFromViewController($0) }
 
-      images.map { |vc| /* upload or save to disk */ }
+      images.map { print($0) /* save to disk or upload */ }
     }
 }

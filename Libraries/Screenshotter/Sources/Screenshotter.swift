@@ -8,7 +8,7 @@ public final class Screenshotter {
 
     // MARK: Public
 
-    func imageFromViewController(_ viewController: UIViewController) -> UIImage? {
+    public func imageFromViewController(_ viewController: UIViewController) -> UIImage? {
       // TODO: Implement. We scan start by just rendering a 100pt x 100pt red square
       // every time.
       return nil
