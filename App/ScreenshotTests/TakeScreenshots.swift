@@ -3,11 +3,15 @@ import XCTest
 import Screenshotter
 import UIKit
 
-class TakeScreenshots: XCTestCase {
+// MARK: - TakeScreenshots
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+final class TakeScreenshots: XCTestCase {
+
+  // MARK: Internal
+
+  override func setUp() {
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+  }
 
     func viewControllersToTest() -> [UIViewController] {
       let backgroundColors: [UIColor] = [.red, .green, .blue]
@@ -26,6 +30,16 @@ class TakeScreenshots: XCTestCase {
     func testTakeScreenshots() {
       let screenshotter = Screenshotter()
       let images = viewControllersToTest().map { screenshotter.imageFromViewController($0) }
-      images.map { print("Image: \($0)" /* save to disk or upload */ }
+      for image in images.compactMap({ $0 }) {
+        storeImage(image)
+      }
     }
+  }
+
+  // MARK: Private
+
+  private func storeImage(_ image: UIImage) {
+    // TODO(MB): implement
+    print("Storing image")
+  }
 }
