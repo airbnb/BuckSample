@@ -17,12 +17,7 @@ final class TakeScreenshots: XCTestCase {
       let backgroundColors: [UIColor] = [.red, .green, .blue]
       return backgroundColors.map { color in
         let viewController = ViewController() // From ExampleApp
-        let view = viewController.view
-        view.backgroundColor = .red
-        // iPhone X dimensions
-        view.frame.size = CGSize(width: 1125, height: 2436)
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
+        viewController.view.backgroundColor = color
         return viewController
       }
     }
