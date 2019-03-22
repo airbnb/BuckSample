@@ -17,8 +17,8 @@ apple_resource(
 )
 
 app_tests = [
-    "//App/Tests:Tests",
-    ':' + SCREENSHOTS_TEST_NAME,
+    '//App/Tests:Tests',
+    '//App/ScreenshotTests:ScreenshotTests',
 ]
 
 first_party_libraries = [
@@ -274,26 +274,3 @@ apple_resource(
     files = glob(["MessageExtension/**/*.storyboard"])
 )
 ### iMessage Extension End ###
-
-### Screenshot Tests Start ###
-
-substitutions = {
-    'CURRENT_PROJECT_VERSION': '1',
-    'DEVELOPMENT_LANGUAGE': 'en-us',
-    'EXECUTABLE_NAME': SCREENSHOTS_TEST_NAME,
-    'PRODUCT_BUNDLE_IDENTIFIER': 'com.airbnb.ScreenshotTests',
-    'PRODUCT_NAME': SCREENSHOTS_TEST_NAME,
-}
-
-apple_test(
-    name = SCREENSHOTS_TEST_NAME,
-    info_plist = 'ScreenshotTests/Info.plist',
-    info_plist_substitutions = substitutions,
-    configs = test_configs(SCREENSHOTS_TEST_NAME),
-    deps = first_party_libraries + ['//Libraries/Screenshotter:Screenshotter'],
-    frameworks = [
-        "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework"
-    ],
-)
-
-### Screenshot Tests End ###

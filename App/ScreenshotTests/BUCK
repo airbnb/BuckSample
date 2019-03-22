@@ -1,12 +1,13 @@
 load("//Config:buck_rule_macros.bzl", "apple_test_lib")
 
 apple_test_lib(
-    name = "Tests",
+    name = "ScreenshotTests",
     srcs = glob([
         "*.swift",
     ]),
     info_plist = "Info.plist",
     deps = [
         "//App:ExampleApp",
+        '//Libraries/Screenshotter:Screenshotter',
     ],
 )
