@@ -13,6 +13,7 @@ final class TakeScreenshots: XCTestCase {
 
   override func setUp() {
     setUpImagesDirectory()
+    print("Writing images to \(urlForImagesDirectory.absoluteString)")
   }
 
   func viewControllersToTest() -> [UIViewController] {
@@ -51,7 +52,7 @@ final class TakeScreenshots: XCTestCase {
   private func setUpImagesDirectory() {
     var isDirectory: ObjCBool = true
     let directoryExists = fileManager.fileExists(
-      atPath:  urlForImagesDirectory.absoluteString,
+      atPath: urlForImagesDirectory.absoluteString,
       isDirectory: &isDirectory)
 
     if directoryExists {
