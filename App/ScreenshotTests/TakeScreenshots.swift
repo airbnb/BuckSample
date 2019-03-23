@@ -75,6 +75,26 @@ final class TakeScreenshots: XCTestCase {
   }
 
   private func storeImage(_ image: UIImage) {
-    print(urlForImagesDirectory.absoluteString)
+    guard let pngData = image.pngData else {
+      fatalError("Cannot create PNG data for image")
+    }
+
+    let imageURL = urlForImagesDirectory.appendingPathComponent("\(UUID().uuidString).png")
+
+    do {
+      try pngData.write(to: imageURL)
+    }
+    catch {
+      fatalError("Failed to write image to \(imageURL.absoluteString): \(error)")
+    }
+  }
+}
+
+// MARK: - UIImage
+
+fileprivate extension UIImage {
+
+  var pngData: Data? {
+    return UIImagePNGRepresentation(self)
   }
 }
