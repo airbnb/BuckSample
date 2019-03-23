@@ -12,8 +12,9 @@ final class TakeScreenshots: XCTestCase {
   // MARK: Internal
 
   override func setUp() {
-    setUpImagesDirectory()
-    print("Writing images to \(urlForImagesDirectory.absoluteString)")
+    deleteImagesDirectoryIfNecessary()
+    createImagesDirectory()
+    print("Writing images to \(urlForImagesDirectory.path)")
   }
 
   func viewControllersToTest() -> [UIViewController] {
@@ -48,22 +49,24 @@ final class TakeScreenshots: XCTestCase {
     return documentsURL.appendingPathComponent("ScreenshotTests", isDirectory: true)
   }()
 
-  /// Deletes the images directory if it exists. Creates the images directory.
-  private func setUpImagesDirectory() {
-    var isDirectory: ObjCBool = true
+  /// Deletes the images directory if it exists.
+  private func deleteImagesDirectoryIfNecessary() {
     let directoryExists = fileManager.fileExists(
-      atPath: urlForImagesDirectory.absoluteString,
-      isDirectory: &isDirectory)
+      atPath: urlForImagesDirectory.path,
+      isDirectory: nil)
 
     if directoryExists {
       do {
         try fileManager.removeItem(at: urlForImagesDirectory)
       }
       catch {
-        fatalError("Unable to remove \(urlForImagesDirectory.absoluteString): \(error)")
+        fatalError("Unable to remove \(urlForImagesDirectory.path): \(error)")
       }
     }
+  }
 
+  /// Creates the images directory.
+  private func createImagesDirectory() {
     do {
       try fileManager.createDirectory(
         at: urlForImagesDirectory,
@@ -71,7 +74,7 @@ final class TakeScreenshots: XCTestCase {
         attributes: nil)
     }
     catch {
-      fatalError("Unable to create \(urlForImagesDirectory.absoluteString): \(error)")
+      fatalError("Unable to create \(urlForImagesDirectory.path): \(error)")
     }
   }
 
@@ -86,7 +89,7 @@ final class TakeScreenshots: XCTestCase {
       try pngData.write(to: imageURL)
     }
     catch {
-      fatalError("Failed to write image to \(imageURL.absoluteString): \(error)")
+      fatalError("Failed to write image to \(imageURL.path): \(error)")
     }
   }
 }
