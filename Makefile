@@ -1,5 +1,5 @@
 
-.PHONY : log install_buck build targets pods audit debug test xcode_tests clean project audit
+.PHONY : log install_buck build watch message targets pods audit debug test xcode_tests clean project audit
 
 # Use local version of Buck
 BUCK=tools/buck
@@ -16,15 +16,21 @@ update_cocoapods:
 	pod install
 
 build:
-	$(BUCK) build //App:ExampleAppBundle
+	$(BUCK) build //App:ExampleApp
+
+watch:
+	$(BUCK) build //App:ExampleWatchAppExtension#watchsimulator-i386
+
+message:
+	$(BUCK) build //App:ExampleMessageExtension
 
 debug:
-	$(BUCK) install //App:ExampleAppBundle --run --simulator-name 'Phone: iPhone XS'
+	$(BUCK) install //App:ExampleApp --run --simulator-name 'Phone: iPhone XS'
 
 targets:
 	$(BUCK) targets //...
 
-ci: install_buck targets build test project xcode_tests
+ci: install_buck targets build test project xcode_tests watch message
 	echo "Done"
 
 test:
@@ -44,11 +50,13 @@ audit:
 	$(BUCK) audit rules Pods/BUCK > Config/Gen/Pods-BUCK.py
 
 clean:
-	killall Xcode || true
-	killall Simulator || true
 	rm -rf **/*.xcworkspace
 	rm -rf **/*.xcodeproj
-	$(BUCK) clean
+	rm -rf buck-out
+
+kill_xcode:
+	killall Xcode || true
+	killall Simulator || true
 
 xcode_tests: project
 	xcodebuild build test -workspace App/ExampleApp.xcworkspace -scheme ExampleApp -destination 'platform=iOS Simulator,name=iPhone 8,OS=latest' | xcpretty && exit ${PIPESTATUS[0]}

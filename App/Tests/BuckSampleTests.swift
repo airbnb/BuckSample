@@ -6,7 +6,7 @@
 //
 
 import XCTest
-@testable import ExampleApp
+@testable import ExampleAppLibrary
 
 final class BuckSampleTests: XCTestCase {
 

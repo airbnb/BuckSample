@@ -2,7 +2,7 @@ load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib")
 
 apple_test_lib(
     name = "UITests",
-    test_host_app = "//App:ExampleAppBundle",
+    test_host_app = "//App:ExampleApp",
     srcs = [
         "BuckSampleUITests.swift",
     ],
