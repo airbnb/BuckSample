@@ -73,10 +73,6 @@ class ViewController: UIViewController {
     // in `Swift4`. `MyPublicProtocol` and the conformance of `MyPublicClass` to `MyPublicProtocol`
     // is defined in `Swift3`.
     //
-    // One workaround when possible is to make sure the object is explictly typed as `MyPublicClass`
-    // and avoid type erasure. You can see this in action by swapping the way that we are creating
-    // `myObject` below to be `MyPublicClass()` instead of `MyFactory.myPublicObject()`.
-    //
     // We are currently working around this issue in the Buck-generated project by including the
     // `-all_load` flag for `OTHER_LDFLAGS` in the `configs` that we are passing to all
     // `apple_binary()` invocations.
