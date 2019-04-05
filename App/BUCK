@@ -291,6 +291,10 @@ apple_test_lib(
 
 apple_test_lib(
     name = "UITests",
+    destination_specifier = {
+        "name": "iPhone 8",
+    },
+    run_test_separately = True,
     test_host_app = ":ExampleApp",
     srcs = glob([
         "UITests/*.swift",

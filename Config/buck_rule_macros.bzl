@@ -29,6 +29,7 @@ def apple_test_lib(
         run_test_separately = False,
         frameworks = [],
         labels = [],
+        destination_specifier = None,
         **kwargs):
     if bundle_for_ci:
         # Create a library with the test files. We'll use use these for our CI tests.
@@ -58,6 +59,7 @@ def apple_test_lib(
         visibility = visibility,
         info_plist = info_plist,
         info_plist_substitutions = substitutions,
+        destination_specifier = destination_specifier,
         test_host_app = test_host_app,
         run_test_separately = run_test_separately,
         configs = test_configs(name),
