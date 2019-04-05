@@ -28,6 +28,14 @@ first_party_library_dependencies = [
     "//Libraries/SwiftReliesOnCXX:SwiftReliesOnCXX",
     "//Libraries/SwiftWithAssets:SwiftWithAssets",
     "//Libraries/SwiftWithMLModel:SwiftWithMLModel",
+    "//Libraries/SwiftWithPrecompiledDependency:SwiftWithPrecompiledDependency",
+]
+
+prebuilt_frameworks = [
+    "//Carthage:AFNetworking",
+
+    # Hack to enable project generation to work for the Carthage BUCK file which otherwise only has `prebuilt_apple_framework`s.
+    "//Carthage:CarthageProjectGeneratorHack",
 ]
 
 # Build Phase scripts need to be added as dependencies.
@@ -96,7 +104,6 @@ xcode_postbuild_script(
     output_file_lists = [],
 )
 
-
 # This test bundles all unit test libraries into a single test target.
 # Test targets can be slow to create in CI; creating only one can save significant time.
 apple_test_all(
@@ -104,6 +111,7 @@ apple_test_all(
     info_plist = "Info.plist",
     libraries = first_party_library_dependencies,
     additional_tests = app_tests,
+    prebuilt_frameworks = prebuilt_frameworks,
 )
 
 xcode_workspace_config(
@@ -134,6 +142,7 @@ apple_bundle(
         ":ExampleWatchApp#watch",
         ":ExampleMessageExtension"
     ]
+    + prebuilt_frameworks,
 )
 
 apple_package(
@@ -282,7 +291,8 @@ apple_test_lib(
     info_plist = "Tests/Info.plist",
     deps = [
         ":ExampleAppLibrary",
-    ],
+    ]
+    + prebuilt_frameworks,
 )
 
 ### Tests End ###

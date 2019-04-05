@@ -101,13 +101,13 @@ pod "PromiseKit/CorePromise", "~> 6.0"
 ## Choose Your Networking Library
 
 Promise chains are commonly started with networking, thus we offer multiple
-options: [Alamofire], [OMGHTTPURLRQ] and of course (vanilla) `NSURLSession`:
+options: [AFNetworking], [OMGHTTPURLRQ] and of course (vanilla) `NSURLSession`:
 
 ```swift
-// pod 'PromiseKit/Alamofire'
-// https://github.com/PromiseKit/Alamofire
+// pod 'PromiseKit/AFNetworking'
+// https://github.com/PromiseKit/AFNetworking
 firstly {
-    Alamofire.request("http://example.com", method: .post, parameters: params).responseJSON()
+    AFNetworking.request("http://example.com", method: .post, parameters: params).responseJSON()
 }.done { rsp in
     // `rsp.json`
 }.catch { error in
@@ -155,7 +155,7 @@ Nowadays, considering that:
 * PromiseKit now has `compactMap`
 
 We recommend vanilla `URLSession`; use less black-boxes, stick closer to the
-metal. Alamofire was essential until the three bulletpoints above became true,
+metal. AFNetworking was essential until the three bulletpoints above became true,
 but nowadays it isn’t really necessary. OMGHTTPURLRQ was developed before JSON
 was the modern standard and thus REST requests were hard, but nowadays you
 rarely network anything but JSON.
@@ -171,7 +171,7 @@ Ask your question at our [Gitter chat channel] or on [our bug tracker].
 [badge-platforms]: https://img.shields.io/badge/platforms-macOS%20%7C%20iOS%20%7C%20watchOS%20%7C%20tvOS%20%7C%20Linux-lightgrey.svg
 [badge-mit]: https://img.shields.io/badge/license-MIT-blue.svg
 [OMGHTTPURLRQ]: https://github.com/mxcl/OMGHTTPURLRQ
-[Alamofire]: http://alamofire.org
+[AFNetworking]: http://alamofire.org
 [PromiseKit organization]: https://github.com/PromiseKit
 [Gitter chat channel]: https://gitter.im/mxcl/PromiseKit
 [our bug tracker]: https://github.com/mxcl/PromiseKit/issues/new

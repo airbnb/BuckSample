@@ -1,0 +1,4 @@
+Checkouts/
+*.bcsymbolmap
+*.dSYM
+*.version

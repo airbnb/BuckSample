@@ -76,16 +76,18 @@ def apple_test_lib(
 # Test targets can be slow to create in CI; creating only one can save significant time.
 # - parameter libraries: The libraries whose tests should be put into the single test target.
 # - parameter additional_tests: Additional apple_test targets that should be run as part of the single test target.
+# - parameter prebuilt_frameworks: Any prebuilt frameworks included in module dependencies. This parameter is used to work around a buck bug where transitive prebuilt frameworks are not included in executables.
 def apple_test_all(
         libraries = [],
         additional_tests = [],
+        prebuilt_frameworks = [],
         **kwargs):
     ci_test_libraries = []
     for library in libraries:
         ci_test_libraries.append(ci_test_name(test_name(library)))
 
     apple_test_lib(
-        deps = ci_test_libraries + additional_tests,
+        deps = ci_test_libraries + additional_tests + prebuilt_frameworks,
         bundle_for_ci = False,
         **kwargs
     )
