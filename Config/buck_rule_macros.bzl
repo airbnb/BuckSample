@@ -27,6 +27,7 @@ def apple_test_lib(
         info_plist_substitutions = {},
         test_host_app = None,
         run_test_separately = False,
+        is_ui_test = False,
         frameworks = [],
         labels = [],
         destination_specifier = None,
@@ -61,6 +62,7 @@ def apple_test_lib(
         info_plist_substitutions = substitutions,
         destination_specifier = destination_specifier,
         test_host_app = test_host_app,
+        is_ui_test = is_ui_test,
         run_test_separately = run_test_separately,
         configs = test_configs(name),
         frameworks = [
