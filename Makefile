@@ -30,7 +30,7 @@ debug:
 targets:
 	$(BUCK) targets //...
 
-ci: install_buck targets build test project xcode_tests watch message
+ci: install_buck targets build test ui_test project xcode_tests watch message
 	echo "Done"
 
 test:

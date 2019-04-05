@@ -16,6 +16,7 @@ apple_resource(
 
 app_tests = [
     ":Tests",
+    ":UITests",
 ]
 
 first_party_library_dependencies = [
@@ -299,6 +300,7 @@ apple_test_lib(
         "UITests/*.swift",
     ]),
     info_plist = "UITests/Info.plist",
+    is_ui_test = True,
     labels = ['ui'],
     deps = [
         "//Libraries/ASwiftModule:ASwiftModule",
