@@ -9,6 +9,6 @@ apple_test_lib(
     info_plist = "Info.plist",
     labels = ['ui'],
     deps = [
-        "//Libraries/Swift2:Swift2",
+        "//Libraries/ASwiftModule:ASwiftModule",
     ],
 )

@@ -1,7 +1,7 @@
 import XCTest
-@testable import Swift2
+@testable import ASwiftModule
 
-final class SomeSwift2Tests: XCTestCase {
+final class SomeASwiftModuleTests: XCTestCase {
 
   func testMySwiftClassAdding() {
     let sut = MySwiftClass()
