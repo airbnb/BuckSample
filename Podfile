@@ -9,14 +9,12 @@ target 'BuckSample' do
   use_frameworks!
 
   pod 'CryptoSwift'
-  pod 'OHHTTPStubs'
   pod 'Bugsnag'
   pod 'PromiseKit/CorePromise', '6.1.1'
   pod 'PromiseKit/CoreLocation', '6.1.1'
 
   target 'BuckSampleTests' do
     inherit! :search_paths
-
   end
 
   target 'BuckSampleUITests' do
