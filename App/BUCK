@@ -16,6 +16,7 @@ apple_resource(
 
 app_tests = [
     ":UnitTests",
+    ":UnitTestsWithHostApp",
     ":XCUITests",
 ]
 
@@ -285,9 +286,18 @@ apple_test_lib(
     ],
 )
 
-### Tests End ###
-
-### UI Tests Begin ###
+apple_test_lib(
+    name = "UnitTestsWithHostApp",
+    run_test_separately = True,
+    test_host_app = ":ExampleApp",
+    srcs = glob([
+        "UnitTestsWithHostApp/*.swift",
+    ]),
+    info_plist = "UnitTestsWithHostApp/Info.plist",
+    deps = [
+        ":ExampleAppLibrary",
+    ],
+)
 
 apple_test_lib(
     name = "XCUITests",
@@ -307,4 +317,4 @@ apple_test_lib(
     ],
 )
 
-### UI Tests End ###
+### Tests End ###
