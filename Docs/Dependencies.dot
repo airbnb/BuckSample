@@ -3,13 +3,13 @@ digraph result_graph {
   "//App:ExampleAppBinary" -> "//App:ExampleAppAssets";
   "//App:ExampleAppBinary" -> "//App:ExampleAppResource";
   "//App:ExampleAppBinary" -> "//Libraries/Objc1:Objc1";
-  "//App:ExampleAppBinary" -> "//Libraries/Swift3:Swift3";
+  "//App:ExampleAppBinary" -> "//Libraries/SecondSwiftModule:SecondSwiftModule";
   "//App:ExampleAppBinary" -> "//Pods:CryptoSwift";
   "//App:ExampleAppBinary" [style=filled,color="#86B3AF"];
   "//App:ExampleAppResource" [style=filled,color="#D3DDE9"];
   "//Libraries/Objc1:Objc1" [style=filled,color="#D6D3F5"];
-  "//Libraries/Swift3:Swift3" -> "//Libraries/Swift4:Swift4";
-  "//Libraries/Swift3:Swift3" [style=filled,color="#D6D3F5"];
-  "//Libraries/Swift4:Swift4" [style=filled,color="#D6D3F5"];
+  "//Libraries/SecondSwiftModule:SecondSwiftModule" -> "//Libraries/YetAnotherSwiftModule:YetAnotherSwiftModule";
+  "//Libraries/SecondSwiftModule:SecondSwiftModule" [style=filled,color="#D6D3F5"];
+  "//Libraries/YetAnotherSwiftModule:YetAnotherSwiftModule" [style=filled,color="#D6D3F5"];
   "//Pods:CryptoSwift" [style=filled,color="#D6D3F5"];
 }

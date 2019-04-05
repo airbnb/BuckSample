@@ -1,12 +1,12 @@
 //
 //  MyPublicClass+MySecondPublicProtocol.swift
-//  Swift3
+//  SecondSwiftModule
 //
 //  Created by Michael Bachand on 2/6/19.
 //
 
 import Foundation
-import Swift4
+import YetAnotherSwiftModule
 
 extension MyPublicClass: MyPublicProtocol {
   public var currrentThought: String {

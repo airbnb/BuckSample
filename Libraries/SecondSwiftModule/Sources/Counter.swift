@@ -1,4 +1,4 @@
-import Swift4
+import YetAnotherSwiftModule
 import Foundation
 
 @objc
