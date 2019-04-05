@@ -8,16 +8,6 @@ apple_third_party_lib(
 )
 
 apple_third_party_lib(
-    name = "OHHTTPStubs",
-    exported_headers = glob([
-        "OHHTTPStubs/**/*.h",
-    ]),
-    srcs = glob([
-        "OHHTTPStubs/**/*.m",
-    ]),
-)
-
-apple_third_party_lib(
     name = "PromiseKit",
     visibility = ["PUBLIC"],
     exported_headers = glob([

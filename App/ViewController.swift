@@ -1,7 +1,7 @@
 import UIKit
-import Swift2
-import Swift3
-import Swift4
+import ASwiftModule
+import SecondSwiftModule
+import YetAnotherSwiftModule
 import CryptoSwift
 import Objc1
 import ObjcAndSwift
@@ -35,14 +35,14 @@ class ViewController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
-    // Swift class defined in Swift2
+    // Swift class defined in ASwiftModule
     let s = MySwiftClass()
-    print("Swift2: \(s)")
+    print("ASwiftModule: \(s)")
 
-    // Swift class defined in Swift3. This class is bridged to Objective-C by subclassing `NSObject`
+    // Swift class defined in SecondSwiftModule. This class is bridged to Objective-C by subclassing `NSObject`
     // and using the `@objc` annotation.
     let c = Counter()
-    print("Swift3: \(c)")
+    print("SecondSwiftModule: \(c)")
     c.increment()
 
     // From CryptoSwift
@@ -70,8 +70,8 @@ class ViewController: UIViewController {
 
     // Without an object explicitly typed as `MyPublicClass` in this module, an instance of
     // `MyPublicClass` won't exhibit conformance to `MyPublicProtocol`. `MyPublicClass` is defined
-    // in `Swift4`. `MyPublicProtocol` and the conformance of `MyPublicClass` to `MyPublicProtocol`
-    // is defined in `Swift3`.
+    // in `YetAnotherSwiftModule`. `MyPublicProtocol` and the conformance of `MyPublicClass` to `MyPublicProtocol`
+    // is defined in `SecondSwiftModule`.
     //
     // We are currently working around this issue in the Buck-generated project by including the
     // `-all_load` flag for `OTHER_LDFLAGS` in the `configs` that we are passing to all
@@ -81,7 +81,7 @@ class ViewController: UIViewController {
     // * Annotate `MyPublicProtocol` with `@objc` and pass the `-ObjC` flag to `OTHER_LDFLAGS`.
     // * Annotate the conformance of `MyPublicClass` to `MyPublicProtocol` with `@objc` and pass
     // the `-ObjC` flag to `OTHER_LDFLAGS`.
-    // * `-force_load` the module where the conformance exists. In this case that would be `Swift3`.
+    // * `-force_load` the module where the conformance exists. In this case that would be `SecondSwiftModule`.
     //
     // This bug is documented at https://bugs.swift.org/browse/SR-6004.
     let myObject = MyFactory.myPublicObject()
