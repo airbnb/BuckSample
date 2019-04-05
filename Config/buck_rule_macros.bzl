@@ -47,6 +47,9 @@ def apple_test_lib(
             **kwargs
         )
 
+    if info_plist == None:
+        info_plist = "//Config:test_info_plist"
+
     substitutions = {
         "CURRENT_PROJECT_VERSION": "1",
         "DEVELOPMENT_LANGUAGE": "en-us",
@@ -147,7 +150,7 @@ def first_party_library(
         mlmodel_generated_source = [],
         deps = [],
         frameworks = [],
-        info_plist = "Tests/Info.plist",
+        info_plist = None,
         info_plist_substitutions = {},
         test_host_app = None,
         run_test_separately = False,

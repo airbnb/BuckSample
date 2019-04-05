@@ -15,8 +15,9 @@ apple_resource(
 )
 
 app_tests = [
-    ":Tests",
-    ":UITests",
+    ":UnitTests",
+    ":UnitTestsWithHostApp",
+    ":XCUITests",
 ]
 
 first_party_library_dependencies = [
@@ -108,7 +109,6 @@ xcode_postbuild_script(
 # Test targets can be slow to create in CI; creating only one can save significant time.
 apple_test_all(
     name = "ExampleAppCITests",
-    info_plist = "Info.plist",
     libraries = first_party_library_dependencies,
     additional_tests = app_tests,
     prebuilt_frameworks = prebuilt_frameworks,
@@ -284,32 +284,38 @@ apple_resource(
 ### Tests Begin ###
 
 apple_test_lib(
-    name = "Tests",
+    name = "UnitTests",
     srcs = glob([
-        "Tests/*.swift",
+        "UnitTests/*.swift",
     ]),
-    info_plist = "Tests/Info.plist",
     deps = [
         ":ExampleAppLibrary",
     ]
     + prebuilt_frameworks,
 )
 
-### Tests End ###
-
-### UI Tests Begin ###
+apple_test_lib(
+    name = "UnitTestsWithHostApp",
+    run_test_separately = True,
+    test_host_app = ":ExampleApp",
+    srcs = glob([
+        "UnitTestsWithHostApp/*.swift",
+    ]),
+    deps = [
+        ":ExampleAppLibrary",
+    ],
+)
 
 apple_test_lib(
-    name = "UITests",
+    name = "XCUITests",
     destination_specifier = {
         "name": "iPhone 8",
     },
     run_test_separately = True,
     test_host_app = ":ExampleApp",
     srcs = glob([
-        "UITests/*.swift",
+        "XCUITests/*.swift",
     ]),
-    info_plist = "UITests/Info.plist",
     is_ui_test = True,
     labels = ['ui'],
     deps = [
@@ -317,4 +323,4 @@ apple_test_lib(
     ],
 )
 
-### UI Tests End ###
+### Tests End ###
