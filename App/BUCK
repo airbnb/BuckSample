@@ -15,7 +15,7 @@ apple_resource(
 )
 
 app_tests = [
-    "//App:Tests",
+    ":Tests",
 ]
 
 first_party_library_dependencies = [
