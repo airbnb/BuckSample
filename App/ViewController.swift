@@ -1,7 +1,7 @@
 import UIKit
 import ASwiftModule
 import SecondSwiftModule
-import Swift4
+import YetAnotherSwiftModule
 import CryptoSwift
 import Objc1
 import ObjcAndSwift
@@ -70,7 +70,7 @@ class ViewController: UIViewController {
 
     // Without an object explicitly typed as `MyPublicClass` in this module, an instance of
     // `MyPublicClass` won't exhibit conformance to `MyPublicProtocol`. `MyPublicClass` is defined
-    // in `Swift4`. `MyPublicProtocol` and the conformance of `MyPublicClass` to `MyPublicProtocol`
+    // in `YetAnotherSwiftModule`. `MyPublicProtocol` and the conformance of `MyPublicClass` to `MyPublicProtocol`
     // is defined in `SecondSwiftModule`.
     //
     // We are currently working around this issue in the Buck-generated project by including the

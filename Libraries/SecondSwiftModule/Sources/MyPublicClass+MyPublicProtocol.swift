@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import Swift4
+import YetAnotherSwiftModule
 
 extension MyPublicClass: MyPublicProtocol {
   public var currrentThought: String {

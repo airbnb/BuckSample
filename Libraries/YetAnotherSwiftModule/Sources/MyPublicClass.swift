@@ -1,6 +1,6 @@
 //
 //  MyPublicClass.swift
-//  Swift4
+//  YetAnotherSwiftModule
 //
 //  Created by Michael Bachand on 2/6/19.
 //

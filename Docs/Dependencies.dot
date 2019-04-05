@@ -8,8 +8,8 @@ digraph result_graph {
   "//App:ExampleAppBinary" [style=filled,color="#86B3AF"];
   "//App:ExampleAppResource" [style=filled,color="#D3DDE9"];
   "//Libraries/Objc1:Objc1" [style=filled,color="#D6D3F5"];
-  "//Libraries/SecondSwiftModule:SecondSwiftModule" -> "//Libraries/Swift4:Swift4";
+  "//Libraries/SecondSwiftModule:SecondSwiftModule" -> "//Libraries/YetAnotherSwiftModule:YetAnotherSwiftModule";
   "//Libraries/SecondSwiftModule:SecondSwiftModule" [style=filled,color="#D6D3F5"];
-  "//Libraries/Swift4:Swift4" [style=filled,color="#D6D3F5"];
+  "//Libraries/YetAnotherSwiftModule:YetAnotherSwiftModule" [style=filled,color="#D6D3F5"];
   "//Pods:CryptoSwift" [style=filled,color="#D6D3F5"];
 }
