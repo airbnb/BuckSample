@@ -16,7 +16,6 @@ apple_resource(
 
 app_tests = [
     "//App:Tests",
-    "//App:UITests",
 ]
 
 first_party_library_dependencies = [
