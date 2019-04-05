@@ -15,8 +15,8 @@ apple_resource(
 )
 
 app_tests = [
-    ":Tests",
-    ":UITests",
+    ":UnitTests",
+    ":XCUITests",
 ]
 
 first_party_library_dependencies = [
@@ -275,11 +275,11 @@ apple_resource(
 ### Tests Begin ###
 
 apple_test_lib(
-    name = "Tests",
+    name = "UnitTests",
     srcs = glob([
-        "Tests/*.swift",
+        "UnitTests/*.swift",
     ]),
-    info_plist = "Tests/Info.plist",
+    info_plist = "UnitTests/Info.plist",
     deps = [
         ":ExampleAppLibrary",
     ],
@@ -290,16 +290,16 @@ apple_test_lib(
 ### UI Tests Begin ###
 
 apple_test_lib(
-    name = "UITests",
+    name = "XCUITests",
     destination_specifier = {
         "name": "iPhone 8",
     },
     run_test_separately = True,
     test_host_app = ":ExampleApp",
     srcs = glob([
-        "UITests/*.swift",
+        "XCUITests/*.swift",
     ]),
-    info_plist = "UITests/Info.plist",
+    info_plist = "XCUITests/Info.plist",
     is_ui_test = True,
     labels = ['ui'],
     deps = [
