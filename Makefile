@@ -37,7 +37,7 @@ test:
 	$(BUCK) test //App:ExampleAppCITests --test-runner-env FOO=BAR
 
 ui_test:
-	$(BUCK) test //App:UITests
+	$(BUCK) test //App:XCUITests
 
 audit:
 	$(BUCK) audit rules App/BUCK > Config/Gen/App-BUCK.py
