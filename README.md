@@ -10,6 +10,8 @@ This is a sample to show how to use Buck to build an iOS project with mixed lang
 make install_buck
 ```
 
+Note: you may need to [install Java 8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) before `buck` will run for you locally.
+
 ### Running Tests
 Press `Cmd + U` to run the unit tests for the `ExampleApp` target inside Xcode.
 
