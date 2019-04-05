@@ -30,8 +30,6 @@ def apple_test_lib(
         frameworks = [],
         labels = [],
         **kwargs):
-    test_name = name + ".test"
-
     if bundle_for_ci:
         # Create a library with the test files. We'll use use these for our CI tests.
         # Libraries are much faster to create in CI than unit test bundles.
@@ -51,7 +49,7 @@ def apple_test_lib(
         "CURRENT_PROJECT_VERSION": "1",
         "DEVELOPMENT_LANGUAGE": "en-us",
         "EXECUTABLE_NAME": name,
-        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % test_name,
+        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % name,
         "PRODUCT_NAME": name,
     }
     substitutions.update(info_plist_substitutions)
@@ -62,7 +60,7 @@ def apple_test_lib(
         info_plist_substitutions = substitutions,
         test_host_app = test_host_app,
         run_test_separately = run_test_separately,
-        configs = test_configs(test_name),
+        configs = test_configs(name),
         frameworks = [
           "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework"
         ] + frameworks,
