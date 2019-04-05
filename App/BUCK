@@ -102,7 +102,6 @@ xcode_postbuild_script(
 # Test targets can be slow to create in CI; creating only one can save significant time.
 apple_test_all(
     name = "ExampleAppCITests",
-    info_plist = "Info.plist",
     libraries = first_party_library_dependencies,
     additional_tests = app_tests,
 )
@@ -280,7 +279,6 @@ apple_test_lib(
     srcs = glob([
         "UnitTests/*.swift",
     ]),
-    info_plist = "UnitTests/Info.plist",
     deps = [
         ":ExampleAppLibrary",
     ],
@@ -293,7 +291,6 @@ apple_test_lib(
     srcs = glob([
         "UnitTestsWithHostApp/*.swift",
     ]),
-    info_plist = "UnitTestsWithHostApp/Info.plist",
     deps = [
         ":ExampleAppLibrary",
     ],
@@ -309,7 +306,6 @@ apple_test_lib(
     srcs = glob([
         "XCUITests/*.swift",
     ]),
-    info_plist = "XCUITests/Info.plist",
     is_ui_test = True,
     labels = ['ui'],
     deps = [
