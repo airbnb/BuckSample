@@ -1,6 +1,6 @@
 import XCTest
 
-final class SomeSwift3Tests: XCTestCase {
+final class SomeSecondSwiftModuleTests: XCTestCase {
 
   func test_nothingAtAll() {
     XCTAssertTrue(true)

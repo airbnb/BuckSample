@@ -20,7 +20,7 @@ app_tests = [
 
 first_party_library_dependencies = [
     "//Libraries/ASwiftModule:ASwiftModule",
-    "//Libraries/Swift3:Swift3",
+    "//Libraries/SecondSwiftModule:SecondSwiftModule",
     "//Libraries/Objc1:Objc1",
     "//Libraries/ObjcAndSwift:ObjcAndSwift",
     "//Libraries/SwiftAndObjc:SwiftAndObjc",

@@ -1,7 +1,7 @@
 load("//Config:buck_rule_macros.bzl", "first_party_library")
 
 first_party_library(
-    name = "Swift3",
+    name = "SecondSwiftModule",
     deps = [
         "//Libraries/Swift4:Swift4",
     ],
