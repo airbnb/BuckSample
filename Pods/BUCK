@@ -1,4 +1,4 @@
-load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_third_party_lib", "apple_cxx_third_party_library")
+load("//Config:buck_rule_macros.bzl", "apple_third_party_lib", "apple_cxx_third_party_library")
 
 apple_third_party_lib(
     name = "CryptoSwift",

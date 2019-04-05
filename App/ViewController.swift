@@ -10,6 +10,7 @@ import SwiftAndObjc
 import SwiftReliesOnCXX
 import SwiftWithAssets
 import SwiftWithMLModel
+import SwiftWithPrecompiledDependency
 
 public let testVar = "SampleValue"
 
@@ -106,5 +107,7 @@ class ViewController: UIViewController {
       }.catch { (error) in
         print(error)
     }
+
+    print("AFNetworking's version is \(SwiftWithPrecompiledDependencyClass.networkingLibraryVersionNumber)")
   }
 }
