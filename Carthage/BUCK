@@ -1,0 +1,16 @@
+load("//Config:buck_rule_macros.bzl", "apple_lib")
+
+prebuilt_apple_framework(
+    name = "AFNetworking",
+    framework = "Build/iOS/AFNetworking.framework",
+    preferred_linkage = "shared",
+    visibility = ["PUBLIC"],
+)
+
+# Every BUCK file needs at least one library with source.
+apple_lib(
+    name = "CarthageProjectGeneratorHack",
+    srcs = glob([
+        "BuckSupportFiles/**/*.swift",
+    ]),
+)

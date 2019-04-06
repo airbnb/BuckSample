@@ -15,7 +15,9 @@ apple_resource(
 )
 
 app_tests = [
-    "//App/Tests:Tests",
+    ":UnitTests",
+    ":UnitTestsWithHostApp",
+    ":XCUITests",
 ]
 
 first_party_library_dependencies = [
@@ -28,6 +30,14 @@ first_party_library_dependencies = [
     "//Libraries/SwiftReliesOnCXX:SwiftReliesOnCXX",
     "//Libraries/SwiftWithAssets:SwiftWithAssets",
     "//Libraries/SwiftWithMLModel:SwiftWithMLModel",
+    "//Libraries/SwiftWithPrecompiledDependency:SwiftWithPrecompiledDependency",
+]
+
+prebuilt_frameworks = [
+    "//Carthage:AFNetworking",
+
+    # Hack to enable project generation to work for the Carthage BUCK file which otherwise only has `prebuilt_apple_framework`s.
+    "//Carthage:CarthageProjectGeneratorHack",
 ]
 
 # Build Phase scripts need to be added as dependencies.
@@ -96,14 +106,13 @@ xcode_postbuild_script(
     output_file_lists = [],
 )
 
-
 # This test bundles all unit test libraries into a single test target.
 # Test targets can be slow to create in CI; creating only one can save significant time.
 apple_test_all(
     name = "ExampleAppCITests",
-    info_plist = "Info.plist",
     libraries = first_party_library_dependencies,
     additional_tests = app_tests,
+    prebuilt_frameworks = prebuilt_frameworks,
 )
 
 xcode_workspace_config(
@@ -123,8 +132,6 @@ apple_bundle(
     name = "ExampleApp",
     visibility = [
         "//App:",
-        "//App/Tests:",
-        "//App/UITests:",
     ],
     extension = "app",
     binary = ":ExampleAppBinary",
@@ -136,6 +143,7 @@ apple_bundle(
         ":ExampleWatchApp#watch",
         ":ExampleMessageExtension"
     ]
+    + prebuilt_frameworks,
 )
 
 apple_package(
@@ -273,3 +281,47 @@ apple_resource(
     files = glob(["MessageExtension/**/*.storyboard"])
 )
 ### iMessage Extension End ###
+
+### Tests Begin ###
+
+apple_test_lib(
+    name = "UnitTests",
+    srcs = glob([
+        "UnitTests/*.swift",
+    ]),
+    deps = [
+        ":ExampleAppLibrary",
+    ]
+    + prebuilt_frameworks,
+)
+
+apple_test_lib(
+    name = "UnitTestsWithHostApp",
+    run_test_separately = True,
+    test_host_app = ":ExampleApp",
+    srcs = glob([
+        "UnitTestsWithHostApp/*.swift",
+    ]),
+    deps = [
+        ":ExampleAppLibrary",
+    ],
+)
+
+apple_test_lib(
+    name = "XCUITests",
+    destination_specifier = {
+        "name": "iPhone 8",
+    },
+    run_test_separately = True,
+    test_host_app = ":ExampleApp",
+    srcs = glob([
+        "XCUITests/*.swift",
+    ]),
+    is_ui_test = True,
+    labels = ['ui'],
+    deps = [
+        "//Libraries/ASwiftModule:ASwiftModule",
+    ],
+)
+
+### Tests End ###

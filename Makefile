@@ -1,5 +1,5 @@
 
-.PHONY : log install_buck build watch message targets pods audit debug test xcode_tests clean project audit
+.PHONY : log install_buck build watch message targets audit debug test xcode_tests clean project audit
 
 # Use local version of Buck
 BUCK=tools/buck
@@ -35,15 +35,6 @@ ci: install_buck targets build test project xcode_tests watch message
 
 test:
 	$(BUCK) test //App:ExampleAppCITests --test-runner-env FOO=BAR
-
-ui_test:
-	$(BUCK) test //App/UITests:UITests
-
-pods:
-	$(BUCK) build //Pods:PromiseKit
-	$(BUCK) build //Pods:Braintree
-	$(BUCK) build //Pods:Bugsnag
-	# $(BUCK) build //Pods:Nimble
 
 audit:
 	$(BUCK) audit rules App/BUCK > Config/Gen/App-BUCK.py

@@ -27,8 +27,10 @@ def apple_test_lib(
         info_plist_substitutions = {},
         test_host_app = None,
         run_test_separately = False,
+        is_ui_test = False,
         frameworks = [],
         labels = [],
+        destination_specifier = None,
         **kwargs):
     if bundle_for_ci:
         # Create a library with the test files. We'll use use these for our CI tests.
@@ -45,6 +47,9 @@ def apple_test_lib(
             **kwargs
         )
 
+    if info_plist == None:
+        info_plist = "//Config:test_info_plist"
+
     substitutions = {
         "CURRENT_PROJECT_VERSION": "1",
         "DEVELOPMENT_LANGUAGE": "en-us",
@@ -58,7 +63,9 @@ def apple_test_lib(
         visibility = visibility,
         info_plist = info_plist,
         info_plist_substitutions = substitutions,
+        destination_specifier = destination_specifier,
         test_host_app = test_host_app,
+        is_ui_test = is_ui_test,
         run_test_separately = run_test_separately,
         configs = test_configs(name),
         frameworks = [
@@ -72,16 +79,18 @@ def apple_test_lib(
 # Test targets can be slow to create in CI; creating only one can save significant time.
 # - parameter libraries: The libraries whose tests should be put into the single test target.
 # - parameter additional_tests: Additional apple_test targets that should be run as part of the single test target.
+# - parameter prebuilt_frameworks: Any prebuilt frameworks included in module dependencies. This parameter is used to work around a buck bug where transitive prebuilt frameworks are not included in executables.
 def apple_test_all(
         libraries = [],
         additional_tests = [],
+        prebuilt_frameworks = [],
         **kwargs):
     ci_test_libraries = []
     for library in libraries:
         ci_test_libraries.append(ci_test_name(test_name(library)))
 
     apple_test_lib(
-        deps = ci_test_libraries + additional_tests,
+        deps = ci_test_libraries + additional_tests + prebuilt_frameworks,
         bundle_for_ci = False,
         **kwargs
     )
@@ -142,7 +151,7 @@ def first_party_library(
         mlmodel_generated_source = [],
         deps = [],
         frameworks = [],
-        info_plist = "Tests/Info.plist",
+        info_plist = None,
         info_plist_substitutions = {},
         test_host_app = None,
         run_test_separately = False,
