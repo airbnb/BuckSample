@@ -3,13 +3,12 @@
 
 @implementation Cpp1
 - (NSInteger)add:(NSInteger)a with:(NSInteger)b {
-    Num a_cpp = Num(a);
-    Num b_cpp = Num(b);
+    CppObject cpp = CppObject();
     
-    return a_cpp.getNum() + b_cpp.getNum();
+    return cpp.add(a, b);
 }
 
 + (NSInteger)add:(NSInteger)a with:(NSInteger)b {
-    return 0;//addition(a, b);
+    return CppObject::static_add(a, b);
 }
 @end
