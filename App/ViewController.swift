@@ -11,6 +11,7 @@ import SwiftReliesOnCXX
 import SwiftWithAssets
 import SwiftWithMLModel
 import SwiftWithPrecompiledDependency
+import Cpp1
 
 public let testVar = "SampleValue"
 
@@ -54,6 +55,13 @@ class ViewController: UIViewController {
     let o = Objc1()
     print("Objc1: %s", o)
     Objc1.sayHello("Michael")
+    
+    // C++ wrapped in Objective-C class defined in Cpp1
+    let cpp = Cpp1()
+    print("class method:  1 + 2 =", cpp.add(1, with: 2))
+    print("static method: 1 + 2 =", Cpp1.add(1, with: 2))
+    MySwiftClassInCxxModule().bestowGreetings("Hello from the Cxx world")
+    print("I can see \(MyBridgedSwiftClassInCxxModule().findObjectiveCInstance())")
 
     // Swift class defined in SwiftAndObjc
     SwiftAndObjc.MySwiftClassInMixedModule().bestowGreetings("Hello world, how are you?")

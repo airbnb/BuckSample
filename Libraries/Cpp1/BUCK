@@ -1,0 +1,9 @@
+load("//Config:buck_rule_macros.bzl", "first_party_library")
+
+first_party_library(
+    name = "Cpp1",
+    has_cpp = True,
+    internal_headers = [
+      "Sources/util.hpp",
+    ]
+)
