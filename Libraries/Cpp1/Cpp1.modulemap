@@ -1,6 +1,0 @@
-framework module Objc1 {
-  umbrella header "Objc1-umbrella.h"
-
-  export *
-  module * { export * }
-}
