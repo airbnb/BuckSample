@@ -2,4 +2,5 @@
 
 @interface Cpp1 : NSObject
 - (NSInteger)add:(NSInteger)a with:(NSInteger)b;
++ (NSInteger)add:(NSInteger)a with:(NSInteger)b;
 @end

@@ -58,6 +58,8 @@ class ViewController: UIViewController {
     // C++ wrapped in Objective-C class defined in Cpp1
     let cpp = Cpp1()
     print("1 + 2 =", cpp.add(1, with: 2))
+    MySwiftClassInCxxModule().bestowGreetings("Hello from the Cxx world")
+    print("I can see \(MyBridgedSwiftClassInCxxModule().findObjectiveCInstance())")
 
     // Swift class defined in SwiftAndObjc
     SwiftAndObjc.MySwiftClassInMixedModule().bestowGreetings("Hello world, how are you?")

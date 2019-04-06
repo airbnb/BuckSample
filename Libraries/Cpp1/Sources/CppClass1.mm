@@ -8,4 +8,8 @@
     
     return a_cpp.getNum() + b_cpp.getNum();
 }
+
++ (NSInteger)add:(NSInteger)a with:(NSInteger)b {
+    return 0;//addition(a, b);
+}
 @end
