@@ -3,7 +3,4 @@ load("//Config:buck_rule_macros.bzl", "first_party_library")
 first_party_library(
     name = "Objc1",
     has_objective_c = True,
-    extra_xcode_files = [
-        "Objc1.modulemap",
-    ],
 )
