@@ -145,6 +145,7 @@ def apple_lib(
 def first_party_library(
         name,
         has_objective_c = False,
+        has_cpp = False,
         internal_headers = None,
         extra_xcode_files = [],
         mlmodel_generated_source = [],
@@ -164,16 +165,22 @@ def first_party_library(
         **kwargs):
     sources = native.glob(["Sources/**/*.swift"])
     exported_headers = None
-    if has_objective_c:
+    if has_objective_c or has_cpp:
         sources.extend(native.glob(["Sources/**/*.m"]))
+        if has_cpp:
+            sources.extend(native.glob(["Sources/**/*.cpp"]))
+            sources.extend(native.glob(["Sources/**/*.mm"]))
         exported_headers = []
         all_headers = native.glob(["Sources/**/*.h"])
+        if has_cpp:
+            all_headers.extend(native.glob(["Sources/**/*.hpp"]))
         for header in all_headers:
             if not header in (internal_headers or []):
                 exported_headers.append(header)
 
     lib_test_name = test_name(name)
-    apple_lib(
+    lib = apple_cxx_lib if has_cpp else apple_lib
+    lib(
         name = name,
         srcs = sources + mlmodel_generated_source,
         exported_headers = exported_headers,
