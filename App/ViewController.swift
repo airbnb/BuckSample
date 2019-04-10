@@ -1,17 +1,17 @@
-import UIKit
 import ASwiftModule
-import SecondSwiftModule
-import YetAnotherSwiftModule
+import Cpp1
 import CryptoSwift
 import Objc1
 import ObjcAndSwift
 import PromiseKit
+import SecondSwiftModule
 import SwiftAndObjc
 import SwiftReliesOnCXX
 import SwiftWithAssets
 import SwiftWithMLModel
 import SwiftWithPrecompiledDependency
-import Cpp1
+import YetAnotherSwiftModule
+import UIKit
 
 public let testVar = "SampleValue"
 
