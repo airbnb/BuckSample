@@ -1,14 +1,14 @@
 [cxx]
   default_platform = iphonesimulator-x86_64
-  cflags = -g -fmodules -fobjc-arc -D BUCK -w
-  cxxflags = -fobjc-arc -std=c++14 -D DEBUG -g
+  cflags = -g -fmodules -fobjc-arc -D BUCK -w $(config custom.other_cflags)
+  cxxflags = -fobjc-arc -std=c++14 -D DEBUG -g $(config custom.other_cxxflags)
   combined_preprocess_and_compile = true
   pch_enabled = false
-  ldflags = -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fobjc-link-runtime
+  ldflags = -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fobjc-link-runtime $(config custom.other_cxxflags)
 
 [swift]
   version = 4.0
-  compiler_flags = -DBUCK -enable-testing -g -Onone -whole-module-optimization
+  compiler_flags = -DBUCK -enable-testing -g -Onone -whole-module-optimization $(config custom.other_swift_compiler_flags)
   use_filelist = true
 
 [apple]
@@ -33,7 +33,11 @@
   ignore = tools, \
            .git, \
 
-
 [build]
   threads = 4
 
+[custom]
+  code_coverage_cflags = -fprofile-instr-generate -fcoverage-mapping
+  code_coverage_cxxflags = -fprofile-instr-generate -fcoverage-mapping
+  code_coverage_ldflags = -fprofile-instr-generate
+  code_coverage_swift_compiler_flags = -profile-generate -profile-coverage-mapping
