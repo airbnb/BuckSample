@@ -31,6 +31,7 @@ first_party_library_dependencies = [
     "//Libraries/SwiftWithAssets:SwiftWithAssets",
     "//Libraries/SwiftWithMLModel:SwiftWithMLModel",
     "//Libraries/SwiftWithPrecompiledDependency:SwiftWithPrecompiledDependency",
+    "//Libraries/YetAnotherSwiftModule:YetAnotherSwiftModule",
 ]
 
 prebuilt_frameworks = [
