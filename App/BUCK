@@ -22,15 +22,16 @@ app_tests = [
 
 first_party_library_dependencies = [
     "//Libraries/ASwiftModule:ASwiftModule",
-    "//Libraries/SecondSwiftModule:SecondSwiftModule",
-    "//Libraries/Objc1:Objc1",
     "//Libraries/Cpp1:Cpp1",
+    "//Libraries/Objc1:Objc1",
     "//Libraries/ObjcAndSwift:ObjcAndSwift",
+    "//Libraries/SecondSwiftModule:SecondSwiftModule",
     "//Libraries/SwiftAndObjc:SwiftAndObjc",
     "//Libraries/SwiftReliesOnCXX:SwiftReliesOnCXX",
     "//Libraries/SwiftWithAssets:SwiftWithAssets",
     "//Libraries/SwiftWithMLModel:SwiftWithMLModel",
     "//Libraries/SwiftWithPrecompiledDependency:SwiftWithPrecompiledDependency",
+    "//Libraries/YetAnotherSwiftModule:YetAnotherSwiftModule",
 ]
 
 prebuilt_frameworks = [

@@ -1,17 +1,17 @@
-import UIKit
 import ASwiftModule
-import SecondSwiftModule
-import YetAnotherSwiftModule
+import Cpp1
 import CryptoSwift
 import Objc1
 import ObjcAndSwift
 import PromiseKit
+import SecondSwiftModule
 import SwiftAndObjc
 import SwiftReliesOnCXX
 import SwiftWithAssets
 import SwiftWithMLModel
 import SwiftWithPrecompiledDependency
-import Cpp1
+import YetAnotherSwiftModule
+import UIKit
 
 public let testVar = "SampleValue"
 
@@ -48,8 +48,7 @@ class ViewController: UIViewController {
     c.increment()
 
     // From CryptoSwift
-    let data = Data(bytes: [0x01, 0x02, 0x03])
-    print("Crypto: \(data)")
+    print("SHA2: \(SHA2(variant: .sha256))")
 
     // Objective-C class defined in Objc1
     let o = Objc1()
