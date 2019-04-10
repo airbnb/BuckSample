@@ -48,8 +48,7 @@ class ViewController: UIViewController {
     c.increment()
 
     // From CryptoSwift
-    let data = Data(bytes: [0x01, 0x02, 0x03])
-    print("Crypto: \(data)")
+    print("SHA2: \(SHA2(variant: .sha256))")
 
     // Objective-C class defined in Objc1
     let o = Objc1()
