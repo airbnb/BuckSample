@@ -2,6 +2,12 @@ load("//Config:utils.bzl", "config_with_updated_linker_flags", "configs_with_con
 
 DEVELOPMENT_LANGUAGE = "en"
 
+def merge_dict(a, b):
+    d = {}
+    d.update(a)
+    d.update(b)
+    return d
+
 def pretty(dict, current = ""):
     current = "\n"
     indent = 0
@@ -44,7 +50,7 @@ def library_configs():
         # https://developer.apple.com/library/archive/technotes/tn2215/_index.html
         "SKIP_INSTALL": "YES",
     }
-    library_config = SHARED_CONFIGS + lib_specific_config
+    library_config = merge_dict(SHARED_CONFIGS, lib_specific_config)
     configs = {
         "Debug": library_config,
         "Profile": library_config,
@@ -58,13 +64,13 @@ def app_binary_configs(name):
         "DEVELOPMENT_LANGUAGE": DEVELOPMENT_LANGUAGE,
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
     }
-    binary_config = SHARED_CONFIGS + binary_specific_config
+    binary_config = merge_dict(SHARED_CONFIGS, binary_specific_config)
     binary_config = config_with_updated_linker_flags(binary_config, ALL_LOAD_LINKER_FLAG)
     return configs_with_config(binary_config)
 
 def test_configs(name):
     binary_specific_config = info_plist_substitutions(name)
-    binary_config = SHARED_CONFIGS + binary_specific_config
+    binary_config = merge_dict(SHARED_CONFIGS, binary_specific_config)
     configs = {
         "Debug": binary_config,
         "Profile": binary_config,
