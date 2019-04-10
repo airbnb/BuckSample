@@ -308,6 +308,8 @@ apple_test_lib(
     ],
 )
 
+# This test does not run from Buck CLI. However it can run from the generated Xcode project.
+# For more information, see https://github.com/airbnb/BuckSample/pull/70#issuecomment-481451036
 apple_test_lib(
     name = "XCUITests",
     destination_specifier = {
