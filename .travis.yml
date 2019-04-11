@@ -1,6 +1,9 @@
 language: generic
 os: osx
 osx_image: xcode10.2
+jdk:
+  # Buck requires Java 8
+  - oraclejdk8 
 addons:
   homebrew:
     brewfile: true
