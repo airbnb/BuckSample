@@ -1,6 +1,6 @@
 language: generic
 os: osx
-osx_image: xcode10.2
+osx_image: xcode10.1
 jdk:
   # Buck requires Java 8
   - oraclejdk8 
