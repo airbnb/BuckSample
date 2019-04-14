@@ -354,7 +354,7 @@ apple_binary(
         "//App:XCUITestsHostApp",
     ],
     configs = app_binary_configs("XCUITestsHostAppBinary"),
-    swift_version = "4.2",
+    swift_version = "4.0",
     srcs = [
         "BuckSupportFiles/DummyAppDelegate.swift",
     ],
