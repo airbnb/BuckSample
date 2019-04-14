@@ -30,7 +30,7 @@ debug:
 targets:
 	$(BUCK) targets //...
 
-ci: install_buck targets build test project xcode_tests watch message
+ci: install_buck targets build test ui_test project xcode_tests watch message
 	echo "Done"
 
 
@@ -45,6 +45,9 @@ test:
 		--config custom.other_swift_compiler_flags="\$$(config custom.code_coverage_swift_compiler_flags)"
 	xcrun llvm-profdata merge -sparse "$(buck_out)/tmp/code-"*.profraw -o "$(buck_out)/gen/Coverage.profdata"
 	xcrun llvm-cov report "$(buck_out)/gen/App/ExampleAppBinary#iphonesimulator-x86_64" -instr-profile "$(buck_out)/gen/Coverage.profdata"
+
+ui_test:
+	$(BUCK) test //App:XCUITests
 
 audit:
 	$(BUCK) audit rules App/BUCK > Config/Gen/App-BUCK.py
