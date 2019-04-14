@@ -17,6 +17,9 @@ apple_resource(
 app_tests = [
     ":UnitTests",
     ":UnitTestsWithHostApp",
+]
+
+ui_tests = [
     ":XCUITests",
 ]
 
@@ -308,22 +311,52 @@ apple_test_lib(
     ],
 )
 
-# This test does not run from Buck CLI. However it can run from the generated Xcode project.
-# For more information, see https://github.com/airbnb/BuckSample/pull/70#issuecomment-481451036
+# This test suite cannot be packaged with other tests due to a dependency on `fbxctest` instead of `xctool`.
 apple_test_lib(
     name = "XCUITests",
     destination_specifier = {
-        "name": "iPhone 8",
+        "name": "iPhone X",
     },
     run_test_separately = True,
-    test_host_app = ":ExampleApp",
+    test_host_app = ":XCUITestsHostApp",
     srcs = glob([
         "XCUITests/*.swift",
     ]),
     is_ui_test = True,
+    ui_test_target_app = ":ExampleApp",
     labels = ['ui'],
     deps = [
         "//Libraries/ASwiftModule:ASwiftModule",
+    ],
+    frameworks = [
+        "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
+        "$SDKROOT/System/Library/Frameworks/Foundation.framework",
+        "$SDKROOT/System/Library/Frameworks/UIKit.framework",
+    ],
+)
+
+# A very thin host app to enable running :XCUITests
+apple_bundle(
+    name = "XCUITestsHostApp",
+    visibility = [
+        "//App:XCUITests",
+    ],
+    extension = "app",
+    binary = ":XCUITestsHostAppBinary",
+    product_name = "XCUITestsHostApp",
+    info_plist = "Info.plist",
+    info_plist_substitutions = info_plist_substitutions("XCUITestsHostApp"),
+)
+
+apple_binary(
+    name = "XCUITestsHostAppBinary",
+    visibility = [
+        "//App:XCUITestsHostApp",
+    ],
+    configs = app_binary_configs("XCUITestsHostAppBinary"),
+    swift_version = "4.2",
+    srcs = [
+        "BuckSupportFiles/DummyAppDelegate.swift",
     ],
 )
 

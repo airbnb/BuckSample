@@ -46,8 +46,9 @@ test:
 	xcrun llvm-profdata merge -sparse "$(buck_out)/tmp/code-"*.profraw -o "$(buck_out)/gen/Coverage.profdata"
 	xcrun llvm-cov report "$(buck_out)/gen/App/ExampleAppBinary#iphonesimulator-x86_64" -instr-profile "$(buck_out)/gen/Coverage.profdata"
 
+fbxctest = tools/fbxctest/bin/fbxctest
 ui_test:
-	$(BUCK) test //App:XCUITests
+	$(BUCK) test //App:XCUITests --config apple.xctool_path=$(fbxctest)
 
 audit:
 	$(BUCK) audit rules App/BUCK > Config/Gen/App-BUCK.py
