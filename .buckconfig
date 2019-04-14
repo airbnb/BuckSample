@@ -19,7 +19,7 @@
   iphoneos_target_sdk_version = 11.0
   provisioning_profile_read_command = security cms -Di
   xctool_default_destination_specifier = platform=iOS Simulator,OS=latest
-  xctool_path = vendor/xctool/bin/xctool
+  xctool_path = tools/xctool/bin/xctool
 
 [parser]
   polyglot_parsing_enabled = true
