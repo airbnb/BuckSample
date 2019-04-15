@@ -1,13 +1,9 @@
-Xcode version: Xcode 10
-xctool commit: d2cf27717bb6f1181be4aeb8e390e09868d6ce5c
-fbxctest commit: 37cfbd0b9019170a6dac6724581677f1b01312d6
+# FBXCTest
 
-This tool (fbxctest) needs to be updated when moving to a new Xcode version.
-There's a script for this: scripts/update-xctest.sh
+ - Xcode version: Xcode 10
+ - xctool commit: d2cf27717bb6f1181be4aeb8e390e09868d6ce5c
+ - fbxctest commit: 37cfbd0b9019170a6dac6724581677f1b01312d6
 
-The script will more-or-less do the following for you:
-1. Download and build xctool from https://github.com/facebook/xctool.
-2. You will need to move the lib folder to the directory of fbxctest.
-3. Download and build fbxctest from https://github.com/facebook/FBSimulatorControl.
-4. Move the contents of the build output directory to this directory.
-5. Delete all headers, modules and related symlinks inside the frameworks.
+`fbxctest` is required to run UI tests directly from Buck. It needs to be updated when moving to a new Xcode version. To do ths, [follow the instructions in the Buck repostiory](https://github.com/facebook/buck/tree/master/test/com/facebook/buck/apple/testdata/fbxctest).
+
+Furthermore, `fbxctest` needs additional shims to enable it to control the Simulator. Those are `libShimulator.dylib` and `libMaculator.dylib`. They are not part of `fbxctest` by default, but can be obtained from [the FBSimulatorControl repository](https://github.com/facebook/FBSimulatorControl/tree/master/Shims). After downloading them, place the dynamic libraries in the `fbxctest/lib` directory.

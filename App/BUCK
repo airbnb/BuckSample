@@ -63,7 +63,7 @@ apple_library(
         "ViewController.swift",
         "AppDelegate.swift",
     ],
-    tests = app_tests,
+    tests = app_tests + ui_tests,
     deps = [
         "//Pods:CryptoSwift",
         "//Pods:PromiseKit",
@@ -315,14 +315,17 @@ apple_test_lib(
 apple_test_lib(
     name = "XCUITests",
     destination_specifier = {
-        "name": "iPhone X",
+        "name": "iPhone 8",
     },
     run_test_separately = True,
+    # The `test_host_app` is launched first in the Simulator and needs to be an `apple_bundle` that is distinct from `ui_test_target_app`.
     test_host_app = ":XCUITestsHostApp",
     srcs = glob([
         "XCUITests/*.swift",
     ]),
     is_ui_test = True,
+    # The `ui_test_target_app` field is not mentioned in Buck's official documentation, but it appears in its XCUITest fixtures.
+    # https://github.com/facebook/buck/blob/master/test/com/facebook/buck/apple/testdata/apple_test_xcuitest/BUCK.fixture#L66
     ui_test_target_app = ":ExampleApp",
     labels = ['ui'],
     deps = [
