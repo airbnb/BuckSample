@@ -63,7 +63,7 @@ apple_library(
         "ViewController.swift",
         "AppDelegate.swift",
     ],
-    tests = app_tests + ui_tests,
+    tests = app_tests,
     deps = [
         "//Pods:CryptoSwift",
         "//Pods:PromiseKit",
@@ -129,6 +129,8 @@ xcode_workspace_config(
             "POST_SCHEME_ACTIONS": ["echo 'Finished'"],
         },
     },
+    # Since `ui_tests` require a different test runner in CLI, but can be launched as-is from Xcode, we will place them as `extra_tests` on the Xcode workspace - where they make the most semantic sense.
+    extra_tests = ui_tests,
     action_config_names = {"profile": "Profile"},
 )
 
