@@ -28,6 +28,7 @@ def apple_test_lib(
         test_host_app = None,
         run_test_separately = False,
         is_ui_test = False,
+        ui_test_target_app = None,
         frameworks = [],
         labels = [],
         destination_specifier = None,
@@ -66,6 +67,7 @@ def apple_test_lib(
         destination_specifier = destination_specifier,
         test_host_app = test_host_app,
         is_ui_test = is_ui_test,
+        ui_test_target_app = ui_test_target_app,
         run_test_separately = run_test_separately,
         configs = test_configs(name),
         frameworks = [
