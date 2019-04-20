@@ -1,4 +1,4 @@
-load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "pretty", "info_plist_substitutions")
+load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "pretty", "info_plist_substitutions", "bundle_identifier")
 load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all")
 
 apple_asset_catalog(
@@ -195,7 +195,8 @@ apple_bundle(
     info_plist_substitutions = {
         "DEVELOPMENT_LANGUAGE": "en-us",
         "EXECUTABLE_NAME": "ExampleWatchAppExtension",
-        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.ExampleApp.WatchApp.Extension",
+        "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.WatchApp.Extension"),
+        "WK_APP_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.WatchApp"),
         "PRODUCT_NAME": "ExampleWatchAppExtension",
         "PRODUCT_MODULE_NAME": "ExampleWatchAppExtensionBinary",
     },
@@ -213,7 +214,8 @@ apple_bundle(
     info_plist_substitutions = {
         "DEVELOPMENT_LANGUAGE": "en-us",
         "EXECUTABLE_NAME": "ExampleWatchApp",
-        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.ExampleApp.WatchApp",
+        "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.WatchApp"),
+        "WK_COMPANION_APP_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp"),
         "PRODUCT_NAME": "ExampleWatchApp",
     },
     xcode_product_type = "com.apple.product-type.application.watchapp2",
@@ -271,7 +273,7 @@ apple_bundle(
     info_plist_substitutions = {
         "DEVELOPMENT_LANGUAGE": "en-us",
         "EXECUTABLE_NAME": "ExampleMessageExtension",
-        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.ExampleApp.MessageExtension",
+        "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.MessageExtension"),
         "PRODUCT_NAME": "ExampleMessageExtension",
         "PRODUCT_MODULE_NAME": "ExampleMessageExtensionBinary",
     },

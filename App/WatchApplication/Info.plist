@@ -36,7 +36,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>com.airbnb.ExampleApp</string>
+	<string>$(WK_COMPANION_APP_BUNDLE_IDENTIFIER)</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 	<key>UIDeviceFamily</key>
