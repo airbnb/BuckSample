@@ -57,6 +57,7 @@ def app_binary_configs(name):
         "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
         "DEVELOPMENT_LANGUAGE": DEVELOPMENT_LANGUAGE,
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
+        "CODE_SIGN_ENTITLEMENTS": (name + ".entitlements"),
     }
     binary_config = SHARED_CONFIGS + binary_specific_config
     binary_config = config_with_updated_linker_flags(binary_config, ALL_LOAD_LINKER_FLAG)
