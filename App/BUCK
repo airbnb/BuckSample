@@ -162,10 +162,6 @@ apple_package(
 )
 
 ### Siri Shortcut Begin ###
-# It's possible to have other types of intents that handle other types of Siri integration other
-# than Siri Shortcuts. If and when we add those examples of those intents we would want to make
-# these names more specific, e.g. `ExampleSiriShortcutIntentBinary` instead of
-# `ExampleIntentBinary`.
 
 apple_binary(
     name = "ExampleIntentBinary",
