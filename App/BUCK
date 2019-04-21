@@ -1,4 +1,4 @@
-load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "pretty", "info_plist_substitutions", "bundle_identifier", "DEVELOPMENT_LANGUAGE")
+load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "intent_binary_configs", "pretty", "info_plist_substitutions", "bundle_identifier", "DEVELOPMENT_LANGUAGE")
 load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all")
 
 apple_asset_catalog(
@@ -149,7 +149,9 @@ apple_bundle(
     deps = [
         # For "#watch", https://buckbuild.com/rule/apple_bundle.html#deps
         ":ExampleWatchApp#watch",
-        ":ExampleMessageExtension"
+        ":ExampleMessageExtension",
+        ":ExampleIntentExtension",
+        ":ExampleIntentUIExtension",
     ]
     + prebuilt_frameworks,
 )
@@ -158,6 +160,86 @@ apple_package(
     name = "ExampleAppPackage",
     bundle = ":ExampleApp",
 )
+
+### Siri Shortcut Begin ###
+# It's possible to have other types of intents that handle other types of Siri integration other
+# than Siri Shortcuts. If and when we add those examples of those intents we would want to make
+# these names more specific, e.g. `ExampleSiriShortcutIntentBinary` instead of
+# `ExampleIntentBinary`.
+
+apple_binary(
+    name = "ExampleIntentBinary",
+    srcs = glob([
+        "SiriShortcut/ExampleIntent/**/*.swift",
+    ]),
+    configs = intent_binary_configs("ExampleApp.IntentExtension"),
+
+    # "-e _NSExtensionMain" tell linker this binary is app extension, so it won't fail due to
+    # missing _main "-Xlinker -rpath -Xlinker @executable_path/../../Frameworks" tells the
+    # executable binary to look for frameworks in ExampleApp.app/Frameworks instead of PlugIns, so
+    # that we don't need to have the libSwift*.dylib in ExampleApp.app/PlugIns/*.appex/Frameworks
+    linker_flags = [
+        "-e",
+        "_NSExtensionMain",
+        "-Xlinker",
+        "-rpath",
+        "-Xlinker",
+        "@executable_path/../../Frameworks",
+    ],
+)
+
+apple_bundle(
+    name = "ExampleIntentExtension",
+    binary = ":ExampleIntentBinary",
+    extension = "appex",
+    info_plist = "SiriShortcut/ExampleIntent/Info.plist",
+    info_plist_substitutions = {
+        "DEVELOPMENT_LANGUAGE": "en-us",
+        "EXECUTABLE_NAME": "ExampleIntentExtension",
+        "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.IntentExtension"),
+        "PRODUCT_NAME": "ExampleIntentExtension",
+        "PRODUCT_MODULE_NAME": "ExampleIntentBinary",
+    },
+    xcode_product_type = "com.apple.product-type.app-extension",
+)
+
+apple_binary(
+    name = "ExampleIntentUIBinary",
+    srcs = glob([
+        "SiriShortcut/ExampleIntentUI/**/*.swift",
+    ]),
+    configs = intent_binary_configs("ExampleApp.IntentUIExtension"),
+
+    # "-e _NSExtensionMain" tell linker this binary is app extension, so it won't fail due to
+    # missing _main "-Xlinker -rpath -Xlinker @executable_path/../../Frameworks" tells the
+    # executable binary to look for frameworks in ExampleApp.app/Frameworks instead of PlugIns, so
+    # that we don't need to have the libSwift*.dylib in ExampleApp.app/PlugIns/*.appex/Frameworks
+    linker_flags = [
+        "-e",
+        "_NSExtensionMain",
+        "-Xlinker",
+        "-rpath",
+        "-Xlinker",
+        "@executable_path/../../Frameworks",
+    ],
+)
+
+apple_bundle(
+    name = "ExampleIntentUIExtension",
+    binary = ":ExampleIntentUIBinary",
+    extension = "appex",
+    info_plist = "SiriShortcut/ExampleIntentUI/Info.plist",
+    info_plist_substitutions = {
+        "DEVELOPMENT_LANGUAGE": "en-us",
+        "EXECUTABLE_NAME": "ExampleIntentUIExtension",
+        "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.IntentUIExtension"),
+        "PRODUCT_NAME": "ExampleIntentUIExtension",
+        "PRODUCT_MODULE_NAME": "ExampleIntentUIBinary",
+    },
+    xcode_product_type = "com.apple.product-type.app-extension",
+)
+
+### Siri Shortcut End ###
 
 ### Watch App Begin ###
 # Define the watch app in the same BUCK file as the binary into which the watch app will be installed.

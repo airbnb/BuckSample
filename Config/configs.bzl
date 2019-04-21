@@ -119,3 +119,11 @@ def message_binary_configs(name):
     }
     config = config_with_updated_linker_flags(config, ALL_LOAD_LINKER_FLAG)
     return configs_with_config(config)
+
+def intent_binary_configs(name):
+    config = {
+        "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
+        "SWIFT_COMPILATION_MODE": "wholemodule"
+    }
+    config = config_with_updated_linker_flags(config, ALL_LOAD_LINKER_FLAG)
+    return configs_with_config(config)
