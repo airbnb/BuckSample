@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>INEnums</key>
+	<array/>
+	<key>INIntentDefinitionModelVersion</key>
+	<string>1.0</string>
+	<key>INIntentDefinitionSystemVersion</key>
+	<string>18E226</string>
+	<key>INIntentDefinitionToolsBuildVersion</key>
+	<string>10E125</string>
+	<key>INIntentDefinitionToolsVersion</key>
+	<string>10.2</string>
+	<key>INIntents</key>
+	<array>
+		<dict>
+			<key>INIntentCategory</key>
+			<string>information</string>
+			<key>INIntentDescription</key>
+			<string>Shows a photo of a buck.</string>
+			<key>INIntentDescriptionID</key>
+			<string>WWnWNH</string>
+			<key>INIntentLastParameterTag</key>
+			<integer>0</integer>
+			<key>INIntentName</key>
+			<string>BuckPhoto</string>
+			<key>INIntentParameterCombinations</key>
+			<dict>
+				<key></key>
+				<dict>
+					<key>INIntentParameterCombinationIsPrimary</key>
+					<true/>
+					<key>INIntentParameterCombinationSubtitle</key>
+					<string>See a buck.</string>
+					<key>INIntentParameterCombinationSubtitleID</key>
+					<string>Skm7E3</string>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string></string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>ejGvr8</string>
+				</dict>
+			</dict>
+			<key>INIntentParameters</key>
+			<array/>
+			<key>INIntentResponse</key>
+			<dict>
+				<key>INIntentResponseCodes</key>
+				<array>
+					<dict>
+						<key>INIntentResponseCodeFormatString</key>
+						<string>No bucks in the area today.</string>
+						<key>INIntentResponseCodeFormatStringID</key>
+						<string>HfNLHd</string>
+						<key>INIntentResponseCodeName</key>
+						<string>failure</string>
+						<key>INIntentResponseCodeSuccess</key>
+						<false/>
+					</dict>
+					<dict>
+						<key>INIntentResponseCodeFormatString</key>
+						<string>Here is a wild buck.</string>
+						<key>INIntentResponseCodeFormatStringID</key>
+						<string>0U61v4</string>
+						<key>INIntentResponseCodeName</key>
+						<string>success</string>
+						<key>INIntentResponseCodeSuccess</key>
+						<true/>
+					</dict>
+				</array>
+				<key>INIntentResponseLastParameterTag</key>
+				<integer>0</integer>
+				<key>INIntentResponseParameters</key>
+				<array/>
+			</dict>
+			<key>INIntentRestrictions</key>
+			<integer>0</integer>
+			<key>INIntentTitle</key>
+			<string>Buck Photo</string>
+			<key>INIntentTitleID</key>
+			<string>7wFgFZ</string>
+			<key>INIntentType</key>
+			<string>Custom</string>
+			<key>INIntentUserConfirmationRequired</key>
+			<false/>
+			<key>INIntentVerb</key>
+			<string>View</string>
+		</dict>
+	</array>
+</dict>
+</plist>
