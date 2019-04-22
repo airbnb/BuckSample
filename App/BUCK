@@ -61,6 +61,9 @@ apple_library(
         "LocalizationHelper.swift",
         ":BuckPhotoIntentInterface",
     ],
+    extra_xcode_files = [
+        "Intents.intentdefinition",
+    ],
     tests = app_tests,
     deps = [
         "//Pods:CryptoSwift",
