@@ -74,6 +74,7 @@ apple_library(
         # Resources
         "//App/Resources:ExampleAppStringResources",
         "//App/Resources:StoryboardResources",
+        ":IntentsDefinition",
     ]
     + first_party_library_dependencies
     + build_phase_scripts,
@@ -240,6 +241,13 @@ apple_bundle(
 )
 
 intentdefinition_resource("BuckPhotoIntentInterface", "./", "Intents", "BuckPhoto")
+
+apple_resource(
+    name = "IntentsDefinition",
+    files = [
+        "Intents.intentdefinition",
+    ]
+)
 
 ### Siri Shortcut End ###
 
