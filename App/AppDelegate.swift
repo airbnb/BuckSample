@@ -19,4 +19,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     return true
   }
+
+
+  #if swift(>=4.2)
+  // Xcode 10
+  func application(
+    _ application: UIApplication,
+    continue userActivity: NSUserActivity,
+    restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool
+  {
+    return continueWithUserActivity(userActivity)
+  }
+  #else
+  // Xcode 9
+  func application(
+    _ application: UIApplication,
+    continue userActivity: NSUserActivity,
+    restorationHandler: @escaping ([Any]?) -> Void) -> Bool
+  {
+    return continueWithUserActivity(userActivity)
+  }
+  #endif
+
+  // MARK: Private
+
+  private func continueWithUserActivity(_ userActivity: NSUserActivity) -> Bool {
+    let maybeIntent: Any = "this_will_not_work"
+    guard let intent = maybeIntent as? BuckPhotoIntent else {
+      print("Not a valid intent")
+      return false
+    }
+    _ = intent
+    return true
+  }
 }
