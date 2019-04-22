@@ -13,7 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   let window = UIWindow(frame: UIScreen.main.bounds)
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: ArgType) -> Bool {
-  
+
     window.makeKeyAndVisible()
     window.rootViewController = ViewController()
 
@@ -44,12 +44,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   // MARK: Private
 
   private func continueWithUserActivity(_ userActivity: NSUserActivity) -> Bool {
-    let maybeIntent: Any = "this_will_not_work"
-    guard let intent = maybeIntent as? BuckPhotoIntent else {
-      print("Not a valid intent")
+    if #available(iOS 12.0, *) {
+      let maybeIntent: Any = "this_will_not_work"
+      guard let intent = maybeIntent as? BuckPhotoIntent else {
+        print("Not a valid intent")
+        return false
+      }
+      _ = intent
+      return true
+    }
+    else {
       return false
     }
-    _ = intent
-    return true
   }
 }
