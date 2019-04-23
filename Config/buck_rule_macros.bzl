@@ -302,7 +302,7 @@ def mlmodel_resource(
     )
 
 # Takes in an .intentdefinition and produces the Swift interface for the specified intent.
-# - parameter resource_source_name: The expected name of the Swift interface to be included in
+# - parameter interface_source_name: The expected name of the Swift interface to be included in
 #   `srcs`.
 # - parameter definition_directory: The relative path to folder where the .intentdefinition lives.
 #   Must include a trailing slash.
@@ -310,14 +310,14 @@ def mlmodel_resource(
 #   ".intentdefinition" suffix.
 # - parameter intent_name: The name of the intent in the .intentdefinition for which source should
 #   be generated. Do not include an "Intent" suffix.
-def intentdefinition_resource(
-        resource_source_name,
+def intent_interface(
+        interface_source_name,
         definition_directory,
         definition_name,
         intent_name):
 
     logging_genrule(
-        name = resource_source_name,
+        name = interface_source_name,
         # srcs = [definition_directory + definition_name + ".intentdefinition"],
         # HACK: Using this until I figure out the command to generate this code.
         srcs = ["SiriShortcut/HACK_BuckPhotoIntent.swift"],

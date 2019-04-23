@@ -1,8 +1,8 @@
 load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "intent_binary_configs", "pretty", "info_plist_substitutions", "bundle_identifier", "DEVELOPMENT_LANGUAGE")
-load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all", "intentdefinition_resource")
+load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all", "intent_interface")
 
 apple_asset_catalog(
-    name = "ExampleAppAssets",
+name = "ExampleAppAssets",
     visibility = ["//App:"],
     app_icon = "AppIcon",
     dirs = ["Assets.xcassets"],
@@ -240,7 +240,7 @@ apple_bundle(
     xcode_product_type = "com.apple.product-type.app-extension",
 )
 
-intentdefinition_resource("BuckPhotoIntentInterface", "./", "Intents", "BuckPhoto")
+intent_interface("BuckPhotoIntentInterface", "./", "Intents", "BuckPhoto")
 
 apple_resource(
     name = "IntentsDefinition",
