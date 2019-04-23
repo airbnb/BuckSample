@@ -23,6 +23,8 @@ ui_tests = [
     ":XCUITests",
 ]
 
+# This is a list of all of our first-party libraries that are depended upon (directly or transitively) by this application.
+# Every first-party library has an associated test target. We use this list to determine what test targets to run in CI.
 first_party_library_dependencies = [
     "//Libraries/ASwiftModule:ASwiftModule",
     "//Libraries/Cpp1:Cpp1",
