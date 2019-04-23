@@ -263,8 +263,8 @@ def logging_genrule(
 # - parameter resource_source_name: The expected name of the Swift interface to be included in
 #   `srcs`.
 # - parameter resource_dependency_name: The expected name of the resource to add to `deps`.
-# - parameter model_directory: The relative path to folder where the .mlmodel lives. Must include a
-#   trailing slash.
+# - parameter model_directory: The relative path to the folder where the .mlmodel lives. Must
+#   include a trailing slash.
 # - parameter model_name: The name of the .mlmodel. Do not include the ".mlmodel" suffix.
 # - parameter swift_version: The expected Swift version for the generated Swift interface file.
 def mlmodel_resource(
@@ -283,10 +283,10 @@ def mlmodel_resource(
         out = "%s.swift" % model_name,
     )
 
-    modelc_resource = resource_dependency_name + "_compiled_model"
+    genrule_name = "compile_" + resource_dependency_name
     # Create a genrule to compile the mlmodelc from the mlmodel.
     logging_genrule(
-        name = modelc_resource,
+        name = genrule_name,
         srcs = [model_directory + model_name + ".mlmodel"],
         bash = 'xcrun coremlc compile "$SRCS" "\$(dirname "$OUT")"',
         out = "%s.mlmodelc" % model_name,
@@ -296,7 +296,7 @@ def mlmodel_resource(
     native.apple_resource(
         name = resource_dependency_name,
         dirs = [
-            ":" + modelc_resource,
+            ":" + genrule_name,
         ],
         files = [],
     )
@@ -304,21 +304,55 @@ def mlmodel_resource(
 # Takes in an .intentdefinition and produces the Swift interface for the specified intent.
 # - parameter interface_source_name: The expected name of the Swift interface to be included in
 #   `srcs`.
-# - parameter definition: The relative path to the .intentdefinition file.
+# - parameter definition_file: The relative path to the .intentdefinition file.
 # - parameter intent_name: The name of the intent in the .intentdefinition for which source should
 #   be generated. Do not include an "Intent" suffix.
 def intent_interface(
         interface_source_name,
-        definition,
+        definition_file,
         intent_name):
 
     logging_genrule(
         name = interface_source_name,
-        # srcs = [definition],
+        # srcs = [definition_file],
         # HACK: Using this until I figure out the command to generate this code.
         srcs = ["SiriShortcut/HACK_BuckPhotoIntent.swift"],
         bash = """
         cp $SRCS $OUT
         """,
         out = "%sIntent.swift" % intent_name,
+    )
+
+# Proceses an .intentdefinition, creating a resource that can be added as a dependency.
+# - parameter resource_dependency_name: The expected name of the resource to add to `deps`.
+# - parameter definition_directory: The relative path to the folder where the .intentdefinition
+#   lives. Must include a trailing slash.
+# - parameter definition_name: The name of the .intentdefinition. Do not include the
+#   ".intentdefinition" suffix.
+def intentdefinition_resource(
+        resource_dependency_name,
+        definition_directory,
+        definition_name):
+
+    genrule_name = "process_" + resource_dependency_name
+    # Create a genrule to process the .intentdefinition file. As far as we can tell, the
+    # `intentbuilderc` command makes no change to the .intentdefinition file. We nevertheless run it
+    # in an effort to be defensive.
+    logging_genrule(
+        name = genrule_name,
+        srcs = [definition_directory + definition_name + ".intentdefinition"],
+        bash = """
+        developer_dir=`xcode-select -p`
+        "$developer_dir/usr/bin/intentbuilderc" $SRCS $TMP ""
+        definition_basename=`basename $SRCS`
+        mv "$TMP/$definition_basename" $OUT
+        """,
+        out = definition_name + ".intentdefinition",
+    )
+
+    native.apple_resource(
+        name = resource_dependency_name,
+        files = [
+            ":" + genrule_name,
+        ]
     )

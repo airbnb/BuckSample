@@ -1,5 +1,5 @@
 load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "intent_binary_configs", "pretty", "info_plist_substitutions", "bundle_identifier", "DEVELOPMENT_LANGUAGE")
-load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all", "intent_interface")
+load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all", "intent_interface", "intentdefinition_resource")
 
 apple_asset_catalog(
 name = "ExampleAppAssets",
@@ -242,12 +242,7 @@ apple_bundle(
 
 intent_interface("BuckPhotoIntentInterface", "Intents.intentdefinition", "BuckPhoto")
 
-apple_resource(
-    name = "IntentsDefinition",
-    files = [
-        "Intents.intentdefinition",
-    ]
-)
+intentdefinition_resource("IntentsDefinition", "./", "Intents")
 
 ### Siri Shortcut End ###
 
