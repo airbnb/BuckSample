@@ -240,7 +240,7 @@ apple_bundle(
     xcode_product_type = "com.apple.product-type.app-extension",
 )
 
-intent_interface("BuckPhotoIntentInterface", "./", "Intents", "BuckPhoto")
+intent_interface("BuckPhotoIntentInterface", "Intents.intentdefinition", "BuckPhoto")
 
 apple_resource(
     name = "IntentsDefinition",
