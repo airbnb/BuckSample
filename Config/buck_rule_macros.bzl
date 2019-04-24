@@ -304,21 +304,28 @@ def mlmodel_resource(
 # Takes in an .intentdefinition and produces the Swift interface for the specified intent.
 # - parameter interface_source_name: The expected name of the Swift interface to be included in
 #   `srcs`.
-# - parameter definition_file: The relative path to the .intentdefinition file.
 # - parameter intent_name: The name of the intent in the .intentdefinition for which source should
 #   be generated. Do not include an "Intent" suffix.
 def intent_interface(
         interface_source_name,
-        definition_file,
         intent_name):
 
     logging_genrule(
         name = interface_source_name,
-        # srcs = [definition_file],
-        # HACK: Using this until I figure out the command to generate this code.
-        srcs = ["SiriShortcut/HACK_BuckPhotoIntent.swift"],
+        # Paths with spaces will cause the script to fail.
+        srcs = [
+            "SiriShortcut/HACK_BuckPhotoIntent.swift",
+            "SiriShortcut/_IntentsCompiler/IntentsCompiler.xcodeproj",
+        ],
         bash = """
-        cp $SRCS $OUT
+        IFS=' ' read -ra PATHS <<< "$SRCS"
+
+        intents_compiler_xcodeproj="${PATHS[1]}"
+        xcodebuild -configuration Release -project "$intents_compiler_xcodeproj"
+
+        # Until we get IntentsCompiler.xcodeproj working, let's copy this prebuilt file.
+        buck_photo_intent="${PATHS[0]}"
+        cp "$buck_photo_intent" "$OUT"
         """,
         out = "%sIntent.swift" % intent_name,
     )

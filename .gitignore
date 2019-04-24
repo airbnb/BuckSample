@@ -11,6 +11,7 @@ tools/buck
 **/xcuserdata/
 **/*.xcodeproj/
 **/*.xcworkspace/
+**/build/
 
 # Make
 *.d
