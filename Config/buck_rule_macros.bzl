@@ -310,23 +310,27 @@ def intent_interface(
         interface_source_name,
         intent_name):
 
+    script = """
+    intents_compiler_xcodeproj="$SRCS"
+
+    # `IntentDefinitionCodegen` is within Xcode.
+    xcodebuild \
+        -configuration Release \
+        -scheme 'IntentsCompiler' \
+        -project "$intents_compiler_xcodeproj" \
+        -derivedDataPath "$TMP"
+
+    intent_interface="`find "$TMP" -name %sIntent.swift`"
+
+    cp "$intent_interface" "$OUT"
+    """ % intent_name
+
     logging_genrule(
         name = interface_source_name,
-        # Paths with spaces will cause the script to fail.
         srcs = [
-            "SiriShortcut/HACK_BuckPhotoIntent.swift",
             "SiriShortcut/_IntentsCompiler/IntentsCompiler.xcodeproj",
         ],
-        bash = """
-        IFS=' ' read -ra PATHS <<< "$SRCS"
-
-        intents_compiler_xcodeproj="${PATHS[1]}"
-        xcodebuild -configuration Release -project "$intents_compiler_xcodeproj"
-
-        # Until we get IntentsCompiler.xcodeproj working, let's copy this prebuilt file.
-        buck_photo_intent="${PATHS[0]}"
-        cp "$buck_photo_intent" "$OUT"
-        """,
+        bash = script,
         out = "%sIntent.swift" % intent_name,
     )
 
