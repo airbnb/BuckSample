@@ -87,6 +87,8 @@ def info_plist_substitutions(name):
     }
     return substitutions
 
+# TODO: Right now this is being used for both the code that runs on the Watch and the extension
+# that runs on the iPhone. I wonder if it would make sense to break this into two methods.
 def watch_binary_configs(name):
     config = {
         "SDKROOT": "watchos",
@@ -94,8 +96,10 @@ def watch_binary_configs(name):
         "TARGETED_DEVICE_FAMILY": "4",
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
         "LD_RUNPATH_SEARCH_PATHS": "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks",
+        "WK_COMPANION_APP_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp"),
+        "WK_APP_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.WatchApp"),
         # Not sure why, but either adding this or removing -whole-module-optimization can make it compile
-        "SWIFT_COMPILATION_MODE": "wholemodule"
+        "SWIFT_COMPILATION_MODE": "wholemodule",
     }
     config = config_with_updated_linker_flags(config, ALL_LOAD_LINKER_FLAG)
     return configs_with_config(config)

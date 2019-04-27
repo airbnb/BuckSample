@@ -25,7 +25,7 @@ message:
 	$(BUCK) build //App:ExampleMessageExtension
 
 debug:
-	$(BUCK) install //App:ExampleApp --run --simulator-name 'Phone: iPhone XS'
+	$(BUCK) install //App:ExampleApp --run --simulator-name 'iPhone XS'
 
 targets:
 	$(BUCK) targets //...
@@ -35,7 +35,7 @@ ci: install_buck targets build test ui_test project xcode_tests watch message
 
 
 buck_out = $(shell $(BUCK) root)/buck-out
-test:	
+test:
 	@rm -f $(buck_out)/tmp/*.profraw
 	@rm -f $(buck_out)/gen/*.profdata
 	$(BUCK) test //App:ExampleAppCITests --test-runner-env XCTOOL_TEST_ENV_LLVM_PROFILE_FILE="$(buck_out)/tmp/code-%p.profraw%15x" \
