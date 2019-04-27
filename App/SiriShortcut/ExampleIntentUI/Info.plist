@@ -26,7 +26,7 @@
 		<dict>
 			<key>IntentsSupported</key>
 			<array>
-				<string>INSendMessageIntent</string>
+				<string>BuckPhotoIntent</string>
 			</array>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
