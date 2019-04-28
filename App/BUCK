@@ -168,6 +168,7 @@ apple_package(
 # binary, the Copy Files phase to embed the watch app and extension will search the `iphoneos` directory,
 # and fail the build on generated Xcode projects.
 
+# This is the code that runs on the iPhone and talks to the app running on the Watch.
 apple_binary(
     name = "ExampleWatchAppExtensionBinary",
     srcs = glob([
@@ -205,6 +206,12 @@ apple_bundle(
     xcode_product_type = "com.apple.product-type.watchkit2-extension",
 )
 
+# This is the code that runs on the Watch.
+apple_binary(
+    name = "ExampleWatchAppBinary",
+    configs = watch_binary_configs("ExampleApp.WatchApp")
+)
+
 apple_bundle(
     name = "ExampleWatchApp",
     binary = ":ExampleWatchAppBinary",
@@ -225,11 +232,6 @@ apple_bundle(
         ":ExampleWatchAppExtension",
         ":ExampleWatchAppResources",
     ],
-)
-
-apple_binary(
-    name = "ExampleWatchAppBinary",
-    configs = watch_binary_configs("ExampleApp.WatchApp")
 )
 
 apple_resource(

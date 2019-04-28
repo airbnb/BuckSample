@@ -87,6 +87,13 @@ def info_plist_substitutions(name):
     }
     return substitutions
 
+# TODO: Currently this macro is used for both the watch app and the watch extension. This macro
+# should be split into two, one for each of those binaries, as the configurations are diverging.
+# At the very least only the watch extension needs the `WK_APP_BUNDLE_IDENTIFIER` key/value pair,
+# and only the watch app needs the `WK_COMPANION_APP_BUNDLE_IDENTIFIER` key value pair. I also
+# wonder if some of these other configuration settings are only necessary for one binary or the
+# other. I cannot verify any of this at the moment due to
+# https://github.com/airbnb/BuckSample/issues/97.
 def watch_binary_configs(name):
     config = {
         "SDKROOT": "watchos",
@@ -94,8 +101,10 @@ def watch_binary_configs(name):
         "TARGETED_DEVICE_FAMILY": "4",
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
         "LD_RUNPATH_SEARCH_PATHS": "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks",
+        "WK_COMPANION_APP_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp"),
+        "WK_APP_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.WatchApp"),
         # Not sure why, but either adding this or removing -whole-module-optimization can make it compile
-        "SWIFT_COMPILATION_MODE": "wholemodule"
+        "SWIFT_COMPILATION_MODE": "wholemodule",
     }
     config = config_with_updated_linker_flags(config, ALL_LOAD_LINKER_FLAG)
     return configs_with_config(config)
