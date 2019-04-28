@@ -172,6 +172,11 @@ apple_package(
 
 ### Siri Shortcut Begin ###
 
+# Set up `BuckPhotoIntent` by handling the .intentdefinition file.
+intent_interface("BuckPhotoIntentInterface", "BuckPhoto")
+intentdefinition_resource("IntentsDefinition", "./", "Intents")
+
+# The non-UI code for processing `BuckPhotoIntent`.
 intent_bundle_identifier = bundle_identifier("ExampleApp.IntentExtension")
 intent_binary_name = "ExampleIntentBinary"
 intent_bundle_name = "ExampleIntentExtension"
@@ -218,6 +223,7 @@ apple_bundle(
     xcode_product_type = "com.apple.product-type.app-extension",
 )
 
+# The UI code for displaying the response to `BuckPhotoIntent`.
 intentui_bundle_identifier = bundle_identifier("ExampleApp.IntentUIExtension")
 intentui_binary_name = "ExampleIntentUIBinary"
 intentui_bundle_name = "ExampleIntentUIExtension"
@@ -261,10 +267,6 @@ apple_bundle(
     info_plist_substitutions = intentui_info_plist_substitutions,
     xcode_product_type = "com.apple.product-type.app-extension",
 )
-
-intent_interface("BuckPhotoIntentInterface", "BuckPhoto")
-
-intentdefinition_resource("IntentsDefinition", "./", "Intents")
 
 ### Siri Shortcut End ###
 
