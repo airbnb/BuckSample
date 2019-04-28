@@ -172,8 +172,7 @@ apple_binary(
     name = "ExampleIntentBinary",
     srcs = glob([
         "SiriShortcut/ExampleIntent/**/*.swift",
-        ":BuckPhotoIntentInterface",
-    ]),
+    ]) + [":BuckPhotoIntentInterface"],
     configs = intent_binary_configs("ExampleApp.IntentExtension"),
 
     # "-e _NSExtensionMain" tell linker this binary is app extension, so it won't fail due to
@@ -212,8 +211,7 @@ apple_binary(
     name = "ExampleIntentUIBinary",
     srcs = glob([
         "SiriShortcut/ExampleIntentUI/**/*.swift",
-        ":BuckPhotoIntentInterface",
-    ]),
+    ]) + [":BuckPhotoIntentInterface"],
     configs = intent_binary_configs("ExampleApp.IntentUIExtension"),
 
     # "-e _NSExtensionMain" tell linker this binary is app extension, so it won't fail due to
