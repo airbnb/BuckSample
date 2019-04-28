@@ -78,6 +78,9 @@ apple_library(
     ]
     + first_party_library_dependencies
     + build_phase_scripts,
+    frameworks = [
+        "$SDKROOT/System/Library/Frameworks/IntentsUI.framework",
+    ],
 )
 
 apple_binary(

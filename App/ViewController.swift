@@ -1,6 +1,7 @@
 import ASwiftModule
 import Cpp1
 import CryptoSwift
+import IntentsUI
 import Objc1
 import ObjcAndSwift
 import PromiseKit
@@ -32,6 +33,14 @@ class ViewController: UIViewController {
     self.view.addSubview(label)
     label.sizeToFit()
     label.center = self.view.center
+
+    if #available(iOS 12.0, *) {
+      let siriButton = INUIAddVoiceShortcutButton(style: .black)
+      siriButton.translatesAutoresizingMaskIntoConstraints = false
+      view.addSubview(siriButton)
+      siriButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+      siriButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -24).isActive = true
+    }
   }
 
   override func viewDidAppear(_ animated: Bool) {
