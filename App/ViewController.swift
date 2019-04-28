@@ -40,6 +40,7 @@ class ViewController: UIViewController {
       view.addSubview(siriButton)
       siriButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
       siriButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -24).isActive = true
+      siriButton.addTarget(self, action: #selector(addToSiri(_:)), for: .touchUpInside)
     }
   }
 
@@ -125,5 +126,18 @@ class ViewController: UIViewController {
     }
 
     print("AFNetworking's version is \(SwiftWithPrecompiledDependencyClass.networkingLibraryVersionNumber)")
+  }
+
+  @available(iOS 12.0, *)
+  @objc
+  dynamic private func addToSiri(_ sender: Any) {
+    let intent = BuckPhotoIntent()
+    intent.suggestedInvocationPhrase = "Show me a buck"
+    if let shortcut = INShortcut(intent: intent) {
+      let viewController = INUIAddVoiceShortcutViewController(shortcut: shortcut)
+      viewController.modalPresentationStyle = .formSheet
+      viewController.delegate = self
+      present(viewController, animated: true, completion: nil)
+    }
   }
 }

@@ -57,6 +57,7 @@ apple_library(
     swift_version = "4.0",
     srcs = [
         "ViewController.swift",
+        "ViewController+INUIAddVoiceShortcutViewControllerDelegate.swift",
         "AppDelegate.swift",
         "LocalizationHelper.swift",
         ":BuckPhotoIntentInterface",
