@@ -270,6 +270,8 @@ apple_binary(
 apple_resource(
     name = intentui_resources_name,
     dirs = [],
+    # WORKAROUND: Buck CLI requires you to explicitly set the "Module Name" of the
+    # `IntentViewController` class to `ExampleIntentUIBinary` in MainInterface.storyboard.
     files = glob(["SiriShortcut/ExampleIntentUI/**/*.storyboard"])
 )
 
