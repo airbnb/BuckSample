@@ -173,18 +173,20 @@ apple_package(
 ### Siri Shortcut Begin ###
 
 intent_bundle_identifier = bundle_identifier("ExampleApp.IntentExtension")
-intent_product_module_name = "ExampleIntentExtension"
+intent_binary_name = "ExampleIntentBinary"
+intent_bundle_name = "ExampleIntentExtension"
 intent_info_plist_substitutions = {
     "DEVELOPMENT_LANGUAGE": "en-us",
-    "EXECUTABLE_NAME": intent_product_module_name,
-    "PRODUCT_BUNDLE_DISPLAY_NAME": intent_product_module_name,
+    "EXECUTABLE_NAME": intent_bundle_name,
+    "PRODUCT_BUNDLE_DISPLAY_NAME": intent_bundle_name,
     "PRODUCT_BUNDLE_IDENTIFIER": intent_bundle_identifier,
-    "PRODUCT_NAME": intent_product_module_name,
-    "NS_EXTENSION_PRINCIPAL_CLASS": "%s.IntentHandler" % intent_product_module_name,
+    "PRODUCT_NAME": intent_bundle_name,
+    # The Swift module name for `IntentHandler` is the binary name.
+    "NS_EXTENSION_PRINCIPAL_CLASS": "%s.IntentHandler" % intent_binary_name,
 }
 
 apple_binary(
-    name = "ExampleIntentBinary",
+    name = intent_binary_name,
     srcs = glob([
         "SiriShortcut/ExampleIntent/**/*.swift",
     ]) + [":BuckPhotoIntentInterface"],
@@ -208,8 +210,8 @@ apple_binary(
 )
 
 apple_bundle(
-    name = intent_product_module_name,
-    binary = ":ExampleIntentBinary",
+    name = intent_bundle_name,
+    binary = ":" + intent_binary_name,
     extension = "appex",
     info_plist = "SiriShortcut/ExampleIntent/Info.plist",
     info_plist_substitutions = intent_info_plist_substitutions,
@@ -217,17 +219,18 @@ apple_bundle(
 )
 
 intentui_bundle_identifier = bundle_identifier("ExampleApp.IntentUIExtension")
-intentui_product_module_name = "ExampleIntentUIExtension"
+intentui_binary_name = "ExampleIntentUIBinary"
+intentui_bundle_name = "ExampleIntentUIExtension"
 intentui_info_plist_substitutions = {
     "DEVELOPMENT_LANGUAGE": "en-us",
-    "EXECUTABLE_NAME": intentui_product_module_name,
-    "PRODUCT_BUNDLE_DISPLAY_NAME": intentui_product_module_name,
+    "EXECUTABLE_NAME": intentui_bundle_name,
+    "PRODUCT_BUNDLE_DISPLAY_NAME": intentui_bundle_name,
     "PRODUCT_BUNDLE_IDENTIFIER": intentui_bundle_identifier,
-    "PRODUCT_NAME": intentui_product_module_name,
+    "PRODUCT_NAME": intentui_bundle_name,
 }
 
 apple_binary(
-    name = "ExampleIntentUIBinary",
+    name = intentui_binary_name,
     srcs = glob([
         "SiriShortcut/ExampleIntentUI/**/*.swift",
     ]) + [":BuckPhotoIntentInterface"],
@@ -251,8 +254,8 @@ apple_binary(
 )
 
 apple_bundle(
-    name = intentui_product_module_name,
-    binary = ":ExampleIntentUIBinary",
+    name = intentui_bundle_name,
+    binary = ":" + intentui_binary_name,
     extension = "appex",
     info_plist = "SiriShortcut/ExampleIntentUI/Info.plist",
     info_plist_substitutions = intentui_info_plist_substitutions,
