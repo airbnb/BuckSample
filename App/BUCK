@@ -212,6 +212,9 @@ apple_binary(
     deps = [
         ":IntentsDefinition",
     ],
+    frameworks = [
+        "$SDKROOT/System/Library/Frameworks/Intents.framework",
+    ],
 )
 
 apple_bundle(
@@ -227,6 +230,7 @@ apple_bundle(
 intentui_bundle_identifier = bundle_identifier("ExampleApp.IntentUIExtension")
 intentui_binary_name = "ExampleIntentUIBinary"
 intentui_bundle_name = "ExampleIntentUIExtension"
+intentui_resources_name = intentui_bundle_name + "Resources"
 intentui_info_plist_substitutions = {
     "DEVELOPMENT_LANGUAGE": "en-us",
     "EXECUTABLE_NAME": intentui_bundle_name,
@@ -257,6 +261,16 @@ apple_binary(
     deps = [
         ":IntentsDefinition",
     ],
+    frameworks = [
+        "$SDKROOT/System/Library/Frameworks/Intents.framework",
+        "$SDKROOT/System/Library/Frameworks/IntentsUI.framework",
+    ],
+)
+
+apple_resource(
+    name = intentui_resources_name,
+    dirs = [],
+    files = glob(["SiriShortcut/ExampleIntentUI/**/*.storyboard"])
 )
 
 apple_bundle(
@@ -266,6 +280,9 @@ apple_bundle(
     info_plist = "SiriShortcut/ExampleIntentUI/Info.plist",
     info_plist_substitutions = intentui_info_plist_substitutions,
     xcode_product_type = "com.apple.product-type.app-extension",
+    deps = [
+        ":" + intentui_resources_name,
+    ],
 )
 
 ### Siri Shortcut End ###
