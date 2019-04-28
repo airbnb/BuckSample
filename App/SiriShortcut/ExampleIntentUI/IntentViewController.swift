@@ -14,6 +14,7 @@ class IntentViewController: UIViewController, INUIHostedViewControlling {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    view.backgroundColor = .gray
     // Do any additional setup after loading the view.
   }
 
@@ -26,7 +27,9 @@ class IntentViewController: UIViewController, INUIHostedViewControlling {
   }
 
   var desiredSize: CGSize {
-    return self.extensionContext!.hostedViewMaximumAllowedSize
+    var result = self.extensionContext!.hostedViewMaximumAllowedSize
+    result.height = 400
+    return result
   }
 
 }
