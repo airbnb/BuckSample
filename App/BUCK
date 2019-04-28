@@ -172,6 +172,7 @@ apple_binary(
     name = "ExampleIntentBinary",
     srcs = glob([
         "SiriShortcut/ExampleIntent/**/*.swift",
+        ":BuckPhotoIntentInterface",
     ]),
     configs = intent_binary_configs("ExampleApp.IntentExtension"),
 
@@ -186,6 +187,9 @@ apple_binary(
         "-rpath",
         "-Xlinker",
         "@executable_path/../../Frameworks",
+    ],
+    deps = [
+        ":IntentsDefinition",
     ],
 )
 
@@ -208,6 +212,7 @@ apple_binary(
     name = "ExampleIntentUIBinary",
     srcs = glob([
         "SiriShortcut/ExampleIntentUI/**/*.swift",
+        ":BuckPhotoIntentInterface",
     ]),
     configs = intent_binary_configs("ExampleApp.IntentUIExtension"),
 
@@ -222,6 +227,9 @@ apple_binary(
         "-rpath",
         "-Xlinker",
         "@executable_path/../../Frameworks",
+    ],
+    deps = [
+        ":IntentsDefinition",
     ],
 )
 
