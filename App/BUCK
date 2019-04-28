@@ -1,4 +1,4 @@
-load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "intent_binary_configs", "pretty", "info_plist_substitutions", "bundle_identifier", "DEVELOPMENT_LANGUAGE")
+load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "intent_binary_configs", "intentui_binary_configs", "pretty", "info_plist_substitutions", "bundle_identifier", "DEVELOPMENT_LANGUAGE")
 load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all", "intent_interface", "intentdefinition_resource")
 
 apple_asset_catalog(
@@ -172,12 +172,16 @@ apple_package(
 
 ### Siri Shortcut Begin ###
 
+intent_bundle_identifier = bundle_identifier("ExampleApp.IntentExtension")
+intent_product_module_name = "ExampleIntentExtension"
+intent_configs = intent_binary_configs(intent_bundle_identifier, intent_product_module_name)
+
 apple_binary(
     name = "ExampleIntentBinary",
     srcs = glob([
         "SiriShortcut/ExampleIntent/**/*.swift",
     ]) + [":BuckPhotoIntentInterface"],
-    configs = intent_binary_configs("ExampleApp.IntentExtension"),
+    configs = intent_configs,
 
     # "-e _NSExtensionMain" tell linker this binary is app extension, so it won't fail due to
     # missing _main "-Xlinker -rpath -Xlinker @executable_path/../../Frameworks" tells the
@@ -197,26 +201,30 @@ apple_binary(
 )
 
 apple_bundle(
-    name = "ExampleIntentExtension",
+    name = intent_product_module_name,
     binary = ":ExampleIntentBinary",
     extension = "appex",
     info_plist = "SiriShortcut/ExampleIntent/Info.plist",
     info_plist_substitutions = {
         "DEVELOPMENT_LANGUAGE": "en-us",
-        "EXECUTABLE_NAME": "ExampleIntentExtension",
-        "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.IntentExtension"),
-        "PRODUCT_NAME": "ExampleIntentExtension",
-        "PRODUCT_MODULE_NAME": "ExampleIntentBinary",
+        "EXECUTABLE_NAME": intent_product_module_name,
+        "PRODUCT_BUNDLE_IDENTIFIER": intent_bundle_identifier,
+        "PRODUCT_NAME": intent_product_module_name,
+        "PRODUCT_MODULE_NAME": intent_product_module_name,
     },
     xcode_product_type = "com.apple.product-type.app-extension",
 )
+
+intentui_bundle_identifier = bundle_identifier("ExampleApp.IntentUIExtension")
+intentui_product_module_name = "ExampleIntentUIExtension"
+intentui_configs = intentui_binary_configs(intentui_bundle_identifier)
 
 apple_binary(
     name = "ExampleIntentUIBinary",
     srcs = glob([
         "SiriShortcut/ExampleIntentUI/**/*.swift",
     ]) + [":BuckPhotoIntentInterface"],
-    configs = intent_binary_configs("ExampleApp.IntentUIExtension"),
+    configs = intentui_configs,
 
     # "-e _NSExtensionMain" tell linker this binary is app extension, so it won't fail due to
     # missing _main "-Xlinker -rpath -Xlinker @executable_path/../../Frameworks" tells the
@@ -236,16 +244,16 @@ apple_binary(
 )
 
 apple_bundle(
-    name = "ExampleIntentUIExtension",
+    name = intentui_product_module_name,
     binary = ":ExampleIntentUIBinary",
     extension = "appex",
     info_plist = "SiriShortcut/ExampleIntentUI/Info.plist",
     info_plist_substitutions = {
         "DEVELOPMENT_LANGUAGE": "en-us",
-        "EXECUTABLE_NAME": "ExampleIntentUIExtension",
-        "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.IntentUIExtension"),
-        "PRODUCT_NAME": "ExampleIntentUIExtension",
-        "PRODUCT_MODULE_NAME": "ExampleIntentUIBinary",
+        "EXECUTABLE_NAME": intentui_product_module_name,
+        "PRODUCT_BUNDLE_IDENTIFIER": intentui_bundle_identifier,
+        "PRODUCT_NAME": intentui_product_module_name,
+        "PRODUCT_MODULE_NAME": intentui_product_module_name,
     },
     xcode_product_type = "com.apple.product-type.app-extension",
 )
