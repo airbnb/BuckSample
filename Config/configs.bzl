@@ -87,8 +87,13 @@ def info_plist_substitutions(name):
     }
     return substitutions
 
-# TODO: Right now this is being used for both the code that runs on the Watch and the extension
-# that runs on the iPhone. I wonder if it would make sense to break this into two methods.
+# TODO: Currently this macro is used for both the watch app and the watch extension. This macro
+# should be split into two, one for each of those binaries, as the configurations are diverging.
+# At the very least only the watch extension needs the `WK_APP_BUNDLE_IDENTIFIER` key/value pair,
+# and only the watch app needs the `WK_COMPANION_APP_BUNDLE_IDENTIFIER` key value pair. I also
+# wonder if some of these other configuration settings are only necessary for one binary or the
+# other. I cannot verify any of this at the moment due to
+# https://github.com/airbnb/BuckSample/issues/97.
 def watch_binary_configs(name):
     config = {
         "SDKROOT": "watchos",
