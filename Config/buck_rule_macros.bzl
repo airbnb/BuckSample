@@ -353,7 +353,8 @@ def intentdefinition_resource(
         name = genrule_name,
         srcs = [definition_directory + definition_name + ".intentdefinition"],
         bash = """
-        xcrun intentbuilderc $SRCS $TMP ""
+        developer_dir=`xcode-select -p`
+        "$developer_dir/usr/bin/intentbuilderc" $SRCS $TMP ""
         definition_basename=`basename $SRCS`
         mv "$TMP/$definition_basename" $OUT
         """,
