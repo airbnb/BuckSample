@@ -10,6 +10,7 @@ tools/buck
 # Xcode
 **/xcuserdata/
 **/*.xcodeproj/
+!App/SiriShortcut/_IntentsCompiler/IntentsCompiler.xcodeproj
 **/*.xcworkspace/
 **/build/
 
