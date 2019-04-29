@@ -44,16 +44,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   // MARK: Private
 
   private func continueWithUserActivity(_ userActivity: NSUserActivity) -> Bool {
-    if #available(iOS 12.0, *) {
-      let maybeIntent: Any = "this_will_not_work"
-      guard let intent = maybeIntent as? BuckPhotoIntent else {
-        print("Not a valid intent")
-        return false
-      }
-      _ = intent
-      return true
+    guard #available(iOS 12.0, *) else {
+      return false
     }
-    else {
+
+    if let buckPhotoIntent = userActivity.interaction?.intent as? BuckPhotoIntent {
+      print("Launched with BuckPhotoIntent: \(buckPhotoIntent)")
+      return true
+    } else {
       return false
     }
   }
