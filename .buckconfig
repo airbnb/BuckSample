@@ -4,8 +4,7 @@
   cxxflags = -fobjc-arc -std=c++14 -D DEBUG -g $(config custom.other_cxxflags)
   combined_preprocess_and_compile = true
   pch_enabled = false
-  # TODO: Remove -rpath /usr/lib/swift before merging
-  ldflags = -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fobjc-link-runtime $(config custom.other_cxxflags) -rpath /usr/lib/swift
+  ldflags = -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fobjc-link-runtime $(config custom.other_cxxflags)
 
 [swift]
   version = 4.0
@@ -42,3 +41,4 @@
   code_coverage_cxxflags = -fprofile-instr-generate -fcoverage-mapping
   code_coverage_ldflags = -fprofile-instr-generate
   code_coverage_swift_compiler_flags = -profile-generate -profile-coverage-mapping
+  
