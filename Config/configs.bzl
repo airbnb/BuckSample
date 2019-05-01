@@ -1,5 +1,7 @@
 load("//Config:utils.bzl", "config_with_updated_linker_flags", "configs_with_config")
 
+DEVELOPMENT_LANGUAGE = "en"
+
 def pretty(dict, current = ""):
     current = "\n"
     indent = 0
@@ -53,7 +55,7 @@ def library_configs():
 def app_binary_configs(name):
     binary_specific_config = {
         "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
-        "DEVELOPMENT_LANGUAGE": "Swift",
+        "DEVELOPMENT_LANGUAGE": DEVELOPMENT_LANGUAGE,
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
     }
     binary_config = SHARED_CONFIGS + binary_specific_config
@@ -80,7 +82,7 @@ def pod_library_configs():
 
 def info_plist_substitutions(name):
     substitutions = {
-        "DEVELOPMENT_LANGUAGE": "en-us",
+        "DEVELOPMENT_LANGUAGE": DEVELOPMENT_LANGUAGE,
         "EXECUTABLE_NAME": name,
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
         "PRODUCT_NAME": name,

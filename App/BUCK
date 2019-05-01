@@ -1,4 +1,4 @@
-load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "pretty", "info_plist_substitutions", "bundle_identifier")
+load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "pretty", "info_plist_substitutions", "bundle_identifier", "DEVELOPMENT_LANGUAGE")
 load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all")
 
 apple_asset_catalog(
@@ -196,7 +196,7 @@ apple_bundle(
     extension = "appex",
     info_plist = "WatchExtension/Info.plist",
     info_plist_substitutions = {
-        "DEVELOPMENT_LANGUAGE": "en-us",
+        "DEVELOPMENT_LANGUAGE": DEVELOPMENT_LANGUAGE,
         "EXECUTABLE_NAME": "ExampleWatchAppExtension",
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.WatchApp.Extension"),
         "WK_APP_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.WatchApp"),
@@ -221,7 +221,7 @@ apple_bundle(
     extension = "app",
     info_plist = "WatchApplication/Info.plist",
     info_plist_substitutions = {
-        "DEVELOPMENT_LANGUAGE": "en-us",
+        "DEVELOPMENT_LANGUAGE": DEVELOPMENT_LANGUAGE,
         "EXECUTABLE_NAME": "ExampleWatchApp",
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.WatchApp"),
         "WK_COMPANION_APP_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp"),
@@ -275,7 +275,7 @@ apple_bundle(
     extension = "appex",
     info_plist = "MessageExtension/Info.plist",
     info_plist_substitutions = {
-        "DEVELOPMENT_LANGUAGE": "en-us",
+        "DEVELOPMENT_LANGUAGE": DEVELOPMENT_LANGUAGE,
         "EXECUTABLE_NAME": "ExampleMessageExtension",
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.MessageExtension"),
         "PRODUCT_NAME": "ExampleMessageExtension",
