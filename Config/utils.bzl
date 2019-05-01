@@ -9,7 +9,7 @@ OTHER_LINKER_FLAGS_KEY = 'OTHER_LDFLAGS'
 #
 # {
 #   "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
-#   "DEVELOPMENT_LANGUAGE": "Swift",
+#   "DEVELOPMENT_LANGUAGE": "en",
 #   /* ... */
 # }
 #
@@ -19,12 +19,12 @@ OTHER_LINKER_FLAGS_KEY = 'OTHER_LDFLAGS'
 # {
 #   "Debug": {
 #     "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
-#     "DEVELOPMENT_LANGUAGE": "Swift",
+#     "DEVELOPMENT_LANGUAGE": "en",
 #     /* ... */
 #   },
 #   "Release": {
 #     "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES": "YES",
-#     "DEVELOPMENT_LANGUAGE": "Swift",
+#     "DEVELOPMENT_LANGUAGE": "en",
 #     /* ... */
 #   }
 # }

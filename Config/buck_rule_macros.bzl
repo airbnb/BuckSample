@@ -1,4 +1,4 @@
-load("//Config:configs.bzl", "test_configs", "library_configs", "pod_library_configs")
+load("//Config:configs.bzl", "test_configs", "library_configs", "pod_library_configs", "DEVELOPMENT_LANGUAGE")
 
 # This is just a regular lib that was warnings not set to error
 def apple_third_party_lib(**kwargs):
@@ -53,7 +53,7 @@ def apple_test_lib(
 
     substitutions = {
         "CURRENT_PROJECT_VERSION": "1",
-        "DEVELOPMENT_LANGUAGE": "en-us",
+        "DEVELOPMENT_LANGUAGE": DEVELOPMENT_LANGUAGE,
         "EXECUTABLE_NAME": name,
         "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % name,
         "PRODUCT_NAME": name,
@@ -198,13 +198,13 @@ def first_party_library(
         suppress_warnings = suppress_warnings,
         **kwargs
     )
-    
+
     test_sources = native.glob(["Tests/**/*.swift"])
     test_headers = None
     if has_objective_c:
         test_sources.extend(native.glob(["Tests/**/*.m"]))
         test_headers = native.glob(["Tests/**/*.h"])
-    
+
     apple_test_lib(
         name = lib_test_name,
         srcs = test_sources,
