@@ -25,7 +25,7 @@ message:
 	$(BUCK) build //App:ExampleMessageExtension
 
 debug:
-	$(BUCK) install //App:ExampleApp --run --simulator-name 'iPhone XS'
+	$(BUCK) install //App:ExampleApp --run --simulator-name 'iPhone X'
 
 targets:
 	$(BUCK) targets //...
