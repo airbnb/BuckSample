@@ -123,6 +123,7 @@ def message_binary_configs(name):
 def intent_binary_configs(info_plist_substitutions):
     config = {
         "SWIFT_COMPILATION_MODE": "wholemodule",
-    } + info_plist_substitutions
+    }
+    config.update(info_plist_substitutions)
     config = config_with_updated_linker_flags(config, ALL_LOAD_LINKER_FLAG)
     return configs_with_config(config)
