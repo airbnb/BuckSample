@@ -2,7 +2,7 @@ load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_bin
 load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all", "intent_interface", "intentdefinition_resource")
 
 apple_asset_catalog(
-name = "ExampleAppAssets",
+    name = "ExampleAppAssets",
     visibility = ["//App:"],
     app_icon = "AppIcon",
     dirs = ["Assets.xcassets"],
