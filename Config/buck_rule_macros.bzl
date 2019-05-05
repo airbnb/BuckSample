@@ -326,6 +326,12 @@ def intent_interface(
 
     intent_interface="`find "$TMP" -name %sIntent.swift`"
 
+    if [[ -z "$intent_interface" ]]; then
+        echo "Compiler xcodeproj produced no Swift interface for the provided intent"
+        echo "Are you sure the .intentdefinition defines the intent?"
+        exit 1
+    fi
+
     cp "$intent_interface" "$OUT"
     """ % intent_name
 
