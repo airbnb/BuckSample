@@ -306,9 +306,13 @@ def mlmodel_resource(
 #   `srcs`.
 # - parameter intent_name: The name of the intent in the .intentdefinition for which source should
 #   be generated. Do not include an "Intent" suffix.
+# - parameter compiler_xcodeproj: The relative path to the Xcodeproj used to generate the Swift
+#   interface of the .intentdefinition. This project should reference the .intentdefinition that
+#   contains `intent_name`.
 def intent_interface(
         interface_source_name,
-        intent_name):
+        intent_name,
+        compiler_xcodeproj):
 
     script = """
     intents_compiler_xcodeproj="$SRCS"
@@ -328,7 +332,7 @@ def intent_interface(
     logging_genrule(
         name = interface_source_name,
         srcs = [
-            "SiriShortcut/_IntentsCompiler/IntentsCompiler.xcodeproj",
+            compiler_xcodeproj,
         ],
         bash = script,
         out = "%sIntent.swift" % intent_name,

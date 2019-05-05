@@ -174,7 +174,10 @@ apple_package(
 ### Siri Shortcut Begin ###
 
 # Set up `BuckPhotoIntent` by handling the .intentdefinition file.
-intent_interface("BuckPhotoIntentInterface", "BuckPhoto")
+intent_interface(
+    "BuckPhotoIntentInterface",
+    "BuckPhoto",
+    "SiriShortcut/_IntentsCompiler/IntentsCompiler.xcodeproj")
 intentdefinition_resource("IntentsDefinition", "./", "Intents")
 
 # The non-UI code for processing `BuckPhotoIntent`.
