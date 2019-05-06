@@ -385,7 +385,7 @@ def intentdefinition_resource(
             cp $SRCS $TMP
         fi
         definition_basename=`basename $SRCS`
-        mv "$TMP/$definition_basename" $OUT
+        cp "$TMP/$definition_basename" $OUT
         """,
         out = definition_name + ".intentdefinition",
     )
