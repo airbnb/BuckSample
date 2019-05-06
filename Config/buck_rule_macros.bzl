@@ -381,6 +381,8 @@ def intentdefinition_resource(
         # https://github.com/airbnb/BuckSample/issues/102 is resolved.
         if xcodebuild -version | grep "Xcode 1"; then
             xcrun intentbuilderc $SRCS $TMP ""
+        else
+            cp $SRCS $TMP
         fi
         definition_basename=`basename $SRCS`
         mv "$TMP/$definition_basename" $OUT
