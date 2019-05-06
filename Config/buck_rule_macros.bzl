@@ -317,22 +317,31 @@ def intent_interface(
     script = """
     intents_compiler_xcodeproj="$SRCS"
 
-    # `IntentDefinitionCodegen` is within Xcode.
-    xcodebuild \
-        -configuration Release \
-        -scheme 'IntentsCompiler' \
-        -project "$intents_compiler_xcodeproj" \
-        -derivedDataPath "$TMP" \
-        CODE_SIGN_IDENTITY="" \
-        CODE_SIGNING_REQUIRED=NO \
-        CODE_SIGNING_ALLOWED=NO
+    # We cannot upgrade CI to Xcode 10 yet. If we are still in Xcode 9, output a dummy Swift file.
+    # It doesn't matter since Siri Shortcuts don't work in Xcode 9 anyway.
+    # We can delete this alternate code path when https://github.com/airbnb/BuckSample/issues/102
+    # is resolved.
+    if xcodebuild -version | grep "Xcode 1"; then
+        # `IntentDefinitionCodegen` is within Xcode.
+        xcodebuild \
+            -configuration Release \
+            -scheme 'IntentsCompiler' \
+            -project "$intents_compiler_xcodeproj" \
+            -derivedDataPath "$TMP" \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
 
-    intent_interface="`find "$TMP" -name %sIntent.swift`"
+        intent_interface="`find "$TMP" -name %sIntent.swift`"
 
-    if [[ -z "$intent_interface" ]]; then
-        echo "Compiler xcodeproj produced no Swift interface for the provided intent"
-        echo "Are you sure the .intentdefinition defines the intent?"
-        exit 1
+        if [[ -z "$intent_interface" ]]; then
+            echo "Compiler xcodeproj produced no Swift interface for the provided intent"
+            echo "Are you sure the .intentdefinition defines the intent?"
+            exit 1
+        fi
+    else
+        intent_interface="$TMP/Dummy.swift"
+        echo "" > intent_interface
     fi
 
     cp "$intent_interface" "$OUT"
