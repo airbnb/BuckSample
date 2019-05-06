@@ -322,7 +322,10 @@ def intent_interface(
         -configuration Release \
         -scheme 'IntentsCompiler' \
         -project "$intents_compiler_xcodeproj" \
-        -derivedDataPath "$TMP"
+        -derivedDataPath "$TMP" \
+        CODE_SIGN_IDENTITY="" \
+        CODE_SIGNING_REQUIRED=NO \
+        CODE_SIGNING_ALLOWED=NO
 
     intent_interface="`find "$TMP" -name %sIntent.swift`"
 
