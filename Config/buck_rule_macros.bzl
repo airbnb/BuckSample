@@ -306,7 +306,7 @@ def mlmodel_resource(
 #   `srcs`.
 # - parameter intent_name: The name of the intent in the .intentdefinition for which source should
 #   be generated. Do not include an "Intent" suffix.
-# - parameter compiler_xcodeproj: The relative path to the Xcodeproj used to generate the Swift
+# - parameter compiler_xcodeproj: The relative path to the .xcodeproj used to generate the Swift
 #   interface of the .intentdefinition. This project should reference the .intentdefinition that
 #   contains `intent_name`.
 def intent_interface(
