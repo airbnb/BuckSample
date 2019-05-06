@@ -341,7 +341,7 @@ def intent_interface(
         fi
     else
         intent_interface="$TMP/Dummy.swift"
-        echo "" > intent_interface
+        echo "class Dummy { }" > "$intent_interface"
     fi
 
     cp "$intent_interface" "$OUT"
