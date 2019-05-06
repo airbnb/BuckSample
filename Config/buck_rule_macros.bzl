@@ -375,7 +375,13 @@ def intentdefinition_resource(
         name = genrule_name,
         srcs = [definition_directory + definition_name + ".intentdefinition"],
         bash = """
-        xcrun intentbuilderc $SRCS $TMP ""
+        # We cannot upgrade CI to Xcode 10 yet. If we are still in Xcode 9, do not process.
+        # It doesn't matter since Siri Shortcuts don't work in Xcode 9 anyway.
+        # We can delete this alternate code path when
+        # https://github.com/airbnb/BuckSample/issues/102 is resolved.
+        if xcodebuild -version | grep "Xcode 1"; then
+            xcrun intentbuilderc $SRCS $TMP ""
+        fi
         definition_basename=`basename $SRCS`
         mv "$TMP/$definition_basename" $OUT
         """,
