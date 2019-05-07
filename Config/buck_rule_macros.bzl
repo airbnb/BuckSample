@@ -349,7 +349,6 @@ def intent_interface(
 
     logging_genrule(
         name = interface_source_name,
-        visibility = ["PUBLIC"],
         srcs = [
             compiler_xcodeproj,
         ],
