@@ -48,11 +48,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       return false
     }
 
+    #if !DISABLE_SIRI_SHORTCUT
     if let buckPhotoIntent = userActivity.interaction?.intent as? BuckPhotoIntent {
       print("Launched with BuckPhotoIntent: \(buckPhotoIntent)")
       return true
     } else {
       return false
     }
+    #else
+    return false
+    #endif
   }
 }
