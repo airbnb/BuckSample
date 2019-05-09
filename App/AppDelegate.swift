@@ -2,9 +2,9 @@ import UIKit
 
 
 #if swift(>=4.0)
-typealias ArgType = [UIApplication.LaunchOptionsKey: Any]? // Xcode 10
+typealias ArgType = [UIApplication.LaunchOptionsKey: Any]?
 #else
-typealias ArgType = [UIApplicationLaunchOptionsKey : Any]? // Xcode 9
+typealias ArgType = [UIApplicationLaunchOptionsKey : Any]?
 #endif
 
 @UIApplicationMain
