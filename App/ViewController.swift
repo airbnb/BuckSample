@@ -35,12 +35,14 @@ class ViewController: UIViewController {
     label.center = self.view.center
 
     #if !DISABLE_SIRI_SHORTCUT
+    if #available(iOS 12, *) {
       let siriButton = INUIAddVoiceShortcutButton(style: .black)
       siriButton.translatesAutoresizingMaskIntoConstraints = false
       view.addSubview(siriButton)
       siriButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
       siriButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -24).isActive = true
       siriButton.addTarget(self, action: #selector(addToSiri(_:)), for: .touchUpInside)
+    }
     #endif
   }
 
