@@ -83,7 +83,9 @@ public class BuckPhotoIntentResponse: INIntentResponse {
     public convenience init(code: BuckPhotoIntentResponseCode, userActivity: NSUserActivity?) {
         self.init()
         self.code = code
+        #if swift(<4.2)
         self.userActivity = userActivity
+        #endif
     }
 
 }
