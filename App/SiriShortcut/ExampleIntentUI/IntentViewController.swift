@@ -18,7 +18,10 @@ final class IntentViewController: UIViewController, INUIHostedViewControlling {
   }
 
   var desiredSize: CGSize {
-    var result = self.extensionContext!.hostedViewMaximumAllowedSize
+    guard let hostedViewMaximumAllowedSize = extensionContext?.hostedViewMaximumAllowedSize else {
+      fatalError("Unexpectedly could no extension context")
+    }
+    var result = hostedViewMaximumAllowedSize
     result.height = 400
     return result
   }
