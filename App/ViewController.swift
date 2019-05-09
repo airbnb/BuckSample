@@ -133,11 +133,13 @@ class ViewController: UIViewController {
   dynamic private func addToSiri(_ sender: Any) {
     let intent = BuckPhotoIntent()
     intent.suggestedInvocationPhrase = "Show me a buck"
+    #if swift(>=4.2)
     if let shortcut = INShortcut(intent: intent) {
       let viewController = INUIAddVoiceShortcutViewController(shortcut: shortcut)
       viewController.modalPresentationStyle = .formSheet
       viewController.delegate = self
       present(viewController, animated: true, completion: nil)
     }
+    #endif
   }
 }
