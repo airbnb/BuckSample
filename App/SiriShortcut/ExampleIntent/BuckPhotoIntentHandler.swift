@@ -19,4 +19,6 @@ final class BuckPhotoIntentHandler: NSObject, BuckPhotoIntentHandling {
     completion(BuckPhotoIntentResponse(code: .success, userActivity: nil))
   }
 }
+#else
+final class BuckPhotoIntentHandler {}
 #endif
