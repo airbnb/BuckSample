@@ -4,6 +4,7 @@
 import IntentsUI
 import UIKit
 
+#if swift(>=4.2)
 @available(iOS 12.0, *)
 extension ViewController: INUIAddVoiceShortcutViewControllerDelegate {
 
@@ -19,3 +20,4 @@ extension ViewController: INUIAddVoiceShortcutViewControllerDelegate {
     controller.dismiss(animated: true)
   }
 }
+#endif
