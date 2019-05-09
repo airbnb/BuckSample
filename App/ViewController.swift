@@ -34,14 +34,14 @@ class ViewController: UIViewController {
     label.sizeToFit()
     label.center = self.view.center
 
-    if #available(iOS 12.0, *) {
+    #if swift(>=4.2)
       let siriButton = INUIAddVoiceShortcutButton(style: .black)
       siriButton.translatesAutoresizingMaskIntoConstraints = false
       view.addSubview(siriButton)
       siriButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
       siriButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -24).isActive = true
       siriButton.addTarget(self, action: #selector(addToSiri(_:)), for: .touchUpInside)
-    }
+    #endif
   }
 
   override func viewDidAppear(_ animated: Bool) {
