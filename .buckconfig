@@ -4,7 +4,7 @@
   cxxflags = -fobjc-arc -std=c++14 -D DEBUG -g $(config custom.other_cxxflags)
   combined_preprocess_and_compile = true
   pch_enabled = false
-  ldflags = -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fobjc-link-runtime $(config custom.other_cxxflags)
+  ldflags = -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fobjc-link-runtime $(config custom.other_cxxflags) -rpath /usr/lib/swift
 
 [swift]
   version = 4.0

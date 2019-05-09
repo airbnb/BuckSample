@@ -1,7 +1,7 @@
 import UIKit
 
 
-#if swift(>=4.2)
+#if swift(>=4.0)
 typealias ArgType = [UIApplication.LaunchOptionsKey: Any]? // Xcode 10
 #else
 typealias ArgType = [UIApplicationLaunchOptionsKey : Any]? // Xcode 9
@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     return true
   }
 
-
+  #if !DISABLE_SIRI_SHORTCUT
   #if swift(>=4.2)
   // Xcode 10
   func application(
@@ -30,15 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   {
     return continueWithUserActivity(userActivity)
   }
-  #else
-  // Xcode 9
-  func application(
-    _ application: UIApplication,
-    continue userActivity: NSUserActivity,
-    restorationHandler: @escaping ([Any]?) -> Void) -> Bool
-  {
-    return continueWithUserActivity(userActivity)
-  }
+  #endif
   #endif
 
   // MARK: Private
