@@ -131,9 +131,9 @@ class ViewController: UIViewController {
   @available(iOS 12.0, *)
   @objc
   dynamic private func addToSiri(_ sender: Any) {
+    #if swift(>=4.2)
     let intent = BuckPhotoIntent()
     intent.suggestedInvocationPhrase = "Show me a buck"
-    #if swift(>=4.2)
     if let shortcut = INShortcut(intent: intent) {
       let viewController = INUIAddVoiceShortcutViewController(shortcut: shortcut)
       viewController.modalPresentationStyle = .formSheet
