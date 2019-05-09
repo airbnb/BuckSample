@@ -177,7 +177,8 @@ apple_package(
 intent_interface(
     "BuckPhotoIntentInterface",
     "BuckPhoto",
-    "SiriShortcut/_IntentsCompiler/IntentsCompiler.xcodeproj")
+    "SiriShortcut/_IntentsCompiler/IntentsCompiler.xcodeproj",
+    "SiriShortcut/_Placholder_BuckPhotoIntent.swift")
 intentdefinition_resource("IntentsDefinition", "./", "Intents")
 
 # The non-UI code for processing `BuckPhotoIntent`.
