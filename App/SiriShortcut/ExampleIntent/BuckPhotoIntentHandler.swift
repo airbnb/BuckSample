@@ -3,6 +3,7 @@
 
 import Foundation
 
+#if !DISABLE_SIRI_SHORTCUT
 @available(iOS 12.0, *)
 final class BuckPhotoIntentHandler: NSObject, BuckPhotoIntentHandling {
 
@@ -18,3 +19,4 @@ final class BuckPhotoIntentHandler: NSObject, BuckPhotoIntentHandling {
     completion(BuckPhotoIntentResponse(code: .success, userActivity: nil))
   }
 }
+#endif
