@@ -309,19 +309,14 @@ def mlmodel_resource(
 # - parameter compiler_xcodeproj: The relative path to the .xcodeproj used to generate the Swift
 #   interface of the .intentdefinition. This project should reference the .intentdefinition that
 #   contains `intent_name`.
-# - parameter placeholder_intent_interface: A precompiled version of the intent interface. This is
-#   necessary since our CI runs Xcode 9. This should be removed when we resolve
-#   https://github.com/airbnb/BuckSample/issues/102.
 def intent_interface(
         interface_source_name,
         intent_name,
-        compiler_xcodeproj,
-        placeholder_intent_interface):
+        compiler_xcodeproj):
 
     script = """
     IFS=' ' read -ra SRCS_ARRAY <<< "$SRCS"
     intents_compiler_xcodeproj="${SRCS_ARRAY[0]}"
-    placeholder_intent_interface="${SRCS_ARRAY[1]}"
 
     # We cannot upgrade CI to Xcode 10 yet. If we are still in Xcode 9, output a dummy Swift file.
     # It doesn't matter since Siri Shortcuts don't work in Xcode 9 anyway.
@@ -346,7 +341,8 @@ def intent_interface(
             exit 1
         fi
     else
-        intent_interface="$placeholder_intent_interface"
+        intent_interface="$TMP/Dummy.swift"
+        echo "class Dummy { }" > "$intent_interface"
     fi
 
     cp "$intent_interface" "$OUT"
@@ -356,7 +352,6 @@ def intent_interface(
         name = interface_source_name,
         srcs = [
             compiler_xcodeproj,
-            placeholder_intent_interface,
         ],
         bash = script,
         out = "%sIntent.swift" % intent_name,
