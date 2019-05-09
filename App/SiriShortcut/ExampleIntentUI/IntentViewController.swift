@@ -3,7 +3,7 @@
 
 import IntentsUI
 
-#if swift(>=4.2)
+#if swift(>=4.0)
 final class IntentViewController: UIViewController, INUIHostedViewControlling {
 
   override func viewDidLoad() {

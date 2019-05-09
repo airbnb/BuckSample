@@ -4,7 +4,7 @@
 import IntentsUI
 import UIKit
 
-#if swift(>=4.2)
+#if swift(>=4.0)
 @available(iOS 12.0, *)
 extension ViewController: INUIAddVoiceShortcutViewControllerDelegate {
 

@@ -1,7 +1,7 @@
 import UIKit
 
 
-#if swift(>=4.2)
+#if swift(>=4.0)
 typealias ArgType = [UIApplication.LaunchOptionsKey: Any]? // Xcode 10
 #else
 typealias ArgType = [UIApplicationLaunchOptionsKey : Any]? // Xcode 9
@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
 
-  #if swift(>=4.2)
+  #if swift(>=4.0)
   // Xcode 10
   func application(
     _ application: UIApplication,
