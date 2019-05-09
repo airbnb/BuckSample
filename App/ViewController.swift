@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     label.sizeToFit()
     label.center = self.view.center
 
-    #if swift(>=4.0)
+    #if !DISABLE_SIRI_SHORTCUT
       let siriButton = INUIAddVoiceShortcutButton(style: .black)
       siriButton.translatesAutoresizingMaskIntoConstraints = false
       view.addSubview(siriButton)
@@ -131,7 +131,7 @@ class ViewController: UIViewController {
   @available(iOS 12.0, *)
   @objc
   dynamic private func addToSiri(_ sender: Any) {
-    #if swift(>=4.0)
+    #if !DISABLE_SIRI_SHORTCUT
     let intent = BuckPhotoIntent()
     intent.suggestedInvocationPhrase = "Show me a buck"
     if let shortcut = INShortcut(intent: intent) {

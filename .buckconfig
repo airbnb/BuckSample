@@ -8,7 +8,7 @@
 
 [swift]
   version = 4.0
-  compiler_flags = -DBUCK -enable-testing -g -Onone -whole-module-optimization $(config custom.other_swift_compiler_flags)
+  compiler_flags = -DBUCK -enable-testing -g -Onone -whole-module-optimization $(config custom.other_swift_compiler_flags) -DDISABLE_SIRI_SHORTCUT
   use_filelist = true
 
 [apple]
@@ -41,4 +41,3 @@
   code_coverage_cxxflags = -fprofile-instr-generate -fcoverage-mapping
   code_coverage_ldflags = -fprofile-instr-generate
   code_coverage_swift_compiler_flags = -profile-generate -profile-coverage-mapping
-  

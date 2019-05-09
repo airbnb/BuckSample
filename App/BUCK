@@ -53,9 +53,6 @@ apple_library(
         "//App:",
         "//App/...",
     ],
-    compiler_flags = [
-      "-D DISABLE_SIRI_SHORTCUT",
-    ],
     configs = library_configs(),
     swift_version = "4.0",
     srcs = [
@@ -204,9 +201,7 @@ apple_binary(
         "SiriShortcut/ExampleIntent/**/*.swift",
     ]) + [":BuckPhotoIntentInterface"],
     configs = intent_binary_configs(intent_info_plist_substitutions),
-    compiler_flags = [
-      "-D DISABLE_SIRI_SHORTCUT",
-    ],
+
     # "-e _NSExtensionMain" tell linker this binary is app extension, so it won't fail due to
     # missing _main "-Xlinker -rpath -Xlinker @executable_path/../../Frameworks" tells the
     # executable binary to look for frameworks in ExampleApp.app/Frameworks instead of PlugIns, so
@@ -255,9 +250,7 @@ apple_binary(
         "SiriShortcut/ExampleIntentUI/**/*.swift",
     ]) + [":BuckPhotoIntentInterface"],
     configs = intent_binary_configs(intentui_info_plist_substitutions),
-    compiler_flags = [
-      "-D DISABLE_SIRI_SHORTCUT",
-    ],
+
     # "-e _NSExtensionMain" tell linker this binary is app extension, so it won't fail due to
     # missing _main "-Xlinker -rpath -Xlinker @executable_path/../../Frameworks" tells the
     # executable binary to look for frameworks in ExampleApp.app/Frameworks instead of PlugIns, so
