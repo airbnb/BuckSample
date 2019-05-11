@@ -64,6 +64,7 @@ apple_library(
     srcs = [
         "ViewController.swift",
         "AppDelegate.swift",
+        "LocalizationHelper.swift",
     ],
     tests = app_tests,
     deps = [
