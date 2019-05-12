@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     self.view = view
 
     let label = UILabel()
-    label.text = "Main Screen"
+    label.text = localizedString("Hello, world", "Text on main view controller")
     self.view.addSubview(label)
     label.sizeToFit()
     label.center = self.view.center
