@@ -178,7 +178,7 @@ intent_interface(
     "BuckPhotoIntentInterface",
     "BuckPhoto",
     "SiriShortcut/_IntentsCompiler/IntentsCompiler.xcodeproj")
-intentdefinition_resource("IntentsDefinition", "./", "Intents")
+intentdefinition_resource("IntentsDefinition", "./Resources/en.lproj", "Intents")
 
 # The non-UI code for processing `BuckPhotoIntent`.
 intent_bundle_identifier = bundle_identifier("ExampleApp.IntentExtension")
