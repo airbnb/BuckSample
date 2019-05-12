@@ -10,7 +10,7 @@ apple_resource(
 )
 
 apple_resource(
-    name = "IntentStringResources",
+    name = "IntentsStringResources",
     visibility = ["//App:"],
     files = [],
     variants = glob([
