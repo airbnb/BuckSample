@@ -1,9 +1,9 @@
 apple_resource(
-    name = "StringResources",
+    name = "ExampleAppStringResources",
     visibility = ["//App:"],
     files = [],
     variants = glob([
-        "*.lproj/*.strings",
+        "*.lproj/ExampleApp.strings",
     ]),
 )
 
