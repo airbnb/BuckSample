@@ -10,6 +10,15 @@ apple_resource(
 )
 
 apple_resource(
+    name = "IntentStringResources",
+    visibility = ["//App:"],
+    files = [],
+    variants = glob([
+        "*.lproj/Intent.strings",
+    ]),
+)
+
+apple_resource(
     name = "StoryboardResources",
     visibility = ["//App:"],
     variants = glob([
