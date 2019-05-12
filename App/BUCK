@@ -64,8 +64,12 @@ apple_library(
     deps = [
         "//Pods:CryptoSwift",
         "//Pods:PromiseKit",
-        "//App/Resources:StoryboardResources",
+
         ":ExampleAppAssets",
+
+        # Resources
+        "//App/Resources:ExampleAppStringResources",
+        "//App/Resources:StoryboardResources",
     ]
     + first_party_library_dependencies
     + build_phase_scripts,
@@ -84,7 +88,6 @@ apple_binary(
     ],
     deps = [
         ":ExampleAppLibrary",
-        "//App/Resources:ExampleAppStringResources",
     ],
 )
 
