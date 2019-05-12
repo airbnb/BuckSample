@@ -363,10 +363,15 @@ def intent_interface(
 #   lives. Must include a trailing slash.
 # - parameter definition_name: The name of the .intentdefinition. Do not include the
 #   ".intentdefinition" suffix.
+# - parameter localization: A localization abbreviation, such as "en". The processed
+#   .intentdefinition will live in a .lproj directory of this name.
 def intentdefinition_resource(
         resource_dependency_name,
         definition_directory,
-        definition_name):
+        definition_name,
+        localization):
+
+    lproj_directory = "%s.lproj/" % localization
 
     genrule_name = "process_" + resource_dependency_name
     # Create a genrule to process the .intentdefinition file. As far as we can tell, the
@@ -376,6 +381,9 @@ def intentdefinition_resource(
         name = genrule_name,
         srcs = [definition_directory + definition_name + ".intentdefinition"],
         bash = """
+        lproj_dir=`dirname $OUT`
+        mkdir "$lproj_dir"
+
         # We cannot upgrade CI to Xcode 10 yet. If we are still in Xcode 9, do not process.
         # It doesn't matter since Siri Shortcuts don't work in Xcode 9 anyway.
         # We can delete this alternate code path when
@@ -388,7 +396,7 @@ def intentdefinition_resource(
         definition_basename=`basename $SRCS`
         cp "$TMP/$definition_basename" $OUT
         """,
-        out = definition_name + ".intentdefinition",
+        out = lproj_directory + definition_name + ".intentdefinition",
     )
 
     native.apple_resource(

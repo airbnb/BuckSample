@@ -17,4 +17,4 @@ apple_resource(
     ]),
 )
 
-intentdefinition_resource("IntentsDefinition", "./en.lproj/", "Intents")
+intentdefinition_resource("IntentsDefinition", "./en.lproj/", "Intents",  "en")
