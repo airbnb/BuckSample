@@ -1,0 +1,9 @@
+/* 
+  ExampleApp.strings
+  ExampleApp
+
+  Created by Michael Bachand on 5/11/19.
+  Copyright © 2019 Airbnb. All rights reserved.
+*/
+
+"Hello, world" = "Hola, mundo";

@@ -90,6 +90,7 @@ apple_binary(
     ],
     deps = [
         ":ExampleAppLibrary",
+        "//App/Locales:LocalesResources",
     ],
 )
 
