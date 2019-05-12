@@ -14,7 +14,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E43E3E4322700E1C00DBCD82 /* Intents.intentdefinition */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.intentdefinition; name = Intents.intentdefinition; path = ../../../Intents.intentdefinition; sourceTree = "<group>"; };
+		E43E3E4322700E1C00DBCD82 /* Intents.intentdefinition */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.intentdefinition; name = Intents.intentdefinition; path = ../../../Resources/en.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
 		E4D2464422700F1C00587E6F /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4DA4370227008DC00DCB2E5 /* IntentsCompiler.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IntentsCompiler.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4DA4373227008DC00DCB2E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
