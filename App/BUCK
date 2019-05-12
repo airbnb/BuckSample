@@ -8,12 +8,6 @@ apple_asset_catalog(
     dirs = ["Assets.xcassets"],
 )
 
-apple_resource(
-    name = "ExampleAppResource",
-    visibility = ["//App:"],
-    files = glob(["Resources/**/*.storyboard"]),
-)
-
 app_tests = [
     ":UnitTests",
     ":UnitTestsWithHostApp",
@@ -70,7 +64,7 @@ apple_library(
     deps = [
         "//Pods:CryptoSwift",
         "//Pods:PromiseKit",
-        ":ExampleAppResource",
+        "//App/Resources:StoryboardResources",
         ":ExampleAppAssets",
     ]
     + first_party_library_dependencies
@@ -90,7 +84,7 @@ apple_binary(
     ],
     deps = [
         ":ExampleAppLibrary",
-        "//App/Locales:LocalesResources",
+        "//App/Resources:StringResources",
     ],
 )
 

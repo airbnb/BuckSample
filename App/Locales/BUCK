@@ -1,8 +1,0 @@
-apple_resource(
-    name = "LocalesResources",
-    visibility = ["PUBLIC"],
-    files = [],
-    variants = glob([
-        "*.lproj/**/*",
-    ]),
-)
