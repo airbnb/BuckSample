@@ -66,7 +66,6 @@ apple_library(
     deps = [
         "//Pods:CryptoSwift",
         "//Pods:PromiseKit",
-
         ":ExampleAppAssets",
 
         # Resources
