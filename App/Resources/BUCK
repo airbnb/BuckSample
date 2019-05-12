@@ -14,7 +14,7 @@ apple_resource(
     visibility = ["//App:"],
     files = [],
     variants = glob([
-        "*.lproj/Intent.strings",
+        "*.lproj/Intents.strings",
     ]),
 )
 
