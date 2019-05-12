@@ -402,7 +402,7 @@ def intentdefinition_resource(
     native.apple_resource(
         name = resource_dependency_name,
         visibility = ["PUBLIC"],
-        files = [
+        variants = [
             ":" + genrule_name,
         ]
     )
