@@ -1,5 +1,5 @@
 load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "intent_binary_configs", "pretty", "info_plist_substitutions", "bundle_identifier", "DEVELOPMENT_LANGUAGE")
-load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all", "intent_interface", "intentdefinition_resource")
+load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all", "intent_interface")
 
 apple_asset_catalog(
     name = "ExampleAppAssets",
@@ -71,7 +71,7 @@ apple_library(
         # Resources
         "//App/Resources:ExampleAppStringResources",
         "//App/Resources:StoryboardResources",
-        ":IntentsDefinition",
+        "//App/Resources:IntentsDefinition",
     ]
     + first_party_library_dependencies
     + build_phase_scripts,
@@ -174,7 +174,6 @@ intent_interface(
     "BuckPhotoIntentInterface",
     "BuckPhoto",
     "SiriShortcut/_IntentsCompiler/IntentsCompiler.xcodeproj")
-intentdefinition_resource("IntentsDefinition", "./Resources/en.lproj/", "Intents")
 
 # The non-UI code for processing `BuckPhotoIntent`.
 intent_bundle_identifier = bundle_identifier("ExampleApp.IntentExtension")
@@ -210,7 +209,7 @@ apple_binary(
         "@executable_path/../../Frameworks",
     ],
     deps = [
-        ":IntentsDefinition",
+        "//App/Resources:IntentsDefinition",
     ],
     frameworks = [
         "$SDKROOT/System/Library/Frameworks/Intents.framework",
@@ -259,7 +258,7 @@ apple_binary(
         "@executable_path/../../Frameworks",
     ],
     deps = [
-        ":IntentsDefinition",
+        "//App/Resources:IntentsDefinition",
     ],
     frameworks = [
         "$SDKROOT/System/Library/Frameworks/Intents.framework",

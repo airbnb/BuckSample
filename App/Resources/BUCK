@@ -1,3 +1,5 @@
+load("//Config:buck_rule_macros.bzl", "intentdefinition_resource")
+
 apple_resource(
     name = "ExampleAppStringResources",
     visibility = ["//App:"],
@@ -14,3 +16,5 @@ apple_resource(
         "*.lproj/*.storyboard",
     ]),
 )
+
+intentdefinition_resource("IntentsDefinition", "./en.lproj/", "Intents")
