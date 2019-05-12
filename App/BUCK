@@ -72,6 +72,7 @@ apple_library(
         # Resources
         "//App/Resources:ExampleAppStringResources",
         "//App/Resources:IntentsDefinition",
+        "//App/Resources:IntentStringResources",
         "//App/Resources:StoryboardResources",
     ]
     + first_party_library_dependencies
@@ -211,6 +212,7 @@ apple_binary(
     ],
     deps = [
         "//App/Resources:IntentsDefinition",
+        "//App/Resources:IntentStringResources",
     ],
     frameworks = [
         "$SDKROOT/System/Library/Frameworks/Intents.framework",
@@ -260,6 +262,7 @@ apple_binary(
     ],
     deps = [
         "//App/Resources:IntentsDefinition",
+        "//App/Resources:IntentStringResources",
     ],
     frameworks = [
         "$SDKROOT/System/Library/Frameworks/Intents.framework",
