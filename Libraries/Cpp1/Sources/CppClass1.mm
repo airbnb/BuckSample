@@ -4,7 +4,7 @@
 @implementation Cpp1
 - (NSInteger)add:(NSInteger)a with:(NSInteger)b {
     CppObject cpp = CppObject();
-    
+
     return cpp.add(a, b);
 }
 
