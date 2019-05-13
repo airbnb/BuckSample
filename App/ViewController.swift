@@ -135,6 +135,7 @@ class ViewController: UIViewController {
   dynamic private func addToSiri(_ sender: Any) {
     #if !DISABLE_SIRI_SHORTCUT
     let intent = BuckPhotoIntent()
+    // TODO: localize to "Muéstrame un venado" once https://github.com/airbnb/BuckSample/pull/105  is merged.
     intent.suggestedInvocationPhrase = "Show me a buck"
     if let shortcut = INShortcut(intent: intent) {
       let viewController = INUIAddVoiceShortcutViewController(shortcut: shortcut)
