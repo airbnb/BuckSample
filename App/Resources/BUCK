@@ -1,0 +1,16 @@
+apple_resource(
+    name = "ExampleAppStringResources",
+    visibility = ["//App:"],
+    files = [],
+    variants = glob([
+        "*.lproj/ExampleApp.strings",
+    ]),
+)
+
+apple_resource(
+    name = "StoryboardResources",
+    visibility = ["//App:"],
+    variants = glob([
+        "*.lproj/*.storyboard",
+    ]),
+)

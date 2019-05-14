@@ -25,6 +25,6 @@ class BuckSampleUITests: XCTestCase {
     }
 
     func testMainScreenLabelExists() {
-        XCTAssert(app.staticTexts["Main Screen"].exists)
+        XCTAssert(app.staticTexts["Hello, world"].exists)
     }
 }
