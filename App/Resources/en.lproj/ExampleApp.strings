@@ -1,4 +1,4 @@
-/* 
+/*
   ExampleApp.strings
   ExampleApp
 
@@ -7,3 +7,4 @@
 */
 
 "Hello, world" = "Hello, world";
+"Show me a buck" = "Show me a buck";
