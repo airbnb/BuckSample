@@ -86,13 +86,14 @@ def apple_test_all(
         libraries = [],
         additional_tests = [],
         prebuilt_frameworks = [],
+        deps = [],
         **kwargs):
     ci_test_libraries = []
     for library in libraries:
         ci_test_libraries.append(ci_test_name(test_name(library)))
 
     apple_test_lib(
-        deps = ci_test_libraries + additional_tests + prebuilt_frameworks,
+        deps = ci_test_libraries + additional_tests + prebuilt_frameworks + deps,
         bundle_for_ci = False,
         **kwargs
     )
