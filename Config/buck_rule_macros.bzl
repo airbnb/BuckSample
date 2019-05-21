@@ -233,12 +233,14 @@ def first_party_framework(
     lib_test_name = test_name(name)
 
     apple_lib(
-        name,
+        name = name,
         srcs = native.glob(["Sources/**/*.swift"]),
         exported_headers = exported_headers,
         configs = framework_configs(framework_name),
         # Setting preferred_linkage to shared is the key to make a dylib.
         preferred_linkage = "shared",
+        compiler_flags = ["-fapplication-extension"],
+        swift_compiler_flags= ["-application-extension"],
         # Set the install_name so consumers of this dylib know where to find it.
         linker_flags = ["-Wl,-install_name,@rpath/%s.framework/%s" % (name, name)],
         deps = deps + ([":" + resource_name] if has_resource else []),

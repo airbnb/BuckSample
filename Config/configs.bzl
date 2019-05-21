@@ -66,11 +66,13 @@ def framework_configs(name):
     framework_specific_config = {
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
         "MACH_O_TYPE": "mh_dylib",
+        "APPLICATION_EXTENSION_API_ONLY": "YES",
     }
     framework_config = SHARED_CONFIGS + framework_specific_config
     configs = {
         "Debug": framework_config,
         "Profile": framework_config,
+        "Release": framework_config,
     }
     return configs
 
