@@ -312,6 +312,7 @@ apple_test_lib(
     ]),
     deps = [
         ":ExampleAppLibrary",
+        "//Libraries/SwiftShared:SwiftSharedFramework",
     ]
     + prebuilt_frameworks,
 )
