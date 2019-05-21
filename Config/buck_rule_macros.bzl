@@ -15,15 +15,6 @@ def ci_test_name(name):
 
 DEFAULT_SWIFT_VERSION = "4.0"
 
-def shared_plist_info_substitutions(name):
-    substitutions = {
-        "CURRENT_PROJECT_VERSION": "1",
-        "DEVELOPMENT_LANGUAGE": "en-us",
-        "EXECUTABLE_NAME": name,
-        "PRODUCT_NAME": name,
-    }
-    return substitutions
-
 # Use this macro to declare test targets. For first-party libraries, use first_party_library to declare a test target instead.
 # This macro defines two targets.
 # 1. An apple_test target comprising `srcs`. This test target is picked up by Xcode, and is runnable from Buck.
@@ -68,7 +59,6 @@ def apple_test_lib(
         "PRODUCT_NAME": name,
     }
     substitutions.update(info_plist_substitutions)
-    substitutions.update({"PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % test_name})
     native.apple_test(
         name = name,
         visibility = visibility,
@@ -255,8 +245,13 @@ def first_party_framework(
         tests = [":" + lib_test_name],
     )
 
-    substitutions = shared_plist_info_substitutions(name)
-    substitutions.update({"PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % framework_name})
+    substitutions = {
+        "CURRENT_PROJECT_VERSION": "1",
+        "DEVELOPMENT_LANGUAGE": "en-us",
+        "EXECUTABLE_NAME": name,
+        "PRODUCT_NAME": name,
+        "PRODUCT_BUNDLE_IDENTIFIER": "com.airbnb.%s" % framework_name,
+    }
     native.apple_bundle(
         name = framework_name,
         product_name = name,
