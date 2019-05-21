@@ -65,6 +65,7 @@ def app_binary_configs(name):
 def framework_configs(name):
     framework_specific_config = {
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
+        "MACH_O_TYPE": "mh_dylib",
     }
     framework_config = SHARED_CONFIGS + framework_specific_config
     configs = {
