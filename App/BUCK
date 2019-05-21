@@ -75,9 +75,6 @@ apple_library(
     ]
     + first_party_library_dependencies
     + build_phase_scripts,
-    # The library doesn't necessarily need to depend on frameworks for Buck CLI.
-    # It's a hack to make generated project link to the frameworks.
-    + first_party_frameworks,
 )
 
 apple_binary(
