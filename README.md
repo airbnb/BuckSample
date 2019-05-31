@@ -3,8 +3,6 @@ This is a sample to show how to use Buck to build an iOS project with mixed lang
 
 [![CircleCI](https://circleci.com/gh/airbnb/BuckSample/tree/master.svg?style=svg)](https://circleci.com/gh/airbnb/BuckSample/tree/master)
 
-[![Build Status](https://travis-ci.com/airbnb/BuckSample.svg?branch=master)](https://travis-ci.com/airbnb/BuckSample)
-
 ### To Install
 
 ```sh
