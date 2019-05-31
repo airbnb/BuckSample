@@ -49,7 +49,8 @@ test:
 # Buck requires a different test-runner to run UI tests. `fbxctest` from FBSimulatorControl has a compatible CLI invocation and can be used as a drop-in replacement for `xctool` here.
 fbxctest = tools/fbxctest/bin/fbxctest
 ui_test:
-	$(BUCK) test //App:XCUITests --config apple.xctool_path=$(fbxctest)
+	# Diable UI Test for now, because it's broken on Xcode 10.2
+	# $(BUCK) test //App:XCUITests --config apple.xctool_path=$(fbxctest)
 
 audit:
 	$(BUCK) audit rules App/BUCK > Config/Gen/App-BUCK.py
