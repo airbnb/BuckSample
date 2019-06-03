@@ -1,6 +1,7 @@
 import ASwiftModule
 import Cpp1
 import CryptoSwift
+import IntentsUI
 import Objc1
 import ObjcAndSwift
 import PromiseKit
@@ -32,6 +33,17 @@ class ViewController: UIViewController {
     self.view.addSubview(label)
     label.sizeToFit()
     label.center = self.view.center
+
+    #if !DISABLE_SIRI_SHORTCUT
+    if #available(iOS 12, *) {
+      let siriButton = INUIAddVoiceShortcutButton(style: .black)
+      siriButton.translatesAutoresizingMaskIntoConstraints = false
+      view.addSubview(siriButton)
+      siriButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+      siriButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -24).isActive = true
+      siriButton.addTarget(self, action: #selector(addToSiri(_:)), for: .touchUpInside)
+    }
+    #endif
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -116,5 +128,20 @@ class ViewController: UIViewController {
     }
 
     print("AFNetworking's version is \(SwiftWithPrecompiledDependencyClass.networkingLibraryVersionNumber)")
+  }
+
+  @available(iOS 12.0, *)
+  @objc
+  dynamic private func addToSiri(_ sender: Any) {
+    #if !DISABLE_SIRI_SHORTCUT
+    let intent = BuckPhotoIntent()
+    intent.suggestedInvocationPhrase = localizedString("Show me a buck", "Invocation phrase for Siri Shortcut")
+    if let shortcut = INShortcut(intent: intent) {
+      let viewController = INUIAddVoiceShortcutViewController(shortcut: shortcut)
+      viewController.modalPresentationStyle = .formSheet
+      viewController.delegate = self
+      present(viewController, animated: true, completion: nil)
+    }
+    #endif
   }
 }

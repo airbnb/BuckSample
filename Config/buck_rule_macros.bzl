@@ -260,10 +260,12 @@ def logging_genrule(
     )
 
 # Takes in a .mlmodel and produces a Swift interface and a compiled .mlmodelc.
-# - parameter resource_source_name: The expected name of the Swift interface to be included in `srcs`.
+# - parameter resource_source_name: The expected name of the Swift interface to be included in
+#   `srcs`.
 # - parameter resource_dependency_name: The expected name of the resource to add to `deps`.
-# - parameter model_directory: The relative path to folder where the .mlmodel lives. Must include a trailing slash.
-# - parameter model_name: The name of the .mlmodel. Do not include the .mlmodel suffix.
+# - parameter model_directory: The relative path to the folder where the .mlmodel lives. Must
+#   include a trailing slash.
+# - parameter model_name: The name of the .mlmodel. Do not include the ".mlmodel" suffix.
 # - parameter swift_version: The expected Swift version for the generated Swift interface file.
 def mlmodel_resource(
         resource_source_name,
@@ -281,10 +283,10 @@ def mlmodel_resource(
         out = "%s.swift" % model_name,
     )
 
-    modelc_resource = resource_dependency_name + "_compiled_model"
+    genrule_name = "compile_" + resource_dependency_name
     # Create a genrule to compile the mlmodelc from the mlmodel.
     logging_genrule(
-        name = modelc_resource,
+        name = genrule_name,
         srcs = [model_directory + model_name + ".mlmodel"],
         bash = 'xcrun coremlc compile "$SRCS" "\$(dirname "$OUT")"',
         out = "%s.mlmodelc" % model_name,
@@ -294,7 +296,113 @@ def mlmodel_resource(
     native.apple_resource(
         name = resource_dependency_name,
         dirs = [
-            ":" + modelc_resource,
+            ":" + genrule_name,
         ],
         files = [],
+    )
+
+# Takes in an .intentdefinition and produces the Swift interface for the specified intent.
+# - parameter interface_source_name: The expected name of the Swift interface to be included in
+#   `srcs`.
+# - parameter intent_name: The name of the intent in the .intentdefinition for which source should
+#   be generated. Do not include an "Intent" suffix.
+# - parameter compiler_xcodeproj: The relative path to the .xcodeproj used to generate the Swift
+#   interface of the .intentdefinition. This project should reference the .intentdefinition that
+#   contains `intent_name`.
+def intent_interface(
+        interface_source_name,
+        intent_name,
+        compiler_xcodeproj):
+
+    script = """
+    IFS=' ' read -ra SRCS_ARRAY <<< "$SRCS"
+    intents_compiler_xcodeproj="${SRCS_ARRAY[0]}"
+
+    # We cannot upgrade CI to Xcode 10 yet. If we are still in Xcode 9, output a dummy Swift file.
+    # It doesn't matter since Siri Shortcuts don't work in Xcode 9 anyway.
+    # We can delete this alternate code path when https://github.com/airbnb/BuckSample/issues/102
+    # is resolved.
+    if xcodebuild -version | grep "Xcode 1"; then
+        # `IntentDefinitionCodegen` is within Xcode.
+        xcodebuild \
+            -configuration Release \
+            -scheme 'IntentsCompiler' \
+            -project "$intents_compiler_xcodeproj" \
+            -derivedDataPath "$TMP" \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
+        intent_interface="`find "$TMP" -name %sIntent.swift`"
+
+        if [[ -z "$intent_interface" ]]; then
+            echo "Compiler xcodeproj produced no Swift interface for the provided intent"
+            echo "Are you sure the .intentdefinition defines the intent?"
+            exit 1
+        fi
+    else
+        intent_interface="$TMP/Dummy.swift"
+        echo "class Dummy { }" > "$intent_interface"
+    fi
+
+    cp "$intent_interface" "$OUT"
+    """ % intent_name
+
+    logging_genrule(
+        name = interface_source_name,
+        srcs = [
+            compiler_xcodeproj,
+        ],
+        bash = script,
+        out = "%sIntent.swift" % intent_name,
+    )
+
+# Proceses an .intentdefinition, creating a resource that can be added as a dependency.
+# - parameter resource_dependency_name: The expected name of the resource to add to `deps`.
+# - parameter definition_directory: The relative path to the folder where the .intentdefinition
+#   lives. Must include a trailing slash.
+# - parameter definition_name: The name of the .intentdefinition. Do not include the
+#   ".intentdefinition" suffix.
+# - parameter localization: A localization abbreviation, such as "en". The processed
+#   .intentdefinition will live in a .lproj directory of this name.
+def intentdefinition_resource(
+        resource_dependency_name,
+        definition_directory,
+        definition_name,
+        localization):
+
+    lproj_directory = "%s.lproj/" % localization
+
+    genrule_name = "process_" + resource_dependency_name
+    # Create a genrule to process the .intentdefinition file. As far as we can tell, the
+    # `intentbuilderc` command makes no change to the .intentdefinition file. We nevertheless run it
+    # in an effort to be defensive.
+    logging_genrule(
+        name = genrule_name,
+        srcs = [definition_directory + definition_name + ".intentdefinition"],
+        bash = """
+        lproj_dir=`dirname $OUT`
+        mkdir "$lproj_dir"
+
+        # We cannot upgrade CI to Xcode 10 yet. If we are still in Xcode 9, do not process.
+        # It doesn't matter since Siri Shortcuts don't work in Xcode 9 anyway.
+        # We can delete this alternate code path when
+        # https://github.com/airbnb/BuckSample/issues/102 is resolved.
+        if xcodebuild -version | grep "Xcode 1"; then
+            xcrun intentbuilderc $SRCS $TMP ""
+        else
+            cp $SRCS $TMP
+        fi
+        definition_basename=`basename $SRCS`
+        cp "$TMP/$definition_basename" $OUT
+        """,
+        out = lproj_directory + definition_name + ".intentdefinition",
+    )
+
+    native.apple_resource(
+        name = resource_dependency_name,
+        visibility = ["PUBLIC"],
+        variants = [
+            ":" + genrule_name,
+        ]
     )

@@ -1,5 +1,5 @@
-load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "pretty", "info_plist_substitutions", "bundle_identifier", "DEVELOPMENT_LANGUAGE")
-load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all")
+load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "intent_binary_configs", "pretty", "info_plist_substitutions", "bundle_identifier", "DEVELOPMENT_LANGUAGE")
+load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all", "intent_interface")
 
 apple_asset_catalog(
     name = "ExampleAppAssets",
@@ -57,8 +57,10 @@ apple_library(
     swift_version = "4.0",
     srcs = [
         "ViewController.swift",
+        "ViewController+INUIAddVoiceShortcutViewControllerDelegate.swift",
         "AppDelegate.swift",
         "LocalizationHelper.swift",
+        ":BuckPhotoIntentInterface",
     ],
     tests = app_tests,
     deps = [
@@ -69,10 +71,16 @@ apple_library(
 
         # Resources
         "//App/Resources:ExampleAppStringResources",
+        "//App/Resources:IntentsDefinition",
+        "//App/Resources:IntentsStringResources",
         "//App/Resources:StoryboardResources",
     ]
     + first_party_library_dependencies
     + build_phase_scripts,
+    frameworks = [
+        "$SDKROOT/System/Library/Frameworks/Intents.framework",
+        "$SDKROOT/System/Library/Frameworks/IntentsUI.framework",
+    ],
 )
 
 apple_binary(
@@ -82,6 +90,7 @@ apple_binary(
         "//App/...",
     ],
     configs = app_binary_configs("ExampleApp"),
+    entitlements_file = "ExampleApp.entitlements",
     swift_version = "4.0",
     srcs = [
         "BuckSupportFiles/Dummy.swift",
@@ -148,7 +157,9 @@ apple_bundle(
     deps = [
         # For "#watch", https://buckbuild.com/rule/apple_bundle.html#deps
         ":ExampleWatchApp#watch",
-        ":ExampleMessageExtension"
+        ":ExampleMessageExtension",
+        ":ExampleIntentExtension",
+        ":ExampleIntentUIExtension",
     ]
     + prebuilt_frameworks,
 )
@@ -157,6 +168,129 @@ apple_package(
     name = "ExampleAppPackage",
     bundle = ":ExampleApp",
 )
+
+### Siri Shortcut Begin ###
+
+# Set up `BuckPhotoIntent` by handling the .intentdefinition file.
+intent_interface(
+    "BuckPhotoIntentInterface",
+    "BuckPhoto",
+    "SiriShortcut/_IntentsCompiler/IntentsCompiler.xcodeproj")
+
+# The non-UI code for processing `BuckPhotoIntent`.
+intent_bundle_identifier = bundle_identifier("ExampleApp.IntentExtension")
+intent_binary_name = "ExampleIntentBinary"
+intent_bundle_name = "ExampleIntentExtension"
+intent_info_plist_substitutions = {
+    "DEVELOPMENT_LANGUAGE": "en-us",
+    "EXECUTABLE_NAME": intent_bundle_name,
+    "PRODUCT_BUNDLE_DISPLAY_NAME": intent_bundle_name,
+    "PRODUCT_BUNDLE_IDENTIFIER": intent_bundle_identifier,
+    "PRODUCT_NAME": intent_bundle_name,
+    # The Swift module name for `IntentHandler` is the binary name.
+    "NS_EXTENSION_PRINCIPAL_CLASS": "%s.IntentHandler" % intent_binary_name,
+}
+
+apple_binary(
+    name = intent_binary_name,
+    srcs = glob([
+        "SiriShortcut/ExampleIntent/**/*.swift",
+    ]) + [":BuckPhotoIntentInterface"],
+    configs = intent_binary_configs(intent_info_plist_substitutions),
+
+    # "-e _NSExtensionMain" tell linker this binary is app extension, so it won't fail due to
+    # missing _main "-Xlinker -rpath -Xlinker @executable_path/../../Frameworks" tells the
+    # executable binary to look for frameworks in ExampleApp.app/Frameworks instead of PlugIns, so
+    # that we don't need to have the libSwift*.dylib in ExampleApp.app/PlugIns/*.appex/Frameworks
+    linker_flags = [
+        "-e",
+        "_NSExtensionMain",
+        "-Xlinker",
+        "-rpath",
+        "-Xlinker",
+        "@executable_path/../../Frameworks",
+    ],
+    deps = [
+        "//App/Resources:IntentsDefinition",
+        "//App/Resources:IntentsStringResources",
+    ],
+    frameworks = [
+        "$SDKROOT/System/Library/Frameworks/Intents.framework",
+    ],
+)
+
+apple_bundle(
+    name = intent_bundle_name,
+    binary = ":" + intent_binary_name,
+    extension = "appex",
+    info_plist = "SiriShortcut/ExampleIntent/Info.plist",
+    info_plist_substitutions = intent_info_plist_substitutions,
+    xcode_product_type = "com.apple.product-type.app-extension",
+)
+
+# The UI code for displaying the response to `BuckPhotoIntent`.
+intentui_bundle_identifier = bundle_identifier("ExampleApp.IntentUIExtension")
+intentui_binary_name = "ExampleIntentUIBinary"
+intentui_bundle_name = "ExampleIntentUIExtension"
+intentui_resources_name = intentui_bundle_name + "Resources"
+intentui_info_plist_substitutions = {
+    "DEVELOPMENT_LANGUAGE": "en-us",
+    "EXECUTABLE_NAME": intentui_bundle_name,
+    "PRODUCT_BUNDLE_DISPLAY_NAME": intentui_bundle_name,
+    "PRODUCT_BUNDLE_IDENTIFIER": intentui_bundle_identifier,
+    "PRODUCT_NAME": intentui_bundle_name,
+}
+
+apple_binary(
+    name = intentui_binary_name,
+    srcs = glob([
+        "SiriShortcut/ExampleIntentUI/**/*.swift",
+    ]) + [":BuckPhotoIntentInterface"],
+    configs = intent_binary_configs(intentui_info_plist_substitutions),
+
+    # "-e _NSExtensionMain" tell linker this binary is app extension, so it won't fail due to
+    # missing _main "-Xlinker -rpath -Xlinker @executable_path/../../Frameworks" tells the
+    # executable binary to look for frameworks in ExampleApp.app/Frameworks instead of PlugIns, so
+    # that we don't need to have the libSwift*.dylib in ExampleApp.app/PlugIns/*.appex/Frameworks
+    linker_flags = [
+        "-e",
+        "_NSExtensionMain",
+        "-Xlinker",
+        "-rpath",
+        "-Xlinker",
+        "@executable_path/../../Frameworks",
+    ],
+    deps = [
+        "//App/Resources:IntentsDefinition",
+        "//App/Resources:IntentsStringResources",
+    ],
+    frameworks = [
+        "$SDKROOT/System/Library/Frameworks/Intents.framework",
+        "$SDKROOT/System/Library/Frameworks/IntentsUI.framework",
+    ],
+)
+
+apple_resource(
+    name = intentui_resources_name,
+    dirs = [],
+    # WORKAROUND: Buck CLI requires you to explicitly set the "Module Name" of the
+    # `IntentViewController` class to `ExampleIntentUIBinary` in MainInterface.storyboard.
+    files = glob(["SiriShortcut/ExampleIntentUI/**/*.storyboard"])
+)
+
+apple_bundle(
+    name = intentui_bundle_name,
+    binary = ":" + intentui_binary_name,
+    extension = "appex",
+    info_plist = "SiriShortcut/ExampleIntentUI/Info.plist",
+    info_plist_substitutions = intentui_info_plist_substitutions,
+    xcode_product_type = "com.apple.product-type.app-extension",
+    deps = [
+        ":" + intentui_resources_name,
+    ],
+)
+
+### Siri Shortcut End ###
 
 ### Watch App Begin ###
 # Define the watch app in the same BUCK file as the binary into which the watch app will be installed.
