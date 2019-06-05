@@ -22,12 +22,13 @@ jobs:
           command: make ci
 
       - when:
-          condition: [ $CIRCLE_BRANCH = 'master-build-cache' ] # FIXME: make this master before merging
-          - save_cache:
-              name: Cache Buck build cache
-              key: buck-build-cache-beta # FIXME: make this v1 before merging
-              paths: 
-                - buck-out/cache
+          condition: [ $CIRCLE_BRANCH = 'master' ] # FIXME: make this master before merging
+          steps:
+            - save_cache:
+                name: Cache Buck build cache
+                key: buck-build-cache-beta # FIXME: make this v1 before merging
+                paths: 
+                  - buck-out/cache
 
 workflows:
   version: 2
