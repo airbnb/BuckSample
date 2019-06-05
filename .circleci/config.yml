@@ -7,7 +7,6 @@ jobs:
       TERM: dumb
     steps:
       - checkout
-      
       - restore_cache:
           name: Restore Buck build cache
           keys: 
@@ -21,15 +20,22 @@ jobs:
       - run:
           name: Build and run tests
           command: make ci
+      
+      - save_cache:
+          name: Cache Buck build cache
+          key: buck-build-cache-beta # FIXME: make this v1 before merging
+          when: always
+          paths: 
+            - buck-out/cache
 
-      - when:
-          condition: [ $CIRCLE_BRANCH = 'master' ] # FIXME: make this master before merging
-          steps:
-            - save_cache:
-                name: Cache Buck build cache
-                key: buck-build-cache-beta # FIXME: make this v1 before merging
-                paths: 
-                  - buck-out/cache
+      # - when:
+      #     condition: [ $CIRCLE_BRANCH = 'master' ] # FIXME: make this master before merging
+      #     steps:
+      #       - save_cache:
+      #           name: Cache Buck build cache
+      #           key: buck-build-cache-beta # FIXME: make this v1 before merging
+      #           paths: 
+      #             - buck-out/cache
 
 workflows:
   version: 2
