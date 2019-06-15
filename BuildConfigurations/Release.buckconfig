@@ -1,0 +1,4 @@
+[custom]
+  config = release
+  optimization = -Osize
+  config_swift_compiler_flags = -DRELEASE

@@ -28,11 +28,15 @@ SHARED_CONFIGS = {
     "IPHONEOS_DEPLOYMENT_TARGET": "11.0",  # common target version
     "SDKROOT": "iphoneos", # platform
     "GCC_OPTIMIZATION_LEVEL": "0",  # clang optimization
-    "SWIFT_OPTIMIZATION_LEVEL": "-Onone",  # swiftc optimization
     "SWIFT_WHOLE_MODULE_OPTIMIZATION": "YES",  # for build performance
     "ONLY_ACTIVE_ARCH": "YES",
     "LD_RUNPATH_SEARCH_PATHS": "@executable_path/Frameworks", # To allow source files in binary
 }
+
+def optimization_config():
+    # native.readconfig can't be called from the top level in .bzl files, so we wrap it on a method 
+    # and merge it with SHARED_CONFIGS later.
+    return {"SWIFT_OPTIMIZATION_LEVEL": native.read_config('custom', 'optimization')} # swiftc optimization
 
 # Adding `-all_load` to our binaries works around https://bugs.swift.org/browse/SR-6004. See the
 # longer comment in `ViewController.swift` for more details.
@@ -51,6 +55,7 @@ def library_configs():
         "SKIP_INSTALL": "YES",
     }
     library_config = merge_dict(SHARED_CONFIGS, lib_specific_config)
+    library_config = merge_dict(library_config, optimization_config())
     configs = {
         "Debug": library_config,
         "Profile": library_config,
@@ -65,12 +70,14 @@ def app_binary_configs(name):
         "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier(name),
     }
     binary_config = merge_dict(SHARED_CONFIGS, binary_specific_config)
+    binary_config = merge_dict(binary_config, optimization_config())
     binary_config = config_with_updated_linker_flags(binary_config, ALL_LOAD_LINKER_FLAG)
     return configs_with_config(binary_config)
 
 def test_configs(name):
     binary_specific_config = info_plist_substitutions(name)
     binary_config = merge_dict(SHARED_CONFIGS, binary_specific_config)
+    binary_config = merge_dict(SHARED_CONFIGS, optimization_config())
     configs = {
         "Debug": binary_config,
         "Profile": binary_config,

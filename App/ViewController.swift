@@ -37,6 +37,14 @@ class ViewController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
+    #if DEBUG
+        print("Debug configuration")
+    #endif
+
+    #if RELEASE
+        print("Release configuration")
+    #endif
+
     // Swift class defined in ASwiftModule
     let s = MySwiftClass()
     print("ASwiftModule: \(s)")

@@ -18,6 +18,9 @@ update_cocoapods:
 build:
 	$(BUCK) build //App:ExampleApp
 
+build_release:
+	$(BUCK) build //App:ExampleApp --config-file ./BuildConfigurations/Release.buckconfig
+
 watch:
 	$(BUCK) build //App:ExampleWatchAppExtension#watchsimulator-i386
 
@@ -26,6 +29,9 @@ message:
 
 debug:
 	$(BUCK) install //App:ExampleApp --run --simulator-name 'iPhone XS'
+
+debug_release:
+	$(BUCK) install //App:ExampleApp --run --simulator-name 'iPhone XS' --config-file ./BuildConfigurations/Release.buckconfig
 
 targets:
 	$(BUCK) targets //...
