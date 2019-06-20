@@ -1,5 +1,5 @@
 # BuckSample
-This is a sample to show how to use Buck to build an iOS project with mixed languages (Swift & Objective C) at Airbnb.
+This repo shows how Airbnb builds its iOS applications using Buck. It is where we prototype new functionality with Buck before making changes to our internal repo. We hope you find it as useful as we do :smiley:
 
 [![CircleCI](https://circleci.com/gh/airbnb/BuckSample/tree/master.svg?style=svg)](https://circleci.com/gh/airbnb/BuckSample/tree/master)
 
