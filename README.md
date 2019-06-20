@@ -39,7 +39,7 @@ You may also use breakpoints, just like normal when using the generated Xcode pr
 ### Useful commands
 
 ```bash
-# generating and open a Xcode project
+# generating and opening a Xcode project
 make project
 
 # building with Buck CLI
