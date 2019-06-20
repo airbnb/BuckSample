@@ -36,6 +36,15 @@ You may also use breakpoints, just like normal when using the generated Xcode pr
 
 <img src="https://github.com/airbnb/BuckSample/raw/master/Docs/Breakpoint.png" width=500 />
 
+### Useful commands
+
+```bash
+# generating and open a Xcode project
+make project
+
+# building with Buck CLI
+make debug
+```
 
 ### References
 1. https://github.com/airbnb/BuckSample/blob/master/Pods/BUCK gives a few examples on how we build CocoaPods with Buck
