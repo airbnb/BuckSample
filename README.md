@@ -36,7 +36,7 @@ You may also use breakpoints, just like normal when using the generated Xcode pr
 
 <img src="https://github.com/airbnb/BuckSample/raw/master/Docs/Breakpoint.png" width=500 />
 
-### Useful commands
+### CLI
 
 ```bash
 # generating and opening a Xcode project
