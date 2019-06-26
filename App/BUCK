@@ -75,6 +75,38 @@ apple_library(
     + build_phase_scripts,
 )
 
+# Use `apple_binary` rule to force Buck build all libraries
+apple_binary(
+    name = "DummyBinary",
+    visibility = [
+        "//App:",
+        "//App/...",
+    ],
+    configs = app_binary_configs("DummyBinary"),
+    srcs = [
+        "BuckSupportFiles/Dummy.swift",
+    ],
+    deps = [
+        ":ExampleAppLibrary",
+    ],
+)
+
+# Build all libraries by building the DummyBinary rule
+xcode_prebuild_script(
+    name = "BuildDummyBinary",
+    cmd = "$REPO_ROOT/tools/buck build //App:DummyBinary"
+)
+
+# Copy over artifacts to the Derived Data
+xcode_prebuild_script(
+    name = "CopyStaticLibs",
+    cmd = "find $REPO_ROOT/buck-out/gen/ -name '*.a' -exec cp \{\} $SYMROOT/../../Build/Products/Debug-iphonesimulator/ \;"
+)
+xcode_prebuild_script(
+    name = "CopyFrameworks",
+    cmd = "find $REPO_ROOT/buck-out/gen/ -name '*.framework' -exec cp -r \{\} $SYMROOT/../../Build/Products/Debug-iphonesimulator/ \;"
+)
+
 apple_binary(
     name = "ExampleAppBinary",
     visibility = [
@@ -86,9 +118,30 @@ apple_binary(
     srcs = [
         "BuckSupportFiles/Dummy.swift",
     ],
-    deps = [
-        ":ExampleAppLibrary",
+    linker_flags = [
+        "-lExampleAppLibrary",
+        "-lYetAnotherSwiftModule",
+        "-lObjc1",
+        "-lSwiftAndObjc",
+        "-lASwiftModule",
+        "-lCpp1",
+        "-lSwiftWithPrecompiledDependency",
+        "-lSwiftWithAssets",
+        "-lSwiftWithMLModel",
+        "-lObjcAndSwift",
+        "-lSwiftReliesOnCXX",
+        "-lSecondSwiftModule",
+        "-lCryptoSwift",
+        "-lPromiseKit",
+        "-lBugsnag",
+        "-lc++",
     ],
+    deps = [
+        ":BuildDummyBinary",
+        ":CopyStaticLibs",
+        ":CopyFrameworks",
+        # ":ExampleAppLibrary",
+    ] + prebuilt_frameworks,
 )
 
 # Defines a Build Phase script that gets executed before the "Compile Sources" step
@@ -148,7 +201,7 @@ apple_bundle(
     deps = [
         # For "#watch", https://buckbuild.com/rule/apple_bundle.html#deps
         ":ExampleWatchApp#watch",
-        ":ExampleMessageExtension"
+        ":ExampleMessageExtension",
     ]
     + prebuilt_frameworks,
 )
