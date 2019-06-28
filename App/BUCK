@@ -145,6 +145,11 @@ apple_binary(
         ":CopyStaticLibs",
         ":CopyFrameworks",
         # ":ExampleAppLibrary",
+    ] + [
+        # This is generated via the following command:
+        # ./tools/buck query "kind('apple_asset_catalog', deps('//App:ExampleAppLibrary'))" |grep // | awk '{print "\""$1"\","}'
+        "//App:ExampleAppAssets",
+        "//Libraries/SwiftWithAssets:SwiftWithAssetsCatalog",
     ] + prebuilt_frameworks,
 )
 
