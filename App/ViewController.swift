@@ -82,8 +82,7 @@ class ViewController: UIViewController {
     MySwiftReliesOnCXXClass().doSomethingWithCXXLibrary()
 
     // This line will crash if the assets from SwiftWithAssets haven't been bundled into the app
-    // TODO: Uncomment the following line and fix the crash
-//    _ = Catalog.buck.image
+    _ = Catalog.buck.image
 
     // Without an object explicitly typed as `MyPublicClass` in this module, an instance of
     // `MyPublicClass` won't exhibit conformance to `MyPublicProtocol`. `MyPublicClass` is defined
@@ -108,8 +107,7 @@ class ViewController: UIViewController {
       print("Correct: `MyPublicProtocol` conformance is not being stripped")
     }
 
-    // TODO: Uncomment the following line and fix the crash
-//    print("Building a habitat on mars would cost you $\(MarsHabitatPriceFinder().predictedPrice(solarPanels: 5, greenhouses: 10, size: 50))")
+    print("Building a habitat on mars would cost you $\(MarsHabitatPriceFinder().predictedPrice(solarPanels: 5, greenhouses: 10, size: 50))")
 
     print("All good!")
 
