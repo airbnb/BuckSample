@@ -76,4 +76,5 @@ xcode_tests: project
 
 project: clean
 	$(BUCK) project //App:workspace
+	ruby scripts/update_project_settings.rb
 	open App/ExampleApp.xcworkspace
