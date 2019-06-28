@@ -293,6 +293,7 @@ def mlmodel_resource(
     # Create a single resource that can be depended on for the mlmodelc.
     native.apple_resource(
         name = resource_dependency_name,
+        visibility = ["PUBLIC"],
         dirs = [
             ":" + modelc_resource,
         ],

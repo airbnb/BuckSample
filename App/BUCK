@@ -150,6 +150,11 @@ apple_binary(
         # ./tools/buck query "kind('apple_asset_catalog', deps('//App:ExampleAppLibrary'))" |grep // | awk '{print "\""$1"\","}'
         "//App:ExampleAppAssets",
         "//Libraries/SwiftWithAssets:SwiftWithAssetsCatalog",
+        # This is generated via the following command:
+        # ./tools/buck query "kind('apple_resource', deps('//App:ExampleAppLibrary'))" |grep // | awk '{print "\""$1"\","}'
+        "//App/Resources:ExampleAppStringResources",
+        "//App/Resources:StoryboardResources",
+        "//Libraries/SwiftWithMLModel:MarsHabitatPricerMLModel",
     ] + prebuilt_frameworks,
 )
 
