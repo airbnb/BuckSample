@@ -118,7 +118,10 @@ apple_binary(
     srcs = [
         "BuckSupportFiles/Dummy.swift",
     ],
+    
     linker_flags = [
+        # This is generated via the following command:
+        # ./tools/buck query "kind('apple.*lib', deps('//App:ExampleAppLibrary'))" |grep // | rev | cut -d ':' -f 1 | rev | awk '{print "\"-l"$1"\","}'
         "-lExampleAppLibrary",
         "-lYetAnotherSwiftModule",
         "-lObjc1",
@@ -134,6 +137,7 @@ apple_binary(
         "-lCryptoSwift",
         "-lPromiseKit",
         "-lBugsnag",
+        # Additional missing libs:
         "-lc++",
     ],
     deps = [
