@@ -103,6 +103,10 @@ xcode_prebuild_script(
     cmd = "find $REPO_ROOT/buck-out/gen/ -name '*.a' -exec cp \{\} $SYMROOT/../../Build/Products/Debug-iphonesimulator/ \;"
 )
 xcode_prebuild_script(
+    name = "CopySwiftModules",
+    cmd = "find $REPO_ROOT/buck-out/gen/ -name '*.swiftmodule' -exec cp \{\} $SYMROOT/../../Build/Products/Debug-iphonesimulator/ \;"
+)
+xcode_prebuild_script(
     name = "CopyFrameworks",
     cmd = "find $REPO_ROOT/buck-out/gen/ -name '*.framework' -exec cp -r \{\} $SYMROOT/../../Build/Products/Debug-iphonesimulator/ \;"
 )
@@ -143,6 +147,7 @@ apple_binary(
     deps = [
         ":BuildDummyBinary",
         ":CopyStaticLibs",
+        ":CopySwiftModules",
         ":CopyFrameworks",
         # ":ExampleAppLibrary",
     ] + [
