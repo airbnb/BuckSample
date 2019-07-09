@@ -110,6 +110,10 @@ xcode_prebuild_script(
     name = "CopyFrameworks",
     cmd = "find $REPO_ROOT/buck-out/gen/ -name '*.framework' -exec cp -r \{\} $SYMROOT/../../Build/Products/Debug-iphonesimulator/ \;"
 )
+xcode_prebuild_script(
+    name = "CopyModulemaps",
+    cmd = "find $REPO_ROOT/buck-out/gen/ -path '*/*#header-mode-symlink-tree-with-modulemap*,headers,iphonesimulator-x86_64/*' -type d -exec cp -r \{\} $SYMROOT/../../Build/Products/Debug-iphonesimulator/ \;"
+)
 
 apple_binary(
     name = "ExampleAppBinary",
@@ -122,7 +126,6 @@ apple_binary(
     srcs = [
         "BuckSupportFiles/Dummy.swift",
     ],
-    
     linker_flags = [
         # This is generated via the following command:
         # ./tools/buck query "kind('apple.*lib', deps('//App:ExampleAppLibrary'))" |grep // | rev | cut -d ':' -f 1 | rev | awk '{print "\"-l"$1"\","}'
@@ -149,6 +152,7 @@ apple_binary(
         ":CopyStaticLibs",
         ":CopySwiftModules",
         ":CopyFrameworks",
+        ":CopyModulemaps",
         # ":ExampleAppLibrary",
     ] + [
         # This is generated via the following command:
