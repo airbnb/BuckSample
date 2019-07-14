@@ -50,7 +50,7 @@ test:
 		--config custom.other_ldflags="\$$(config custom.code_coverage_ldflags)" \
 		--config custom.other_swift_compiler_flags="\$$(config custom.code_coverage_swift_compiler_flags)"
 	xcrun llvm-profdata merge -sparse "$(buck_out)/tmp/code-"*.profraw -o "$(buck_out)/gen/Coverage.profdata"
-	xcrun llvm-cov report "$(buck_out)/gen/App/ExampleAppBinary#iphonesimulator-x86_64" -instr-profile "$(buck_out)/gen/Coverage.profdata"
+	xcrun llvm-cov report "$(buck_out)/gen/App/ExampleAppBinary#iphonesimulator-x86_64" -instr-profile "$(buck_out)/gen/Coverage.profdata" -ignore-filename-regex "Pods|Carthage|buck-out"
 
 # Buck requires a different test-runner to run UI tests. `fbxctest` from FBSimulatorControl has a compatible CLI invocation and can be used as a drop-in replacement for `xctool` here.
 fbxctest = tools/fbxctest/bin/fbxctest
