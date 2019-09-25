@@ -1,4 +1,4 @@
-module Pods_BuckSample {
+framework module Pods_BuckSample {
   umbrella header "Pods-BuckSample-umbrella.h"
 
   export *

@@ -1,4 +1,19 @@
 PODS:
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
+    - AFNetworking/NSURLSession
   - Bugsnag (5.17.3)
   - CryptoSwift (0.13.1)
   - PromiseKit/CoreLocation (6.1.1):
@@ -6,22 +21,26 @@ PODS:
   - PromiseKit/CorePromise (6.1.1)
 
 DEPENDENCIES:
+  - AFNetworking
   - Bugsnag
   - CryptoSwift
   - PromiseKit/CoreLocation (= 6.1.1)
   - PromiseKit/CorePromise (= 6.1.1)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://cdn.cocoapods.org/:
+    - AFNetworking
+  https://github.com/CocoaPods/Specs.git:
     - Bugsnag
     - CryptoSwift
     - PromiseKit
 
 SPEC CHECKSUMS:
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   Bugsnag: a56a5204ebd35e44e56c1f703824705b1d4b5b97
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
   PromiseKit: 876f433b87c970f020e04e35dbe68ab21d240498
 
-PODFILE CHECKSUM: afc7298fae1f1f46a06d757fc7fa121ebe47653c
+PODFILE CHECKSUM: ba0aeef6acc4092372660c017edb533aee67393c
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.0
