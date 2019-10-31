@@ -177,6 +177,7 @@ apple_binary(
     # which will cause compiler error.
     swift_compiler_flags = ["-target", "i386-apple-watchos4.0-simulator"],
     configs = watch_binary_configs("ExampleApp.WatchApp.Extension"),
+    linker_flags = ["-e", "_WKExtensionMain"],
     frameworks = [
         "$SDKROOT/System/Library/Frameworks/CoreGraphics.framework",
         "$SDKROOT/System/Library/Frameworks/Foundation.framework",
