@@ -47,3 +47,10 @@ apple_cxx_third_party_library(
         "Bugsnag/**/*.mm",
     ]),
 )
+
+prebuilt_apple_framework(
+    name = "AFNetworking",
+    framework = "_Prebuild/GeneratedFrameworks/AFNetworking/AFNetworking.framework",
+    preferred_linkage = "shared",
+    visibility = ["PUBLIC"],
+)
