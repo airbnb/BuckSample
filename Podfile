@@ -9,4 +9,6 @@ target 'BuckSample' do
   pod 'Bugsnag'
   pod 'PromiseKit/CorePromise', '6.1.1'
   pod 'PromiseKit/CoreLocation', '6.1.1'
+  pod 'Quick', '2.1.0'
+  pod 'Nimble', '8.0.2'
 end

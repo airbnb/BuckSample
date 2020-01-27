@@ -47,3 +47,43 @@ apple_cxx_third_party_library(
         "Bugsnag/**/*.mm",
     ]),
 )
+
+apple_third_party_lib(
+    name = "Quick",
+    swift_version = "5",
+    visibility = ["PUBLIC"],
+    compiler_flags = ["-fapplication-extension"],
+    swift_compiler_flags = ["-application-extension"],
+    exported_headers = glob([
+        "Quick/**/*.h",
+    ]),
+    srcs = glob([
+        "Quick/**/*.m",
+        "Quick/**/*.swift",
+    ]),
+    frameworks = [
+        "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
+    ]
+)
+ 
+apple_third_party_lib(
+    name = 'Nimble',
+    exported_headers = glob([
+        "Nimble/**/*.h",
+    ], 
+    exclude = [
+        "Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlPreconditionTesting/Posix/CwlPreconditionTesting_POSIX.h"
+    ]),
+    srcs = glob([
+        "Nimble/**/*.swift",
+        "Nimble/**/*.m",
+        "Nimble/**/*.c"
+    ], exclude = [
+        "Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlPreconditionTesting/CwlCatchBadInstructionPosix.swift"
+    ]),
+    compiler_flags = ["-fapplication-extension", "-weak-lswiftXCTest", "-Xlinker", "-no_application_extension"],
+    swift_compiler_flags = ["-DPRODUCT_NAME=Nimble/Nimble", "-application-extension"],
+    frameworks = [
+      '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework'
+    ]
+)
