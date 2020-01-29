@@ -1,13 +1,15 @@
 import XCTest
+import Quick
+import Nimble
 
-final class SomeMoreSecondSwiftModuleTests: XCTestCase {
+final class SomeMoreSecondSwiftModuleTestsWithQuickAndNimble: QuickSpec {
 
-  func test_nothingAtAll() {
-    XCTAssertTrue(true)
+    override func spec() {
+      describe("A test with Quick") {
+          let aString = "Okayest string"
+          it("Expectation with Nimble") {
+              expect(aString).to(equal("Okayest string"))
+          }
+      }
   }
-
-  func test_false() {
-    XCTAssertFalse(false)
-  }
-
 }

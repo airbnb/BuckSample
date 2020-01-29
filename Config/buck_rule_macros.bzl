@@ -13,7 +13,7 @@ def test_name(name):
 def ci_test_name(name):
     return name + "-For-CI"
 
-DEFAULT_SWIFT_VERSION = "4.0"
+DEFAULT_SWIFT_VERSION = "5"
 
 # Use this macro to declare test targets. For first-party libraries, use first_party_library to declare a test target instead.
 # This macro defines two targets.

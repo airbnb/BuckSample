@@ -7,7 +7,7 @@
   ldflags = -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fobjc-link-runtime $(config custom.other_cxxflags)
 
 [swift]
-  version = 4.0
+  version = 5
   compiler_flags = -DBUCK -whole-module-optimization $(config custom.optimization) $(config custom.config_swift_compiler_flags) $(config custom.other_swift_compiler_flags)
   use_filelist = true
 

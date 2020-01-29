@@ -5,4 +5,8 @@ first_party_library(
     deps = [
         "//Libraries/YetAnotherSwiftModule:YetAnotherSwiftModule",
     ],
+    test_deps = [
+        "//Pods:Quick",
+        "//Pods:Nimble",
+    ],
 )

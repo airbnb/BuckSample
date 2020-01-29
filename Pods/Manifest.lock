@@ -1,27 +1,35 @@
 PODS:
   - Bugsnag (5.17.3)
   - CryptoSwift (0.13.1)
+  - Nimble (8.0.2)
   - PromiseKit/CoreLocation (6.1.1):
     - PromiseKit/CorePromise
   - PromiseKit/CorePromise (6.1.1)
+  - Quick (2.1.0)
 
 DEPENDENCIES:
   - Bugsnag
   - CryptoSwift
+  - Nimble (= 8.0.2)
   - PromiseKit/CoreLocation (= 6.1.1)
   - PromiseKit/CorePromise (= 6.1.1)
+  - Quick (= 2.1.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Bugsnag
     - CryptoSwift
+    - Nimble
     - PromiseKit
+    - Quick
 
 SPEC CHECKSUMS:
   Bugsnag: a56a5204ebd35e44e56c1f703824705b1d4b5b97
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
+  Nimble: 622629381bda1dd5678162f21f1368cec7cbba60
   PromiseKit: 876f433b87c970f020e04e35dbe68ab21d240498
+  Quick: 4be43f6634acfa727dd106bdf3929ce125ffa79d
 
-PODFILE CHECKSUM: afc7298fae1f1f46a06d757fc7fa121ebe47653c
+PODFILE CHECKSUM: 55b76b3ee1e461323f281ef4448793b0e32202ee
 
 COCOAPODS: 1.5.3
