@@ -2,7 +2,7 @@ version: 2
 jobs:
   build-and-test:
     macos:
-      xcode: "11.1.0"
+      xcode: "11.3.1"
     environment:
       TERM: dumb
     steps:
