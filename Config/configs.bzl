@@ -34,7 +34,7 @@ SHARED_CONFIGS = {
 }
 
 def optimization_config():
-    # native.readconfig can't be called from the top level in .bzl files, so we wrap it on a method 
+    # native.readconfig can't be called from the top level in .bzl files, so we wrap it on a method
     # and merge it with SHARED_CONFIGS later.
     return {"SWIFT_OPTIMIZATION_LEVEL": native.read_config('custom', 'optimization')} # swiftc optimization
 
@@ -131,3 +131,23 @@ def message_binary_configs(name):
     }
     config = config_with_updated_linker_flags(config, ALL_LOAD_LINKER_FLAG)
     return configs_with_config(config)
+
+# Helper method to update info.plist with new names/identifiers
+# - parameter executable_name: Filename. Specifies the name of the binary the target produces.
+# - parameter product_name: Identifier. Specifies the name of the product the target builds.
+# - parameter bundle_identifier: A unique identifier for a bundle.
+#        App store builds requires all embedded bundles to code signed.
+#        Please ensure there exists a distribution provisioning profile that can sign this identifier
+def airbnb_info_plist_substitutions(
+        executable_name,
+        product_name,
+        bundle_identifier):
+    return {
+        "EXECUTABLE_NAME": executable_name,
+        "PRODUCT_NAME": product_name,
+        "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier,
+    }
+
+def build_type():
+    # the default value is in .buckconfig and can be overriden by --config
+    return native.read_config("build", "type")
