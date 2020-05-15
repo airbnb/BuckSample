@@ -63,6 +63,7 @@ apple_library(
     tests = app_tests,
     deps = [
         "//Pods:Braintree",
+        "//Pods:CardinalMobile",
         "//Pods:CryptoSwift",
         "//Pods:PromiseKit",
 

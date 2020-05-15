@@ -176,7 +176,6 @@ apple_third_party_lib(
     visibility = ["PUBLIC"],
     modular = False,
     deps = [
-        # buildifier: keep sorted
         ":Braintree-Drop-In-Localization",
     ],
 )
