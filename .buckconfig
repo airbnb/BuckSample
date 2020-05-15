@@ -35,8 +35,6 @@
 
 [build]
   threads = 4
-  # default to Debug, it can be set by --config
-  type = Debug
 
 [custom]
   config = debug

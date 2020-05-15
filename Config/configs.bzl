@@ -150,4 +150,4 @@ def airbnb_info_plist_substitutions(
 
 def build_type():
     # the default value is in .buckconfig and can be overriden by --config
-    return native.read_config("build", "type")
+    return native.read_config("build", "type", "Debug")
