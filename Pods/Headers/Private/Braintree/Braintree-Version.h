@@ -1,0 +1,1 @@
+../../../Braintree/BraintreeCore/Braintree-Version.h

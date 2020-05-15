@@ -1,0 +1,1 @@
+../../../Braintree/BraintreeApplePay/Public/BTConfiguration+ApplePay.h

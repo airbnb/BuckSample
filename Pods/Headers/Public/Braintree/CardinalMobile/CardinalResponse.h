@@ -1,0 +1,1 @@
+../../../../Braintree/Frameworks/CardinalMobile.framework/Headers/CardinalResponse.h

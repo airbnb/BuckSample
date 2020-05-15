@@ -1,4 +1,34 @@
 PODS:
+  - Braintree (4.28.0):
+    - Braintree/Card (= 4.28.0)
+    - Braintree/Core (= 4.28.0)
+    - Braintree/PayPal (= 4.28.0)
+    - Braintree/UI (= 4.28.0)
+  - Braintree/Apple-Pay (4.28.0):
+    - Braintree/Core
+  - Braintree/Card (4.28.0):
+    - Braintree/Core
+  - Braintree/Core (4.28.0)
+  - Braintree/DataCollector (4.28.0):
+    - Braintree/Core
+  - Braintree/PaymentFlow (4.28.0):
+    - Braintree/Card
+    - Braintree/Core
+    - Braintree/PayPalOneTouch
+  - Braintree/PayPal (4.28.0):
+    - Braintree/Core
+    - Braintree/PayPalOneTouch
+  - Braintree/PayPalDataCollector (4.28.0):
+    - Braintree/Core
+    - Braintree/PayPalUtils
+  - Braintree/PayPalOneTouch (4.28.0):
+    - Braintree/Core
+    - Braintree/PayPalDataCollector
+    - Braintree/PayPalUtils
+  - Braintree/PayPalUtils (4.28.0)
+  - Braintree/UI (4.28.0):
+    - Braintree/Card
+    - Braintree/Core
   - Bugsnag (5.17.3)
   - CryptoSwift (0.13.1)
   - Nimble (8.0.2)
@@ -8,6 +38,10 @@ PODS:
   - Quick (2.1.0)
 
 DEPENDENCIES:
+  - Braintree (= 4.28.0)
+  - Braintree/Apple-Pay (= 4.28.0)
+  - Braintree/DataCollector (= 4.28.0)
+  - Braintree/PaymentFlow (= 4.28.0)
   - Bugsnag
   - CryptoSwift
   - Nimble (= 8.0.2)
@@ -17,6 +51,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Braintree
     - Bugsnag
     - CryptoSwift
     - Nimble
@@ -24,12 +59,13 @@ SPEC REPOS:
     - Quick
 
 SPEC CHECKSUMS:
+  Braintree: 15b731ae590ff54ba0ce25bcc42bd3c4829fd67e
   Bugsnag: a56a5204ebd35e44e56c1f703824705b1d4b5b97
   CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
   Nimble: 622629381bda1dd5678162f21f1368cec7cbba60
   PromiseKit: 876f433b87c970f020e04e35dbe68ab21d240498
   Quick: 4be43f6634acfa727dd106bdf3929ce125ffa79d
 
-PODFILE CHECKSUM: 55b76b3ee1e461323f281ef4448793b0e32202ee
+PODFILE CHECKSUM: b6f25706831160378005ce2175c5414e5ac3eef9
 
 COCOAPODS: 1.5.3
