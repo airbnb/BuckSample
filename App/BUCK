@@ -1,8 +1,9 @@
 load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "pretty", "info_plist_substitutions", "bundle_identifier", "DEVELOPMENT_LANGUAGE")
 load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all")
-load("//Config:buck_local.bzl", "buck_local_binary", "buck_local_bundle", "buck_local_workspace", "buck_local_deps")
+load("//Config:buck_local.bzl", "buck_local_apple_asset_catalog", "buck_local_binary", "buck_local_bundle",
+     "buck_local_workspace")
 
-apple_asset_catalog(
+buck_local_apple_asset_catalog(
     name = "ExampleAppAssets",
     visibility = ["//App:"],
     app_icon = "AppIcon",
@@ -88,7 +89,10 @@ buck_local_binary(
         "BuckSupportFiles/Dummy.swift",
     ],
     native_xcode_deps = [":ExampleAppLibrary"],
-    buck_local_deps = buck_local_deps(),
+    buck_local_deps=[
+        "//BuckLocal:BuckLocal",
+        "//BuckLocal:RemapDBGSourcePath",
+    ],
 )
 
 # Defines a Build Phase script that gets executed before the "Compile Sources" step

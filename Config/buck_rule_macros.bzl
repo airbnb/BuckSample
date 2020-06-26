@@ -297,4 +297,5 @@ def mlmodel_resource(
             ":" + modelc_resource,
         ],
         files = [],
+        visibility=["//BuckLocal:"],
     )

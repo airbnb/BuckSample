@@ -68,15 +68,19 @@ def buck_local_workspace(
         **kwargs
     )
 
-# We have to set `buck_local_deps` to empty when "BuckLocal/BUCK" haven't been generated yet.
-# Otherwise, Buck would fail when trying to parse the BUCK file, as it cannot find those generated BuckLocal
-# targets.
-def buck_local_deps():
-    if native.rule_exists("//BuckLocal:BuckLocal"):
-        app_binary_buck_local_deps = [
-            "//BuckLocal:BuckLocal",
-            "//BuckLocal:RemapDBGSourcePath",
-        ]
-    else:
-        app_binary_buck_local_deps = []
-    return app_binary_buck_local_deps
+
+def buck_local_apple_resource(
+        visibility=[],
+        **kwargs):
+    native.apple_resource(
+        visibility=visibility + ["//BuckLocal:"],
+        **kwargs
+    )
+
+def buck_local_apple_asset_catalog(
+        visibility=[],
+        **kwargs):
+    native.apple_asset_catalog(
+        visibility=visibility + ["//BuckLocal:"],
+        **kwargs
+    )
