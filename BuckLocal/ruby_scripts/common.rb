@@ -1,5 +1,6 @@
 require 'English'
 require 'open3'
+require 'fileutils'
 
 # Wrap text in terminal color codes
 module Color
@@ -214,5 +215,42 @@ end
 def write_to_file(content, path)
   File.open(path, 'w') do |file|
     file.puts content
+  end
+end
+
+def argument_or_fail(name)
+  key = ENV[name]
+  raise ArgumentError, "Must pass value for '#{name}'" if key.nil?
+
+  key
+end
+
+def create_directory(name, quiet: false)
+  if File.directory?(name)
+    nil
+  else
+    log "Creating directory #{name}" unless quiet
+    FileUtils.mkdir_p name
+  end
+end
+
+def copy_if_updated(source, destination)
+  return unless File.file?(source)
+
+  # We use File.ctime instead of FileUtils.uptodate? because ctime is more accurate
+  # than the mtime FileUtils.uptodate? uses.
+  # For example, when Buck download an artifact from http cache, its ctime would be
+  # correctly set to the download time, while its mtime would be a mysterious
+  # "Fri Feb  1 08:00:00 UTC 1985"
+  if !File.exist?(destination) || (File.ctime(source) >= File.ctime(destination))
+    begin
+      FileUtils.cp(source, destination)
+    rescue Errno::EACCES # Permission denied
+      # Copy may fail due to the lack of permission. For exmaple, the destination is read-only (444).
+      # If this is the case, we remove the file (read-only can be deleted) and copy again.
+      # If the copy is still not successful, the error will be exposed.
+      FileUtils.rm_f(destination)
+      FileUtils.cp(source, destination)
+    end
   end
 end
