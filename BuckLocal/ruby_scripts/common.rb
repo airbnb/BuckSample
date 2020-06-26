@@ -210,3 +210,9 @@ def time_commands
   end_time = system_output 'date +%s'
   end_time.to_i - start_time.to_i
 end
+
+def write_to_file(content, path)
+  File.open(path, 'w') do |file|
+    file.puts content
+  end
+end
