@@ -67,3 +67,16 @@ def buck_local_workspace(
         additional_scheme_actions = buck_local_scheme_actions,
         **kwargs
     )
+
+# We have to set `buck_local_deps` to empty when "BuckLocal/BUCK" haven't been generated yet.
+# Otherwise, Buck would fail when trying to parse the BUCK file, as it cannot find those generated BuckLocal
+# targets.
+def buck_local_deps():
+    if native.rule_exists("//BuckLocal:BuckLocal"):
+        app_binary_buck_local_deps = [
+            "//BuckLocal:BuckLocal",
+            "//BuckLocal:RemapDBGSourcePath",
+        ]
+    else:
+        app_binary_buck_local_deps = []
+    return app_binary_buck_local_deps
