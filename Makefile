@@ -77,3 +77,6 @@ xcode_tests: project
 project: clean
 	$(BUCK) project //App:workspace
 	open App/ExampleApp.xcworkspace
+
+buck_local_project: clean
+	rake generate:buck_local_project buck_binary_path=$(BUCK) workspace_target='//App:workspace-buck-local' top_level_lib_target='//App:ExampleAppLibrary'
