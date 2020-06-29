@@ -2,13 +2,15 @@ require 'targets'
 require 'query'
 require 'fileutils'
 require 'erb'
+require 'xcodeproj'
 
 module BuckLocal
   # This class is used to generate Buck Local Xcode workspace, including Focus project.
   class ProjectGenerator
-    def initialize(workspace_target, top_level_lib_target)
+    def initialize(workspace_target, top_level_lib_target, xcworkspace)
       @workspace_target = workspace_target
       @top_level_lib_target = top_level_lib_target
+      @xcworkspace = xcworkspace
     end
 
     #
@@ -18,14 +20,13 @@ module BuckLocal
       # Generate BuckLocal/BUCK file for BuckLocal
       generate_buck_local_buck_file
 
-      # Buck daemon caches parsing results. (https://buck.build/concept/buckd.html)
-      # However, after generating or updating BuckLocal/BUCK, buck isn't able to pick up the change.
-      # Setting NO_BUCKD to 1 forces buck to re-parse.
-      ENV['NO_BUCKD'] = '1'
-
       # Create Xcode project
       system_output "#{ENV['buck_binary_path']} project #{@workspace_target}"
-      ENV.delete('NO_BUCKD')
+
+      # After Xcode project has been generated, we need to update the project in order
+      # to get BuckLocal working
+      override_xcconfig_files
+      update_main_scheme
     end
 
     private
@@ -69,5 +70,32 @@ module BuckLocal
         f.write buck_template.result(binding)
       end
     end
+
+    #
+    # Override `HEADER_SEARCH_PATHS` and `SWIFT_INCLUDE_PATHS` to avoid duplicated definitions between
+    # BuckLocal build and Xcode build.
+    #
+    def override_xcconfig_files
+      additional_settings = contents_of_file("#{ROOT_DIR}/BuckLocal/additional_xcconfig_settings.txt")
+
+      # Get all files whose name matches "*-Debug.xcconfig" under buck-out
+      Dir.glob("#{ROOT_DIR}/buck-out/**/*-Debug.xcconfig").each do |xcconfig_file|
+        append_to_file(additional_settings, xcconfig_file)
+      end
+    end
+
+    #
+    # Disable `build_implicit_dependencies` and `parallelize_buildables` for "BuckLocal" xcscheme.
+    #
+    def update_main_scheme
+      scheme_name = @xcworkspace.split('/').last.split('.').first
+      scheme_path = "#{ROOT_DIR}/#{@xcworkspace}/xcshareddata/xcschemes/#{scheme_name}.xcscheme"
+      scheme = Xcodeproj::XCScheme.new(scheme_path)
+      scheme.build_action.build_implicit_dependencies = false
+      scheme.build_action.parallelize_buildables = false
+
+      scheme.save!
+    end
+
   end
 end

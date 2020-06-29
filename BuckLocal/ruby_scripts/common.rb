@@ -234,6 +234,16 @@ def create_directory(name, quiet: false)
   end
 end
 
+def contents_of_file(name)
+  File.open(name, 'r').read
+end
+
+def append_to_file(content, path)
+  File.open(path, 'a') do |file|
+    file.puts content
+  end
+end
+
 def copy_if_updated(source, destination)
   return unless File.file?(source)
 

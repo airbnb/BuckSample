@@ -79,5 +79,5 @@ project: clean
 	open App/ExampleApp.xcworkspace
 
 buck_local_project: clean
-	rake buck_local:generate_project buck_binary_path=$(BUCK) workspace_target='//App:workspace-buck-local' top_level_lib_target='//App:ExampleAppLibrary'
-	open App/ExampleAppBuckLocal-BUCK.xcworkspace
+	rake buck_local:generate_project buck_binary_path=$(BUCK) workspace_target='//App:workspace-buck-local' top_level_lib_target='//App:ExampleAppLibrary' xcworkspace='App/ExampleAppBuckLocal.xcworkspace'
+	open App/ExampleAppBuckLocal.xcworkspace

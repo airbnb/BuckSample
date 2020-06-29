@@ -8,12 +8,12 @@ require 'common'
 namespace :buck_local do
   desc 'Generate BuckLocal Xcode workspace for the app.'
   task :generate_project do
-    raise 'Please specify "buck_binary_path"' if ENV['buck_binary_path'].nil?
+    argument_or_fail 'buck_binary_path'
+    workspace_target = argument_or_fail 'workspace_target'
+    top_level_lib_target = argument_or_fail 'top_level_lib_target'
+    xcworkspace = argument_or_fail 'xcworkspace'
 
-    raise 'Please specify "workspace_target"' if ENV['workspace_target'].nil?
-    raise 'Please specify "top_level_lib_target"' if ENV['top_level_lib_target'].nil?
-
-    buck_local_project_generator = BuckLocal::ProjectGenerator.new(ENV['workspace_target'], ENV['top_level_lib_target'])
+    buck_local_project_generator = BuckLocal::ProjectGenerator.new(workspace_target, top_level_lib_target, xcworkspace)
     buck_local_project_generator.generate_project()
   end
 
