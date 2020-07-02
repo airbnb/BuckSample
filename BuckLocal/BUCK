@@ -1,3 +1,5 @@
+load("//App:prebuilt_frameworks.bzl", "prebuilt_frameworks")
+
 # Build all libraries via Buck, and copy over the artifacts to DerivedData so they can be used by Xcode.
 xcode_prebuild_script(
     name = "BuckLocalBuildAndCopy",
@@ -11,7 +13,7 @@ apple_library(
     exported_linker_flags = ["-lc++", "-lz", "-lc++", "-lz"] + ["-lExampleAppLibrary", "-lASwiftModule", "-lCpp1", "-lObjc1", "-lObjcAndSwift", "-lSecondSwiftModule", "-lSwiftAndObjc", "-lSwiftReliesOnCXX", "-lSwiftWithAssets", "-lSwiftWithMLModel", "-lSwiftWithPrecompiledDependency", "-lYetAnotherSwiftModule", "-lBugsnag", "-lCryptoSwift", "-lPromiseKit"] + [],
     deps = [
         ":BuckLocalBuildAndCopy",
-    ] + ["//App:ExampleAppAssets", "//Libraries/SwiftWithAssets:SwiftWithAssetsCatalog"] + ["//App/Resources:ExampleAppStringResources", "//App/Resources:StoryboardResources", "//Libraries/SwiftWithMLModel:MarsHabitatPricerMLModel"] + []
+    ] + prebuilt_frameworks + ["//App:ExampleAppAssets", "//Libraries/SwiftWithAssets:SwiftWithAssetsCatalog"] + ["//App/Resources:ExampleAppStringResources", "//App/Resources:StoryboardResources", "//Libraries/SwiftWithMLModel:MarsHabitatPricerMLModel"] + []
 )
 
 # This run script post-build phase, invokes "remap_debug_source_path.sh" to generate

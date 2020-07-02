@@ -2,6 +2,7 @@ load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_bin
 load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all")
 load("//Config:buck_local.bzl", "buck_local_apple_asset_catalog", "buck_local_binary", "buck_local_bundle",
      "buck_local_workspace")
+load("//App:prebuilt_frameworks.bzl", "prebuilt_frameworks")
 
 buck_local_apple_asset_catalog(
     name = "ExampleAppAssets",
@@ -33,13 +34,6 @@ first_party_library_dependencies = [
     "//Libraries/SwiftWithMLModel:SwiftWithMLModel",
     "//Libraries/SwiftWithPrecompiledDependency:SwiftWithPrecompiledDependency",
     "//Libraries/YetAnotherSwiftModule:YetAnotherSwiftModule",
-]
-
-prebuilt_frameworks = [
-    "//Carthage:AFNetworking",
-
-    # Hack to enable project generation to work for the Carthage BUCK file which otherwise only has `prebuilt_apple_framework`s.
-    "//Carthage:CarthageProjectGeneratorHack",
 ]
 
 # Build Phase scripts need to be added as dependencies.

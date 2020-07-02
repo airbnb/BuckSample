@@ -65,7 +65,7 @@ audit:
 clean:
 	rm -rf **/*.xcworkspace
 	rm -rf **/*.xcodeproj
-	rm -rf buck-out
+	$(BUCK) clean
 
 kill_xcode:
 	killall Xcode || true
