@@ -1,5 +1,3 @@
-load("//App:prebuilt_frameworks.bzl", "prebuilt_frameworks")
-
 # Build all libraries via Buck, and copy over the artifacts to DerivedData so they can be used by Xcode.
 xcode_prebuild_script(
     name = "BuckLocalBuildAndCopy",
