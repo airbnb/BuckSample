@@ -70,6 +70,11 @@ module BuckLocal
       filter_targets(@targets, 'apple_resource')
     end
 
+    # A list of apple_resource targets
+    def prebuilt_apple_framework_targets
+      filter_targets(@targets, 'prebuilt_apple_framework')
+    end
+
     # A list of apple_bundle targets
     def apple_bundle_targets
       if @apple_bundle_targets.nil?

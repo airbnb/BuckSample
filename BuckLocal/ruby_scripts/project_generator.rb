@@ -63,6 +63,7 @@ module BuckLocal
       asset_catalogs = Targets.qualified_names(deps_targets.apple_asset_catalog_targets)
       resources = Targets.qualified_names(deps_targets.apple_resource_targets)
       bundles = Targets.qualified_names(deps_targets.apple_bundle_targets)
+      prebuilt_dynamic_frameworks = Targets.qualified_names(deps_targets.prebuilt_apple_framework_targets)
 
       # Actually generate the BUCK file using ERB.
       buck_template = ERB.new(File.read("#{ROOT_DIR}/BuckLocal/BUCK.erb"))
