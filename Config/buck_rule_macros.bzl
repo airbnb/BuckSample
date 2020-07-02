@@ -1,4 +1,5 @@
 load("//Config:configs.bzl", "test_configs", "library_configs", "pod_library_configs", "DEVELOPMENT_LANGUAGE")
+load("//Config:buck_local.bzl", "buck_local_apple_resource")
 
 # This is just a regular lib that was warnings not set to error
 def apple_third_party_lib(**kwargs):
@@ -291,7 +292,7 @@ def mlmodel_resource(
     )
 
     # Create a single resource that can be depended on for the mlmodelc.
-    native.apple_resource(
+    buck_local_apple_resource(
         name = resource_dependency_name,
         dirs = [
             ":" + modelc_resource,
