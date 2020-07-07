@@ -1,8 +1,3 @@
-# require 'tooling/buck/buckbuilder'
-# require 'tooling/buck_cache_parser'
-# require 'tooling/path'
-# require 'tooling/files'
-
 require 'buck_log_formatter'
 require 'common'
 require 'json'
