@@ -36,7 +36,7 @@ debug_release:
 targets:
 	$(BUCK) targets //...
 
-ci: install_buck targets build test ui_test project xcode_tests watch message
+ci: install_buck install_ruby_gems targets build test ui_test ruby_test project xcode_tests watch message
 	echo "Done"
 
 
@@ -57,6 +57,12 @@ fbxctest = tools/fbxctest/bin/fbxctest
 ui_test:
 	# Diable UI Test for now, because it's broken on Xcode 10.2
 	# $(BUCK) test //App:XCUITests --config apple.xctool_path=$(fbxctest)
+
+install_ruby_gems:
+	bundle install --path vendor/bundle
+
+ruby_test:
+	buck_binary_path=tools/buck bundle exec rspec BuckLocal/ruby_scripts/ -I BuckLocal/ruby_scripts/
 
 audit:
 	$(BUCK) audit rules App/BUCK > Config/Gen/App-BUCK.py
@@ -79,5 +85,5 @@ project: clean
 	open App/ExampleApp.xcworkspace
 
 buck_local_project: clean
-	rake buck_local:generate_project buck_binary_path=$(BUCK) workspace_target='//App:workspace-buck-local' top_level_lib_target='//App:ExampleAppLibrary' xcworkspace='App/ExampleAppBuckLocal.xcworkspace'
+	bundle exec rake buck_local:generate_project buck_binary_path=$(BUCK) workspace_target='//App:workspace-buck-local' top_level_lib_target='//App:ExampleAppLibrary' xcworkspace='App/ExampleAppBuckLocal.xcworkspace'
 	open App/ExampleAppBuckLocal.xcworkspace

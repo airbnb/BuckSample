@@ -1,0 +1,57 @@
+# This is BUCK file is used to test buck local scripts.
+# See buck_local_targets_spec.rb for example.
+
+apple_library(
+    name = "Lib0",
+    deps = [
+        ":Lib1",
+        ":Lib2",
+        ":Lib3",
+    ]
+)
+
+apple_library(
+    name = "Lib1",
+)
+
+apple_library(
+    name = "Lib2",
+    deps = [
+        ":BundleResource",
+    ]
+)
+
+apple_library(
+    name = "Lib3",
+    deps = [
+        ":PrebuiltLib1",
+        ":AssetCatalog1",
+    ]
+)
+
+prebuilt_cxx_library(
+    name = "PrebuiltLib1",
+    static_lib = "lib1.a",
+)
+
+apple_asset_catalog(
+    name = "AssetCatalog1"
+)
+
+apple_resource(
+    name = "BundleResource",
+    dirs = [
+        ":Bundle1",
+    ]
+)
+
+apple_bundle(
+    name = "Bundle1",
+    info_plist = "Info.plist",
+    extension = "app",
+    binary = ":BundleBinary#static",
+)
+
+apple_library(
+    name = "BundleBinary",
+)
