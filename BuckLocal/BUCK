@@ -1,0 +1,24 @@
+# Build all libraries via Buck, and copy over the artifacts to DerivedData so they can be used by Xcode.
+xcode_prebuild_script(
+    name = "BuckLocalBuildAndCopy",
+    cmd = "$REPO_ROOT/BuckLocal/buck_build_and_copy.sh"
+)
+
+# This is the target that the `buck_local_binary` target depends on, in order to utilize Buck for building all modules.
+apple_library(
+    name = "BuckLocal",
+    visibility = ["PUBLIC"],
+    exported_linker_flags = ["-lc++", "-lz", "-lc++", "-lz"] + ["-lExampleAppLibrary", "-lASwiftModule", "-lCpp1", "-lObjc1", "-lObjcAndSwift", "-lSecondSwiftModule", "-lSwiftAndObjc", "-lSwiftReliesOnCXX", "-lSwiftWithAssets", "-lSwiftWithMLModel", "-lSwiftWithPrecompiledDependency", "-lYetAnotherSwiftModule", "-lBugsnag", "-lCryptoSwift", "-lPromiseKit"] + [],
+    deps = [
+        ":BuckLocalBuildAndCopy",
+    ] + ["//Carthage:AFNetworking"] + ["//App:ExampleAppAssets", "//Libraries/SwiftWithAssets:SwiftWithAssetsCatalog"] + ["//App/Resources:ExampleAppStringResources", "//App/Resources:StoryboardResources", "//Libraries/SwiftWithMLModel:MarsHabitatPricerMLModel"] + []
+)
+
+# This run script post-build phase, invokes "remap_debug_source_path.sh" to generate
+# a UUID.plist file inside dSym bundle, for remapping remote source pathes to local
+# source pathes, so that LLDB can map the breakpoints set locally to memory addresses.
+xcode_postbuild_script(
+    name = "RemapDBGSourcePath",
+    visibility = ["PUBLIC"],
+    cmd = "$REPO_ROOT/BuckLocal/remap_debug_source_path.sh"
+)

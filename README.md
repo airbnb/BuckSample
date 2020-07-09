@@ -36,6 +36,12 @@ You may also use breakpoints, just like normal when using the generated Xcode pr
 
 <img src="https://github.com/airbnb/BuckSample/raw/master/Docs/Breakpoint.png" width=500 />
 
+### Generating a Buck Local Xcode Project
+Buck Local is a tool that generates an Xcode project which invokes Buck to do the build when you press the Build button in Xcode. It makes
+builds much faster while still allowing you to use Xcode as usual: jumping to definition, auto completion, debugging, etc., all works out of box.
+
+To generate a Buck Local Xcode project, simply run `make buck_local_project`.
+
 ### CLI
 
 ```bash
