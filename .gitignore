@@ -17,3 +17,6 @@ tools/buck
 
 # Ruby gems
 vendor/bundle/
+
+# Build
+build/

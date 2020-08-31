@@ -52,11 +52,16 @@ test:
 	xcrun llvm-profdata merge -sparse "$(buck_out)/tmp/code-"*.profraw -o "$(buck_out)/gen/Coverage.profdata"
 	xcrun llvm-cov report "$(buck_out)/gen/App/ExampleAppBinary#iphonesimulator-x86_64" -instr-profile "$(buck_out)/gen/Coverage.profdata" -ignore-filename-regex "Pods|Carthage|buck-out"
 
-# Buck requires a different test-runner to run UI tests. `fbxctest` from FBSimulatorControl has a compatible CLI invocation and can be used as a drop-in replacement for `xctool` here.
-fbxctest = tools/fbxctest/bin/fbxctest
+UI_TESTS_TMP = $(shell $(BUCK) root)/build/xcuitest
+UI_TESTS_TOOLS = $(shell $(BUCK) root)/tools/xcuitest
 ui_test:
-	# Diable UI Test for now, because it's broken on Xcode 10.2
-	# $(BUCK) test //App:XCUITests --config apple.xctool_path=$(fbxctest)
+	$(BUCK) build //App:XCUITests
+	mkdir -p ${UI_TESTS_TMP}
+	ln -sf $(buck_out)/gen/App/XCUITests#apple-test-bundle,dwarf,no-include-frameworks,no-linkermap/XCUITests.xctest $(UI_TESTS_TMP)
+	cp $(UI_TESTS_TOOLS)/ExampleApp.xctestrun $(UI_TESTS_TMP)
+	rm -rf $(UI_TESTS_TMP)/XCUITests-Runner.app
+	unzip $(UI_TESTS_TOOLS)/XCUITests-Runner.app.zip -d $(UI_TESTS_TMP)
+	xcodebuild test-without-building -xctestrun $(UI_TESTS_TMP)/ExampleApp.xctestrun -destination 'platform=iOS Simulator,name=iPhone 11 Pro,OS=latest'
 
 install_ruby_gems:
 	bundle install --path vendor/bundle
