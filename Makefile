@@ -36,7 +36,7 @@ debug_release:
 targets:
 	$(BUCK) targets //...
 
-ci: install_buck install_ruby_gems ui_test
+ci: install_buck install_ruby_gems targets build test ui_test ruby_test project xcode_tests watch message
 	echo "Done"
 
 
