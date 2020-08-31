@@ -61,6 +61,7 @@ ui_test:
 	cp $(UI_TESTS_TOOLS)/ExampleApp.xctestrun $(UI_TESTS_TMP)
 	rm -rf $(UI_TESTS_TMP)/XCUITests-Runner.app
 	unzip $(UI_TESTS_TOOLS)/XCUITests-Runner.app.zip -d $(UI_TESTS_TMP)
+	xcrun simctl boot "iPhone 11 Pro"
 	xcrun simctl install "iPhone 11 Pro" $(UI_TESTS_TMP)/XCUITests.xctest/PlugIns/ExampleApp.app
 	xcodebuild test-without-building -xctestrun $(UI_TESTS_TMP)/ExampleApp.xctestrun -destination 'platform=iOS Simulator,name=iPhone 11 Pro,OS=latest'
 
