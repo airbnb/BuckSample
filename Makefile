@@ -2,7 +2,7 @@
 .PHONY : log install_buck build watch message targets audit debug test xcode_tests clean project audit
 
 # Use local version of Buck
-BUCK=tools/buck --java11-test-mode
+BUCK=tools/buck
 
 log:
 	echo "Make"
