@@ -54,16 +54,17 @@ test:
 
 UI_TESTS_TMP = $(shell $(BUCK) root)/build/xcuitest
 UI_TESTS_TOOLS = $(shell $(BUCK) root)/tools/xcuitest
+TARGET_SIMULATOR = "iPhone 11 Pro"
 ui_test:
 	$(BUCK) build //App:XCUITests
+	rm -rf ${UI_TESTS_TMP}
 	mkdir -p ${UI_TESTS_TMP}
 	ln -sf $(buck_out)/gen/App/XCUITests#apple-test-bundle,dwarf,no-include-frameworks,no-linkermap/XCUITests.xctest $(UI_TESTS_TMP)
 	cp $(UI_TESTS_TOOLS)/ExampleApp.xctestrun $(UI_TESTS_TMP)
-	rm -rf $(UI_TESTS_TMP)/XCUITests-Runner.app
 	unzip $(UI_TESTS_TOOLS)/XCUITests-Runner.app.zip -d $(UI_TESTS_TMP)
-	xcrun simctl boot "iPhone 11 Pro"
-	xcrun simctl install "iPhone 11 Pro" $(UI_TESTS_TMP)/XCUITests.xctest/PlugIns/ExampleApp.app
-	xcodebuild test-without-building -xctestrun $(UI_TESTS_TMP)/ExampleApp.xctestrun -destination 'platform=iOS Simulator,name=iPhone 11 Pro,OS=latest'
+	xcrun simctl boot $(TARGET_SIMULATOR) || true
+	xcrun simctl install $(TARGET_SIMULATOR) $(UI_TESTS_TMP)/XCUITests.xctest/PlugIns/ExampleApp.app
+	xcodebuild test-without-building -xctestrun $(UI_TESTS_TMP)/ExampleApp.xctestrun -destination 'platform=iOS Simulator,name=$(TARGET_SIMULATOR),OS=latest'
 
 install_ruby_gems:
 	bundle install --path vendor/bundle
