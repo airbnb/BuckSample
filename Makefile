@@ -64,7 +64,7 @@ ui_test:
 	unzip $(UI_TESTS_TOOLS)/XCUITests-Runner.app.zip -d $(UI_TESTS_TMP)
 	xcrun simctl boot $(TARGET_SIMULATOR) || true
 	xcrun simctl install $(TARGET_SIMULATOR) $(UI_TESTS_TMP)/XCUITests.xctest/PlugIns/ExampleApp.app
-	xcodebuild test-without-building -xctestrun $(UI_TESTS_TMP)/ExampleApp.xctestrun -destination 'platform=iOS Simulator,name=$(TARGET_SIMULATOR),OS=latest'
+	xcodebuild test-without-building -xctestrun $(UI_TESTS_TMP)/ExampleApp.xctestrun -destination 'platform=iOS Simulator,name=$(shell echo $(TARGET_SIMULATOR)),OS=latest'
 
 install_ruby_gems:
 	bundle install --path vendor/bundle
