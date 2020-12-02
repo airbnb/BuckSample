@@ -8,14 +8,15 @@ typealias ArgType = [UIApplicationLaunchOptionsKey : Any]? // Xcode 9
 #endif
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
 
-  let window = UIWindow(frame: UIScreen.main.bounds)
+  private var window: UIWindow?
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: ArgType) -> Bool {
   
-    window.makeKeyAndVisible()
-    window.rootViewController = ViewController()
+    window = UIWindow(frame: UIScreen.main.bounds)
+    window?.makeKeyAndVisible()
+    window?.rootViewController = ViewController()
 
     return true
   }
