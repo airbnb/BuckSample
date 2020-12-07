@@ -8,7 +8,7 @@ log:
 	echo "Make"
 
 install_buck:
-	curl https://jitpack.io/com/github/airbnb/buck/d998940901ab495e80dace31b640a4561cfe26aa/buck-d998940901ab495e80dace31b640a4561cfe26aa.pex --output tools/buck
+	curl https://jitpack.io/com/github/airbnb/buck/c2baf5e212c16ebdd8353f8dcf09cafa5c04f706/buck-c2baf5e212c16ebdd8353f8dcf09cafa5c04f706.pex --output tools/buck
 	chmod u+x tools/buck
 
 update_cocoapods:
@@ -90,8 +90,8 @@ xcode_tests: project
 
 project: clean
 	$(BUCK) project //App:workspace
-	open App/ExampleApp.xcworkspace
+	open App/ExampleApp-BUCK.xcworkspace
 
 buck_local_project: clean
 	bundle exec rake buck_local:generate_project buck_binary_path=$(BUCK) workspace_target='//App:workspace-buck-local' top_level_lib_target='//App:ExampleAppLibrary' xcworkspace='App/ExampleAppBuckLocal.xcworkspace'
-	open App/ExampleAppBuckLocal.xcworkspace
+	open App/ExampleAppBuckLocal-BUCK.xcworkspace
