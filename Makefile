@@ -67,7 +67,6 @@ ui_test:
 	xcodebuild test-without-building -xctestrun $(UI_TESTS_TMP)/ExampleApp.xctestrun -destination 'platform=iOS Simulator,name=$(shell echo $(TARGET_SIMULATOR)),OS=latest'
 
 install_ruby_gems:
-	gem install bundler:1.17.3
 	bundle install --path vendor/bundle
 
 ruby_test:
