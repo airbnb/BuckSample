@@ -327,7 +327,7 @@ apple_test_lib(
 apple_test_lib(
     name = "XCUITests",
     destination_specifier = {
-        "name": "iPhone 11 Pro",
+        "name": "iPhone 8",
     },
     run_test_separately = True,
     # The `test_host_app` is launched first in the Simulator and needs to be an `apple_bundle` that is distinct from `ui_test_target_app`.

@@ -28,10 +28,10 @@ message:
 	$(BUCK) build //App:ExampleMessageExtension
 
 debug:
-	$(BUCK) install //App:ExampleApp --run --simulator-name 'iPhone 11 Pro'
+	$(BUCK) install //App:ExampleApp --run --simulator-name 'iPhone 8'
 
 debug_release:
-	$(BUCK) install //App:ExampleApp --run --simulator-name 'iPhone 11 Pro' --config-file ./BuildConfigurations/Release.buckconfig
+	$(BUCK) install //App:ExampleApp --run --simulator-name 'iPhone 8' --config-file ./BuildConfigurations/Release.buckconfig
 
 targets:
 	$(BUCK) targets //...
@@ -54,7 +54,7 @@ test:
 
 UI_TESTS_TMP = $(shell $(BUCK) root)/build/xcuitest
 UI_TESTS_TOOLS = $(shell $(BUCK) root)/tools/xcuitest
-TARGET_SIMULATOR = "iPhone 11 Pro"
+TARGET_SIMULATOR = "iPhone 8"
 ui_test:
 	$(BUCK) build //App:XCUITests
 	rm -rf ${UI_TESTS_TMP}
@@ -86,7 +86,7 @@ kill_xcode:
 	killall Simulator || true
 
 xcode_tests: project
-	xcodebuild build test -workspace App/ExampleApp.xcworkspace -scheme ExampleApp -destination 'platform=iOS Simulator,name=iPhone 11 Pro,OS=latest' | xcpretty && exit ${PIPESTATUS[0]}
+	xcodebuild build test -workspace App/ExampleApp.xcworkspace -scheme ExampleApp -destination 'platform=iOS Simulator,name=iPhone 8,OS=latest' | xcpretty && exit ${PIPESTATUS[0]}
 
 project: clean
 	$(BUCK) project //App:workspace
