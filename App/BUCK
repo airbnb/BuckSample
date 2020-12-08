@@ -12,7 +12,7 @@ buck_local_apple_asset_catalog(
 
 app_tests = [
     ":UnitTests",
-    # TODO: Fix this HostApp test
+    # TODO: Fix HostApp test and re-enable it.
     # ":UnitTestsWithHostApp",
 ]
 
