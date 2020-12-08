@@ -44,7 +44,13 @@ buck_out = $(shell $(BUCK) root)/buck-out
 test:
 	@rm -f $(buck_out)/tmp/*.profraw
 	@rm -f $(buck_out)/gen/*.profdata
-	$(BUCK) test //App:ExampleAppCITests
+	$(BUCK) test //App:ExampleAppCITests --test-runner-env XCTOOL_TEST_ENV_LLVM_PROFILE_FILE="$(buck_out)/tmp/code-%p.profraw%15x" \
+		--config custom.other_cflags="\$$(config custom.code_coverage_cflags)" \
+		--config custom.other_cxxflags="\$$(config custom.code_coverage_cxxflags)" \
+		--config custom.other_ldflags="\$$(config custom.code_coverage_ldflags)" \
+		--config custom.other_swift_compiler_flags="\$$(config custom.code_coverage_swift_compiler_flags)"
+	xcrun llvm-profdata merge -sparse "$(buck_out)/tmp/code-"*.profraw -o "$(buck_out)/gen/Coverage.profdata"
+	xcrun llvm-cov report "$(buck_out)/gen/App/ExampleAppBinary#iphonesimulator-x86_64" -instr-profile "$(buck_out)/gen/Coverage.profdata" -ignore-filename-regex "Pods|Carthage|buck-out"
 
 UI_TESTS_TMP = $(shell $(BUCK) root)/build/xcuitest
 UI_TESTS_TOOLS = $(shell $(BUCK) root)/tools/xcuitest
