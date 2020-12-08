@@ -2,13 +2,13 @@
 .PHONY : log install_buck build watch message targets audit debug test xcode_tests clean project audit
 
 # Use local version of Buck
-BUCK=tools/buck --java11-test-mode
+BUCK=tools/buck
 
 log:
 	echo "Make"
 
 install_buck:
-	curl https://jitpack.io/com/github/airbnb/buck/c2baf5e212c16ebdd8353f8dcf09cafa5c04f706/buck-c2baf5e212c16ebdd8353f8dcf09cafa5c04f706.pex --output tools/buck
+	curl https://jitpack.io/com/github/airbnb/buck/0540fee37b12a9ee974d1f43ee1639de371b339c/buck-0540fee37b12a9ee974d1f43ee1639de371b339c-java11.pex --output tools/buck
 	chmod u+x tools/buck
 
 update_cocoapods:
