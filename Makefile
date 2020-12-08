@@ -95,3 +95,5 @@ project: clean
 buck_local_project: clean
 	bundle exec rake buck_local:generate_project buck_binary_path=$(BUCK) workspace_target='//App:workspace-buck-local' top_level_lib_target='//App:ExampleAppLibrary' xcworkspace='App/ExampleAppBuckLocal.xcworkspace'
 	open App/ExampleAppBuckLocal.xcworkspace
+dependency_graph:
+	$(BUCK) query "deps(//App:ExampleAppBinary)" --dot > result.dot &&  dot result.dot -Tpng -o result.png && open result.png
