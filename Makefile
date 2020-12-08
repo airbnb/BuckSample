@@ -8,7 +8,7 @@ log:
 	echo "Make"
 
 install_buck:
-	curl https://jitpack.io/com/github/airbnb/buck/d077dcde8dca9e116c8dc5d0ef35b8e8299d14bc/buck-d077dcde8dca9e116c8dc5d0ef35b8e8299d14bc-java11.pex --output tools/buck
+	curl https://jitpack.io/com/github/airbnb/buck/0540fee37b12a9ee974d1f43ee1639de371b339c/buck-0540fee37b12a9ee974d1f43ee1639de371b339c-java11.pex --output tools/buck
 	chmod u+x tools/buck
 
 update_cocoapods:
@@ -86,12 +86,12 @@ kill_xcode:
 	killall Simulator || true
 
 xcode_tests: project
-	xcodebuild build test -workspace App/ExampleApp.xcworkspace -scheme ExampleApp -destination 'platform=iOS Simulator,name=iPhone 8,OS=latest' | xcpretty && exit ${PIPESTATUS[0]}
+	xcodebuild build test -workspace App/ExampleApp-BUCK.xcworkspace -scheme ExampleApp -destination 'platform=iOS Simulator,name=iPhone 8,OS=latest' | xcpretty && exit ${PIPESTATUS[0]}
 
 project: clean
 	$(BUCK) project //App:workspace
-	open App/ExampleApp.xcworkspace
+	open App/ExampleApp-BUCK.xcworkspace
 
 buck_local_project: clean
 	bundle exec rake buck_local:generate_project buck_binary_path=$(BUCK) workspace_target='//App:workspace-buck-local' top_level_lib_target='//App:ExampleAppLibrary' xcworkspace='App/ExampleAppBuckLocal.xcworkspace'
-	open App/ExampleAppBuckLocal.xcworkspace
+	open App/ExampleAppBuckLocal-BUCK.xcworkspace
