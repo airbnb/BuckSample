@@ -36,7 +36,7 @@ debug_release:
 targets:
 	$(BUCK) targets //...
 
-ci: install_buck install_ruby_gems targets build test ruby_test project xcode_tests watch message
+ci: install_buck install_ruby_gems targets build test ui_test ruby_test project xcode_tests watch message
 	echo "Done"
 
 
@@ -44,13 +44,7 @@ buck_out = $(shell $(BUCK) root)/buck-out
 test:
 	@rm -f $(buck_out)/tmp/*.profraw
 	@rm -f $(buck_out)/gen/*.profdata
-	$(BUCK) test //App:ExampleAppCITests --test-runner-env XCTOOL_TEST_ENV_LLVM_PROFILE_FILE="$(buck_out)/tmp/code-%p.profraw%15x" \
-		--config custom.other_cflags="\$$(config custom.code_coverage_cflags)" \
-		--config custom.other_cxxflags="\$$(config custom.code_coverage_cxxflags)" \
-		--config custom.other_ldflags="\$$(config custom.code_coverage_ldflags)" \
-		--config custom.other_swift_compiler_flags="\$$(config custom.code_coverage_swift_compiler_flags)"
-	xcrun llvm-profdata merge -sparse "$(buck_out)/tmp/code-"*.profraw -o "$(buck_out)/gen/Coverage.profdata"
-	xcrun llvm-cov report "$(buck_out)/gen/App/ExampleAppBinary#iphonesimulator-x86_64" -instr-profile "$(buck_out)/gen/Coverage.profdata" -ignore-filename-regex "Pods|Carthage|buck-out"
+	$(BUCK) test //App:ExampleAppCITests
 
 UI_TESTS_TMP = $(shell $(BUCK) root)/build/xcuitest
 UI_TESTS_TOOLS = $(shell $(BUCK) root)/tools/xcuitest
