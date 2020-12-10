@@ -17,7 +17,7 @@ public final class MarsHabitatPriceFinder {
 
   // MARK: - Properties
 
-  let model = MarsHabitatPricer()
+  let model = try! MarsHabitatPricer(configuration: MLModelConfiguration())
 
   /// Formatter for the output.
   let priceFormatter: NumberFormatter = {
