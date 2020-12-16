@@ -1,0 +1,4 @@
+[code_coverage]
+  clang_flags = -fprofile-instr-generate -fcoverage-mapping
+  swift_flags = -profile-generate -profile-coverage-mapping
+  ldflags = -fprofile-instr-generate
