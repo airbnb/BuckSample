@@ -89,7 +89,7 @@ module BuckLocal
     # Disable `build_implicit_dependencies` and `parallelize_buildables` for "BuckLocal" xcscheme.
     #
     def update_main_scheme
-      scheme_name = @xcworkspace.split('/').last.split('.').first
+      scheme_name = @xcworkspace.split('/').last.split('-').first
       scheme_path = "#{ROOT_DIR}/#{@xcworkspace}/xcshareddata/xcschemes/#{scheme_name}.xcscheme"
       scheme = Xcodeproj::XCScheme.new(scheme_path)
       scheme.build_action.build_implicit_dependencies = false
