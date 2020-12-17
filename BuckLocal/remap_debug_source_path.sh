@@ -15,6 +15,8 @@
 #
 DSYM_BUNDLE_PATH=$DWARF_DSYM_FOLDER_PATH/$DWARF_DSYM_FILE_NAME
 
+# Wait for 1 second to make sure the DSYM bundle had been generated.
+sleep 1
 # Use dwarfdump to get the UUID of the DWARF file in the dSym bundle.
 # The filename of the pList must match this UUID for the source path remapping to work.
 UUID=`dwarfdump --uuid $DSYM_BUNDLE_PATH | cut -d ' ' -f 2`

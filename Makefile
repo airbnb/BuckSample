@@ -91,7 +91,7 @@ project: clean
 	open App/ExampleApp-BUCK.xcworkspace
 
 buck_local_project: clean
-	bundle exec rake buck_local:generate_project buck_binary_path=$(BUCK) workspace_target='//App:workspace-buck-local' top_level_lib_target='//App:ExampleAppLibrary' xcworkspace='App/ExampleAppBuckLocal.xcworkspace'
+	bundle exec rake buck_local:generate_project buck_binary_path=$(BUCK) workspace_target='//App:workspace-buck-local' top_level_lib_target='//App:ExampleAppLibrary' xcworkspace='App/ExampleAppBuckLocal-BUCK.xcworkspace'
 	open App/ExampleAppBuckLocal-BUCK.xcworkspace
 
 dependency_graph:
