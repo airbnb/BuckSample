@@ -4,6 +4,9 @@
 buck-out/
 .buckd/
 
+# Buck Local
+lib_targets.list
+
 # Downloaded buck
 tools/buck
 
