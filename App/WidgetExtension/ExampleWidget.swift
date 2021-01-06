@@ -38,7 +38,10 @@ struct ExampleWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
+      VStack {
+        Text("Example Widget")
         Text(entry.date, style: .time)
+      }
     }
 }
 
