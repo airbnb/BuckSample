@@ -153,7 +153,8 @@ buck_local_bundle(
     native_xcode_deps=prebuilt_frameworks + [
         # For "#watch", https://buckbuild.com/rule/apple_bundle.html#deps
         ":ExampleWatchApp#watch",
-        ":ExampleMessageExtension"
+        ":ExampleMessageExtension",
+        ":ExampleWidgetExtension",
     ],
     buck_local_deps=prebuilt_frameworks,
 )
@@ -298,6 +299,42 @@ apple_resource(
     files = glob(["MessageExtension/**/*.storyboard"])
 )
 ### iMessage Extension End ###
+
+### Widget Extension Begin ###
+apple_binary(
+    name = "ExampleWidgetExtensionBinary",
+    srcs = glob([
+        "WidgetExtension/**/*.swift",
+    ]),
+    configs = message_binary_configs("ExampleApp.WidgetExtension"),
+
+    # Same linker flags as ExampleMessageExtensionBinary
+    linker_flags = [
+        "-e",
+        "_NSExtensionMain",
+        "-Xlinker",
+        "-rpath",
+        "-Xlinker",
+        "@executable_path/../../Frameworks",
+    ],
+)
+
+apple_bundle(
+    name = "ExampleWidgetExtension",
+    binary = ":ExampleWidgetExtensionBinary",
+    extension = "appex",
+    info_plist = "WidgetExtension/Info.plist",
+    info_plist_substitutions = {
+        "DEVELOPMENT_LANGUAGE": DEVELOPMENT_LANGUAGE,
+        "EXECUTABLE_NAME": "ExampleWidgetExtension",
+        "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.WidgetExtension"),
+        "PRODUCT_NAME": "ExampleWidgetExtension",
+        "PRODUCT_MODULE_NAME": "ExampleWidgetExtensionBinary",
+        "PRODUCT_BUNDLE_PACKAGE_TYPE": "XPC!",
+    },
+    xcode_product_type = "com.apple.product-type.app-extension",
+)
+### Widget Extension End ###
 
 ### Tests Begin ###
 
