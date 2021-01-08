@@ -319,12 +319,6 @@ apple_binary(
     ],
 )
 
-# apple_resource(
-#     name = "ExampleWidgetIntentDefinition",
-#     dirs = [],
-#     files = glob(["WidgetExtension/**/*.intentdefinition"])
-# )
-
 apple_bundle(
     name = "ExampleWidgetExtension",
     binary = ":ExampleWidgetExtensionBinary",
@@ -339,9 +333,6 @@ apple_bundle(
         "PRODUCT_BUNDLE_PACKAGE_TYPE": "XPC!",
     },
     xcode_product_type = "com.apple.product-type.app-extension",
-    # deps = [
-    #     ":ExampleWidgetIntentDefinition",
-    # ],
 )
 ### Widget Extension End ###
 
