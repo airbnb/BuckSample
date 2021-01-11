@@ -339,11 +339,8 @@ apple_test_lib(
     is_ui_test = True,
     # The `ui_test_target_app` field is not mentioned in Buck's official documentation, but it appears in its XCUITest fixtures.
     # https://github.com/facebook/buck/blob/master/test/com/facebook/buck/apple/testdata/apple_test_xcuitest/BUCK.fixture#L66
-    ui_test_target_app = ":ExampleApp",
+    ui_test_target_app = ":ExampleAppBuckLocal",
     labels = ['ui'],
-    deps = [
-        "//Libraries/ASwiftModule:ASwiftModule",
-    ],
     frameworks = [
         "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
         "$SDKROOT/System/Library/Frameworks/Foundation.framework",
