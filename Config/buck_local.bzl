@@ -47,6 +47,7 @@ def buck_local_workspace(
         name,
         workspace_name,
         src_target,
+        ui_test_target,
         native_xcode_scheme_actions = {},
         buck_local_scheme_actions = {},
         native_xcode_extra_schemes = {},
@@ -55,6 +56,8 @@ def buck_local_workspace(
         name = name,
         workspace_name = workspace_name,
         src_target = src_target,
+        # Since `ui_tests` require a different test runner in CLI, but can be launched as-is from Xcode, we will place them as `extra_tests` on the Xcode workspace - where they make the most semantic sense.
+        extra_tests = [ui_test_target],
         extra_schemes = native_xcode_extra_schemes,
         additional_scheme_actions = native_xcode_scheme_actions,
         **kwargs
@@ -64,6 +67,7 @@ def buck_local_workspace(
         name = name + "-buck-local",
         workspace_name = workspace_name + "BuckLocal",
         src_target = src_target + "BuckLocal",
+        extra_tests = [ui_test_target + "BuckLocal"],
         additional_scheme_actions = buck_local_scheme_actions,
         **kwargs
     )
