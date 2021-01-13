@@ -398,7 +398,7 @@ apple_test_lib(
     ]),
     is_ui_test = True,
     # The `ui_test_target_app` field is not mentioned in Buck's official documentation, but it appears in its XCUITest fixtures.
-    # https://github.com/facebook/buck/blob/master/test/com/facebook/buck/apple/testdata/apple_test_xcuitest/BUCK.fixture#L66
+    # https://github.com/facebook/buck/blob/97e1ef75be82ad5379e95c98cbb61ab656554a1b/test/com/facebook/buck/apple/testdata/apple_test_xcuitest/BUCK.fixture#L66
     ui_test_target_app = ":ExampleAppBuckLocal",
     labels = ['ui'],
     frameworks = [
