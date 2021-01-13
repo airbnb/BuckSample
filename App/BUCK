@@ -129,14 +129,13 @@ buck_local_workspace(
     name = "workspace",
     workspace_name = "ExampleApp",
     src_target = ":ExampleApp",
+    ui_test_target = ":XCUITests",
     native_xcode_scheme_actions={
         "Build": {
             "PRE_SCHEME_ACTIONS": ["echo 'Started'"],
             "POST_SCHEME_ACTIONS": ["echo 'Finished'"],
         },
     },
-    # Since `ui_tests` require a different test runner in CLI, but can be launched as-is from Xcode, we will place them as `extra_tests` on the Xcode workspace - where they make the most semantic sense.
-    extra_tests = ui_tests,
     action_config_names = {"profile": "Profile"},
 )
 
@@ -375,12 +374,33 @@ apple_test_lib(
     ]),
     is_ui_test = True,
     # The `ui_test_target_app` field is not mentioned in Buck's official documentation, but it appears in its XCUITest fixtures.
-    # https://github.com/facebook/buck/blob/master/test/com/facebook/buck/apple/testdata/apple_test_xcuitest/BUCK.fixture#L66
+    # https://github.com/facebook/buck/blob/97e1ef75be82ad5379e95c98cbb61ab656554a1b/test/com/facebook/buck/apple/testdata/apple_test_xcuitest/BUCK.fixture#L66
     ui_test_target_app = ":ExampleApp",
     labels = ['ui'],
-    deps = [
-        "//Libraries/ASwiftModule:ASwiftModule",
+    frameworks = [
+        "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
+        "$SDKROOT/System/Library/Frameworks/Foundation.framework",
+        "$SDKROOT/System/Library/Frameworks/UIKit.framework",
     ],
+)
+
+# This test suite cannot be packaged with other tests due to a dependency on `fbxctest` instead of `xctool`.
+apple_test_lib(
+    name = "XCUITestsBuckLocal",
+    destination_specifier = {
+        "name": "iPhone 8",
+    },
+    run_test_separately = True,
+    # The `test_host_app` is launched first in the Simulator and needs to be an `apple_bundle` that is distinct from `ui_test_target_app`.
+    test_host_app = ":XCUITestsHostApp",
+    srcs = glob([
+        "XCUITests/*.swift",
+    ]),
+    is_ui_test = True,
+    # The `ui_test_target_app` field is not mentioned in Buck's official documentation, but it appears in its XCUITest fixtures.
+    # https://github.com/facebook/buck/blob/97e1ef75be82ad5379e95c98cbb61ab656554a1b/test/com/facebook/buck/apple/testdata/apple_test_xcuitest/BUCK.fixture#L66
+    ui_test_target_app = ":ExampleAppBuckLocal",
+    labels = ['ui'],
     frameworks = [
         "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
         "$SDKROOT/System/Library/Frameworks/Foundation.framework",
@@ -393,6 +413,7 @@ apple_bundle(
     name = "XCUITestsHostApp",
     visibility = [
         "//App:XCUITests",
+        "//App:XCUITestsBuckLocal",
     ],
     extension = "app",
     binary = ":XCUITestsHostAppBinary",

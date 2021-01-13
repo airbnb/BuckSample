@@ -25,7 +25,7 @@ module BuckLocal
 
       # After Xcode project has been generated, we need to update the project in order
       # to get BuckLocal working
-      override_xcconfig_files
+      update_xcconfig_files
       update_main_scheme
     end
 
@@ -73,15 +73,15 @@ module BuckLocal
     end
 
     #
-    # Override `HEADER_SEARCH_PATHS` and `SWIFT_INCLUDE_PATHS` to avoid duplicated definitions between
+    # Remove `HEADER_SEARCH_PATHS` and `SWIFT_INCLUDE_PATHS` to avoid duplicated definitions between
     # BuckLocal build and Xcode build.
     #
-    def override_xcconfig_files
-      additional_settings = contents_of_file("#{ROOT_DIR}/BuckLocal/additional_xcconfig_settings.txt")
-
+    def update_xcconfig_files
       # Get all files whose name matches "*-Debug.xcconfig" under buck-out
       Dir.glob("#{ROOT_DIR}/buck-out/**/*-Debug.xcconfig").each do |xcconfig_file|
-        append_to_file(additional_settings, xcconfig_file)
+        xcconfig_content = contents_of_file(xcconfig_file)
+        xcconfig_content = xcconfig_content.lines.map(&:chomp).reject { |line| line.start_with?('HEADER_SEARCH_PATHS') || line.start_with?('SWIFT_INCLUDE_PATHS') }
+        write_to_file(xcconfig_content, xcconfig_file)
       end
     end
 
