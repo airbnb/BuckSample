@@ -278,7 +278,7 @@ def mlmodel_resource(
     logging_genrule(
         name = resource_source_name,
         srcs = [model_directory + model_name + ".mlmodel"],
-        bash = 'xcrun coremlc generate "$SRCS" "\$(dirname "$OUT")" --language Swift --swift-version ' + swift_version,
+        bash = '',
         out = "%s.swift" % model_name,
     )
 
@@ -287,7 +287,7 @@ def mlmodel_resource(
     logging_genrule(
         name = modelc_resource,
         srcs = [model_directory + model_name + ".mlmodel"],
-        bash = 'xcrun coremlc compile "$SRCS" "\$(dirname "$OUT")"',
+        bash = '',
         out = "%s.mlmodelc" % model_name,
     )
 

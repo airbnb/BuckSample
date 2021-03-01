@@ -10,9 +10,9 @@ first_party_library(
     ],
 )
 
-mlmodel_resource(
-    resource_source_name = "MarsHabitatPricerInterface",
-    resource_dependency_name = "MarsHabitatPricerMLModel",
-    model_directory = "Resources/",
-    model_name = "MarsHabitatPricer"
-)
+# mlmodel_resource(
+#     resource_source_name = "MarsHabitatPricerInterface",
+#     resource_dependency_name = "MarsHabitatPricerMLModel",
+#     model_directory = "Resources/",
+#     model_name = "MarsHabitatPricer"
+# )
