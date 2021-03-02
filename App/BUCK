@@ -158,7 +158,7 @@ buck_local_bundle(
     native_xcode_deps=prebuilt_frameworks + [
         # For "#watch", https://buckbuild.com/rule/apple_bundle.html#deps
         ":ExampleWatchApp#watch",
-        ":ExampleMessageExtension"
+        ":ExampleMessageExtension",
         ":ExampleWidgetExtension",
     ]
     + prebuilt_frameworks
