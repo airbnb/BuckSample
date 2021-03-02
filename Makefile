@@ -8,7 +8,7 @@ log:
 	echo "Make"
 
 install_buck:
-	curl https://jitpack.io/com/github/airbnb/buck/4bd1a08625454c5034eb6ef6193e94f9e6e62a62/buck-4bd1a08625454c5034eb6ef6193e94f9e6e62a62.pex --output tools/buck
+	curl https://jitpack.io/com/github/airbnb/buck/41a475f76f8c9223840af7054cbb8c2a2aa55192/buck-41a475f76f8c9223840af7054cbb8c2a2aa55192-java11.pex --output tools/buck
 	chmod u+x tools/buck
 
 update_cocoapods:
@@ -28,35 +28,47 @@ message:
 	$(BUCK) build //App:ExampleMessageExtension
 
 debug:
-	$(BUCK) install //App:ExampleApp --run --simulator-name 'iPhone XS'
+	$(BUCK) install //App:ExampleApp --run --simulator-name 'iPhone 8'
 
 debug_release:
-	$(BUCK) install //App:ExampleApp --run --simulator-name 'iPhone XS' --config-file ./BuildConfigurations/Release.buckconfig
+	$(BUCK) install //App:ExampleApp --run --simulator-name 'iPhone 8' --config-file ./BuildConfigurations/Release.buckconfig
 
 targets:
 	$(BUCK) targets //...
 
-ci: install_buck targets build test ui_test project xcode_tests watch message
+ci: install_buck install_ruby_gems targets build test ui_test ruby_test project xcode_tests watch message
 	echo "Done"
 
 
 buck_out = $(shell $(BUCK) root)/buck-out
+TEST_BUNDLE = $(shell $(BUCK) targets //App:ExampleAppCITests --show-output | awk '{ print $$2 }')
 test:
 	@rm -f $(buck_out)/tmp/*.profraw
 	@rm -f $(buck_out)/gen/*.profdata
 	$(BUCK) test //App:ExampleAppCITests --test-runner-env XCTOOL_TEST_ENV_LLVM_PROFILE_FILE="$(buck_out)/tmp/code-%p.profraw%15x" \
-		--config custom.other_cflags="\$$(config custom.code_coverage_cflags)" \
-		--config custom.other_cxxflags="\$$(config custom.code_coverage_cxxflags)" \
-		--config custom.other_ldflags="\$$(config custom.code_coverage_ldflags)" \
-		--config custom.other_swift_compiler_flags="\$$(config custom.code_coverage_swift_compiler_flags)"
+		--config-file code_coverage.buckconfig
 	xcrun llvm-profdata merge -sparse "$(buck_out)/tmp/code-"*.profraw -o "$(buck_out)/gen/Coverage.profdata"
-	xcrun llvm-cov report "$(buck_out)/gen/App/ExampleAppBinary#iphonesimulator-x86_64" -instr-profile "$(buck_out)/gen/Coverage.profdata" -ignore-filename-regex "Pods|Carthage|buck-out"
+	xcrun llvm-cov report "$(TEST_BUNDLE)/ExampleAppCITests" -instr-profile "$(buck_out)/gen/Coverage.profdata" -ignore-filename-regex "Pods|Carthage|buck-out"
 
-# Buck requires a different test-runner to run UI tests. `fbxctest` from FBSimulatorControl has a compatible CLI invocation and can be used as a drop-in replacement for `xctool` here.
-fbxctest = tools/fbxctest/bin/fbxctest
+UI_TESTS_TMP = $(shell $(BUCK) root)/build/xcuitest
+UI_TESTS_TOOLS = $(shell $(BUCK) root)/tools/xcuitest
+TARGET_SIMULATOR = "iPhone 8"
 ui_test:
-	# Diable UI Test for now, because it's broken on Xcode 10.2
-	# $(BUCK) test //App:XCUITests --config apple.xctool_path=$(fbxctest)
+	$(BUCK) build //App:XCUITests
+	rm -rf ${UI_TESTS_TMP}
+	mkdir -p ${UI_TESTS_TMP}
+	ln -sf $(buck_out)/gen/App/XCUITests#apple-test-bundle,dwarf,no-include-frameworks,no-linkermap/XCUITests.xctest $(UI_TESTS_TMP)
+	cp $(UI_TESTS_TOOLS)/ExampleApp.xctestrun $(UI_TESTS_TMP)
+	unzip $(UI_TESTS_TOOLS)/XCUITests-Runner.app.zip -d $(UI_TESTS_TMP)
+	xcrun simctl boot $(TARGET_SIMULATOR) || true
+	xcrun simctl install $(TARGET_SIMULATOR) $(UI_TESTS_TMP)/XCUITests.xctest/PlugIns/ExampleApp.app
+	xcodebuild test-without-building -xctestrun $(UI_TESTS_TMP)/ExampleApp.xctestrun -destination 'platform=iOS Simulator,name=$(shell echo $(TARGET_SIMULATOR)),OS=latest'
+
+install_ruby_gems:
+	bundle install --path vendor/bundle
+
+ruby_test:
+	buck_binary_path=tools/buck bundle exec rspec BuckLocal/ruby_scripts/ -I BuckLocal/ruby_scripts/
 
 audit:
 	$(BUCK) audit rules App/BUCK > Config/Gen/App-BUCK.py
@@ -65,15 +77,22 @@ audit:
 clean:
 	rm -rf **/*.xcworkspace
 	rm -rf **/*.xcodeproj
-	rm -rf buck-out
+	$(BUCK) clean
 
 kill_xcode:
 	killall Xcode || true
 	killall Simulator || true
 
 xcode_tests: project
-	xcodebuild build test -workspace App/ExampleApp.xcworkspace -scheme ExampleApp -destination 'platform=iOS Simulator,name=iPhone 8,OS=latest' | xcpretty && exit ${PIPESTATUS[0]}
+	xcodebuild build test -workspace App/ExampleApp-BUCK.xcworkspace -scheme ExampleApp -destination 'platform=iOS Simulator,name=iPhone 8,OS=latest' | xcpretty && exit ${PIPESTATUS[0]}
 
 project: clean
 	$(BUCK) project //App:workspace
-	open App/ExampleApp.xcworkspace
+	open App/ExampleApp-BUCK.xcworkspace
+
+buck_local_project: clean
+	bundle exec rake buck_local:generate_project buck_binary_path=$(BUCK) workspace_target='//App:workspace-buck-local' top_level_lib_target='//App:ExampleAppLibrary' xcworkspace='App/ExampleAppBuckLocal-BUCK.xcworkspace'
+	open App/ExampleAppBuckLocal-BUCK.xcworkspace
+
+dependency_graph:
+	$(BUCK) query "deps(//App:ExampleAppBinary)" --dot > result.dot &&  dot result.dot -Tpng -o result.png && open result.png

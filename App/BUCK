@@ -1,7 +1,9 @@
 load("//Config:configs.bzl", "app_binary_configs", "library_configs", "watch_binary_configs", "message_binary_configs", "pretty", "info_plist_substitutions", "bundle_identifier", "DEVELOPMENT_LANGUAGE")
 load("//Config:buck_rule_macros.bzl", "apple_lib", "apple_test_lib", "apple_test_all")
+load("//Config:buck_local.bzl", "buck_local_apple_asset_catalog", "buck_local_binary", "buck_local_bundle",
+     "buck_local_workspace")
 
-apple_asset_catalog(
+buck_local_apple_asset_catalog(
     name = "ExampleAppAssets",
     visibility = ["//App:"],
     app_icon = "AppIcon",
@@ -10,7 +12,8 @@ apple_asset_catalog(
 
 app_tests = [
     ":UnitTests",
-    ":UnitTestsWithHostApp",
+    # TODO: Fix HostApp test and re-enable it.
+    # ":UnitTestsWithHostApp",
 ]
 
 ui_tests = [
@@ -81,7 +84,7 @@ apple_library(
     + build_phase_scripts,
 )
 
-apple_binary(
+buck_local_binary(
     name = "ExampleAppBinary",
     visibility = [
         "//App:",
@@ -92,8 +95,10 @@ apple_binary(
     srcs = [
         "BuckSupportFiles/Dummy.swift",
     ],
-    deps = [
-        ":ExampleAppLibrary",
+    native_xcode_deps = [":ExampleAppLibrary"],
+    buck_local_deps=[
+        "//BuckLocal:BuckLocal",
+        "//BuckLocal:RemapDBGSourcePath",
     ],
 )
 
@@ -126,22 +131,21 @@ apple_test_all(
     prebuilt_frameworks = prebuilt_frameworks + prebuilt_dynamic_frameworks,
 )
 
-xcode_workspace_config(
+buck_local_workspace(
     name = "workspace",
     workspace_name = "ExampleApp",
     src_target = ":ExampleApp",
-    additional_scheme_actions = {
+    ui_test_target = ":XCUITests",
+    native_xcode_scheme_actions={
         "Build": {
             "PRE_SCHEME_ACTIONS": ["echo 'Started'"],
             "POST_SCHEME_ACTIONS": ["echo 'Finished'"],
         },
     },
-    # Since `ui_tests` require a different test runner in CLI, but can be launched as-is from Xcode, we will place them as `extra_tests` on the Xcode workspace - where they make the most semantic sense.
-    extra_tests = ui_tests,
     action_config_names = {"profile": "Profile"},
 )
 
-apple_bundle(
+buck_local_bundle(
     name = "ExampleApp",
     visibility = [
         "//App:",
@@ -151,13 +155,15 @@ apple_bundle(
     product_name = "ExampleApp",
     info_plist = "Info.plist",
     info_plist_substitutions = info_plist_substitutions("ExampleApp"),
-    deps = [
+    native_xcode_deps=prebuilt_frameworks + [
         # For "#watch", https://buckbuild.com/rule/apple_bundle.html#deps
         ":ExampleWatchApp#watch",
         ":ExampleMessageExtension"
+        ":ExampleWidgetExtension",
     ]
     + prebuilt_frameworks
     + prebuilt_dynamic_frameworks,
+    buck_local_deps=prebuilt_frameworks,
 )
 
 apple_package(
@@ -301,6 +307,42 @@ apple_resource(
 )
 ### iMessage Extension End ###
 
+### Widget Extension Begin ###
+apple_binary(
+    name = "ExampleWidgetExtensionBinary",
+    srcs = glob([
+        "WidgetExtension/**/*.swift",
+    ]),
+    configs = message_binary_configs("ExampleApp.WidgetExtension"),
+
+    # Same linker flags as ExampleMessageExtensionBinary
+    linker_flags = [
+        "-e",
+        "_NSExtensionMain",
+        "-Xlinker",
+        "-rpath",
+        "-Xlinker",
+        "@executable_path/../../Frameworks",
+    ],
+)
+
+apple_bundle(
+    name = "ExampleWidgetExtension",
+    binary = ":ExampleWidgetExtensionBinary",
+    extension = "appex",
+    info_plist = "WidgetExtension/Info.plist",
+    info_plist_substitutions = {
+        "DEVELOPMENT_LANGUAGE": DEVELOPMENT_LANGUAGE,
+        "EXECUTABLE_NAME": "ExampleWidgetExtension",
+        "PRODUCT_BUNDLE_IDENTIFIER": bundle_identifier("ExampleApp.WidgetExtension"),
+        "PRODUCT_NAME": "ExampleWidgetExtension",
+        "PRODUCT_MODULE_NAME": "ExampleWidgetExtensionBinary",
+        "PRODUCT_BUNDLE_PACKAGE_TYPE": "XPC!",
+    },
+    xcode_product_type = "com.apple.product-type.app-extension",
+)
+### Widget Extension End ###
+
 ### Tests Begin ###
 
 apple_test_lib(
@@ -341,12 +383,33 @@ apple_test_lib(
     ]),
     is_ui_test = True,
     # The `ui_test_target_app` field is not mentioned in Buck's official documentation, but it appears in its XCUITest fixtures.
-    # https://github.com/facebook/buck/blob/master/test/com/facebook/buck/apple/testdata/apple_test_xcuitest/BUCK.fixture#L66
+    # https://github.com/facebook/buck/blob/97e1ef75be82ad5379e95c98cbb61ab656554a1b/test/com/facebook/buck/apple/testdata/apple_test_xcuitest/BUCK.fixture#L66
     ui_test_target_app = ":ExampleApp",
     labels = ['ui'],
-    deps = [
-        "//Libraries/ASwiftModule:ASwiftModule",
+    frameworks = [
+        "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
+        "$SDKROOT/System/Library/Frameworks/Foundation.framework",
+        "$SDKROOT/System/Library/Frameworks/UIKit.framework",
     ],
+)
+
+# This test suite cannot be packaged with other tests due to a dependency on `fbxctest` instead of `xctool`.
+apple_test_lib(
+    name = "XCUITestsBuckLocal",
+    destination_specifier = {
+        "name": "iPhone 8",
+    },
+    run_test_separately = True,
+    # The `test_host_app` is launched first in the Simulator and needs to be an `apple_bundle` that is distinct from `ui_test_target_app`.
+    test_host_app = ":XCUITestsHostApp",
+    srcs = glob([
+        "XCUITests/*.swift",
+    ]),
+    is_ui_test = True,
+    # The `ui_test_target_app` field is not mentioned in Buck's official documentation, but it appears in its XCUITest fixtures.
+    # https://github.com/facebook/buck/blob/97e1ef75be82ad5379e95c98cbb61ab656554a1b/test/com/facebook/buck/apple/testdata/apple_test_xcuitest/BUCK.fixture#L66
+    ui_test_target_app = ":ExampleAppBuckLocal",
+    labels = ['ui'],
     frameworks = [
         "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
         "$SDKROOT/System/Library/Frameworks/Foundation.framework",
@@ -359,6 +422,7 @@ apple_bundle(
     name = "XCUITestsHostApp",
     visibility = [
         "//App:XCUITests",
+        "//App:XCUITestsBuckLocal",
     ],
     extension = "app",
     binary = ":XCUITestsHostAppBinary",

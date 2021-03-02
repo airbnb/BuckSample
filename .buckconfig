@@ -1,22 +1,22 @@
 [cxx]
   default_platform = iphonesimulator-x86_64
-  cflags = -g -fmodules -fobjc-arc -D BUCK -w $(config custom.other_cflags)
-  cxxflags = -fobjc-arc -std=c++14 -D DEBUG -g $(config custom.other_cxxflags)
+  cflags = -g -fmodules -fobjc-arc -D BUCK -w $(config code_coverage.clang_flags)
+  cxxflags = -fobjc-arc -std=c++14 -D DEBUG -g $(config code_coverage.clang_flags)
   combined_preprocess_and_compile = true
   pch_enabled = false
-  ldflags = -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fobjc-link-runtime $(config custom.other_cxxflags)
+  ldflags = -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fobjc-link-runtime $(config code_coverage.ldflags)
 
 [swift]
   version = 5
-  compiler_flags = -DBUCK -whole-module-optimization $(config custom.optimization) $(config custom.config_swift_compiler_flags) $(config custom.other_swift_compiler_flags)
+  compiler_flags = -DBUCK -whole-module-optimization $(config custom.optimization) $(config custom.config_swift_compiler_flags) $(config code_coverage.swift_flags)
   use_filelist = true
 
 [apple]
   use_swift_delegate = false
   use_header_maps_in_xcode = false
   generate_missing_umbrella_headers = true
-  iphonesimulator_target_sdk_version = 12.0
-  iphoneos_target_sdk_version = 12.0
+  iphonesimulator_target_sdk_version = 14.0
+  iphoneos_target_sdk_version = 14.0
   provisioning_profile_read_command = security cms -Di
   xctool_default_destination_specifier = platform=iOS Simulator,OS=latest
   xctool_path = tools/xctool/bin/xctool
@@ -44,3 +44,4 @@
   code_coverage_cxxflags = -fprofile-instr-generate -fcoverage-mapping
   code_coverage_ldflags = -fprofile-instr-generate
   code_coverage_swift_compiler_flags = -profile-generate -profile-coverage-mapping
+

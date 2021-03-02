@@ -4,6 +4,9 @@
 buck-out/
 .buckd/
 
+# Buck Local
+lib_targets.list
+
 # Downloaded buck
 tools/buck
 
@@ -14,3 +17,13 @@ tools/buck
 
 # Make
 *.d
+
+# Ruby gems
+vendor/bundle/
+
+# Build
+build/
+
+# DAG chart generated
+result.dot
+result.png
