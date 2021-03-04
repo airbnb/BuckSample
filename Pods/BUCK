@@ -1,4 +1,5 @@
 load("//Config:buck_rule_macros.bzl", "apple_third_party_lib", "apple_cxx_third_party_library")
+load("//Config:configs.bzl", "airbnb_info_plist_substitutions", "build_type")
 
 apple_third_party_lib(
     name = "CryptoSwift",
@@ -65,12 +66,12 @@ apple_third_party_lib(
         "$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework",
     ]
 )
- 
+
 apple_third_party_lib(
     name = 'Nimble',
     exported_headers = glob([
         "Nimble/**/*.h",
-    ], 
+    ],
     exclude = [
         "Carthage/Checkouts/CwlPreconditionTesting/Sources/CwlPreconditionTesting/Posix/CwlPreconditionTesting_POSIX.h"
     ]),
@@ -86,4 +87,178 @@ apple_third_party_lib(
     frameworks = [
       '$PLATFORM_DIR/Developer/Library/Frameworks/XCTest.framework'
     ]
+)
+
+apple_third_party_lib(
+    name = "Braintree",
+    visibility = ["PUBLIC"],
+    exported_headers = glob([
+        "Braintree/**/Public/**/*.h",
+        "Braintree/BraintreePayPal/PayPalDataCollector/Risk/PPRMOCMagnesResult.h",
+    ]),
+    headers = glob([
+        "Braintree/**/*.h",
+    ]),
+    srcs = glob([
+        "Braintree/**/*.m",
+    ]),
+    deps = [
+        # buildifier: keep sorted
+        ":BTDeviceCollectorLibrary",
+        ":BTPPRiskComponent",
+        ":Braintree-Drop-In-Localization-Resource",
+        ":Braintree-UI-Localization-Resource",
+        ":CardinalMobile",
+    ],
+)
+
+genrule(
+    name = "CardinalMobileFramework",
+    srcs = glob([
+        "Braintree/Frameworks/CardinalMobile.framework/**",
+    ]),
+    bash = """
+        cp -L -R ${SRCDIR}/Braintree/Frameworks/CardinalMobile.framework ${OUT}
+    """ + ("" if build_type() == "Debug" else """
+        lipo ${OUT}/CardinalMobile -remove i386 -remove x86_64 -output ${OUT}/CardinalMobile
+    """),
+    out = "CardinalMobile.framework",
+)
+
+prebuilt_apple_framework(
+    name = "CardinalMobile",
+    framework = ":CardinalMobileFramework",
+    preferred_linkage = "shared",
+    visibility = ["PUBLIC"],
+)
+
+prebuilt_cxx_library(
+    name = "BTDeviceCollectorLibrary",
+    static_lib = "Braintree/BraintreeDataCollector/Kount/libDeviceCollectorLibrary.a",
+)
+
+prebuilt_cxx_library(
+    name = "BTPPRiskComponent",
+    static_lib = "Braintree/BraintreePayPal/PayPalDataCollector/Risk/libPPRiskMagnesOC.a",
+)
+
+apple_resource(
+    name = "Braintree-Drop-In-Localization",
+    visibility = ["PUBLIC"],
+    # TODO: Use glob() with `exclude_directories = False` once we move to Skylark.
+    dirs = [
+        "Braintree/BraintreeUI/Drop-In/Localization/da.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/de.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/en.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/en_AU.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/en_CA.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/en_GB.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/es.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/es_ES.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/fr.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/fr_CA.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/fr_FR.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/he.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/it.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/nb.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/nl.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/pl.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/pt.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/ru.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/sv.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/tr.lproj",
+        "Braintree/BraintreeUI/Drop-In/Localization/zh-Hans.lproj",
+    ],
+)
+
+apple_third_party_lib(
+    name = "Braintree-Drop-In-Localization-Bundle-Library",
+    visibility = ["PUBLIC"],
+    modular = False,
+    deps = [
+        ":Braintree-Drop-In-Localization",
+    ],
+)
+
+apple_bundle(
+    name = "Braintree-Drop-In-Localization-Bundle",
+    visibility = ["PUBLIC"],
+    product_name = "Braintree-Drop-In-Localization",
+    extension = "bundle",
+    binary = ":Braintree-Drop-In-Localization-Bundle-Library#static",
+    info_plist = "Target Support Files/Braintree/ResourceBundle-Braintree-Drop-In-Localization-Info.plist",
+    info_plist_substitutions = airbnb_info_plist_substitutions("Braintree", "Braintree-Drop-In-Localization", "com.airbnb.app"),
+)
+
+# BUCK doesn't include bundles created via apple_bundle() in the main app
+# We need to wrap it inside a apple_resource() for it to be included
+apple_resource(
+    name = "Braintree-Drop-In-Localization-Resource",
+    visibility = ["PUBLIC"],
+    files = [],
+    dirs = [
+        # buildifier: keep sorted
+        ":Braintree-Drop-In-Localization-Bundle",
+    ],
+)
+
+apple_resource(
+    name = "Braintree-UI-Localization",
+    visibility = ["PUBLIC"],
+    # TODO: Use glob() with `exclude_directories = False` once we move to Skylark.
+    dirs = [
+        "Braintree/BraintreeUI/Localization/da.lproj",
+        "Braintree/BraintreeUI/Localization/de.lproj",
+        "Braintree/BraintreeUI/Localization/en.lproj",
+        "Braintree/BraintreeUI/Localization/en_AU.lproj",
+        "Braintree/BraintreeUI/Localization/en_CA.lproj",
+        "Braintree/BraintreeUI/Localization/en_GB.lproj",
+        "Braintree/BraintreeUI/Localization/es.lproj",
+        "Braintree/BraintreeUI/Localization/es_ES.lproj",
+        "Braintree/BraintreeUI/Localization/fr.lproj",
+        "Braintree/BraintreeUI/Localization/fr_CA.lproj",
+        "Braintree/BraintreeUI/Localization/fr_FR.lproj",
+        "Braintree/BraintreeUI/Localization/he.lproj",
+        "Braintree/BraintreeUI/Localization/it.lproj",
+        "Braintree/BraintreeUI/Localization/nb.lproj",
+        "Braintree/BraintreeUI/Localization/nl.lproj",
+        "Braintree/BraintreeUI/Localization/pl.lproj",
+        "Braintree/BraintreeUI/Localization/pt.lproj",
+        "Braintree/BraintreeUI/Localization/ru.lproj",
+        "Braintree/BraintreeUI/Localization/sv.lproj",
+        "Braintree/BraintreeUI/Localization/tr.lproj",
+        "Braintree/BraintreeUI/Localization/zh-Hans.lproj",
+    ],
+)
+
+apple_third_party_lib(
+    name = "Braintree-UI-Localization-Bundle-Library",
+    visibility = ["PUBLIC"],
+    modular = False,
+    deps = [
+        # buildifier: keep sorted
+        ":Braintree-UI-Localization",
+    ],
+)
+
+apple_bundle(
+    name = "Braintree-UI-Localization-Bundle",
+    visibility = ["PUBLIC"],
+    product_name = "Braintree-UI-Localization-Bundle-Library",
+    extension = "bundle",
+    binary = ":Braintree-UI-Localization-Bundle-Library#static",
+    info_plist = "Target Support Files/Braintree/ResourceBundle-Braintree-UI-Localization-Info.plist",
+    info_plist_substitutions = airbnb_info_plist_substitutions("Braintree", "Braintree-UI-Localization-Bundle", "com.airbnb.app"),
+)
+
+# BUCK doesn't include bundles created via apple_bundle() in the main app
+# We need to wrap it inside a apple_resource() for it to be included
+apple_resource(
+    name = "Braintree-UI-Localization-Resource",
+    visibility = ["PUBLIC"],
+    files = [],
+    dirs = [
+        # buildifier: keep sorted
+        ":Braintree-UI-Localization-Bundle",
+    ],
 )

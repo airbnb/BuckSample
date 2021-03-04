@@ -1,0 +1,1 @@
+../../../Braintree/BraintreeCore/BTAPIPinnedCertificates.h

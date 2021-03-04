@@ -1,0 +1,1 @@
+../../../Braintree/BraintreeUI/Drop-In/Localization/BTDropInLocalizedString.h

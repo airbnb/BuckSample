@@ -43,6 +43,10 @@ prebuilt_frameworks = [
     "//Carthage:CarthageProjectGeneratorHack",
 ]
 
+prebuilt_dynamic_frameworks = [
+    "//Pods:CardinalMobile", # Prebuilt dylib
+]
+
 # Build Phase scripts need to be added as dependencies.
 # These only get executed when building with Xcode, not Buck.
 build_phase_scripts = [
@@ -65,6 +69,7 @@ apple_library(
     ],
     tests = app_tests,
     deps = [
+        "//Pods:Braintree",
         "//Pods:CryptoSwift",
         "//Pods:PromiseKit",
 
@@ -75,6 +80,7 @@ apple_library(
         "//App/Resources:StoryboardResources",
     ]
     + first_party_library_dependencies
+    + prebuilt_dynamic_frameworks
     + build_phase_scripts,
 )
 
@@ -122,7 +128,7 @@ apple_test_all(
     name = "ExampleAppCITests",
     libraries = first_party_library_dependencies,
     additional_tests = app_tests,
-    prebuilt_frameworks = prebuilt_frameworks,
+    prebuilt_frameworks = prebuilt_frameworks + prebuilt_dynamic_frameworks,
 )
 
 buck_local_workspace(
@@ -154,7 +160,9 @@ buck_local_bundle(
         ":ExampleWatchApp#watch",
         ":ExampleMessageExtension",
         ":ExampleWidgetExtension",
-    ],
+    ]
+    + prebuilt_frameworks
+    + prebuilt_dynamic_frameworks,
     buck_local_deps=prebuilt_frameworks,
 )
 
@@ -345,7 +353,8 @@ apple_test_lib(
     deps = [
         ":ExampleAppLibrary",
     ]
-    + prebuilt_frameworks,
+    + prebuilt_frameworks
+    + prebuilt_dynamic_frameworks,
 )
 
 apple_test_lib(

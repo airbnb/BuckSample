@@ -1,9 +1,10 @@
+import UIKit
+
+// Internal libraries
 import ASwiftModule
 import Cpp1
-import CryptoSwift
 import Objc1
 import ObjcAndSwift
-import PromiseKit
 import SecondSwiftModule
 import SwiftAndObjc
 import SwiftReliesOnCXX
@@ -11,7 +12,12 @@ import SwiftWithAssets
 import SwiftWithMLModel
 import SwiftWithPrecompiledDependency
 import YetAnotherSwiftModule
-import UIKit
+
+// Pods
+import PromiseKit
+import Braintree
+import CryptoSwift
+
 
 public let testVar = "SampleValue"
 
