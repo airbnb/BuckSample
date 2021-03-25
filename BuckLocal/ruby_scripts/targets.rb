@@ -40,6 +40,11 @@ module BuckLocal
         # For cxx_library, we need their output path (the location of the .a files).
         # We can only get the output path from the query of their fully qualified names, e.g. //ios/Module:Module#iphonesimulator-x86_64,static
         target_qualified_names = self.class.qualified_names(filter_targets(@targets, 'cxx_library'))
+
+        if target_qualified_names.empty?
+          @cxx_library_targets = []
+          return @cxx_library_targets
+        end
         @cxx_library_targets = JSON.parse(Targets.get_command_output("targets #{target_qualified_names.join(' ')} --show-output --output-attributes #{COMMON_ATTRIBUTES.join(' ')} #{OUTPUT_PATH}"))
       end
       @cxx_library_targets
