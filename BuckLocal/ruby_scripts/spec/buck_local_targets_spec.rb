@@ -32,6 +32,15 @@ describe BuckLocal::Targets do
     end
   end
 
+  describe '#cxx_library_targets' do
+    it 'gets all cxx_library targets' do
+      expected_target_names = [
+        '//BuckLocal/tests_fixture:CxxLib#iphonesimulator-x86_64,static',
+      ]
+      expect(subject.class.qualified_names(subject.cxx_library_targets)).to match_array(expected_target_names)
+    end
+  end
+
   describe '#prebuilt_cxx_library_targets' do
     it 'gets all prebuilt_cxx_library targets' do
       expected_target_names = [
