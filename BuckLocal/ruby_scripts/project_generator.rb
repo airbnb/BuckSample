@@ -41,12 +41,18 @@ module BuckLocal
       FileUtils.touch(buck_file)
 
       deps_targets = Targets.new(Targets.all_deps(@top_level_lib_target))
+      library_targets = deps_targets.apple_library_targets + deps_targets.cxx_library_targets
 
       # Save the deps list into a file which will be used in build phase.
-      Query.generate_deps_list_file(deps_targets.apple_library_targets, output_file_path)
+      Query.generate_deps_list_file(library_targets, output_file_path)
 
       # Generate the linker flag to link with all Buck built libraries when building the App binary.
-      libraries_linker_flag = deps_targets.apple_library_targets.select { |path| path.key?(BuckLocal::Targets::OUTPUT_PATH) }.map do |path|
+      libraries_linker_flag = library_targets.select { |path|
+        # Skip output_path which is not a library type
+        path.key?(BuckLocal::Targets::OUTPUT_PATH) &&
+        (File.extname(path[BuckLocal::Targets::OUTPUT_PATH]) == ".a" ||
+         File.extname(path[BuckLocal::Targets::OUTPUT_PATH]) == ".so")
+      }.map do |path|
         # The `[3..-3]`` operator gets rid of the "lib" prefix and the ".a" suffix from the filename
         '-l' + File.basename(path[BuckLocal::Targets::OUTPUT_PATH])[3..-3]
       end

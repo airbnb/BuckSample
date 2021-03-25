@@ -12,7 +12,10 @@ module BuckLocal
     # @param [String] output_file_path The path for the generated dependencies list file.
     #
     def self.generate_dep_list_file(target_name, output_file_path)
-      generate_deps_list_file(Targets.new(Targets.all_deps(target_name)).apple_library_targets, output_file_path)
+      targets = Targets.new(Targets.all_deps(target_name))
+      libraries = targets.apple_library_targets + targets.cxx_library_targets
+
+      generate_deps_list_file(libraries, output_file_path)
     end
 
     #

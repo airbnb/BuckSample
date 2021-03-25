@@ -33,6 +33,18 @@ module BuckLocal
       @apple_library_targets
     end
 
+    # A list of cxx_library targets
+    # Each target contains the output path of the .a file if there is.
+    def cxx_library_targets
+      if @cxx_library_targets.nil?
+        # For cxx_library, we need their output path (the location of the .a files).
+        # We can only get the output path from the query of their fully qualified names, e.g. //ios/Module:Module#iphonesimulator-x86_64,static
+        target_qualified_names = self.class.qualified_names(filter_targets(@targets, 'cxx_library'))
+        @cxx_library_targets = JSON.parse(Targets.get_command_output("targets #{target_qualified_names.join(' ')} --show-output --output-attributes #{COMMON_ATTRIBUTES.join(' ')} #{OUTPUT_PATH}"))
+      end
+      @cxx_library_targets
+    end
+
     # A list of prebuilt_cxx_library targets
     # Each target contains the path of the of library.
     def prebuilt_cxx_library_targets
@@ -87,9 +99,9 @@ module BuckLocal
       @apple_bundle_targets
     end
 
-    # Consodidate exported linker flags from apple_library and prebuilt_cxx_library
+    # Consodidate exported linker flags from apple_library, cxx_library and prebuilt_cxx_library
     def exported_linker_flags
-      (filter_targets(@targets, 'apple_library') + filter_targets(@targets, 'prebuilt_cxx_library')).map { |json| json[LINKER_FLAGS] }.compact.flatten
+      (filter_targets(@targets, 'apple_library') + filter_targets(@targets, 'cxx_library') + filter_targets(@targets, 'prebuilt_cxx_library')).map { |json| json[LINKER_FLAGS] }.compact.flatten
     end
 
     # Filter a list of Buck targets based on the target type.
