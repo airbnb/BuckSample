@@ -10,12 +10,12 @@ import SwiftAndObjc
 import SwiftReliesOnCXX
 import SwiftWithAssets
 import SwiftWithMLModel
-import SwiftWithPrecompiledDependency
+// import SwiftWithPrecompiledDependency
 import YetAnotherSwiftModule
 
 // Pods
 import PromiseKit
-import Braintree
+// import Braintree
 import CryptoSwift
 
 
@@ -129,6 +129,6 @@ class ViewController: UIViewController {
         print(error)
     }
 
-    print("AFNetworking's version is \(SwiftWithPrecompiledDependencyClass.networkingLibraryVersionNumber)")
+    // print("AFNetworking's version is \(SwiftWithPrecompiledDependencyClass.networkingLibraryVersionNumber)")
   }
 }

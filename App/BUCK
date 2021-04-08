@@ -32,19 +32,19 @@ first_party_library_dependencies = [
     "//Libraries/SwiftReliesOnCXX:SwiftReliesOnCXX",
     "//Libraries/SwiftWithAssets:SwiftWithAssets",
     "//Libraries/SwiftWithMLModel:SwiftWithMLModel",
-    "//Libraries/SwiftWithPrecompiledDependency:SwiftWithPrecompiledDependency",
+    # "//Libraries/SwiftWithPrecompiledDependency:SwiftWithPrecompiledDependency",
     "//Libraries/YetAnotherSwiftModule:YetAnotherSwiftModule",
 ]
 
 prebuilt_frameworks = [
-    "//Carthage:AFNetworking",
+    # "//Carthage:AFNetworking",
 
     # Hack to enable project generation to work for the Carthage BUCK file which otherwise only has `prebuilt_apple_framework`s.
     "//Carthage:CarthageProjectGeneratorHack",
 ]
 
 prebuilt_dynamic_frameworks = [
-    "//Pods:CardinalMobile", # Prebuilt dylib
+    # "//Pods:CardinalMobile", # Prebuilt dylib
 ]
 
 # Build Phase scripts need to be added as dependencies.
@@ -69,7 +69,7 @@ apple_library(
     ],
     tests = app_tests,
     deps = [
-        "//Pods:Braintree",
+        # "//Pods:Braintree",
         "//Pods:CryptoSwift",
         "//Pods:PromiseKit",
 

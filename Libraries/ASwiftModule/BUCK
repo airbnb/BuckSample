@@ -2,5 +2,5 @@ load("//Config:buck_rule_macros.bzl", "first_party_library")
 
 first_party_library(
     name = "ASwiftModule",
-    deps = ["//Pods:Braintree"]
+#     deps = ["//Pods:Braintree"]
 )
