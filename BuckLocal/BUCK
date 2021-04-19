@@ -14,6 +14,7 @@ first_party_library_dependencies = [
     "//Libraries/SwiftReliesOnCXX:SwiftReliesOnCXX",
     "//Libraries/SwiftWithAssets:SwiftWithAssets",
     "//Libraries/SwiftWithMLModel:SwiftWithMLModel",
+    "//Libraries/SwiftWithPrecompiledDependency:SwiftWithPrecompiledDependency",
     "//Libraries/YetAnotherSwiftModule:YetAnotherSwiftModule",
 ]
 
@@ -21,10 +22,10 @@ first_party_library_dependencies = [
 apple_library(
     name = "BuckLocal",
     visibility = ["PUBLIC"],
-    exported_linker_flags = ["-lc++", "-lz", "-lc++", "-lz"] + ["-lExampleAppLibrary", "-lASwiftModule", "-lCpp1", "-lObjc1", "-lObjcAndSwift", "-lSecondSwiftModule", "-lSwiftAndObjc", "-lSwiftReliesOnCXX", "-lSwiftWithAssets", "-lSwiftWithMLModel", "-lYetAnotherSwiftModule", "-lBugsnag", "-lCryptoSwift", "-lPromiseKit"] + [],
+    exported_linker_flags = ["-lc++", "-lz", "-lc++", "-lz"] + ["-lExampleAppLibrary", "-lASwiftModule", "-lCpp1", "-lObjc1", "-lObjcAndSwift", "-lSecondSwiftModule", "-lSwiftAndObjc", "-lSwiftReliesOnCXX", "-lSwiftWithAssets", "-lSwiftWithMLModel", "-lSwiftWithPrecompiledDependency", "-lYetAnotherSwiftModule", "-lBugsnag", "-lCryptoSwift", "-lPromiseKit"] + [],
     deps = [
         ":BuckLocalBuildAndCopy",
-    ] + [] + ["//App:ExampleAppAssets", "//Libraries/SwiftWithAssets:SwiftWithAssetsCatalog"] + ["//App/Resources:ExampleAppStringResources", "//App/Resources:StoryboardResources", "//Libraries/SwiftWithMLModel:MarsHabitatPricerMLModel"] + [] + first_party_library_dependencies
+    ] + ["//PrebuiltFrameworks:AFNetworking"] + ["//App:ExampleAppAssets", "//Libraries/SwiftWithAssets:SwiftWithAssetsCatalog"] + ["//App/Resources:ExampleAppStringResources", "//App/Resources:StoryboardResources", "//Libraries/SwiftWithMLModel:MarsHabitatPricerMLModel"] + [] + first_party_library_dependencies
 )
 
 # This run script post-build phase, invokes "remap_debug_source_path.sh" to generate
