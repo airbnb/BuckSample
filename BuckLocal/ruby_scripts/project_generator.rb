@@ -87,6 +87,7 @@ module BuckLocal
 
     #
     # Disable `build_implicit_dependencies` and `parallelize_buildables` for "BuckLocal" xcscheme.
+    # Uncheck unnecessary build action entries from scheme.
     #
     def update_main_scheme
       scheme_name = @xcworkspace.split('/').last.split('-').first
@@ -95,7 +96,25 @@ module BuckLocal
       scheme.build_action.build_implicit_dependencies = false
       scheme.build_action.parallelize_buildables = false
 
+      clear_build_actions(scheme)
+
       scheme.save!
+    end
+
+    def clear_build_actions(scheme)
+      scheme.build_action.entries.each do |entry|
+        # the name displayed in scheme editor
+        entry_target_name = entry.buildable_references.first.target_name
+
+        # skip if this is a test target or a BuckLocal target, or a HostApp
+        next if entry_target_name.end_with?('Tests') || entry_target_name.include?('BuckLocal') || entry_target_name.end_with?('HostApp')
+
+        entry.build_for_running = false
+        entry.build_for_profiling = false
+        entry.build_for_archiving = false
+        entry.build_for_analyzing = false
+        entry.build_for_testing = false
+      end
     end
 
   end
