@@ -1,7 +1,7 @@
 load("//Config:buck_rule_macros.bzl", "apple_lib")
 
-# target_arch = 'Intel'
-target_arch = 'AppleSilicon'
+target_arch = 'Intel'
+# target_arch = 'AppleSilicon'
 
 prebuilt_apple_framework(
     name = "AFNetworking",
