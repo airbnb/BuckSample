@@ -44,6 +44,7 @@ prebuilt_frameworks = [
 ]
 
 prebuilt_dynamic_frameworks = [
+    # TODO: Comment out CardinalMobile for now until it supports M1 mac: https://github.com/braintree/braintree_ios/issues/564
     # "//Pods:CardinalMobile", # Prebuilt dylib
 ]
 

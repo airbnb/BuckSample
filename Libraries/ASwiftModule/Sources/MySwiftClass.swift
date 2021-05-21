@@ -3,6 +3,8 @@
 public class MySwiftClass {
   public init() {
     print("Initialized MySwiftClass")
+
+    // TODO: Comment out Braintree invocation for now until it supports M1 mac: https://github.com/braintree/braintree_ios/issues/564
     // let request =  BTAPIClient(authorization: "testkey")
     // print("Braintree: \(String(describing: request))")
   }
