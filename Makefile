@@ -8,7 +8,7 @@ log:
 	echo "Make"
 
 install_buck:
-	curl https://jitpack.io/com/github/airbnb/buck/f2865fec86dbe982ce1f237494f10b65bce3d270/buck-f2865fec86dbe982ce1f237494f10b65bce3d270-java11.pex --output tools/buck
+	curl https://jitpack.io/com/github/airbnb/buck/6862c0622e9f1aed978f1bdd10e0b0414615604a/buck-6862c0622e9f1aed978f1bdd10e0b0414615604a-java11.pex --output tools/buck
 	chmod u+x tools/buck
 
 update_cocoapods:
