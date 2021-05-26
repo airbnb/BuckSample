@@ -15,7 +15,6 @@ import YetAnotherSwiftModule
 
 // Pods
 import PromiseKit
-import Braintree
 import CryptoSwift
 
 

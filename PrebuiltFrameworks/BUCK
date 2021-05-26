@@ -1,15 +1,18 @@
 load("//Config:buck_rule_macros.bzl", "apple_lib")
 
+target_arch = 'Intel'
+# target_arch = 'AppleSilicon'
+
 prebuilt_apple_framework(
     name = "AFNetworking",
-    framework = "Build/iOS/AFNetworking.framework",
+    framework = target_arch + "/AFNetworking.framework",
     preferred_linkage = "shared",
     visibility = ["PUBLIC"],
 )
 
 # Every BUCK file needs at least one library with source.
 apple_lib(
-    name = "CarthageProjectGeneratorHack",
+    name = "PrebuiltFrameworksProjectGeneratorHack",
     srcs = glob([
         "BuckSupportFiles/**/*.swift",
     ]),
