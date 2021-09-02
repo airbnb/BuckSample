@@ -9,7 +9,7 @@ target 'BuckSample' do
   pod 'Braintree/DataCollector', '4.28.0'
   pod 'Braintree/Apple-Pay', '4.28.0'
   pod 'Braintree/PaymentFlow', '4.28.0'
-  pod 'Bugsnag'
+  pod 'Bugsnag', '5.17.3'
   pod 'CryptoSwift'
   pod 'Nimble', '8.0.2'
   pod 'PromiseKit/CoreLocation', '6.1.1'
