@@ -30,7 +30,7 @@ PODS:
     - Braintree/Card
     - Braintree/Core
   - Bugsnag (5.17.3)
-  - CryptoSwift (0.13.1)
+  - CryptoSwift (1.4.1)
   - Nimble (8.0.2)
   - PromiseKit/CoreLocation (6.1.1):
     - PromiseKit/CorePromise
@@ -42,7 +42,7 @@ DEPENDENCIES:
   - Braintree/Apple-Pay (= 4.28.0)
   - Braintree/DataCollector (= 4.28.0)
   - Braintree/PaymentFlow (= 4.28.0)
-  - Bugsnag
+  - Bugsnag (= 5.17.3)
   - CryptoSwift
   - Nimble (= 8.0.2)
   - PromiseKit/CoreLocation (= 6.1.1)
@@ -50,7 +50,7 @@ DEPENDENCIES:
   - Quick (= 2.1.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Braintree
     - Bugsnag
     - CryptoSwift
@@ -61,11 +61,11 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Braintree: 15b731ae590ff54ba0ce25bcc42bd3c4829fd67e
   Bugsnag: a56a5204ebd35e44e56c1f703824705b1d4b5b97
-  CryptoSwift: ff68c35a53e03177d31aaa2c1e8b3e010aeed6cb
+  CryptoSwift: 0bc800a7e6a24c4fc9ebeab97d44b0d5f73a78bd
   Nimble: 622629381bda1dd5678162f21f1368cec7cbba60
   PromiseKit: 876f433b87c970f020e04e35dbe68ab21d240498
   Quick: 4be43f6634acfa727dd106bdf3929ce125ffa79d
 
-PODFILE CHECKSUM: b6f25706831160378005ce2175c5414e5ac3eef9
+PODFILE CHECKSUM: 3f5d9544ab1103add6483842cbe0258ebf5d7a77
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.11.0
