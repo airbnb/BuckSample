@@ -1,0 +1,59 @@
+# This genrule will dump predefined genrule variables
+# > buck build //Examples/genrule:ShowGenruleVariables --show-output
+# > cat buck-out/gen/Examples/genrule/ShowGenruleVariables/GenruleVariables.txt
+genrule(
+    name = "ShowGenruleVariables",
+    srcs = [
+        "Sources/src1.txt",
+        "Sources/src2.txt",
+    ],
+    out = "GenruleVariables.txt",
+    cmd = """cat <<EOF > $OUT
+SRCS: ${SRCS}
+SRCDIR: ${SRCDIR}
+OUT: ${OUT}
+OUTS: ${OUTS}
+TMP: ${TMP}
+
+EOF""",
+)
+
+# This is genrule with outs will dump predefined genrule variables
+# > buck build //Examples/genrule:ShowGenruleVariablesWithOuts --show-output
+# > cat buck-out/gen/Examples/genrule/ShowGenruleVariablesWithOuts__/GenruleVariables.txt
+genrule(
+    name = "ShowGenruleVariablesWithOuts",
+    srcs = [
+        "Sources/src1.txt",
+        "Sources/src2.txt",
+    ],
+    outs = {
+        "OUT1": ["GenruleVariables.txt"],
+        "OUT2": ["unused.txt"],
+    },
+    cmd = """cat <<EOF > $OUT/GenruleVariables.txt
+SRCS: ${SRCS}
+SRCDIR: ${SRCDIR}
+OUT: ${OUT}
+OUTS: ${OUTS}
+TMP: ${TMP}
+
+EOF
+
+touch $OUT/unused.txt
+""",
+)
+
+# This genrule can actually modify the source file.
+# > buck build //Examples/genrule:ModifySource
+genrule(
+    name = "ModifySource",
+    srcs = [
+        "Sources/src1.txt",
+    ],
+    out = "ModifySource.txt",
+    cmd = """
+    touch $OUT
+    echo "hello" > $SRCS
+""",
+)
